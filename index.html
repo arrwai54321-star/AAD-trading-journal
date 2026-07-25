@@ -2933,6 +2933,9 @@ async function loadTraders(){
 
 /* =========================================================
    LOAD MONTHS
+   SHARED VIEW
+   EVERYONE CAN SEE
+   ONLY OWNER CAN EDIT / DELETE
 ========================================================= */
 
 async function loadJournalMonths(){
@@ -2946,10 +2949,6 @@ async function loadJournalMonths(){
         "journal_months"
       )
       .select("*")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
       .order(
         "month_date",
         {
@@ -2992,8 +2991,6 @@ async function loadJournalMonths(){
   }
 
 }
-
-
 /* =========================================================
    LOAD DAYS
 ========================================================= */
