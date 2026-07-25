@@ -8,7 +8,7 @@
   name="viewport"
   content="width=device-width, initial-scale=1.0"
 >
-d
+
 <title>AAD Trading Journal</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -8054,7 +8054,7 @@ function renderMonths(){
               ${
                 journalDays.filter(
                   day =>
-                    day.journal_month_id ===
+                    day.month_id
                     month.id
                 ).length
               }
@@ -8142,7 +8142,7 @@ function renderJournalDays(){
       .filter(
         day =>
           String(
-            day.journal_month_id
+            day.month_id
           ) ===
           String(
             selectedMonth.id
@@ -9315,7 +9315,7 @@ async function createJournalDay(){
   const existing =
     journalDays.find(
       day =>
-        day.journal_month_id ===
+        dday.month_id
         selectedMonth.id &&
         day.journal_date ===
         date
