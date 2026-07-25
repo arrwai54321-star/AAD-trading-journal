@@ -1,36 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>AAD Trading Journal</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-:root{
-  --bg:#070b14;
-  --panel:#0e1524;
-  --panel2:#121b2d;
-  --border:#202c42;
-  --text:#eef3ff;
-  --muted:#8e9ab0;
-  --blue:#3777ff;
-  --green:#20c997;
-  --red:#ff5d73;
-  --yellow:#f5c451;
-}
 
 *{
   box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#f7f7f5;
+  --sidebar:#ffffff;
+  --panel:#ffffff;
+  --panel-soft:#fafafa;
+  --border:#e7e7e5;
+  --border-dark:#d9d9d5;
+  --text:#202020;
+  --muted:#787774;
+  --blue:#2383e2;
+  --green:#0f7b6c;
+  --red:#d44c47;
+  --yellow:#cb912f;
+  --purple:#6940a5;
+  --shadow:0 8px 30px rgba(15,15,15,.06);
+  --radius:12px;
+}
+
+html,
+body{
+  width:100%;
+  min-height:100%;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+  overflow-x:hidden;
 }
 
 button,
@@ -48,61 +72,60 @@ button{
   display:none !important;
 }
 
+
 /* =========================================================
    LOGIN
 ========================================================= */
 
 #loginScreen{
   min-height:100vh;
-  display:grid;
-  place-items:center;
-  padding:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
   background:
     radial-gradient(
-      circle at top,
-      #13234a 0%,
-      #070b14 45%,
-      #05070d 100%
+      circle at top left,
+      #ffffff 0%,
+      #f7f7f5 45%,
+      #eeeeeb 100%
     );
 }
 
 .login-card{
   width:100%;
   max-width:420px;
-  background:rgba(14,21,36,.96);
+  background:#fff;
   border:1px solid var(--border);
-  border-radius:20px;
-  padding:35px;
-  box-shadow:0 25px 80px rgba(0,0,0,.45);
+  border-radius:18px;
+  padding:40px;
+  box-shadow:
+    0 20px 60px rgba(15,15,15,.08);
 }
 
-.brand{
-  text-align:center;
-  margin-bottom:30px;
-}
-
-.brand-logo{
-  width:70px;
-  height:70px;
-  margin:0 auto 15px;
+.login-logo{
+  width:58px;
+  height:58px;
+  border-radius:14px;
   display:grid;
   place-items:center;
-  border-radius:18px;
-  background:var(--blue);
-  color:white;
-  font-size:28px;
+  background:#202020;
+  color:#fff;
+  font-size:22px;
   font-weight:800;
+  margin-bottom:22px;
 }
 
-.brand h1{
-  margin:0 0 8px;
+.login-card h1{
   font-size:25px;
+  margin-bottom:7px;
 }
 
-.brand p{
-  margin:0;
+.login-card p{
   color:var(--muted);
-  font-size:13px;
+  font-size:14px;
+  line-height:1.6;
+  margin-bottom:28px;
 }
 
 .form-group{
@@ -111,67 +134,85 @@ button{
 
 .form-group label{
   display:block;
-  margin-bottom:7px;
-  color:#b8c2d5;
   font-size:12px;
+  font-weight:600;
+  margin-bottom:7px;
+  color:#555;
 }
 
-input,
-select,
-textarea{
+.form-control{
   width:100%;
-  background:#09111f;
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:12px 13px;
+  height:44px;
+  border:1px solid var(--border-dark);
+  border-radius:8px;
+  padding:0 13px;
   outline:none;
+  background:#fff;
+  color:var(--text);
+  transition:.2s;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
+.form-control:focus{
   border-color:var(--blue);
+  box-shadow:
+    0 0 0 3px rgba(35,131,226,.1);
 }
 
-textarea{
-  resize:vertical;
+textarea.form-control{
+  height:auto;
   min-height:100px;
+  padding:12px;
+  resize:vertical;
 }
 
-.auth-actions{
+.login-actions{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
-  margin-top:20px;
+  margin-top:22px;
 }
 
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.action-btn{
-  border:0;
-  border-radius:9px;
-  padding:10px 15px;
-  color:white;
-  background:#1a2538;
+.btn{
+  min-height:40px;
+  padding:9px 15px;
+  border-radius:8px;
+  border:1px solid var(--border-dark);
+  background:#fff;
+  color:var(--text);
+  font-weight:600;
+  font-size:13px;
+  transition:.2s;
 }
 
-.action-btn.primary{
-  background:var(--blue);
+.btn:hover{
+  background:#f5f5f3;
 }
 
-.action-btn.danger{
+.btn-primary{
+  background:#202020;
+  border-color:#202020;
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:#000;
+}
+
+.btn-danger{
+  color:#fff;
   background:var(--red);
+  border-color:var(--red);
 }
 
-.action-btn:hover{
-  opacity:.9;
+.btn-success{
+  color:#fff;
+  background:var(--green);
+  border-color:var(--green);
 }
+
 
 /* =========================================================
-   APP
+   APP LAYOUT
 ========================================================= */
 
 #app{
@@ -180,79 +221,117 @@ textarea{
 }
 
 .sidebar{
+  width:250px;
+  min-height:100vh;
   position:fixed;
   left:0;
   top:0;
   bottom:0;
-  width:250px;
-  background:#0a101d;
+  z-index:100;
+  background:var(--sidebar);
   border-right:1px solid var(--border);
-  padding:22px 15px;
-  z-index:50;
+  display:flex;
+  flex-direction:column;
 }
 
-.sidebar-brand{
+.workspace{
+  padding:20px 20px 25px;
+  border-bottom:1px solid var(--border);
+}
+
+.workspace-top{
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:8px 10px 25px;
+  gap:11px;
 }
 
-.sidebar-brand-logo{
-  width:42px;
-  height:42px;
-  border-radius:12px;
+.workspace-icon{
+  width:38px;
+  height:38px;
+  border-radius:9px;
   display:grid;
   place-items:center;
-  background:var(--blue);
-  font-weight:bold;
+  background:#202020;
+  color:#fff;
+  font-size:14px;
+  font-weight:800;
 }
 
-.sidebar-brand strong{
-  display:block;
+.workspace-name{
+  font-weight:700;
+  font-size:14px;
 }
 
-.sidebar-brand small{
+.workspace-sub{
   color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
 }
 
-.nav{
-  display:grid;
-  gap:7px;
+.sidebar-nav{
+  flex:1;
+  padding:15px 10px;
+  overflow-y:auto;
+}
+
+.nav-section-title{
+  color:#999;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  padding:10px 10px 7px;
 }
 
 .nav-btn{
   width:100%;
-  text-align:left;
-  border:0;
-  color:#aeb8cb;
-  background:transparent;
-  padding:12px;
-  border-radius:9px;
-}
-
-.nav-btn:hover,
-.nav-btn.active{
-  background:#162441;
-  color:white;
-}
-
-.sidebar-user{
-  position:absolute;
-  left:15px;
-  right:15px;
-  bottom:20px;
   display:flex;
   align-items:center;
   gap:10px;
-  padding:10px;
-  border-top:1px solid var(--border);
+  border:0;
+  background:transparent;
+  padding:9px 11px;
+  margin-bottom:2px;
+  border-radius:7px;
+  color:#555;
+  text-align:left;
+  font-size:13px;
 }
 
-.sidebar-user img{
-  width:36px;
-  height:36px;
+.nav-btn:hover{
+  background:#f1f1ef;
+  color:#222;
+}
+
+.nav-btn.active{
+  background:#e9e9e7;
+  color:#111;
+  font-weight:600;
+}
+
+.nav-icon{
+  width:20px;
+  text-align:center;
+  font-size:15px;
+}
+
+.sidebar-bottom{
+  border-top:1px solid var(--border);
+  padding:12px;
+}
+
+.sidebar-user{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:8px;
+}
+
+.user-avatar{
+  width:32px;
+  height:32px;
   border-radius:50%;
+  object-fit:cover;
 }
 
 .sidebar-user-info{
@@ -260,92 +339,212 @@ textarea{
   flex:1;
 }
 
-.sidebar-user-info div{
+.sidebar-user-email{
+  font-size:11px;
   overflow:hidden;
-  white-space:nowrap;
   text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.logout-btn{
+  border:0;
+  background:transparent;
+  color:var(--muted);
   font-size:12px;
+  padding:6px;
+}
+
+.logout-btn:hover{
+  color:var(--red);
 }
 
 .main{
-  width:100%;
   margin-left:250px;
+  width:calc(100% - 250px);
   min-height:100vh;
 }
 
 .topbar{
-  height:70px;
+  height:68px;
+  background:rgba(255,255,255,.9);
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 28px;
-  border-bottom:1px solid var(--border);
-  background:#090f1b;
+  padding:0 30px;
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(12px);
 }
 
-.topbar h2{
-  margin:0;
+.page-title h1{
   font-size:18px;
+  font-weight:700;
 }
 
-.topbar p{
-  margin:5px 0 0;
-  color:var(--muted);
+.page-title p{
   font-size:11px;
+  color:var(--muted);
+  margin-top:3px;
 }
 
 .mobile-menu{
   display:none;
-  background:transparent;
   border:0;
-  color:white;
+  background:transparent;
   font-size:22px;
+}
+
+.content{
+  padding:30px;
+  max-width:1500px;
+  margin:auto;
 }
 
 .page{
   display:none;
-  padding:28px;
 }
 
 .page.active{
   display:block;
 }
 
+
 /* =========================================================
-   CARDS
+   COMMON
 ========================================================= */
+
+.page-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:25px;
+}
+
+.page-header h2{
+  font-size:24px;
+  margin-bottom:5px;
+}
+
+.page-header p{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.page-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
 
 .card{
   background:var(--panel);
   border:1px solid var(--border);
-  border-radius:14px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+.card-header{
+  padding:18px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.card-title{
+  font-size:14px;
+  font-weight:700;
+}
+
+.card-subtitle{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.card-body{
   padding:20px;
 }
 
+
+/* =========================================================
+   STATS
+========================================================= */
+
 .stats-grid{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:15px;
-  margin-bottom:22px;
+  grid-template-columns:
+    repeat(5,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:25px;
 }
 
 .stat-card{
-  background:var(--panel);
+  background:#fff;
   border:1px solid var(--border);
-  border-radius:14px;
+  border-radius:10px;
   padding:18px;
 }
 
-.stat-card small{
-  color:var(--muted);
+.stat-label{
   font-size:11px;
+  color:var(--muted);
+  margin-bottom:9px;
 }
 
-.stat-card strong{
-  display:block;
-  margin-top:10px;
-  font-size:22px;
+.stat-value{
+  font-size:23px;
+  font-weight:750;
 }
+
+.stat-note{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.positive{
+  color:var(--green);
+}
+
+.negative{
+  color:var(--red);
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:
+    1.5fr 1fr;
+  gap:18px;
+}
+
+.chart-box{
+  min-height:300px;
+}
+
+.empty-state{
+  min-height:220px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.empty-icon{
+  font-size:35px;
+  margin-bottom:10px;
+}
+
 
 /* =========================================================
    TRADERS
@@ -354,176 +553,186 @@ textarea{
 .trader-layout{
   display:grid;
   grid-template-columns:300px 1fr;
-  gap:20px;
+  gap:18px;
 }
 
 .trader-list{
-  display:grid;
-  gap:8px;
-  max-height:600px;
-  overflow:auto;
+  padding:10px;
+  max-height:650px;
+  overflow-y:auto;
 }
 
 .trader-item{
+  width:100%;
   display:flex;
   align-items:center;
   gap:10px;
-  width:100%;
-  padding:10px;
+  border:0;
   background:transparent;
-  color:white;
-  border:1px solid transparent;
-  border-radius:10px;
+  padding:10px;
+  border-radius:8px;
   text-align:left;
+  margin-bottom:3px;
 }
 
-.trader-item:hover,
+.trader-item:hover{
+  background:#f4f4f2;
+}
+
 .trader-item.active{
-  background:#142039;
-  border-color:var(--border);
+  background:#e9e9e7;
 }
 
 .trader-avatar{
-  width:42px;
-  height:42px;
+  width:38px;
+  height:38px;
   border-radius:50%;
   object-fit:cover;
-  background:#18243a;
+  flex-shrink:0;
 }
 
 .trader-info{
   min-width:0;
 }
 
-.trader-info strong,
+.trader-info strong{
+  display:block;
+  font-size:13px;
+}
+
 .trader-info span{
   display:block;
-  overflow:hidden;
+  font-size:10px;
+  color:var(--muted);
+  margin-top:3px;
   white-space:nowrap;
+  overflow:hidden;
   text-overflow:ellipsis;
 }
 
-.trader-info span{
-  margin-top:4px;
-  color:var(--muted);
-  font-size:11px;
+.profile-card{
+  padding:30px;
 }
 
-.profile-header{
+.profile-top{
   display:flex;
   align-items:center;
   gap:18px;
+  padding-bottom:25px;
+  border-bottom:1px solid var(--border);
   margin-bottom:25px;
 }
 
-.profile-header img{
+.profile-avatar{
   width:80px;
   height:80px;
   border-radius:50%;
   object-fit:cover;
 }
 
-.profile-header h3{
-  margin:0;
+.profile-name{
+  font-size:22px;
+  font-weight:750;
 }
 
-.profile-header p{
-  margin:7px 0 0;
+.profile-description{
   color:var(--muted);
-  font-size:12px;
+  font-size:13px;
+  margin-top:5px;
 }
 
 .profile-stats{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+  grid-template-columns:
+    repeat(5,1fr);
   gap:10px;
 }
 
 .profile-stat{
-  background:#0a1220;
-  padding:15px;
-  border-radius:10px;
+  padding:14px;
+  background:#fafafa;
+  border:1px solid var(--border);
+  border-radius:8px;
 }
 
-.profile-stat small{
-  color:var(--muted);
+.profile-stat label{
+  display:block;
   font-size:10px;
+  color:var(--muted);
+  margin-bottom:5px;
 }
 
 .profile-stat strong{
-  display:block;
-  margin-top:7px;
+  font-size:18px;
 }
+
 
 /* =========================================================
    JOURNAL
 ========================================================= */
 
-.journal-toolbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:20px;
+.journal-layout{
+  display:grid;
+  grid-template-columns:230px 1fr;
+  gap:18px;
 }
 
 .month-list{
-  display:flex;
-  gap:10px;
-  overflow:auto;
-  margin-bottom:20px;
+  padding:10px;
 }
 
 .month-item{
-  min-width:150px;
-  padding:13px;
-  border:1px solid var(--border);
-  background:var(--panel);
-  border-radius:10px;
+  padding:12px;
+  border-radius:8px;
   cursor:pointer;
+  margin-bottom:3px;
+}
+
+.month-item:hover{
+  background:#f3f3f1;
 }
 
 .month-item.active{
-  border-color:var(--blue);
-  background:#122044;
+  background:#e8e8e6;
 }
 
-.month-item strong,
-.month-item small{
+.month-item strong{
   display:block;
+  font-size:13px;
 }
 
 .month-item small{
-  margin-top:5px;
   color:var(--muted);
   font-size:10px;
 }
 
 .day-card{
-  margin-bottom:15px;
+  margin-bottom:16px;
+  overflow:hidden;
 }
 
 .day-header{
+  padding:18px 20px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
-  padding-bottom:15px;
+  gap:15px;
   border-bottom:1px solid var(--border);
 }
 
 .day-title{
-  font-weight:bold;
+  font-size:15px;
+  font-weight:700;
 }
 
 .day-meta{
-  margin-top:5px;
   color:var(--muted);
   font-size:11px;
+  margin-top:4px;
 }
 
 .trade-row{
-  padding:18px 0;
+  padding:18px 20px;
   border-bottom:1px solid var(--border);
 }
 
@@ -535,87 +744,112 @@ textarea{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
+  gap:15px;
+  margin-bottom:15px;
+}
+
+.trade-row-top strong{
+  font-size:14px;
 }
 
 .trade-badge{
-  padding:5px 9px;
+  padding:4px 9px;
   border-radius:20px;
   font-size:10px;
+  font-weight:700;
 }
 
 .trade-badge.win{
   color:var(--green);
-  background:rgba(32,201,151,.12);
+  background:#e7f5f1;
 }
 
 .trade-badge.loss{
   color:var(--red);
-  background:rgba(255,93,115,.12);
+  background:#fae9e8;
 }
 
 .trade-badge.be{
   color:var(--yellow);
-  background:rgba(245,196,81,.12);
+  background:#fff5df;
 }
 
 .trade-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:
+    repeat(4,1fr);
   gap:10px;
-  margin-top:15px;
 }
 
 .trade-field{
-  background:#0a1220;
-  padding:11px;
-  border-radius:8px;
-}
-
-.trade-field label,
-.trade-field span{
-  display:block;
+  padding:10px;
+  background:#fafafa;
+  border:1px solid var(--border);
+  border-radius:7px;
 }
 
 .trade-field label{
-  color:var(--muted);
+  display:block;
   font-size:10px;
-  margin-bottom:5px;
+  color:var(--muted);
+  margin-bottom:4px;
 }
 
 .trade-field span{
   font-size:12px;
+  font-weight:600;
 }
 
 .trade-images{
   display:flex;
   gap:8px;
   margin-top:15px;
+  flex-wrap:wrap;
 }
 
 .trade-images img{
-  width:90px;
-  height:70px;
-  object-fit:cover;
+  width:100px;
+  height:75px;
   border-radius:7px;
+  object-fit:cover;
+  border:1px solid var(--border);
   cursor:pointer;
 }
 
+
 /* =========================================================
-   ADD TRADE
+   TRADE FORM
 ========================================================= */
 
 .trade-form{
-  max-width:900px;
+  max-width:1000px;
 }
 
 .form-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
+  grid-template-columns:
+    repeat(2,1fr);
+  gap:16px;
 }
 
-.form-full{
+.form-grid.three{
+  grid-template-columns:
+    repeat(3,1fr);
+}
+
+.form-section{
+  margin-bottom:25px;
+}
+
+.form-section-title{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:14px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--border);
+}
+
+.full{
   grid-column:1 / -1;
 }
 
@@ -623,53 +857,84 @@ textarea{
   display:flex;
   flex-wrap:wrap;
   gap:7px;
-  margin-top:8px;
 }
 
 .chip{
-  border:1px solid var(--border);
-  background:#0a1220;
-  color:#aeb8cb;
-  padding:7px 11px;
+  border:1px solid var(--border-dark);
+  background:#fff;
   border-radius:20px;
+  padding:7px 12px;
   font-size:11px;
+  cursor:pointer;
+}
+
+.chip:hover{
+  background:#f5f5f3;
 }
 
 .chip.active{
-  background:var(--blue);
-  color:white;
-  border-color:var(--blue);
+  background:#202020;
+  border-color:#202020;
+  color:#fff;
 }
 
-.preview-grid{
+.image-upload{
+  border:1px dashed #c9c9c5;
+  border-radius:10px;
+  padding:20px;
+  text-align:center;
+  background:#fafafa;
+}
+
+.image-upload input{
+  display:none;
+}
+
+.upload-label{
+  display:inline-block;
+  padding:9px 14px;
+  border:1px solid var(--border-dark);
+  background:#fff;
+  border-radius:7px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.image-preview{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-  margin-top:10px;
+  margin-top:15px;
 }
 
 .preview-item{
+  width:110px;
+  height:85px;
   position:relative;
 }
 
 .preview-item img{
-  width:100px;
-  height:80px;
+  width:100%;
+  height:100%;
   object-fit:cover;
-  border-radius:8px;
+  border-radius:7px;
+  border:1px solid var(--border);
 }
 
 .remove-image{
   position:absolute;
-  top:-6px;
-  right:-6px;
+  top:4px;
+  right:4px;
   width:22px;
   height:22px;
   border:0;
   border-radius:50%;
-  background:var(--red);
-  color:white;
+  background:rgba(0,0,0,.7);
+  color:#fff;
+  font-size:14px;
 }
+
 
 /* =========================================================
    MODAL
@@ -678,40 +943,59 @@ textarea{
 .modal{
   position:fixed;
   inset:0;
+  z-index:500;
   display:none;
   align-items:center;
   justify-content:center;
   padding:20px;
-  background:rgba(0,0,0,.7);
-  z-index:100;
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(5px);
 }
 
 .modal-card{
   width:100%;
   max-width:500px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:25px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.2);
 }
 
 .modal-header{
+  padding:18px 20px;
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:20px;
 }
 
 .modal-header h3{
-  margin:0;
+  font-size:16px;
 }
 
-.close-btn{
-  background:transparent;
+.modal-close{
+  width:30px;
+  height:30px;
   border:0;
-  color:white;
-  font-size:22px;
+  border-radius:6px;
+  background:#f3f3f1;
+  font-size:18px;
 }
+
+.modal-body{
+  padding:20px;
+}
+
+.modal-footer{
+  padding:15px 20px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+}
+
 
 /* =========================================================
    TOAST
@@ -721,39 +1005,59 @@ textarea{
   position:fixed;
   right:20px;
   bottom:20px;
-  z-index:200;
-  display:grid;
+  z-index:1000;
+  display:flex;
+  flex-direction:column;
   gap:8px;
 }
 
 .toast{
   min-width:250px;
-  padding:13px 16px;
-  border-radius:9px;
-  background:#17243b;
-  border:1px solid var(--border);
-  color:white;
+  max-width:400px;
+  padding:12px 15px;
+  border-radius:8px;
+  background:#202020;
+  color:#fff;
   font-size:12px;
-  box-shadow:0 10px 30px rgba(0,0,0,.3);
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+  animation:
+    toastIn .25s ease;
 }
 
 .toast.error{
-  border-color:var(--red);
-  background:#301722;
+  background:var(--red);
 }
+
+@keyframes toastIn{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:1000px){
+@media(max-width:1100px){
 
   .stats-grid{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+      repeat(3,1fr);
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
   }
 
   .profile-stats{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+      repeat(3,1fr);
   }
 
 }
@@ -771,123 +1075,145 @@ textarea{
 
   .main{
     margin-left:0;
+    width:100%;
   }
 
   .mobile-menu{
     display:block;
   }
 
-  .trader-layout{
-    grid-template-columns:1fr;
-  }
-
-  .stats-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .trade-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-}
-
-@media(max-width:550px){
-
-  .page{
-    padding:18px;
-  }
-
   .topbar{
     padding:0 18px;
   }
 
-  .form-grid{
+  .content{
+    padding:20px 15px;
+  }
+
+  .trader-layout,
+  .journal-layout{
     grid-template-columns:1fr;
   }
 
-  .form-full{
-    grid-column:auto;
+  .trade-grid{
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
-  .stats-grid,
-  .profile-stats{
-    grid-template-columns:1fr 1fr;
+}
+
+@media(max-width:600px){
+
+  .login-card{
+    padding:28px 22px;
   }
 
-  .day-header{
-    align-items:flex-start;
+  .stats-grid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .page-header{
     flex-direction:column;
   }
 
-  .auth-actions{
+  .form-grid,
+  .form-grid.three{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .profile-top{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .profile-stats{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .day-header{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .trade-grid{
     grid-template-columns:1fr;
   }
 
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- =========================================================
-     LOGIN
-========================================================= -->
+
+<!-- =======================================================
+     LOGIN SCREEN
+======================================================= -->
 
 <section id="loginScreen">
 
   <div class="login-card">
 
-    <div class="brand">
-
-      <div class="brand-logo">
-        AAD
-      </div>
-
-      <h1>AAD Trading Journal</h1>
-
-      <p>
-        Professional trading performance journal
-      </p>
-
+    <div class="login-logo">
+      AAD
     </div>
+
+    <h1>
+      AAD Trading Journal
+    </h1>
+
+    <p>
+      Professional trading performance journal
+    </p>
 
     <div class="form-group">
 
-      <label>Email</label>
+      <label>
+        Email
+      </label>
 
       <input
         id="loginEmail"
+        class="form-control"
         type="email"
         placeholder="Enter your email"
-        autocomplete="email"
       >
 
     </div>
 
     <div class="form-group">
 
-      <label>Password</label>
+      <label>
+        Password
+      </label>
 
       <input
         id="loginPassword"
+        class="form-control"
         type="password"
         placeholder="Enter your password"
-        autocomplete="current-password"
       >
 
     </div>
 
-    <div class="auth-actions">
+    <div class="login-actions">
 
       <button
-        class="action-btn primary"
+        class="btn btn-primary"
         onclick="loginUser()"
       >
         Login
       </button>
 
       <button
-        class="action-btn"
+        class="btn"
         onclick="signupUser()"
       >
         Create Account
@@ -900,85 +1226,141 @@ textarea{
 </section>
 
 
-<!-- =========================================================
+<!-- =======================================================
      APP
-========================================================= -->
+======================================================= -->
 
-<div id="app" class="hidden">
+<div
+  id="app"
+  class="hidden"
+>
 
-  <!-- SIDEBAR -->
 
-  <aside id="sidebar" class="sidebar">
+  <!-- =====================================================
+       SIDEBAR
+  ====================================================== -->
 
-    <div class="sidebar-brand">
+  <aside
+    id="sidebar"
+    class="sidebar"
+  >
 
-      <div class="sidebar-brand-logo">
-        AAD
-      </div>
+    <div class="workspace">
 
-      <div>
-        <strong>AAD Journal</strong>
-        <small>Trading Journal</small>
+      <div class="workspace-top">
+
+        <div class="workspace-icon">
+          A
+        </div>
+
+        <div>
+
+          <div class="workspace-name">
+            AAD Trading Journal
+          </div>
+
+          <div class="workspace-sub">
+            Personal Workspace
+          </div>
+
+        </div>
+
       </div>
 
     </div>
 
-    <nav class="nav">
+
+    <nav class="sidebar-nav">
+
+      <div class="nav-section-title">
+        Workspace
+      </div>
 
       <button
         class="nav-btn active"
         onclick="showPageById('dashboard')"
       >
+
+        <span class="nav-icon">
+          ▦
+        </span>
+
         Dashboard
+
       </button>
+
 
       <button
         class="nav-btn"
         onclick="showPageById('traders')"
       >
+
+        <span class="nav-icon">
+          ◎
+        </span>
+
         Traders
+
       </button>
+
 
       <button
         class="nav-btn"
         onclick="showPageById('journal')"
       >
+
+        <span class="nav-icon">
+          ☷
+        </span>
+
         Trading Journal
+
       </button>
+
 
       <button
         class="nav-btn"
         onclick="showPageById('addTrade')"
       >
-        Add New Trade
-      </button>
 
-      <button
-        class="nav-btn"
-        onclick="logoutUser()"
-      >
-        Logout
+        <span class="nav-icon">
+          ＋
+        </span>
+
+        Add Trade
+
       </button>
 
     </nav>
 
-    <div class="sidebar-user">
 
-      <img
-        id="userAvatar"
-        src=""
-        alt=""
-      >
+    <div class="sidebar-bottom">
 
-      <div class="sidebar-user-info">
+      <div class="sidebar-user">
 
-        <div id="sidebarUser">
-          User
+        <img
+          id="userAvatar"
+          class="user-avatar"
+          alt="User"
+        >
+
+        <div class="sidebar-user-info">
+
+          <div
+            id="sidebarUser"
+            class="sidebar-user-email"
+          >
+            User
+          </div>
+
         </div>
 
-        <small>
-          Logged in
-        </small>
+        <button
+          class="logout-btn"
+          onclick="logoutUser()"
+        >
+          Logout
+        </button>
 
       </div>
 
@@ -987,13 +1369,16 @@ textarea{
   </aside>
 
 
-  <!-- MAIN -->
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
 
   <main class="main">
 
+
     <header class="topbar">
 
-      <div>
+      <div style="display:flex;align-items:center;gap:12px;">
 
         <button
           class="mobile-menu"
@@ -1002,21 +1387,25 @@ textarea{
           ☰
         </button>
 
-        <h2 id="pageHeading">
-          Trading Dashboard
-        </h2>
+        <div class="page-title">
 
-        <p id="pageSubheading">
-          Review your trading performance
-        </p>
+          <h1 id="pageHeading">
+            Trading Dashboard
+          </h1>
+
+          <p id="pageSubheading">
+            Review your trading performance
+          </p>
+
+        </div>
 
       </div>
 
       <div
         id="userEmail"
         style="
-        color:var(--muted);
-        font-size:12px
+          font-size:11px;
+          color:var(--muted);
         "
       >
         User
@@ -1025,168 +1414,351 @@ textarea{
     </header>
 
 
-    <!-- =====================================================
-         DASHBOARD
-    ====================================================== -->
-
-    <section
-      id="page-dashboard"
-      class="page active"
-    >
-
-      <div class="stats-grid">
-
-        <div class="stat-card">
-          <small>Total Trades</small>
-          <strong id="statTrades">0</strong>
-        </div>
-
-        <div class="stat-card">
-          <small>Win Rate</small>
-          <strong id="statWinRate">0.0%</strong>
-        </div>
-
-        <div class="stat-card">
-          <small>Total PnL</small>
-          <strong id="statPnl">$0.00</strong>
-        </div>
-
-        <div class="stat-card">
-          <small>Total R</small>
-          <strong id="statR">0.00R</strong>
-        </div>
-
-        <div class="stat-card">
-          <small>Wins</small>
-          <strong id="statWins">0</strong>
-        </div>
-
-      </div>
-
-      <div class="card">
-
-        <h3>
-          Traders
-        </h3>
-
-        <p
-          style="
-          color:var(--muted);
-          font-size:12px
-          "
-        >
-          Select a trader from the Traders page to view
-          individual performance.
-        </p>
-
-        <button
-          class="action-btn primary"
-          onclick="showPageById('traders')"
-        >
-          Manage Traders
-        </button>
-
-      </div>
-
-    </section>
+    <div class="content">
 
 
-    <!-- =====================================================
-         TRADERS
-    ====================================================== -->
+      <!-- =================================================
+           DASHBOARD PAGE
+      ================================================== -->
 
-    <section
-      id="page-traders"
-      class="page"
-    >
-
-      <div
-        style="
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        margin-bottom:20px
-        "
+      <section
+        id="page-dashboard"
+        class="page active"
       >
 
-        <div>
+        <div class="page-header">
 
-          <h3 style="margin:0">
-            Trader Management
-          </h3>
+          <div>
 
-          <p
-            style="
-            color:var(--muted);
-            font-size:12px
-            "
-          >
-            Total Traders:
-            <span id="traderCount">0</span>
-          </p>
+            <h2>
+              Trading Dashboard
+            </h2>
 
-        </div>
+            <p>
+              Your complete trading performance overview.
+            </p>
 
-        <button
-          class="action-btn primary"
-          onclick="openTraderModal()"
-        >
-          + Add Trader
-        </button>
+          </div>
 
-      </div>
+          <div class="page-actions">
 
+            <button
+              class="btn btn-primary"
+              onclick="showPageById('addTrade')"
+            >
+              ＋ Add Trade
+            </button>
 
-      <div class="trader-layout">
-
-        <div class="card">
-
-          <div
-            id="traderList"
-            class="trader-list"
-          >
           </div>
 
         </div>
 
 
-        <div class="card">
+        <div class="stats-grid">
 
-          <div
-            id="traderEmpty"
-            style="
-            min-height:250px;
-            display:grid;
-            place-items:center;
-            color:var(--muted);
-            font-size:13px
-            "
-          >
-            Select a trader to view profile.
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Total Trades
+            </div>
+
+            <div
+              id="statTrades"
+              class="stat-value"
+            >
+              0
+            </div>
+
+            <div class="stat-note">
+              All recorded trades
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Win Rate
+            </div>
+
+            <div
+              id="statWinRate"
+              class="stat-value"
+            >
+              0.0%
+            </div>
+
+            <div class="stat-note">
+              Winning trades
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Total P&L
+            </div>
+
+            <div
+              id="statPnl"
+              class="stat-value"
+            >
+              $0.00
+            </div>
+
+            <div class="stat-note">
+              Net performance
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Total R
+            </div>
+
+            <div
+              id="statR"
+              class="stat-value"
+            >
+              0.00R
+            </div>
+
+            <div class="stat-note">
+              Cumulative R
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-label">
+              Winning Trades
+            </div>
+
+            <div
+              id="statWins"
+              class="stat-value"
+            >
+              0
+            </div>
+
+            <div class="stat-note">
+              Total wins
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+
+          <div class="card chart-box">
+
+            <div class="card-header">
+
+              <div>
+
+                <div class="card-title">
+                  Performance Overview
+                </div>
+
+                <div class="card-subtitle">
+                  Your trading performance at a glance
+                </div>
+
+              </div>
+
+            </div>
+
+            <div
+              id="dashboardChart"
+              class="empty-state"
+            >
+
+              <div>
+
+                <div class="empty-icon">
+                  📊
+                </div>
+
+                <div>
+                  Add trades to see performance data.
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <div>
+
+                <div class="card-title">
+                  Quick Actions
+                </div>
+
+                <div class="card-subtitle">
+                  Manage your journal
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="card-body">
+
+              <button
+                class="btn"
+                style="width:100%;margin-bottom:8px;"
+                onclick="showPageById('traders')"
+              >
+                Manage Traders
+              </button>
+
+              <button
+                class="btn"
+                style="width:100%;margin-bottom:8px;"
+                onclick="createCurrentMonth()"
+              >
+                Create Current Month
+              </button>
+
+              <button
+                class="btn"
+                style="width:100%;"
+                onclick="showPageById('journal')"
+              >
+                Open Trading Journal
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           TRADERS PAGE
+      ================================================== -->
+
+      <section
+        id="page-traders"
+        class="page"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <h2>
+              Traders
+            </h2>
+
+            <p>
+              Manage your trading profiles and performance.
+            </p>
+
+          </div>
+
+          <div class="page-actions">
+
+            <button
+              class="btn btn-primary"
+              onclick="openTraderModal()"
+            >
+              ＋ New Trader
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="trader-layout">
+
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <div>
+
+                <div class="card-title">
+                  Trading Profiles
+                </div>
+
+                <div class="card-subtitle">
+
+                  <span id="traderCount">
+                    0
+                  </span>
+                  traders
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div
+              id="traderList"
+              class="trader-list"
+            >
+
+              <div class="empty-state">
+                No traders yet.
+              </div>
+
+            </div>
+
           </div>
 
 
           <div
             id="traderProfile"
-            class="hidden"
+            class="card profile-card hidden"
           >
 
-            <div class="profile-header">
+            <div class="profile-top">
 
               <img
                 id="profileAvatar"
-                src=""
-                alt=""
+                class="profile-avatar"
+                alt="Trader"
               >
 
               <div>
 
-                <h3 id="profileName">
+                <div
+                  id="profileName"
+                  class="profile-name"
+                >
                   Trader
-                </h3>
+                </div>
 
-                <p id="profileDescription">
-                </p>
+                <div
+                  id="profileDescription"
+                  class="profile-description"
+                >
+                  Trading profile
+                </div>
 
               </div>
 
@@ -1195,485 +1767,701 @@ textarea{
 
             <div class="profile-stats">
 
-              <div class="profile-stat">
-                <small>Trades</small>
-                <strong id="profileTrades">0</strong>
-              </div>
 
               <div class="profile-stat">
-                <small>Win Rate</small>
-                <strong id="profileWinRate">0.0%</strong>
+
+                <label>
+                  Trades
+                </label>
+
+                <strong id="profileTrades">
+                  0
+                </strong>
+
               </div>
+
 
               <div class="profile-stat">
-                <small>PnL</small>
-                <strong id="profilePnl">$0.00</strong>
+
+                <label>
+                  Win Rate
+                </label>
+
+                <strong id="profileWinRate">
+                  0.0%
+                </strong>
+
               </div>
+
 
               <div class="profile-stat">
-                <small>Total R</small>
-                <strong id="profileR">0.00R</strong>
+
+                <label>
+                  P&L
+                </label>
+
+                <strong id="profilePnl">
+                  $0.00
+                </strong>
+
               </div>
+
 
               <div class="profile-stat">
-                <small>Wins</small>
-                <strong id="profileWins">0</strong>
+
+                <label>
+                  Total R
+                </label>
+
+                <strong id="profileR">
+                  0.00R
+                </strong>
+
               </div>
 
-            </div>
 
-          </div>
+              <div class="profile-stat">
 
-        </div>
+                <label>
+                  Wins
+                </label>
 
-      </div>
+                <strong id="profileWins">
+                  0
+                </strong>
 
-    </section>
+              </div>
 
-
-    <!-- =====================================================
-         JOURNAL
-    ====================================================== -->
-
-    <section
-      id="page-journal"
-      class="page"
-    >
-
-      <div class="journal-toolbar">
-
-        <div>
-
-          <h3 style="margin:0">
-            Trading Journal
-          </h3>
-
-          <p
-            style="
-            color:var(--muted);
-            font-size:12px
-            "
-          >
-            <span id="journalMonthTitle">
-              Select a month
-            </span>
-          </p>
-
-          <small
-            id="journalMonthSubtitle"
-            style="color:var(--muted)"
-          >
-          </small>
-
-        </div>
-
-        <button
-          class="action-btn primary"
-          onclick="createJournalDay()"
-        >
-          + Add Journal Day
-        </button>
-
-      </div>
-
-
-      <div
-        id="monthList"
-        class="month-list"
-      >
-      </div>
-
-
-      <div id="journalDays">
-
-        <div
-          class="card"
-          style="
-          text-align:center;
-          color:var(--muted);
-          padding:40px
-          "
-        >
-          Select a month to view journal.
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         ADD TRADE
-    ====================================================== -->
-
-    <section
-      id="page-addTrade"
-      class="page"
-    >
-
-      <div class="card trade-form">
-
-        <h3>
-          Add New Trade
-        </h3>
-
-        <p
-          style="
-          color:var(--muted);
-          font-size:12px
-          "
-        >
-          Record your trading execution.
-        </p>
-
-
-        <div class="form-grid">
-
-
-          <div class="form-group">
-
-            <label>Trader *</label>
-
-            <select id="tradeTrader">
-
-              <option value="">
-                Select Trader
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>Date *</label>
-
-            <input
-              id="tradeDate"
-              type="date"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>Symbol *</label>
-
-            <input
-              id="tradeSymbol"
-              placeholder="EURUSD / XAUUSD / BTCUSDT"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>Direction *</label>
-
-            <select id="tradeDirection">
-
-              <option value="">
-                Select Direction
-              </option>
-
-              <option value="Long">
-                Long
-              </option>
-
-              <option value="Short">
-                Short
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>Result *</label>
-
-            <select id="tradeResult">
-
-              <option value="">
-                Select Result
-              </option>
-
-              <option value="Win">
-                Win
-              </option>
-
-              <option value="Loss">
-                Loss
-              </option>
-
-              <option value="BE">
-                Break Even
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>Setup</label>
-
-            <input
-              id="tradeSetup"
-              placeholder="SMC / BOS / Pullback"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>Entry Price</label>
-
-            <input
-              id="tradeEntry"
-              type="number"
-              step="any"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>Stop Loss</label>
-
-            <input
-              id="tradeSL"
-              type="number"
-              step="any"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>Take Profit</label>
-
-            <input
-              id="tradeTP"
-              type="number"
-              step="any"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>PnL ($)</label>
-
-            <input
-              id="tradePnl"
-              type="number"
-              step="any"
-              placeholder="0"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>R Multiple</label>
-
-            <input
-              id="tradeR"
-              type="number"
-              step="any"
-              placeholder="0"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>Risk %</label>
-
-            <input
-              id="tradeRisk"
-              type="number"
-              step="any"
-              placeholder="1"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label>Session</label>
-
-            <select id="tradeSession">
-
-              <option value="">
-                Select Session
-              </option>
-
-              <option value="Asia">
-                Asia
-              </option>
-
-              <option value="London">
-                London
-              </option>
-
-              <option value="New York">
-                New York
-              </option>
-
-              <option value="London-New York">
-                London-New York
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <div class="form-group form-full">
-
-            <label>
-              Quick Setup
-            </label>
-
-            <div class="chips">
-
-              <button
-                type="button"
-                class="chip"
-                onclick="selectChip(this,'tradeSetup','SMC')"
-              >
-                SMC
-              </button>
-
-              <button
-                type="button"
-                class="chip"
-                onclick="selectChip(this,'tradeSetup','BOS')"
-              >
-                BOS
-              </button>
-
-              <button
-                type="button"
-                class="chip"
-                onclick="selectChip(this,'tradeSetup','Pullback')"
-              >
-                Pullback
-              </button>
-
-              <button
-                type="button"
-                class="chip"
-                onclick="selectChip(this,'tradeSetup','Reversal')"
-              >
-                Reversal
-              </button>
-
-              <button
-                type="button"
-                class="chip"
-                onclick="selectChip(this,'tradeSetup','Breakout')"
-              >
-                Breakout
-              </button>
-
-            </div>
-
-          </div>
-
-
-          <div class="form-group form-full">
-
-            <label>
-              Trade Notes
-            </label>
-
-            <textarea
-              id="tradeNotes"
-              placeholder="Why did you take this trade? What did you learn?"
-            ></textarea>
-
-          </div>
-
-
-          <div class="form-group form-full">
-
-            <label>
-              Trade Images (Maximum 3)
-            </label>
-
-            <input
-              id="tradeImages"
-              type="file"
-              accept="image/*"
-              multiple
-              onchange="previewImages(this)"
-            >
-
-            <div
-              id="imagePreview"
-              class="preview-grid"
-            >
             </div>
 
           </div>
 
 
           <div
-            class="form-full"
-            style="
-            display:flex;
-            justify-content:flex-end;
-            gap:10px;
-            margin-top:10px
-            "
+            id="traderEmpty"
+            class="card empty-state"
           >
 
+            <div>
+
+              <div class="empty-icon">
+                👤
+              </div>
+
+              <div>
+                Select a trader to view performance.
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           JOURNAL PAGE
+      ================================================== -->
+
+      <section
+        id="page-journal"
+        class="page"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <h2>
+              Trading Journal
+            </h2>
+
+            <p>
+              Organize your trading by month and day.
+            </p>
+
+          </div>
+
+          <div class="page-actions">
+
             <button
-              class="action-btn"
-              onclick="clearTradeForm()"
+              class="btn"
+              onclick="createCurrentMonth()"
             >
-              Clear
+              ＋ Current Month
             </button>
 
             <button
-              class="action-btn primary"
-              onclick="saveTrade()"
+              class="btn btn-primary"
+              onclick="createJournalDay()"
             >
-              Save Trade
+              ＋ Journal Day
             </button>
 
           </div>
 
+        </div>
+
+
+        <div class="journal-layout">
+
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <div>
+
+                <div class="card-title">
+                  Months
+                </div>
+
+              </div>
+
+            </div>
+
+            <div
+              id="monthList"
+              class="month-list"
+            >
+
+              <div class="empty-state">
+                No months created.
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <div
+              class="card"
+              style="margin-bottom:18px;"
+            >
+
+              <div class="card-body">
+
+                <h2
+                  id="journalMonthTitle"
+                  style="font-size:20px;"
+                >
+                  Select a Month
+                </h2>
+
+                <p
+                  id="journalMonthSubtitle"
+                  style="
+                    color:var(--muted);
+                    font-size:12px;
+                    margin-top:5px;
+                  "
+                >
+                  Select a month to view journal days.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div id="journalDays">
+
+              <div class="card empty-state">
+
+                <div>
+
+                  <div class="empty-icon">
+                    📅
+                  </div>
+
+                  Select a month to begin.
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
 
-      </div>
+      </section>
 
-    </section>
+
+      <!-- =================================================
+           ADD TRADE PAGE
+      ================================================== -->
+
+      <section
+        id="page-addTrade"
+        class="page"
+      >
+
+        <div class="page-header">
+
+          <div>
+
+            <h2>
+              Add New Trade
+            </h2>
+
+            <p>
+              Record your trading execution in detail.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="card trade-form">
+
+          <div class="card-body">
+
+
+            <!-- BASIC -->
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+                Trade Information
+              </div>
+
+              <div class="form-grid">
+
+
+                <div class="form-group">
+
+                  <label>
+                    Trader *
+                  </label>
+
+                  <select
+                    id="tradeTrader"
+                    class="form-control"
+                  >
+
+                    <option value="">
+                      Select Trader
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    Trade Date *
+                  </label>
+
+                  <input
+                    id="tradeDate"
+                    class="form-control"
+                    type="date"
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    Symbol *
+                  </label>
+
+                  <input
+                    id="tradeSymbol"
+                    class="form-control"
+                    placeholder="EURUSD / XAUUSD / BTCUSDT"
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    Direction *
+                  </label>
+
+                  <select
+                    id="tradeDirection"
+                    class="form-control"
+                  >
+
+                    <option value="">
+                      Select Direction
+                    </option>
+
+                    <option value="Buy">
+                      Buy / Long
+                    </option>
+
+                    <option value="Sell">
+                      Sell / Short
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    Result *
+                  </label>
+
+                  <select
+                    id="tradeResult"
+                    class="form-control"
+                  >
+
+                    <option value="">
+                      Select Result
+                    </option>
+
+                    <option value="Win">
+                      Win
+                    </option>
+
+                    <option value="Loss">
+                      Loss
+                    </option>
+
+                    <option value="BE">
+                      Break Even
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    Setup
+                  </label>
+
+                  <input
+                    id="tradeSetup"
+                    class="form-control"
+                    placeholder="SMC / Wyckoff / Pullback"
+                  >
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- PRICE -->
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+                Price & Risk
+              </div>
+
+              <div class="form-grid three">
+
+
+                <div class="form-group">
+
+                  <label>
+                    Entry Price
+                  </label>
+
+                  <input
+                    id="tradeEntry"
+                    class="form-control"
+                    type="number"
+                    step="any"
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    Stop Loss
+                  </label>
+
+                  <input
+                    id="tradeSL"
+                    class="form-control"
+                    type="number"
+                    step="any"
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    Take Profit
+                  </label>
+
+                  <input
+                    id="tradeTP"
+                    class="form-control"
+                    type="number"
+                    step="any"
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    P&L ($)
+                  </label>
+
+                  <input
+                    id="tradePnl"
+                    class="form-control"
+                    type="number"
+                    step="any"
+                    placeholder="0"
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    R Multiple
+                  </label>
+
+                  <input
+                    id="tradeR"
+                    class="form-control"
+                    type="number"
+                    step="any"
+                    placeholder="0"
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>
+                    Risk %
+                  </label>
+
+                  <input
+                    id="tradeRisk"
+                    class="form-control"
+                    type="number"
+                    step="any"
+                    placeholder="1"
+                  >
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- SESSION -->
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+                Trading Session
+              </div>
+
+              <div class="chips">
+
+                <button
+                  class="chip"
+                  onclick="
+                    selectChip(
+                      this,
+                      'tradeSession',
+                      'Asian'
+                    )
+                  "
+                >
+                  Asian
+                </button>
+
+                <button
+                  class="chip"
+                  onclick="
+                    selectChip(
+                      this,
+                      'tradeSession',
+                      'London'
+                    )
+                  "
+                >
+                  London
+                </button>
+
+                <button
+                  class="chip"
+                  onclick="
+                    selectChip(
+                      this,
+                      'tradeSession',
+                      'New York'
+                    )
+                  "
+                >
+                  New York
+                </button>
+
+                <button
+                  class="chip"
+                  onclick="
+                    selectChip(
+                      this,
+                      'tradeSession',
+                      'London + New York'
+                    )
+                  "
+                >
+                  London + NY
+                </button>
+
+              </div>
+
+              <input
+                id="tradeSession"
+                type="hidden"
+              >
+
+            </div>
+
+
+            <!-- NOTES -->
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+                Trade Notes
+              </div>
+
+              <div class="form-group">
+
+                <label>
+                  Notes
+                </label>
+
+                <textarea
+                  id="tradeNotes"
+                  class="form-control"
+                  placeholder="Why did you take this trade? What did you learn?"
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <!-- IMAGES -->
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+                Trade Screenshots
+              </div>
+
+              <div class="image-upload">
+
+                <label
+                  for="tradeImages"
+                  class="upload-label"
+                >
+                  ＋ Add Screenshots
+                </label>
+
+                <input
+                  id="tradeImages"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onchange="previewImages(this)"
+                >
+
+                <div
+                  style="
+                    color:var(--muted);
+                    font-size:11px;
+                    margin-top:8px;
+                  "
+                >
+                  You can upload up to 3 images.
+                </div>
+
+                <div
+                  id="imagePreview"
+                  class="image-preview"
+                ></div>
+
+              </div>
+
+            </div>
+
+
+            <div
+              style="
+                display:flex;
+                justify-content:flex-end;
+                gap:8px;
+              "
+            >
+
+              <button
+                class="btn"
+                onclick="clearTradeForm()"
+              >
+                Clear
+              </button>
+
+              <button
+                class="btn btn-primary"
+                onclick="saveTrade()"
+              >
+                Save Trade
+              </button>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+    </div>
 
   </main>
 
 </div>
 
 
-<!-- =========================================================
+<!-- =======================================================
      TRADER MODAL
-========================================================= -->
+======================================================= -->
 
 <div
   id="traderModal"
@@ -1682,14 +2470,15 @@ textarea{
 
   <div class="modal-card">
 
+
     <div class="modal-header">
 
       <h3>
-        Add New Trader
+        Create New Trader
       </h3>
 
       <button
-        class="close-btn"
+        class="modal-close"
         onclick="closeTraderModal()"
       >
         ×
@@ -1698,76 +2487,79 @@ textarea{
     </div>
 
 
-    <div class="form-group">
-
-      <label>
-        Trader Name *
-      </label>
-
-      <input
-        id="newTraderName"
-        placeholder="Enter trader name"
-      >
-
-    </div>
+    <div class="modal-body">
 
 
-    <div class="form-group">
+      <div class="form-group">
 
-      <label>
-        Description
-      </label>
+        <label>
+          Trader Name *
+        </label>
 
-      <textarea
-        id="newTraderDescription"
-        placeholder="Trading profile description"
-      ></textarea>
+        <input
+          id="newTraderName"
+          class="form-control"
+          placeholder="Aye Min Naing"
+        >
 
-    </div>
+      </div>
 
 
-    <div class="form-group">
+      <div class="form-group">
 
-      <label>
-        Trader Avatar
-      </label>
+        <label>
+          Description
+        </label>
 
-      <input
-        id="traderImage"
-        type="file"
-        accept="image/*"
-        onchange="previewTraderImage(this)"
-      >
+        <textarea
+          id="newTraderDescription"
+          class="form-control"
+          placeholder="Describe this trader or account..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Profile Image
+        </label>
+
+        <input
+          id="traderImage"
+          class="form-control"
+          type="file"
+          accept="image/*"
+          onchange="previewTraderImage(this)"
+        >
+
+      </div>
+
 
       <div
         id="traderImagePreview"
-        class="preview-grid"
-      >
-      </div>
+        class="image-preview"
+      ></div>
+
 
     </div>
 
 
-    <div
-      style="
-      display:flex;
-      justify-content:flex-end;
-      gap:10px
-      "
-    >
+    <div class="modal-footer">
 
       <button
-        class="action-btn"
+        class="btn"
         onclick="closeTraderModal()"
       >
         Cancel
       </button>
 
       <button
-        class="action-btn primary"
+        class="btn btn-primary"
         onclick="saveTrader()"
       >
-        Save Trader
+        Create Trader
       </button>
 
     </div>
@@ -1776,6 +2568,10 @@ textarea{
 
 </div>
 
+
+<!-- =======================================================
+     TOAST
+======================================================= -->
 
 <div id="toastContainer"></div>
 
@@ -1823,7 +2619,9 @@ let traderImageFile = null;
 ========================================================= */
 
 function $(id){
+
   return document.getElementById(id);
+
 }
 
 
@@ -1883,10 +2681,63 @@ function showToast(
   );
 
   setTimeout(
-    () => {
-      toast.remove();
-    },
+    () => toast.remove(),
     3500
+  );
+
+}
+
+
+/* =========================================================
+   DEFAULT AVATAR
+========================================================= */
+
+function defaultAvatar(
+  name
+){
+
+  const letter =
+    String(
+      name ||
+      "T"
+    )
+    .charAt(0)
+    .toUpperCase();
+
+  const svg = `
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="200"
+      height="200"
+    >
+
+      <rect
+        width="100%"
+        height="100%"
+        fill="#202020"
+      />
+
+      <text
+        x="50%"
+        y="55%"
+        text-anchor="middle"
+        font-size="90"
+        fill="white"
+        font-family="Arial"
+        font-weight="bold"
+      >
+        ${letter}
+      </text>
+
+    </svg>
+  `;
+
+  return `
+    data:image/svg+xml;charset=UTF-8,
+    ${encodeURIComponent(svg)}
+  `.replace(
+    /\s+/g,
+    " "
   );
 
 }
@@ -1899,22 +2750,11 @@ function showToast(
 async function checkSession(){
 
   const {
-    data,
-    error
+    data
   } =
   await supabaseClient
     .auth
     .getSession();
-
-  if(error){
-
-    console.error(error);
-
-    showLogin();
-
-    return;
-
-  }
 
   currentUser =
     data?.session?.user ||
@@ -1969,8 +2809,7 @@ async function showApp(){
   $("userAvatar")
     .src =
     defaultAvatar(
-      currentUser?.email ||
-      "User"
+      currentUser?.email
     );
 
   await loadTraders();
@@ -2013,12 +2852,13 @@ async function loginUser(){
   } =
   await supabaseClient
     .auth
-    .signInWithPassword(
-      {
-        email,
-        password
-      }
-    );
+    .signInWithPassword({
+
+      email,
+
+      password
+
+    });
 
   if(error){
 
@@ -2032,14 +2872,9 @@ async function loginUser(){
   }
 
   currentUser =
-    data?.user ||
-    null;
+    data.user;
 
-  if(currentUser){
-
-    await showApp();
-
-  }
+  await showApp();
 
 }
 
@@ -2085,12 +2920,13 @@ async function signupUser(){
   } =
   await supabaseClient
     .auth
-    .signUp(
-      {
-        email,
-        password
-      }
-    );
+    .signUp({
+
+      email,
+
+      password
+
+    });
 
   if(error){
 
@@ -2104,7 +2940,7 @@ async function signupUser(){
   }
 
   showToast(
-    "Account created. Check your email if confirmation is enabled."
+    "Account created successfully."
   );
 
 }
@@ -2116,15 +2952,14 @@ async function logoutUser(){
     .auth
     .signOut();
 
-  currentUser = null;
+  currentUser =
+    null;
 
-  selectedTrader = null;
+  selectedTrader =
+    null;
 
-  selectedMonth = null;
-
-  traders = [];
-
-  months = [];
+  selectedMonth =
+    null;
 
   showLogin();
 
@@ -2145,9 +2980,10 @@ function showPageById(
     )
     .forEach(
       page =>
-      page.classList.remove(
-        "active"
-      )
+      page.classList
+        .remove(
+          "active"
+        )
     );
 
   const page =
@@ -2157,9 +2993,10 @@ function showPageById(
 
   if(page){
 
-    page.classList.add(
-      "active"
-    );
+    page.classList
+      .add(
+        "active"
+      );
 
   }
 
@@ -2169,80 +3006,93 @@ function showPageById(
     )
     .forEach(
       btn =>
-      btn.classList.remove(
-        "active"
-      )
+      btn.classList
+        .remove(
+          "active"
+        )
     );
 
-  const headings = {
+  const navMap = {
 
-    dashboard:[
+    dashboard:
       "Trading Dashboard",
-      "Review your trading performance"
-    ],
 
-    traders:[
-      "Trader Management",
-      "Manage your trading profiles"
-    ],
+    traders:
+      "Traders",
 
-    journal:[
+    journal:
       "Trading Journal",
-      "Review your journal history"
-    ],
 
-    addTrade:[
-      "Add New Trade",
-      "Record your trading execution"
-    ]
+    addTrade:
+      "Add Trade"
 
   };
 
-  if(headings[pageId]){
+  const subtitles = {
 
-    $("pageHeading")
-      .textContent =
-      headings[pageId][0];
+    dashboard:
+      "Review your trading performance",
 
-    $("pageSubheading")
-      .textContent =
-      headings[pageId][1];
+    traders:
+      "Manage your trading profiles",
 
-  }
+    journal:
+      "Review your journal history",
 
-  const navButtons =
+    addTrade:
+      "Record your trading execution"
+
+  };
+
+  $("pageHeading")
+    .textContent =
+    navMap[pageId] ||
+    "AAD Trading Journal";
+
+  $("pageSubheading")
+    .textContent =
+    subtitles[pageId] ||
+    "";
+
+  const buttons =
     document
       .querySelectorAll(
         ".nav-btn"
       );
 
-  navButtons.forEach(
-    btn => {
+  const indexMap = {
 
-      const onclick =
-        btn.getAttribute(
-          "onclick"
-        ) ||
-        "";
+    dashboard:0,
 
-      if(
-        onclick.includes(
-          `'${pageId}'`
-        )
-      ){
+    traders:1,
 
-        btn.classList.add(
-          "active"
-        );
+    journal:2,
 
-      }
+    addTrade:3
 
-    }
-  );
+  };
+
+  if(
+    buttons[
+      indexMap[pageId]
+    ]
+  ){
+
+    buttons[
+      indexMap[pageId]
+    ]
+    .classList
+    .add(
+      "active"
+    );
+
+  }
 
   $("sidebar")
     .classList
-    .remove("open");
+    .remove(
+      "open"
+    );
 
 }
 
@@ -2251,58 +3101,9 @@ function toggleSidebar(){
 
   $("sidebar")
     .classList
-    .toggle("open");
-
-}
-
-
-/* =========================================================
-   DEFAULT AVATAR
-========================================================= */
-
-function defaultAvatar(
-  name
-){
-
-  const letter =
-    String(
-      name ||
-      "T"
-    )
-    .charAt(0)
-    .toUpperCase();
-
-  const svg =
-    `
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="200"
-      height="200"
-    >
-      <rect
-        width="100%"
-        height="100%"
-        fill="#3777ff"
-      />
-
-      <text
-        x="50%"
-        y="55%"
-        text-anchor="middle"
-        font-size="90"
-        fill="white"
-        font-family="Arial"
-        font-weight="bold"
-      >
-        ${letter}
-      </text>
-    </svg>
-    `;
-
-  return (
-    "data:image/svg+xml;charset=UTF-8," +
-    encodeURIComponent(svg)
-  );
+    .toggle(
+      "open"
+    );
 
 }
 
@@ -2324,7 +3125,9 @@ async function loadTraders(){
     error
   } =
   await supabaseClient
-    .from("journal_traders")
+    .from(
+      "journal_traders"
+    )
     .select("*")
     .eq(
       "user_id",
@@ -2339,7 +3142,9 @@ async function loadTraders(){
 
   if(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
     showToast(
       error.message,
@@ -2374,15 +3179,18 @@ function renderTraders(){
 
     list.innerHTML = `
 
-      <div
-        style="
-        padding:30px 10px;
-        text-align:center;
-        color:var(--muted);
-        font-size:12px
-        "
-      >
-        No traders yet.
+      <div class="empty-state">
+
+        <div>
+
+          <div class="empty-icon">
+            👤
+          </div>
+
+          No traders yet.
+
+        </div>
+
       </div>
 
     `;
@@ -2397,13 +3205,21 @@ function renderTraders(){
         trader => `
 
           <button
-            class="trader-item ${
-              selectedTrader &&
-              selectedTrader.id === trader.id
-              ? "active"
-              : ""
-            }"
-            onclick="selectTrader('${trader.id}')"
+            class="
+              trader-item
+              ${
+                selectedTrader &&
+                selectedTrader.id ===
+                trader.id
+                ? "active"
+                : ""
+              }
+            "
+            onclick="
+              selectTrader(
+                '${trader.id}'
+              )
+            "
           >
 
             <img
@@ -2457,46 +3273,49 @@ function selectTrader(
     traders.find(
       trader =>
       trader.id === id
-    );
+    ) ||
+    null;
 
   renderTraders();
 
-  if(selectedTrader){
+  if(!selectedTrader){
 
-    $("traderEmpty")
-      .classList
-      .add("hidden");
-
-    $("traderProfile")
-      .classList
-      .remove("hidden");
-
-    $("profileAvatar")
-      .src =
-      selectedTrader.avatar_url ||
-      defaultAvatar(
-        selectedTrader.name
-      );
-
-    $("profileName")
-      .textContent =
-      selectedTrader.name;
-
-    $("profileDescription")
-      .textContent =
-      selectedTrader.description ||
-      "";
-
-    updateProfileStats();
+    return;
 
   }
 
+  $("traderEmpty")
+    .classList
+    .add(
+      "hidden"
+    );
+
+  $("traderProfile")
+    .classList
+    .remove(
+      "hidden"
+    );
+
+  $("profileAvatar")
+    .src =
+    selectedTrader.avatar_url ||
+    defaultAvatar(
+      selectedTrader.name
+    );
+
+  $("profileName")
+    .textContent =
+    selectedTrader.name;
+
+  $("profileDescription")
+    .textContent =
+    selectedTrader.description ||
+    "";
+
+  updateProfileStats();
+
 }
 
-
-/* =========================================================
-   TRADER MODAL
-========================================================= */
 
 function openTraderModal(){
 
@@ -2627,7 +3446,11 @@ async function saveTrader(){
       .toLowerCase();
 
     const path =
-      `${currentUser.id}/traders/${crypto.randomUUID()}.${extension}`;
+      `${
+        currentUser.id
+      }/traders/${
+        crypto.randomUUID()
+      }.${extension}`;
 
     const {
       error:
@@ -2635,7 +3458,9 @@ async function saveTrader(){
     } =
     await supabaseClient
       .storage
-      .from("journal-images")
+      .from(
+        "journal-images"
+      )
       .upload(
         path,
         traderImageFile,
@@ -2664,7 +3489,9 @@ async function saveTrader(){
     } =
     supabaseClient
       .storage
-      .from("journal-images")
+      .from(
+        "journal-images"
+      )
       .getPublicUrl(
         path
       );
@@ -2680,29 +3507,28 @@ async function saveTrader(){
     error
   } =
   await supabaseClient
-    .from("journal_traders")
-    .insert(
-      {
-        user_id:
-          currentUser.id,
-
-        name,
-
-        description:
-          description ||
-          null,
-
-        avatar_url:
-          avatarUrl
-
-      }
+    .from(
+      "journal_traders"
     )
+    .insert({
+
+      user_id:
+        currentUser.id,
+
+      name,
+
+      description:
+        description ||
+        null,
+
+      avatar_url:
+        avatarUrl
+
+    })
     .select()
     .single();
 
   if(error){
-
-    console.error(error);
 
     showToast(
       error.message,
@@ -2728,7 +3554,7 @@ async function saveTrader(){
   closeTraderModal();
 
   showToast(
-    "Trader saved successfully."
+    "Trader created successfully."
   );
 
 }
@@ -2788,7 +3614,7 @@ function populateTraderSelect(){
 
 
 /* =========================================================
-   IMAGES
+   IMAGE PREVIEW
 ========================================================= */
 
 function previewImages(
@@ -2861,9 +3687,12 @@ function renderImagePreview(){
         >
 
         <button
-          type="button"
           class="remove-image"
-          onclick="removeSelectedImage(${index})"
+          onclick="
+            removeSelectedImage(
+              ${index}
+            )
+          "
         >
           ×
         </button>
@@ -2899,14 +3728,17 @@ function selectChip(
     )
     .forEach(
       el =>
-      el.classList.remove(
-        "active"
-      )
+      el.classList
+        .remove(
+          "active"
+        )
     );
 
-  button.classList.add(
-    "active"
-  );
+  button
+    .classList
+    .add(
+      "active"
+    );
 
   $(inputId)
     .value =
@@ -2932,7 +3764,9 @@ async function loadMonths(){
     error
   } =
   await supabaseClient
-    .from("journal_months")
+    .from(
+      "journal_months"
+    )
     .select("*")
     .eq(
       "user_id",
@@ -2946,8 +3780,6 @@ async function loadMonths(){
     );
 
   if(error){
-
-    console.error(error);
 
     showToast(
       error.message,
@@ -2976,14 +3808,18 @@ function renderMonths(){
 
     list.innerHTML = `
 
-      <div
-        style="
-        color:var(--muted);
-        font-size:12px;
-        padding:15px 5px
-        "
-      >
-        No months created.
+      <div class="empty-state">
+
+        <div>
+
+          <div class="empty-icon">
+            📅
+          </div>
+
+          No months created.
+
+        </div>
+
       </div>
 
     `;
@@ -3002,15 +3838,21 @@ function renderMonths(){
               month-item
               ${
                 selectedMonth &&
-                selectedMonth.id === month.id
+                selectedMonth.id ===
+                month.id
                 ? "active"
                 : ""
               }
             "
-            onclick="selectMonth('${month.id}')"
+            onclick="
+              selectMonth(
+                '${month.id}'
+              )
+            "
           >
 
             <strong>
+
               ${
                 new Date(
                   month.month_date
@@ -3023,6 +3865,7 @@ function renderMonths(){
                   }
                 )
               }
+
             </strong>
 
             <small>
@@ -3063,9 +3906,12 @@ async function createCurrentMonth(){
     error
   } =
   await supabaseClient
-    .from("journal_months")
+    .from(
+      "journal_months"
+    )
     .upsert(
       {
+
         user_id:
           currentUser.id,
 
@@ -3109,7 +3955,8 @@ async function selectMonth(
     months.find(
       month =>
       month.id === id
-    );
+    ) ||
+    null;
 
   renderMonths();
 
@@ -3184,9 +4031,12 @@ async function createJournalDay(){
     error
   } =
   await supabaseClient
-    .from("journal_days")
+    .from(
+      "journal_days"
+    )
     .upsert(
       {
+
         user_id:
           currentUser.id,
 
@@ -3227,10 +4077,7 @@ async function createJournalDay(){
 
 async function loadJournalDays(){
 
-  if(
-    !selectedMonth ||
-    !currentUser
-  ){
+  if(!selectedMonth){
 
     return;
 
@@ -3241,7 +4088,9 @@ async function loadJournalDays(){
     error
   } =
   await supabaseClient
-    .from("journal_days")
+    .from(
+      "journal_days"
+    )
     .select(
       `
         *,
@@ -3264,8 +4113,6 @@ async function loadJournalDays(){
     );
 
   if(error){
-
-    console.error(error);
 
     showToast(
       error.message,
@@ -3295,17 +4142,18 @@ function renderJournalDays(
 
     container.innerHTML = `
 
-      <div
-        class="card"
-        style="
-        min-height:250px;
-        display:grid;
-        place-items:center;
-        color:var(--muted);
-        font-size:13px
-        "
-      >
-        No journal days yet.
+      <div class="card empty-state">
+
+        <div>
+
+          <div class="empty-icon">
+            📝
+          </div>
+
+          No journal days yet.
+
+        </div>
+
       </div>
 
     `;
@@ -3360,14 +4208,17 @@ function renderJournalDays(
                 </div>
 
                 <button
-                  class="action-btn primary"
-                  onclick="addTradeForDate('${day.journal_date}')"
+                  class="btn btn-primary"
+                  onclick="
+                    addTradeForDate(
+                      '${day.journal_date}'
+                    )
+                  "
                 >
-                  + Add More Trade
+                  ＋ Add Trade
                 </button>
 
               </div>
-
 
               ${
                 trades.length
@@ -3382,15 +4233,18 @@ function renderJournalDays(
                   .join("")
                 :
                 `
-                <div
-                  style="
-                  padding:25px 0;
-                  color:var(--muted);
-                  font-size:12px
-                  "
-                >
-                  No trades added yet.
-                </div>
+
+                  <div
+                    style="
+                      padding:25px;
+                      color:var(--muted);
+                      font-size:12px;
+                      text-align:center;
+                    "
+                  >
+                    No trades added yet.
+                  </div>
+
                 `
               }
 
@@ -3411,10 +4265,14 @@ function renderTradeRow(
 
   const resultClass =
     trade.result === "Win"
-    ? "win"
-    : trade.result === "Loss"
-    ? "loss"
-    : "be";
+    ?
+    "win"
+    :
+    trade.result === "Loss"
+    ?
+    "loss"
+    :
+    "be";
 
   let images = [];
 
@@ -3422,14 +4280,17 @@ function renderTradeRow(
 
     images =
       trade.image_urls
-      ? JSON.parse(
-          trade.image_urls
-        )
-      : [];
+      ?
+      JSON.parse(
+        trade.image_urls
+      )
+      :
+      [];
 
   }catch(e){
 
-    images = [];
+    images =
+      [];
 
   }
 
@@ -3452,9 +4313,9 @@ function renderTradeRow(
 
           <span
             style="
-            color:var(--muted);
-            font-size:11px;
-            margin-left:8px
+              color:var(--muted);
+              font-size:11px;
+              margin-left:8px;
             "
           >
             ${
@@ -3468,7 +4329,10 @@ function renderTradeRow(
         </div>
 
         <span
-          class="trade-badge ${resultClass}"
+          class="
+            trade-badge
+            ${resultClass}
+          "
         >
           ${
             escapeHtml(
@@ -3483,9 +4347,12 @@ function renderTradeRow(
 
       <div class="trade-grid">
 
+
         <div class="trade-field">
 
-          <label>Setup</label>
+          <label>
+            Setup
+          </label>
 
           <span>
             ${
@@ -3501,7 +4368,9 @@ function renderTradeRow(
 
         <div class="trade-field">
 
-          <label>Entry</label>
+          <label>
+            Entry
+          </label>
 
           <span>
             ${
@@ -3517,7 +4386,9 @@ function renderTradeRow(
 
         <div class="trade-field">
 
-          <label>PnL</label>
+          <label>
+            P&L
+          </label>
 
           <span>
             ${
@@ -3532,7 +4403,9 @@ function renderTradeRow(
 
         <div class="trade-field">
 
-          <label>R</label>
+          <label>
+            R
+          </label>
 
           <span>
             ${
@@ -3546,6 +4419,7 @@ function renderTradeRow(
 
         </div>
 
+
       </div>
 
 
@@ -3553,20 +4427,24 @@ function renderTradeRow(
         trade.notes
         ?
         `
-        <div
-          style="
-          color:#aab4c9;
-          font-size:11px;
-          line-height:1.6;
-          margin-top:12px
-          "
-        >
-          ${
-            escapeHtml(
-              trade.notes
-            )
-          }
-        </div>
+
+          <div
+            style="
+              color:#777;
+              font-size:11px;
+              line-height:1.6;
+              margin-top:12px;
+            "
+          >
+
+            ${
+              escapeHtml(
+                trade.notes
+              )
+            }
+
+          </div>
+
         `
         :
         ""
@@ -3577,25 +4455,32 @@ function renderTradeRow(
         images.length
         ?
         `
-        <div class="trade-images">
 
-          ${
-            images
-              .map(
-                url => `
+          <div class="trade-images">
 
-                  <img
-                    src="${escapeHtml(url)}"
-                    alt="Trade chart"
-                    onclick="window.open('${escapeHtml(url)}','_blank')"
-                  >
+            ${
+              images
+                .map(
+                  url => `
 
-                `
-              )
-              .join("")
-          }
+                    <img
+                      src="${escapeHtml(url)}"
+                      alt="Trade chart"
+                      onclick="
+                        window.open(
+                          '${escapeHtml(url)}',
+                          '_blank'
+                        )
+                      "
+                    >
 
-        </div>
+                  `
+                )
+                .join("")
+            }
+
+          </div>
+
         `
         :
         ""
@@ -3619,6 +4504,14 @@ function addTradeForDate(
   $("tradeDate")
     .value =
     date;
+
+  if(selectedTrader){
+
+    $("tradeTrader")
+      .value =
+      selectedTrader.id;
+
+  }
 
   showPageById(
     "addTrade"
@@ -3711,9 +4604,12 @@ async function saveTrade(){
       error
     } =
     await supabaseClient
-      .from("journal_months")
+      .from(
+        "journal_months"
+      )
       .upsert(
         {
+
           user_id:
             currentUser.id,
 
@@ -3759,7 +4655,9 @@ async function saveTrade(){
     dayError
   } =
   await supabaseClient
-    .from("journal_days")
+    .from(
+      "journal_days"
+    )
     .select("*")
     .eq(
       "user_id",
@@ -3798,9 +4696,12 @@ async function saveTrade(){
       newDayError
     } =
     await supabaseClient
-      .from("journal_days")
+      .from(
+        "journal_days"
+      )
       .insert(
         {
+
           user_id:
             currentUser.id,
 
@@ -3809,6 +4710,7 @@ async function saveTrade(){
 
           journal_date:
             date
+
         }
       )
       .select()
@@ -3837,7 +4739,8 @@ async function saveTrade(){
 
 
   for(
-    const file of selectedImages.slice(
+    const file of
+    selectedImages.slice(
       0,
       3
     )
@@ -3854,7 +4757,11 @@ async function saveTrade(){
 
 
     const path =
-      `${currentUser.id}/trades/${crypto.randomUUID()}.${extension}`;
+      `${
+        currentUser.id
+      }/trades/${
+        crypto.randomUUID()
+      }.${extension}`;
 
 
     const {
@@ -3863,7 +4770,9 @@ async function saveTrade(){
     } =
     await supabaseClient
       .storage
-      .from("journal-images")
+      .from(
+        "journal-images"
+      )
       .upload(
         path,
         file,
@@ -3894,13 +4803,17 @@ async function saveTrade(){
     } =
     supabaseClient
       .storage
-      .from("journal-images")
+      .from(
+        "journal-images"
+      )
       .getPublicUrl(
         path
       );
 
 
-    if(publicData?.publicUrl){
+    if(
+      publicData?.publicUrl
+    ){
 
       imageUrls.push(
         publicData.publicUrl
@@ -3916,7 +4829,9 @@ async function saveTrade(){
     tradeError
   } =
   await supabaseClient
-    .from("daily_trades")
+    .from(
+      "daily_trades"
+    )
     .insert(
       {
 
@@ -4003,8 +4918,6 @@ async function saveTrade(){
 
   if(tradeError){
 
-    console.error(tradeError);
-
     showToast(
       tradeError.message,
       "error"
@@ -4044,7 +4957,7 @@ async function saveTrade(){
 
 
 /* =========================================================
-   CLEAR TRADE FORM
+   CLEAR FORM
 ========================================================= */
 
 function clearTradeForm(){
@@ -4064,7 +4977,8 @@ function clearTradeForm(){
 
       if($(id)){
 
-        $(id).value =
+        $(id)
+          .value =
           "";
 
       }
@@ -4106,9 +5020,10 @@ function clearTradeForm(){
     )
     .forEach(
       el =>
-      el.classList.remove(
-        "active"
-      )
+      el.classList
+        .remove(
+          "active"
+        )
     );
 
 }
@@ -4126,10 +5041,11 @@ async function updateStats(){
 
   }
 
-
   let query =
     supabaseClient
-      .from("daily_trades")
+      .from(
+        "daily_trades"
+      )
       .select(
         "result,pnl,r_multiple"
       )
@@ -4159,7 +5075,9 @@ async function updateStats(){
 
   if(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
     return;
 
@@ -4178,8 +5096,10 @@ async function updateStats(){
   const wins =
     list.filter(
       t =>
-      t.result === "Win"
-    ).length;
+      t.result ===
+      "Win"
+    )
+    .length;
 
 
   const winRate =
@@ -4272,7 +5192,8 @@ function setStats(
     `${Number(
       r ||
       0
-    ).toFixed(2)}R`;
+    )
+    .toFixed(2)}R`;
 
   $("statWins")
     .textContent =
@@ -4309,7 +5230,8 @@ function setProfileStats(
     `${Number(
       r ||
       0
-    ).toFixed(2)}R`;
+    )
+    .toFixed(2)}R`;
 
   $("profileWins")
     .textContent =
@@ -4346,10 +5268,6 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   AUTH STATE
-========================================================= */
-
 supabaseClient
   .auth
   .onAuthStateChange(
@@ -4379,3 +5297,5437 @@ supabaseClient
 
 </body>
 </html>
+<!-- =========================================================
+     PART 2 — NOTION STYLE APP BODY
+========================================================= -->
+
+<body>
+
+<div id="toastContainer"></div>
+
+<!-- =========================================================
+     AUTH / LOGIN SCREEN
+========================================================= -->
+
+<section id="loginScreen" class="login-screen">
+
+  <div class="login-background-orb orb-one"></div>
+  <div class="login-background-orb orb-two"></div>
+
+  <div class="login-card">
+
+    <div class="login-brand">
+
+      <div class="brand-logo">
+        AAD
+      </div>
+
+      <div>
+        <h1>AAD Trading Journal</h1>
+        <p>Professional trading performance journal</p>
+      </div>
+
+    </div>
+
+    <div class="login-form">
+
+      <div class="input-group">
+
+        <label>Email</label>
+
+        <input
+          id="loginEmail"
+          type="email"
+          placeholder="Enter your email"
+          autocomplete="email"
+        >
+
+      </div>
+
+      <div class="input-group">
+
+        <label>Password</label>
+
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+        >
+
+      </div>
+
+      <button
+        class="primary-button login-button"
+        onclick="loginUser()"
+      >
+        Login
+      </button>
+
+      <button
+        class="secondary-button"
+        onclick="signupUser()"
+      >
+        Create Account
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAIN APP
+========================================================= -->
+
+<div id="app" class="app-shell hidden">
+
+
+  <!-- =======================================================
+       SIDEBAR
+  ======================================================== -->
+
+  <aside id="sidebar" class="sidebar">
+
+    <div class="sidebar-top">
+
+      <div class="sidebar-brand">
+
+        <div class="sidebar-logo">
+          A
+        </div>
+
+        <div>
+
+          <strong>AAD</strong>
+
+          <span>
+            Trading Journal
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="sidebar-close"
+        onclick="toggleSidebar()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- USER -->
+
+    <div class="sidebar-user">
+
+      <img
+        id="userAvatar"
+        class="user-avatar"
+        src=""
+        alt=""
+      >
+
+      <div class="sidebar-user-info">
+
+        <strong id="sidebarUser">
+          User
+        </strong>
+
+        <span>
+          Personal Journal
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="sidebar-nav">
+
+      <button
+        class="nav-btn active"
+        onclick="showPageById('dashboard')"
+      >
+
+        <span class="nav-icon">
+          ⌂
+        </span>
+
+        <span>
+          Dashboard
+        </span>
+
+      </button>
+
+
+      <button
+        class="nav-btn"
+        onclick="showPageById('traders')"
+      >
+
+        <span class="nav-icon">
+          ◉
+        </span>
+
+        <span>
+          Traders
+        </span>
+
+      </button>
+
+
+      <button
+        class="nav-btn"
+        onclick="showPageById('journal')"
+      >
+
+        <span class="nav-icon">
+          ▤
+        </span>
+
+        <span>
+          Trading Journal
+        </span>
+
+      </button>
+
+
+      <button
+        class="nav-btn"
+        onclick="showPageById('addTrade')"
+      >
+
+        <span class="nav-icon">
+          ＋
+        </span>
+
+        <span>
+          Add Trade
+        </span>
+
+      </button>
+
+    </nav>
+
+
+    <div class="sidebar-divider"></div>
+
+
+    <!-- SIDEBAR MONTHS -->
+
+    <div class="sidebar-section">
+
+      <div class="sidebar-section-header">
+
+        <span>
+          Journal Months
+        </span>
+
+        <button
+          onclick="createCurrentMonth()"
+          title="Create current month"
+        >
+          ＋
+        </button>
+
+      </div>
+
+      <div id="monthList" class="month-list">
+
+        <div class="sidebar-empty">
+          No months created.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+      <button
+        class="logout-button"
+        onclick="logoutUser()"
+      >
+
+        <span>
+          ↪
+        </span>
+
+        Logout
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =======================================================
+       MAIN AREA
+  ======================================================== -->
+
+  <main class="main-area">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+      <div class="topbar-left">
+
+        <button
+          class="mobile-menu"
+          onclick="toggleSidebar()"
+        >
+          ☰
+        </button>
+
+        <div>
+
+          <h2 id="pageHeading">
+            Trading Dashboard
+          </h2>
+
+          <p id="pageSubheading">
+            Review your trading performance
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="topbar-right">
+
+        <div class="topbar-user">
+
+          <div class="online-dot"></div>
+
+          <span id="userEmail">
+            User
+          </span>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         PAGE CONTENT
+    ====================================================== -->
+
+    <div class="content-area">
+
+
+      <!-- ===================================================
+           DASHBOARD PAGE
+      ==================================================== -->
+
+      <section
+        id="page-dashboard"
+        class="page active"
+      >
+
+        <div class="page-intro">
+
+          <div>
+
+            <h1>
+              Welcome back 👋
+            </h1>
+
+            <p>
+              Track your trading performance and review your progress.
+            </p>
+
+          </div>
+
+          <button
+            class="primary-button"
+            onclick="showPageById('addTrade')"
+          >
+            ＋ Add New Trade
+          </button>
+
+        </div>
+
+
+        <!-- STAT CARDS -->
+
+        <div class="stats-grid">
+
+          <div class="stat-card">
+
+            <div class="stat-card-top">
+
+              <span>
+                Total Trades
+              </span>
+
+              <div class="stat-icon">
+                ↗
+              </div>
+
+            </div>
+
+            <strong id="statTrades">
+              0
+            </strong>
+
+            <small>
+              All recorded trades
+            </small>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-card-top">
+
+              <span>
+                Win Rate
+              </span>
+
+              <div class="stat-icon">
+                %
+              </div>
+
+            </div>
+
+            <strong id="statWinRate">
+              0.0%
+            </strong>
+
+            <small>
+              Winning trades ratio
+            </small>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-card-top">
+
+              <span>
+                Total PnL
+              </span>
+
+              <div class="stat-icon">
+                $
+              </div>
+
+            </div>
+
+            <strong id="statPnl">
+              $0.00
+            </strong>
+
+            <small>
+              Net trading result
+            </small>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-card-top">
+
+              <span>
+                Total R
+              </span>
+
+              <div class="stat-icon">
+                R
+              </div>
+
+            </div>
+
+            <strong id="statR">
+              0.00R
+            </strong>
+
+            <small>
+              Accumulated R multiple
+            </small>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-card-top">
+
+              <span>
+                Winning Trades
+              </span>
+
+              <div class="stat-icon">
+                ✓
+              </div>
+
+            </div>
+
+            <strong id="statWins">
+              0
+            </strong>
+
+            <small>
+              Total profitable trades
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <!-- DASHBOARD GRID -->
+
+        <div class="dashboard-grid">
+
+
+          <!-- TRADERS CARD -->
+
+          <div class="card dashboard-traders-card">
+
+            <div class="card-header">
+
+              <div>
+
+                <h3>
+                  Traders
+                </h3>
+
+                <p>
+                  Your trading profiles
+                </p>
+
+              </div>
+
+              <button
+                class="small-button"
+                onclick="showPageById('traders')"
+              >
+                View All
+              </button>
+
+            </div>
+
+
+            <div
+              id="traderList"
+              class="trader-list"
+            >
+
+              <div class="empty-state-small">
+                No traders yet.
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- QUICK ACTIONS -->
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <div>
+
+                <h3>
+                  Quick Actions
+                </h3>
+
+                <p>
+                  Manage your journal quickly
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+              <button
+                class="quick-action"
+                onclick="showPageById('addTrade')"
+              >
+
+                <span class="quick-action-icon">
+                  ＋
+                </span>
+
+                <div>
+
+                  <strong>
+                    Add Trade
+                  </strong>
+
+                  <small>
+                    Record a new trade
+                  </small>
+
+                </div>
+
+              </button>
+
+
+              <button
+                class="quick-action"
+                onclick="openTraderModal()"
+              >
+
+                <span class="quick-action-icon">
+                  ◉
+                </span>
+
+                <div>
+
+                  <strong>
+                    New Trader
+                  </strong>
+
+                  <small>
+                    Create trading profile
+                  </small>
+
+                </div>
+
+              </button>
+
+
+              <button
+                class="quick-action"
+                onclick="createCurrentMonth()"
+              >
+
+                <span class="quick-action-icon">
+                  ▣
+                </span>
+
+                <div>
+
+                  <strong>
+                    New Month
+                  </strong>
+
+                  <small>
+                    Start a journal month
+                  </small>
+
+                </div>
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           TRADERS PAGE
+      ==================================================== -->
+
+      <section
+        id="page-traders"
+        class="page"
+      >
+
+        <div class="page-intro">
+
+          <div>
+
+            <h1>
+              Trader Management
+            </h1>
+
+            <p>
+              Create and manage your trading profiles.
+            </p>
+
+          </div>
+
+          <button
+            class="primary-button"
+            onclick="openTraderModal()"
+          >
+            ＋ New Trader
+          </button>
+
+        </div>
+
+
+        <div class="trader-management-grid">
+
+
+          <!-- TRADER LIST -->
+
+          <div class="card">
+
+            <div class="card-header">
+
+              <div>
+
+                <h3>
+                  Your Traders
+                </h3>
+
+                <p>
+                  <span id="traderCount">
+                    0
+                  </span>
+                  trading profiles
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div
+              id="traderListPage"
+              class="trader-list trader-list-page"
+            >
+
+              <div class="empty-state-small">
+                No traders yet.
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- TRADER PROFILE -->
+
+          <div class="card trader-profile-card">
+
+            <div
+              id="traderEmpty"
+              class="profile-empty"
+            >
+
+              <div class="profile-empty-icon">
+                ◉
+              </div>
+
+              <h3>
+                Select a Trader
+              </h3>
+
+              <p>
+                Choose a trader profile to view performance statistics.
+              </p>
+
+            </div>
+
+
+            <div
+              id="traderProfile"
+              class="hidden"
+            >
+
+              <div class="profile-header">
+
+                <img
+                  id="profileAvatar"
+                  class="profile-avatar"
+                  src=""
+                  alt=""
+                >
+
+                <div>
+
+                  <h2 id="profileName">
+                    Trader
+                  </h2>
+
+                  <p id="profileDescription">
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="profile-stats">
+
+                <div>
+
+                  <span>
+                    Trades
+                  </span>
+
+                  <strong id="profileTrades">
+                    0
+                  </strong>
+
+                </div>
+
+                <div>
+
+                  <span>
+                    Win Rate
+                  </span>
+
+                  <strong id="profileWinRate">
+                    0.0%
+                  </strong>
+
+                </div>
+
+                <div>
+
+                  <span>
+                    PnL
+                  </span>
+
+                  <strong id="profilePnl">
+                    $0.00
+                  </strong>
+
+                </div>
+
+                <div>
+
+                  <span>
+                    Total R
+                  </span>
+
+                  <strong id="profileR">
+                    0.00R
+                  </strong>
+
+                </div>
+
+                <div>
+
+                  <span>
+                    Wins
+                  </span>
+
+                  <strong id="profileWins">
+                    0
+                  </strong>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           JOURNAL PAGE
+      ==================================================== -->
+
+      <section
+        id="page-journal"
+        class="page"
+      >
+
+        <div class="page-intro">
+
+          <div>
+
+            <h1 id="journalMonthTitle">
+              Trading Journal
+            </h1>
+
+            <p id="journalMonthSubtitle">
+              Select a month to review your journal.
+            </p>
+
+          </div>
+
+          <button
+            class="primary-button"
+            onclick="createJournalDay()"
+          >
+            ＋ Add Journal Day
+          </button>
+
+        </div>
+
+
+        <div class="journal-toolbar">
+
+          <div class="journal-month-selector">
+
+            <label>
+              Current Month
+            </label>
+
+            <select
+              id="journalMonthSelect"
+              onchange="selectMonth(this.value)"
+            >
+
+              <option value="">
+                Select Month
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div
+          id="journalDays"
+          class="journal-days"
+        >
+
+          <div class="empty-state">
+
+            <div class="empty-state-icon">
+              ▤
+            </div>
+
+            <h3>
+              No Journal Selected
+            </h3>
+
+            <p>
+              Select or create a journal month to begin.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           ADD TRADE PAGE
+      ==================================================== -->
+
+      <section
+        id="page-addTrade"
+        class="page"
+      >
+
+        <div class="page-intro">
+
+          <div>
+
+            <h1>
+              Add New Trade
+            </h1>
+
+            <p>
+              Record your trading execution in detail.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="trade-form-layout">
+
+
+          <!-- MAIN FORM -->
+
+          <div class="card trade-form-card">
+
+
+            <!-- BASIC INFORMATION -->
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+
+                <span class="section-number">
+                  01
+                </span>
+
+                <div>
+
+                  <h3>
+                    Trade Information
+                  </h3>
+
+                  <p>
+                    Basic details about your trade.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-grid">
+
+
+                <div class="input-group">
+
+                  <label>
+                    Trader *
+                  </label>
+
+                  <select id="tradeTrader">
+
+                    <option value="">
+                      Select Trader
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                  <label>
+                    Trade Date *
+                  </label>
+
+                  <input
+                    id="tradeDate"
+                    type="date"
+                  >
+
+                </div>
+
+
+                <div class="input-group">
+
+                  <label>
+                    Symbol *
+                  </label>
+
+                  <input
+                    id="tradeSymbol"
+                    type="text"
+                    placeholder="EURUSD / XAUUSD / BTCUSDT"
+                  >
+
+                </div>
+
+
+                <div class="input-group">
+
+                  <label>
+                    Direction *
+                  </label>
+
+                  <select id="tradeDirection">
+
+                    <option value="">
+                      Select Direction
+                    </option>
+
+                    <option value="Long">
+                      Long
+                    </option>
+
+                    <option value="Short">
+                      Short
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                  <label>
+                    Result *
+                  </label>
+
+                  <select id="tradeResult">
+
+                    <option value="">
+                      Select Result
+                    </option>
+
+                    <option value="Win">
+                      Win
+                    </option>
+
+                    <option value="Loss">
+                      Loss
+                    </option>
+
+                    <option value="BE">
+                      Break Even
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                  <label>
+                    Trading Session
+                  </label>
+
+                  <select id="tradeSession">
+
+                    <option value="">
+                      Select Session
+                    </option>
+
+                    <option value="Asian">
+                      Asian
+                    </option>
+
+                    <option value="London">
+                      London
+                    </option>
+
+                    <option value="New York">
+                      New York
+                    </option>
+
+                    <option value="London / New York">
+                      London / New York
+                    </option>
+
+                  </select>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- SETUP -->
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+
+                <span class="section-number">
+                  02
+                </span>
+
+                <div>
+
+                  <h3>
+                    Trading Setup
+                  </h3>
+
+                  <p>
+                    Select the strategy or setup used.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="chip-group">
+
+                <button
+                  class="chip"
+                  onclick="selectChip(this,'tradeSetup','SMC')"
+                >
+                  SMC
+                </button>
+
+                <button
+                  class="chip"
+                  onclick="selectChip(this,'tradeSetup','Wyckoff')"
+                >
+                  Wyckoff
+                </button>
+
+                <button
+                  class="chip"
+                  onclick="selectChip(this,'tradeSetup','Breakout')"
+                >
+                  Breakout
+                </button>
+
+                <button
+                  class="chip"
+                  onclick="selectChip(this,'tradeSetup','Pullback')"
+                >
+                  Pullback
+                </button>
+
+                <button
+                  class="chip"
+                  onclick="selectChip(this,'tradeSetup','Reversal')"
+                >
+                  Reversal
+                </button>
+
+                <button
+                  class="chip"
+                  onclick="selectChip(this,'tradeSetup','Trend Following')"
+                >
+                  Trend Following
+                </button>
+
+              </div>
+
+
+              <input
+                id="tradeSetup"
+                type="hidden"
+              >
+
+            </div>
+
+
+            <!-- PRICE DATA -->
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+
+                <span class="section-number">
+                  03
+                </span>
+
+                <div>
+
+                  <h3>
+                    Price & Risk
+                  </h3>
+
+                  <p>
+                    Record your entry, risk and target.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-grid">
+
+
+                <div class="input-group">
+
+                  <label>
+                    Entry Price
+                  </label>
+
+                  <input
+                    id="tradeEntry"
+                    type="number"
+                    step="any"
+                    placeholder="0.0000"
+                  >
+
+                </div>
+
+
+                <div class="input-group">
+
+                  <label>
+                    Stop Loss
+                  </label>
+
+                  <input
+                    id="tradeSL"
+                    type="number"
+                    step="any"
+                    placeholder="0.0000"
+                  >
+
+                </div>
+
+
+                <div class="input-group">
+
+                  <label>
+                    Take Profit
+                  </label>
+
+                  <input
+                    id="tradeTP"
+                    type="number"
+                    step="any"
+                    placeholder="0.0000"
+                  >
+
+                </div>
+
+
+                <div class="input-group">
+
+                  <label>
+                    Risk %
+                  </label>
+
+                  <input
+                    id="tradeRisk"
+                    type="number"
+                    step="any"
+                    placeholder="1"
+                  >
+
+                </div>
+
+
+                <div class="input-group">
+
+                  <label>
+                    PnL ($)
+                  </label>
+
+                  <input
+                    id="tradePnl"
+                    type="number"
+                    step="any"
+                    placeholder="0.00"
+                  >
+
+                </div>
+
+
+                <div class="input-group">
+
+                  <label>
+                    R Multiple
+                  </label>
+
+                  <input
+                    id="tradeR"
+                    type="number"
+                    step="any"
+                    placeholder="1.00"
+                  >
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- NOTES -->
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+
+                <span class="section-number">
+                  04
+                </span>
+
+                <div>
+
+                  <h3>
+                    Trade Notes
+                  </h3>
+
+                  <p>
+                    Record your thoughts, execution and lessons.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label>
+                  Notes
+                </label>
+
+                <textarea
+                  id="tradeNotes"
+                  rows="7"
+                  placeholder="What did you see? Why did you enter? How did you manage the trade? What did you learn?"
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <!-- IMAGES -->
+
+            <div class="form-section">
+
+              <div class="form-section-title">
+
+                <span class="section-number">
+                  05
+                </span>
+
+                <div>
+
+                  <h3>
+                    Trade Screenshots
+                  </h3>
+
+                  <p>
+                    Upload up to 3 chart screenshots.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <label class="upload-box">
+
+                <input
+                  id="tradeImages"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onchange="previewImages(this)"
+                >
+
+                <div class="upload-icon">
+                  ↑
+                </div>
+
+                <strong>
+                  Click to upload screenshots
+                </strong>
+
+                <span>
+                  PNG, JPG or WEBP · Maximum 3 images
+                </span>
+
+              </label>
+
+
+              <div
+                id="imagePreview"
+                class="image-preview"
+              ></div>
+
+            </div>
+
+
+            <!-- FORM ACTIONS -->
+
+            <div class="form-actions">
+
+              <button
+                class="secondary-button"
+                onclick="clearTradeForm()"
+              >
+                Clear Form
+              </button>
+
+              <button
+                class="primary-button"
+                onclick="saveTrade()"
+              >
+                Save Trade
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</div>
+
+
+<!-- =========================================================
+     NEW TRADER MODAL
+========================================================= -->
+
+<div
+  id="traderModal"
+  class="modal-overlay"
+>
+
+  <div class="modal-card">
+
+    <div class="modal-header">
+
+      <div>
+
+        <h2>
+          Create New Trader
+        </h2>
+
+        <p>
+          Add a new trading profile.
+        </p>
+
+      </div>
+
+      <button
+        class="modal-close"
+        onclick="closeTraderModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="modal-body">
+
+
+      <div class="input-group">
+
+        <label>
+          Trader Name *
+        </label>
+
+        <input
+          id="newTraderName"
+          type="text"
+          placeholder="e.g. Aye Min Naing"
+        >
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label>
+          Description
+        </label>
+
+        <textarea
+          id="newTraderDescription"
+          rows="4"
+          placeholder="Describe this trader profile..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label>
+          Profile Image
+        </label>
+
+        <input
+          id="traderImage"
+          type="file"
+          accept="image/*"
+          onchange="previewTraderImage(this)"
+        >
+
+      </div>
+
+
+      <div
+        id="traderImagePreview"
+        class="image-preview trader-image-preview"
+      ></div>
+
+    </div>
+
+
+    <div class="modal-footer">
+
+      <button
+        class="secondary-button"
+        onclick="closeTraderModal()"
+      >
+        Cancel
+      </button>
+
+      <button
+        class="primary-button"
+        onclick="saveTrader()"
+      >
+        Save Trader
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     SCRIPT START
+========================================================= -->
+
+<script>
+
+const SUPABASE_URL =
+  "https://jxbqhaikqwsswnlxlzpa.supabase.co";
+
+const SUPABASE_ANON_KEY =
+  "sb_publishable_nW-hpRo-HYB-LjhcaHHW2Q_ih0iMjnX";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+
+/* =========================================================
+   GLOBALS
+========================================================= */
+
+let currentUser = null;
+
+let traders = [];
+
+let months = [];
+
+let selectedTrader = null;
+
+let selectedMonth = null;
+
+let selectedImages = [];
+
+let traderImageFile = null;
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function $(id){
+
+  return document.getElementById(id);
+
+}
+
+
+function escapeHtml(value){
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+
+}
+
+
+function formatMoney(value){
+
+  const number =
+    Number(
+      value || 0
+    );
+
+  return number.toLocaleString(
+    "en-US",
+    {
+      style:"currency",
+      currency:"USD"
+    }
+  );
+
+}
+
+
+function showToast(
+  message,
+  type = "success"
+){
+
+  const container =
+    $("toastContainer");
+
+  if(!container){
+
+    return;
+
+  }
+
+  const toast =
+    document.createElement(
+      "div"
+    );
+
+  toast.className =
+    `toast ${
+      type === "error"
+      ? "error"
+      : ""
+    }`;
+
+  toast.textContent =
+    message;
+
+  container.appendChild(
+    toast
+  );
+
+  setTimeout(
+    () => {
+
+      toast.remove();
+
+    },
+    3500
+  );
+
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+async function checkSession(){
+
+  const {
+    data
+  } =
+  await supabaseClient
+  .auth
+  .getSession();
+
+  currentUser =
+    data?.session?.user ||
+    null;
+
+  if(currentUser){
+
+    showApp();
+
+  }else{
+
+    showLogin();
+
+  }
+
+}
+
+
+function showLogin(){
+
+  $("loginScreen")
+    .classList
+    .remove("hidden");
+
+  $("app")
+    .classList
+    .add("hidden");
+
+}
+
+
+function showApp(){
+
+  $("loginScreen")
+    .classList
+    .add("hidden");
+
+  $("app")
+    .classList
+    .remove("hidden");
+
+  $("userEmail")
+    .textContent =
+    currentUser.email ||
+    "User";
+
+  $("sidebarUser")
+    .textContent =
+    currentUser.email ||
+    "User";
+
+  $("userAvatar")
+    .src =
+    defaultAvatar(
+      currentUser.email
+    );
+
+  loadTraders();
+
+  loadMonths();
+
+  updateStats();
+
+}
+
+
+async function loginUser(){
+
+  const email =
+    $("loginEmail")
+      .value
+      .trim();
+
+  const password =
+    $("loginPassword")
+      .value;
+
+  if(
+    !email ||
+    !password
+  ){
+
+    showToast(
+      "Enter email and password.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .auth
+  .signInWithPassword({
+
+    email,
+
+    password
+
+  });
+
+  if(error){
+
+    showToast(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  currentUser =
+    data.user;
+
+  showApp();
+
+}
+
+
+async function signupUser(){
+
+  const email =
+    $("loginEmail")
+      .value
+      .trim();
+
+  const password =
+    $("loginPassword")
+      .value;
+
+  if(
+    !email ||
+    !password
+  ){
+
+    showToast(
+      "Enter email and password.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .auth
+  .signUp({
+
+    email,
+
+    password
+
+  });
+
+  if(error){
+
+    showToast(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  showToast(
+    "Account created. Check your email if confirmation is enabled."
+  );
+
+}
+
+
+async function logoutUser(){
+
+  await supabaseClient
+    .auth
+    .signOut();
+
+  currentUser =
+    null;
+
+  selectedTrader =
+    null;
+
+  selectedMonth =
+    null;
+
+  showLogin();
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showPageById(
+  pageId
+){
+
+  document
+    .querySelectorAll(
+      ".page"
+    )
+    .forEach(
+      page =>
+      page.classList.remove(
+        "active"
+      )
+    );
+
+  const page =
+    $(
+      `page-${pageId}`
+    );
+
+  if(page){
+
+    page.classList.add(
+      "active"
+    );
+
+  }
+
+  document
+    .querySelectorAll(
+      ".nav-btn"
+    )
+    .forEach(
+      btn =>
+      btn.classList.remove(
+        "active"
+      )
+    );
+
+  const headings = {
+
+    dashboard:[
+      "Trading Dashboard",
+      "Review your trading performance"
+    ],
+
+    traders:[
+      "Trader Management",
+      "Manage your trading profiles"
+    ],
+
+    journal:[
+      "Trading Journal",
+      "Review your journal history"
+    ],
+
+    addTrade:[
+      "Add New Trade",
+      "Record your trading execution"
+    ]
+
+  };
+
+  if(headings[pageId]){
+
+    $("pageHeading")
+      .textContent =
+      headings[pageId][0];
+
+    $("pageSubheading")
+      .textContent =
+      headings[pageId][1];
+
+  }
+
+  const navMap = {
+
+    dashboard:0,
+
+    traders:1,
+
+    journal:2,
+
+    addTrade:3
+
+  };
+
+  const navIndex =
+    navMap[pageId];
+
+  if(
+    navIndex !== undefined
+  ){
+
+    const buttons =
+      document
+      .querySelectorAll(
+        ".nav-btn"
+      );
+
+    buttons[
+      navIndex
+    ]?.classList.add(
+      "active"
+    );
+
+  }
+
+  $("sidebar")
+    .classList
+    .remove(
+      "open"
+    );
+
+}
+
+
+function toggleSidebar(){
+
+  $("sidebar")
+    .classList
+    .toggle(
+      "open"
+    );
+
+}
+
+
+/* =========================================================
+   DEFAULT AVATAR
+========================================================= */
+
+function defaultAvatar(
+  name
+){
+
+  const letter =
+    String(
+      name ||
+      "T"
+    )
+    .charAt(0)
+    .toUpperCase();
+
+  return `
+    data:image/svg+xml;charset=UTF-8,
+    <svg xmlns="http://www.w3.org/2000/svg"
+    width="200"
+    height="200">
+    <rect width="100%" height="100%"
+    fill="%233777ff"/>
+    <text x="50%" y="55%"
+    text-anchor="middle"
+    font-size="90"
+    fill="white"
+    font-family="Arial"
+    font-weight="bold">
+    ${letter}
+    </text>
+    </svg>
+  `
+  .replace(
+    /\s+/g,
+    " "
+  );
+
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    const date =
+      $("tradeDate");
+
+    if(date){
+
+      date.value =
+        new Date()
+        .toISOString()
+        .split("T")[0];
+
+    }
+
+    checkSession();
+
+  }
+);
+
+
+supabaseClient
+.auth
+.onAuthStateChange(
+  (
+    event,
+    session
+  ) => {
+
+    currentUser =
+      session?.user ||
+      null;
+
+    if(currentUser){
+
+      showApp();
+
+    }else{
+
+      showLogin();
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
+<!-- =========================================================
+     PART 3 — NOTION STYLE JOURNAL / TRADES / ANALYTICS
+========================================================= -->
+
+<script>
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+let currentUser = null;
+
+let traders = [];
+let months = [];
+let journalDays = [];
+let trades = [];
+
+let selectedTrader = null;
+let selectedMonth = null;
+let selectedDay = null;
+
+let selectedImages = [];
+let traderImageFile = null;
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+function formatMoney(value){
+
+  const number = Number(value || 0);
+
+  return number.toLocaleString(
+    "en-US",
+    {
+      style:"currency",
+      currency:"USD"
+    }
+  );
+
+}
+
+
+function formatNumber(value){
+
+  return Number(value || 0)
+    .toLocaleString(
+      "en-US",
+      {
+        maximumFractionDigits:2
+      }
+    );
+
+}
+
+
+function formatDate(date){
+
+  if(!date){
+    return "-";
+  }
+
+  return new Date(date)
+    .toLocaleDateString(
+      "en-US",
+      {
+        month:"short",
+        day:"numeric",
+        year:"numeric"
+      }
+    );
+
+}
+
+
+function showToast(
+  message,
+  type = "success"
+){
+
+  let container =
+    $("toastContainer");
+
+  if(!container){
+
+    container =
+      document.createElement("div");
+
+    container.id =
+      "toastContainer";
+
+    document.body.appendChild(
+      container
+    );
+
+  }
+
+  const toast =
+    document.createElement("div");
+
+  toast.className =
+    `toast ${
+      type === "error"
+      ? "error"
+      : ""
+    }`;
+
+  toast.textContent =
+    message;
+
+  container.appendChild(
+    toast
+  );
+
+  setTimeout(
+    () => {
+
+      toast.remove();
+
+    },
+    3500
+  );
+
+}
+
+
+/* =========================================================
+   DEFAULT AVATAR
+========================================================= */
+
+function defaultAvatar(
+  name
+){
+
+  const letter =
+    String(
+      name ||
+      "T"
+    )
+    .charAt(0)
+    .toUpperCase();
+
+  const svg = `
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="200"
+      height="200"
+    >
+
+      <rect
+        width="100%"
+        height="100%"
+        fill="#111827"
+      />
+
+      <text
+        x="50%"
+        y="58%"
+        text-anchor="middle"
+        font-size="90"
+        fill="white"
+        font-family="Arial"
+        font-weight="700"
+      >
+        ${letter}
+      </text>
+
+    </svg>
+  `;
+
+  return `
+    data:image/svg+xml;charset=UTF-8,
+    ${encodeURIComponent(svg)}
+  `.replace(
+    /\s+/g,
+    " "
+  );
+
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+async function checkSession(){
+
+  const {
+    data
+  } =
+  await supabaseClient
+    .auth
+    .getSession();
+
+  currentUser =
+    data?.session?.user ||
+    null;
+
+  if(currentUser){
+
+    showApp();
+
+  }else{
+
+    showLogin();
+
+  }
+
+}
+
+
+function showLogin(){
+
+  const login =
+    $("loginScreen");
+
+  const app =
+    $("app");
+
+  if(login){
+
+    login.classList.remove(
+      "hidden"
+    );
+
+  }
+
+  if(app){
+
+    app.classList.add(
+      "hidden"
+    );
+
+  }
+
+}
+
+
+async function showApp(){
+
+  const login =
+    $("loginScreen");
+
+  const app =
+    $("app");
+
+  if(login){
+
+    login.classList.add(
+      "hidden"
+    );
+
+  }
+
+  if(app){
+
+    app.classList.remove(
+      "hidden"
+    );
+
+  }
+
+  if(
+    $("userEmail") &&
+    currentUser
+  ){
+
+    $("userEmail")
+      .textContent =
+      currentUser.email ||
+      "User";
+
+  }
+
+  if(
+    $("sidebarUser") &&
+    currentUser
+  ){
+
+    $("sidebarUser")
+      .textContent =
+      currentUser.email ||
+      "User";
+
+  }
+
+  if(
+    $("userAvatar") &&
+    currentUser
+  ){
+
+    $("userAvatar")
+      .src =
+      defaultAvatar(
+        currentUser.email
+      );
+
+  }
+
+  await loadAllData();
+
+}
+
+
+async function loginUser(){
+
+  const email =
+    $("loginEmail")
+      ?.value
+      .trim();
+
+  const password =
+    $("loginPassword")
+      ?.value ||
+    "";
+
+  if(
+    !email ||
+    !password
+  ){
+
+    showToast(
+      "Enter email and password.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .auth
+    .signInWithPassword(
+      {
+        email,
+        password
+      }
+    );
+
+  if(error){
+
+    showToast(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  currentUser =
+    data.user;
+
+  showApp();
+
+}
+
+
+async function signupUser(){
+
+  const email =
+    $("loginEmail")
+      ?.value
+      .trim();
+
+  const password =
+    $("loginPassword")
+      ?.value ||
+    "";
+
+  if(
+    !email ||
+    !password
+  ){
+
+    showToast(
+      "Enter email and password.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .auth
+    .signUp(
+      {
+        email,
+        password
+      }
+    );
+
+  if(error){
+
+    showToast(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  showToast(
+    "Account created successfully."
+  );
+
+}
+
+
+async function logoutUser(){
+
+  await supabaseClient
+    .auth
+    .signOut();
+
+  currentUser =
+    null;
+
+  selectedTrader =
+    null;
+
+  selectedMonth =
+    null;
+
+  selectedDay =
+    null;
+
+  showLogin();
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showPageById(
+  pageId
+){
+
+  document
+    .querySelectorAll(
+      ".page"
+    )
+    .forEach(
+      page => {
+
+        page.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+  const page =
+    $(
+      `page-${pageId}`
+    );
+
+  if(page){
+
+    page.classList.add(
+      "active"
+    );
+
+  }
+
+  document
+    .querySelectorAll(
+      ".nav-btn"
+    )
+    .forEach(
+      button => {
+
+        button.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+  const navButton =
+    document.querySelector(
+      `[data-page="${pageId}"]`
+    );
+
+  if(navButton){
+
+    navButton.classList.add(
+      "active"
+    );
+
+  }
+
+  const headings = {
+
+    dashboard:[
+      "Trading Dashboard",
+      "Your complete trading performance overview"
+    ],
+
+    traders:[
+      "Traders",
+      "Manage your trading profiles"
+    ],
+
+    journal:[
+      "Trading Journal",
+      "Your complete journal history"
+    ],
+
+    addTrade:[
+      "New Trade",
+      "Record every detail of your execution"
+    ],
+
+    analytics:[
+      "Analytics",
+      "Understand your trading performance"
+    ]
+
+  };
+
+  if(
+    headings[pageId]
+  ){
+
+    if(
+      $("pageHeading")
+    ){
+
+      $("pageHeading")
+        .textContent =
+        headings[pageId][0];
+
+    }
+
+    if(
+      $("pageSubheading")
+    ){
+
+      $("pageSubheading")
+        .textContent =
+        headings[pageId][1];
+
+    }
+
+  }
+
+}
+
+
+function toggleSidebar(){
+
+  const sidebar =
+    $("sidebar");
+
+  if(sidebar){
+
+    sidebar.classList.toggle(
+      "open"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD EVERYTHING
+========================================================= */
+
+async function loadAllData(){
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+  await Promise.all(
+    [
+
+      loadTraders(),
+
+      loadMonths(),
+
+      loadTrades()
+
+    ]
+  );
+
+  await updateStats();
+
+}
+
+
+/* =========================================================
+   TRADERS
+========================================================= */
+
+async function loadTraders(){
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from(
+      "journal_traders"
+    )
+    .select("*")
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
+  if(error){
+
+    console.error(
+      error
+    );
+
+    showToast(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  traders =
+    data ||
+    [];
+
+  renderTraders();
+
+  populateTraderSelect();
+
+}
+
+
+function renderTraders(){
+
+  const html =
+    traders.length
+
+    ?
+
+    traders
+      .map(
+        trader => {
+
+          const active =
+            selectedTrader &&
+            selectedTrader.id ===
+            trader.id
+            ? "active"
+            : "";
+
+          return `
+
+            <button
+              class="
+                trader-item
+                ${active}
+              "
+              onclick="
+                selectTrader(
+                  '${trader.id}'
+                )
+              "
+            >
+
+              <img
+                class="trader-avatar"
+                src="${
+                  escapeHtml(
+                    trader.avatar_url ||
+                    defaultAvatar(
+                      trader.name
+                    )
+                  )
+                }"
+              >
+
+              <div
+                class="trader-info"
+              >
+
+                <strong>
+                  ${
+                    escapeHtml(
+                      trader.name
+                    )
+                  }
+                </strong>
+
+                <span>
+                  ${
+                    escapeHtml(
+                      trader.description ||
+                      "Trading profile"
+                    )
+                  }
+                </span>
+
+              </div>
+
+            </button>
+
+          `;
+
+        }
+      )
+      .join("")
+
+    :
+
+    `
+
+      <div
+        class="empty-state"
+      >
+
+        No traders yet.
+
+      </div>
+
+    `;
+
+
+  const list =
+    $("traderList");
+
+  const pageList =
+    $("traderListPage");
+
+  if(list){
+
+    list.innerHTML =
+      html;
+
+  }
+
+  if(pageList){
+
+    pageList.innerHTML =
+      html;
+
+  }
+
+  if(
+    $("traderCount")
+  ){
+
+    $("traderCount")
+      .textContent =
+      traders.length;
+
+  }
+
+}
+
+
+function selectTrader(
+  id
+){
+
+  selectedTrader =
+    traders.find(
+      trader =>
+      trader.id === id
+    ) ||
+    null;
+
+  renderTraders();
+
+  if(
+    selectedTrader
+  ){
+
+    if(
+      $("traderEmpty")
+    ){
+
+      $("traderEmpty")
+        .classList
+        .add(
+          "hidden"
+        );
+
+    }
+
+    if(
+      $("traderProfile")
+    ){
+
+      $("traderProfile")
+        .classList
+        .remove(
+          "hidden"
+        );
+
+    }
+
+    if(
+      $("profileAvatar")
+    ){
+
+      $("profileAvatar")
+        .src =
+        selectedTrader.avatar_url ||
+        defaultAvatar(
+          selectedTrader.name
+        );
+
+    }
+
+    if(
+      $("profileName")
+    ){
+
+      $("profileName")
+        .textContent =
+        selectedTrader.name;
+
+    }
+
+    if(
+      $("profileDescription")
+    ){
+
+      $("profileDescription")
+        .textContent =
+        selectedTrader.description ||
+        "";
+
+    }
+
+  }
+
+  updateStats();
+
+}
+
+
+/* =========================================================
+   TRADER MODAL
+========================================================= */
+
+function openTraderModal(){
+
+  if(
+    $("traderModal")
+  ){
+
+    $("traderModal")
+      .style
+      .display =
+      "flex";
+
+  }
+
+}
+
+
+function closeTraderModal(){
+
+  if(
+    $("traderModal")
+  ){
+
+    $("traderModal")
+      .style
+      .display =
+      "none";
+
+  }
+
+  if(
+    $("newTraderName")
+  ){
+
+    $("newTraderName")
+      .value =
+      "";
+
+  }
+
+  if(
+    $("newTraderDescription")
+  ){
+
+    $("newTraderDescription")
+      .value =
+      "";
+
+  }
+
+  if(
+    $("traderImage")
+  ){
+
+    $("traderImage")
+      .value =
+      "";
+
+  }
+
+  if(
+    $("traderImagePreview")
+  ){
+
+    $("traderImagePreview")
+      .innerHTML =
+      "";
+
+  }
+
+  traderImageFile =
+    null;
+
+}
+
+
+function previewTraderImage(
+input
+){
+
+  traderImageFile =
+    input.files?.[0] ||
+    null;
+
+  const preview =
+    $("traderImagePreview");
+
+  if(!preview){
+
+    return;
+
+  }
+
+  preview.innerHTML =
+    "";
+
+  if(
+    !traderImageFile
+  ){
+
+    return;
+
+  }
+
+  const url =
+    URL.createObjectURL(
+      traderImageFile
+    );
+
+  preview.innerHTML = `
+
+    <div
+      class="preview-item"
+    >
+
+      <img
+        src="${url}"
+        alt=""
+      >
+
+    </div>
+
+  `;
+
+}
+
+
+async function saveTrader(){
+
+  if(!currentUser){
+
+    showToast(
+      "Please login first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const name =
+    $("newTraderName")
+      ?.value
+      .trim();
+
+  const description =
+    $("newTraderDescription")
+      ?.value
+      .trim();
+
+  if(!name){
+
+    showToast(
+      "Trader name is required.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  let avatarUrl =
+    null;
+
+
+  if(
+    traderImageFile
+  ){
+
+    const extension =
+      (
+        traderImageFile.name
+          .split(".")
+          .pop() ||
+        "jpg"
+      )
+      .toLowerCase();
+
+    const path =
+      `${currentUser.id}/traders/${crypto.randomUUID()}.${extension}`;
+
+    const {
+      error:
+      uploadError
+    } =
+    await supabaseClient
+      .storage
+      .from(
+        "journal-images"
+      )
+      .upload(
+        path,
+        traderImageFile,
+        {
+          upsert:false,
+          contentType:
+            traderImageFile.type ||
+            "image/jpeg"
+        }
+      );
+
+    if(uploadError){
+
+      showToast(
+        uploadError.message,
+        "error"
+      );
+
+      return;
+
+    }
+
+    const {
+      data:
+      publicData
+    } =
+    supabaseClient
+      .storage
+      .from(
+        "journal-images"
+      )
+      .getPublicUrl(
+        path
+      );
+
+    avatarUrl =
+      publicData?.publicUrl ||
+      null;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from(
+      "journal_traders"
+    )
+    .insert(
+      {
+
+        user_id:
+          currentUser.id,
+
+        name,
+
+        description:
+          description ||
+          null,
+
+        avatar_url:
+          avatarUrl
+
+      }
+    )
+    .select()
+    .single();
+
+
+  if(error){
+
+    showToast(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  traders.unshift(
+    data
+  );
+
+  selectedTrader =
+    data;
+
+  renderTraders();
+
+  populateTraderSelect();
+
+  closeTraderModal();
+
+  showToast(
+    "Trader created successfully."
+  );
+
+}
+
+
+/* =========================================================
+   TRADER SELECT
+========================================================= */
+
+function populateTraderSelect(){
+
+  const select =
+    $("tradeTrader");
+
+  if(!select){
+
+    return;
+
+  }
+
+  select.innerHTML = `
+
+    <option value="">
+      Select Trader
+    </option>
+
+    ${
+      traders
+        .map(
+          trader => `
+
+            <option
+              value="${trader.id}"
+            >
+
+              ${
+                escapeHtml(
+                  trader.name
+                )
+              }
+
+            </option>
+
+          `
+        )
+        .join("")
+    }
+
+  `;
+
+  if(
+    selectedTrader
+  ){
+
+    select.value =
+      selectedTrader.id;
+
+  }
+
+}
+
+
+/* =========================================================
+   MONTHS
+========================================================= */
+
+async function loadMonths(){
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from(
+      "journal_months"
+    )
+    .select("*")
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "month_date",
+      {
+        ascending:false
+      }
+    );
+
+  if(error){
+
+    console.error(
+      error
+    );
+
+    return;
+
+  }
+
+  months =
+    data ||
+    [];
+
+  renderMonths();
+
+}
+
+
+function renderMonths(){
+
+  const list =
+    $("monthList");
+
+  if(!list){
+
+    return;
+
+  }
+
+  if(
+    !months.length
+  ){
+
+    list.innerHTML = `
+
+      <div
+        class="empty-state"
+      >
+
+        No journal months yet.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  list.innerHTML =
+    months
+      .map(
+        month => {
+
+          const active =
+            selectedMonth &&
+            selectedMonth.id ===
+            month.id
+            ? "active"
+            : "";
+
+          return `
+
+            <button
+              class="
+                month-item
+                ${active}
+              "
+              onclick="
+                selectMonth(
+                  '${month.id}'
+                )
+              "
+            >
+
+              <strong>
+
+                ${
+                  new Date(
+                    month.month_date
+                  )
+                  .toLocaleDateString(
+                    "en-US",
+                    {
+                      month:"long",
+                      year:"numeric"
+                    }
+                  )
+                }
+
+              </strong>
+
+              <span>
+                Journal Month
+              </span>
+
+            </button>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+async function createCurrentMonth(){
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+  const date =
+    new Date();
+
+  date.setDate(
+    1
+  );
+
+  const monthDate =
+    date
+      .toISOString()
+      .split("T")[0];
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from(
+      "journal_months"
+    )
+    .upsert(
+      {
+
+        user_id:
+          currentUser.id,
+
+        month_date:
+          monthDate
+
+      },
+      {
+        onConflict:
+          "user_id,month_date"
+      }
+    )
+    .select()
+    .single();
+
+  if(error){
+
+    showToast(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  await loadMonths();
+
+  await selectMonth(
+    data.id
+  );
+
+}
+
+
+async function selectMonth(
+  id
+){
+
+  selectedMonth =
+    months.find(
+      month =>
+      month.id === id
+    ) ||
+    null;
+
+  renderMonths();
+
+  if(
+    !selectedMonth
+  ){
+
+    return;
+
+  }
+
+  if(
+    $("journalMonthTitle")
+  ){
+
+    $("journalMonthTitle")
+      .textContent =
+      new Date(
+        selectedMonth.month_date
+      )
+      .toLocaleDateString(
+        "en-US",
+        {
+          month:"long",
+          year:"numeric"
+        }
+      );
+
+  }
+
+  await loadJournalDays();
+
+}
+
+
+/* =========================================================
+   JOURNAL DAYS
+========================================================= */
+
+async function loadJournalDays(){
+
+  if(
+    !selectedMonth ||
+    !currentUser
+  ){
+
+    return;
+
+  }
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from(
+      "journal_days"
+    )
+    .select(
+      `
+        *,
+        daily_trades(*)
+      `
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .eq(
+      "month_id",
+      selectedMonth.id
+    )
+    .order(
+      "journal_date",
+      {
+        ascending:false
+      }
+    );
+
+  if(error){
+
+    showToast(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  journalDays =
+    data ||
+    [];
+
+  renderJournalDays(
+    journalDays
+  );
+
+}
+
+
+function renderJournalDays(
+days
+){
+
+  const container =
+    $("journalDays");
+
+  if(!container){
+
+    return;
+
+  }
+
+  if(
+    !days.length
+  ){
+
+    container.innerHTML = `
+
+      <div
+        class="empty-state"
+      >
+
+        <h3>
+          No journal days yet
+        </h3>
+
+        <p>
+          Create your first journal day
+          to start tracking your trades.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  container.innerHTML =
+    days
+      .map(
+        day => {
+
+          const dayTrades =
+            day.daily_trades ||
+            [];
+
+          return `
+
+            <article
+              class="journal-day-card"
+            >
+
+              <div
+                class="journal-day-header"
+              >
+
+                <div>
+
+                  <h3>
+
+                    ${
+                      new Date(
+                        day.journal_date
+                      )
+                      .toLocaleDateString(
+                        "en-US",
+                        {
+                          weekday:"long",
+                          month:"long",
+                          day:"numeric",
+                          year:"numeric"
+                        }
+                      )
+                    }
+
+                  </h3>
+
+                  <span>
+
+                    ${
+                      dayTrades.length
+                    }
+
+                    trade(s)
+
+                  </span>
+
+                </div>
+
+                <button
+                  class="action-btn primary"
+                  onclick="
+                    addTradeForDate(
+                      '${day.journal_date}'
+                    )
+                  "
+                >
+
+                  + Add Trade
+
+                </button>
+
+              </div>
+
+              <div
+                class="journal-day-trades"
+              >
+
+                ${
+                  dayTrades.length
+
+                  ?
+
+                  dayTrades
+                    .map(
+                      trade =>
+                      renderTradeRow(
+                        trade
+                      )
+                    )
+                    .join("")
+
+                  :
+
+                  `
+
+                    <div
+                      class="empty-state small"
+                    >
+
+                      No trades recorded.
+
+                    </div>
+
+                  `
+                }
+
+              </div>
+
+            </article>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =========================================================
+   CREATE JOURNAL DAY
+========================================================= */
+
+async function createJournalDay(){
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+  if(
+    !selectedMonth
+  ){
+
+    await createCurrentMonth();
+
+    if(
+      !selectedMonth
+    ){
+
+      return;
+
+    }
+
+  }
+
+  const date =
+    prompt(
+      "Enter journal date (YYYY-MM-DD)",
+      new Date()
+        .toISOString()
+        .split("T")[0]
+    );
+
+  if(!date){
+
+    return;
+
+  }
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from(
+      "journal_days"
+    )
+    .upsert(
+      {
+
+        user_id:
+          currentUser.id,
+
+        month_id:
+          selectedMonth.id,
+
+        journal_date:
+          date
+
+      },
+      {
+        onConflict:
+          "user_id,journal_date"
+      }
+    );
+
+  if(error){
+
+    showToast(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+  await loadJournalDays();
+
+  showToast(
+    "Journal day created."
+  );
+
+}
+
+
+/* =========================================================
+   TRADE ROW
+========================================================= */
+
+function renderTradeRow(
+  trade
+){
+
+  const resultClass =
+    trade.result === "Win"
+
+    ? "win"
+
+    :
+
+    trade.result === "Loss"
+
+    ? "loss"
+
+    :
+
+    "be";
+
+
+  let images = [];
+
+  try{
+
+    images =
+      trade.image_urls
+      ? JSON.parse(
+          trade.image_urls
+        )
+      : [];
+
+  }catch(error){
+
+    images =
+      [];
+
+  }
+
+
+  return `
+
+    <div
+      class="trade-card"
+    >
+
+      <div
+        class="trade-card-header"
+      >
+
+        <div>
+
+          <strong>
+
+            ${
+              escapeHtml(
+                trade.symbol ||
+                "Trade"
+              )
+            }
+
+          </strong>
+
+          <span>
+
+            ${
+              escapeHtml(
+                trade.direction ||
+                ""
+              )
+            }
+
+          </span>
+
+        </div>
+
+        <span
+          class="
+            trade-result
+            ${resultClass}
+          "
+        >
+
+          ${
+            escapeHtml(
+              trade.result ||
+              ""
+            )
+          }
+
+        </span>
+
+      </div>
+
+
+      <div
+        class="trade-data-grid"
+      >
+
+        <div>
+
+          <label>
+            Setup
+          </label>
+
+          <strong>
+
+            ${
+              escapeHtml(
+                trade.setup ||
+                "-"
+              )
+            }
+
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Entry
+          </label>
+
+          <strong>
+
+            ${
+              trade.entry_price ??
+              "-"
+            }
+
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Stop Loss
+          </label>
+
+          <strong>
+
+            ${
+              trade.stop_loss ??
+              "-"
+            }
+
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Take Profit
+          </label>
+
+          <strong>
+
+            ${
+              trade.take_profit ??
+              "-"
+            }
+
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            PnL
+          </label>
+
+          <strong>
+
+            ${
+              formatMoney(
+                trade.pnl
+              )
+            }
+
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            R Multiple
+          </label>
+
+          <strong>
+
+            ${
+              Number(
+                trade.r_multiple ||
+                0
+              )
+              .toFixed(2)
+            }R
+
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      ${
+        trade.notes
+
+        ?
+
+        `
+
+          <div
+            class="trade-notes"
+          >
+
+            ${
+              escapeHtml(
+                trade.notes
+              )
+            }
+
+          </div>
+
+        `
+
+        :
+
+        ""
+
+      }
+
+
+      ${
+        images.length
+
+        ?
+
+        `
+
+          <div
+            class="trade-images"
+          >
+
+            ${
+              images
+                .map(
+                  url => `
+
+                    <img
+                      src="${
+                        escapeHtml(
+                          url
+                        )
+                      }"
+                      alt="Trade chart"
+                      onclick="
+                        window.open(
+                          '${escapeHtml(url)}',
+                          '_blank'
+                        )
+                      "
+                    >
+
+                  `
+                )
+                .join("")
+            }
+
+          </div>
+
+        `
+
+        :
+
+        ""
+
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   ADD TRADE DATE
+========================================================= */
+
+function addTradeForDate(
+  date
+){
+
+  if(
+    $("tradeDate")
+  ){
+
+    $("tradeDate")
+      .value =
+      date;
+
+  }
+
+  showPageById(
+    "addTrade"
+  );
+
+}
+
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+function previewImages(
+  input
+){
+
+  const files =
+    [
+      ...(input.files || [])
+    ]
+    .slice(
+      0,
+      3
+    );
+
+  selectedImages =
+    files;
+
+  renderImagePreview();
+
+}
+
+
+function removeSelectedImage(
+  index
+){
+
+  selectedImages.splice(
+    index,
+    1
+  );
+
+  renderImagePreview();
+
+}
+
+
+function renderImagePreview(){
+
+  const preview =
+    $("imagePreview");
+
+  if(!preview){
+
+    return;
+
+  }
+
+  preview.innerHTML =
+    "";
+
+  selectedImages
+    .forEach(
+      (
+        file,
+        index
+      ) => {
+
+        const url =
+          URL.createObjectURL(
+            file
+          );
+
+        const div =
+          document.createElement(
+            "div"
+          );
+
+        div.className =
+          "preview-item";
+
+        div.innerHTML = `
+
+          <img
+            src="${url}"
+            alt=""
+          >
+
+          <button
+            type="button"
+            class="remove-image"
+            onclick="
+              removeSelectedImage(
+                ${index}
+              )
+            "
+          >
+
+            ×
+
+          </button>
+
+        `;
+
+        preview.appendChild(
+          div
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   CHIPS
+========================================================= */
+
+function selectChip(
+  button,
+  inputId,
+  value
+){
+
+  const parent =
+    button.parentElement;
+
+  if(parent){
+
+    parent
+      .querySelectorAll(
+        ".chip"
+      )
+      .forEach(
+        chip => {
+
+          chip.classList.remove(
+            "active"
+          );
+
+        }
+      );
+
+  }
+
+  button.classList.add(
+    "active"
+  );
+
+  if(
+    $(inputId)
+  ){
+
+    $(inputId)
+      .value =
+      value;
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD TRADES
+========================================================= */
+
+async function loadTrades(){
+
+  if(
+    !currentUser
+  ){
+
+    return;
+
+  }
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+    .from(
+      "daily_trades"
+    )
+    .select("*")
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
+  if(error){
+
+    console.error(
+      error
+    );
+
+    return;
+
+  }
+
+  trades =
+    data ||
+    [];
+
+}
+
+
+/* =========================================================
+   SAVE TRADE
+========================================================= */
+
+async function saveTrade(){
+
+  if(!currentUser){
+
+    showToast(
+      "Please login first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const traderId =
+    $("tradeTrader")
+      ?.value;
+
+  const date =
+    $("tradeDate")
+      ?.value;
+
+  const symbol =
+    $("tradeSymbol")
+      ?.value
+      .trim();
+
+  const direction =
+    $("tradeDirection")
+      ?.value;
+
+  const result =
+    $("tradeResult")
+      ?.value;
+
+  const setup =
+    $("tradeSetup")
+      ?.value
+      .trim();
+
+
+  if(
+    !traderId ||
+    !date ||
+    !symbol ||
+    !direction ||
+    !result
+  ){
+
+    showToast(
+      "Please complete trader, date, symbol, direction and result.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const monthDate =
+    `${date.substring(
+      0,
+      7
+    )}-01`;
+
+
+  let month =
+    months.find(
+      item =>
+      item.month_date ===
+      monthDate
+    );
+
+
+  if(!month){
+
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+      .from(
+        "journal_months"
+      )
+      .upsert(
+        {
+
+          user_id:
+            currentUser.id,
+
+          month_date:
+            monthDate
+
+        },
+        {
+          onConflict:
+            "user_id,month_date"
+        }
+      )
+      .select()
+      .single();
+
+    if(error){
+
+      showToast(
+        error.message,
+        "error"
+      );
+
+      return;
+
+    }
+
+    month =
+      data;
+
+    await loadMonths();
+
+  }
+
+
+  let day =
+    null;
+
+
+  const {
+    data:
+    existingDay,
+    error:
+    dayError
+  } =
+  await supabaseClient
+    .from(
+      "journal_days"
+    )
+    .select("*")
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .eq(
+      "journal_date",
+      date
+    )
+    .maybeSingle();
+
+
+  if(dayError){
+
+    showToast(
+      dayError.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(existingDay){
+
+    day =
+      existingDay;
+
+  }else{
+
+    const {
+      data:
+      newDay,
+      error:
+      newDayError
+    } =
+    await supabaseClient
+      .from(
+        "journal_days"
+      )
+      .insert(
+        {
+
+          user_id:
+            currentUser.id,
+
+          month_id:
+            month.id,
+
+          journal_date:
+            date
+
+        }
+      )
+      .select()
+      .single();
+
+    if(newDayError){
+
+      showToast(
+        newDayError.message,
+        "error"
+      );
+
+      return;
+
+    }
+
+    day =
+      newDay;
+
+  }
+
+
+  const imageUrls =
+    [];
+
+
+  for(
+    const file of
+    selectedImages.slice(
+      0,
+      3
+    )
+  ){
+
+    const extension =
+      (
+        file.name
+          .split(".")
+          .pop() ||
+        "jpg"
+      )
+      .toLowerCase();
+
+
+    const path =
+      `${currentUser.id}/trades/${crypto.randomUUID()}.${extension}`;
+
+
+    const {
+      error:
+      uploadError
+    } =
+    await supabaseClient
+      .storage
+      .from(
+        "journal-images"
+      )
+      .upload(
+        path,
+        file,
+        {
+          upsert:false,
+          contentType:
+            file.type ||
+            "image/jpeg"
+        }
+      );
+
+
+    if(uploadError){
+
+      showToast(
+        uploadError.message,
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    const {
+      data:
+      publicData
+    } =
+    supabaseClient
+      .storage
+      .from(
+        "journal-images"
+      )
+      .getPublicUrl(
+        path
+      );
+
+
+    if(
+      publicData?.publicUrl
+    ){
+
+      imageUrls.push(
+        publicData.publicUrl
+      );
+
+    }
+
+  }
+
+
+  const {
+    data:
+    savedTrade,
+    error:
+    tradeError
+  } =
+  await supabaseClient
+    .from(
+      "daily_trades"
+    )
+    .insert(
+      {
+
+        user_id:
+          currentUser.id,
+
+        trader_id:
+          traderId,
+
+        journal_day_id:
+          day.id,
+
+        symbol,
+
+        direction,
+
+        result,
+
+        setup:
+          setup ||
+          null,
+
+        entry_price:
+          Number(
+            $("tradeEntry")
+              ?.value ||
+            0
+          ),
+
+        stop_loss:
+          Number(
+            $("tradeSL")
+              ?.value ||
+            0
+          ),
+
+        take_profit:
+          Number(
+            $("tradeTP")
+              ?.value ||
+            0
+          ),
+
+        pnl:
+          Number(
+            $("tradePnl")
+              ?.value ||
+            0
+          ),
+
+        r_multiple:
+          Number(
+            $("tradeR")
+              ?.value ||
+            0
+          ),
+
+        risk_percent:
+          Number(
+            $("tradeRisk")
+              ?.value ||
+            0
+          ),
+
+        session:
+          $("tradeSession")
+            ?.value ||
+          null,
+
+        notes:
+          $("tradeNotes")
+            ?.value
+            .trim() ||
+          null,
+
+        image_urls:
+          JSON.stringify(
+            imageUrls
+          )
+
+      }
+    )
+    .select()
+    .single();
+
+
+  if(tradeError){
+
+    showToast(
+      tradeError.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  trades.unshift(
+    savedTrade
+  );
+
+
+  showToast(
+    "Trade saved successfully."
+  );
+
+
+  clearTradeForm();
+
+
+  await updateStats();
+
+
+  if(
+    selectedMonth &&
+    selectedMonth.id ===
+    month.id
+  ){
+
+    await loadJournalDays();
+
+  }else{
+
+    await loadMonths();
+
+  }
+
+}
+
+
+/* =========================================================
+   CLEAR TRADE FORM
+========================================================= */
+
+function clearTradeForm(){
+
+  const fields = [
+
+    "tradeSymbol",
+
+    "tradeEntry",
+
+    "tradeSL",
+
+    "tradeTP",
+
+    "tradePnl",
+
+    "tradeR",
+
+    "tradeRisk",
+
+    "tradeNotes"
+
+  ];
+
+
+  fields.forEach(
+    id => {
+
+      if(
+        $(id)
+      ){
+
+        $(id)
+          .value =
+          "";
+
+      }
+
+    }
+  );
+
+
+  [
+    "tradeDirection",
+
+    "tradeResult",
+
+    "tradeSetup",
+
+    "tradeSession"
+
+  ]
+  .forEach(
+    id => {
+
+      if(
+        $(id)
+      ){
+
+        $(id)
+          .value =
+          "";
+
+      }
+
+    }
+  );
+
+
+  if(
+    $("tradeImages")
+  ){
+
+    $("tradeImages")
+      .value =
+      "";
+
+  }
+
+
+  selectedImages =
+    [];
+
+
+  if(
+    $("imagePreview")
+  ){
+
+    $("imagePreview")
+      .innerHTML =
+      "";
+
+  }
+
+
+  document
+    .querySelectorAll(
+      "#page-addTrade .chip"
+    )
+    .forEach(
+      chip => {
+
+        chip.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+async function updateStats(){
+
+  if(
+    !currentUser
+  ){
+
+    return;
+
+  }
+
+
+  let query =
+    supabaseClient
+      .from(
+        "daily_trades"
+      )
+      .select(
+        "result,pnl,r_multiple,trader_id"
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      );
+
+
+  if(
+    selectedTrader
+  ){
+
+    query =
+      query.eq(
+        "trader_id",
+        selectedTrader.id
+      );
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await query;
+
+
+  if(error){
+
+    console.error(
+      error
+    );
+
+    return;
+
+  }
+
+
+  const list =
+    data ||
+    [];
+
+
+  const total =
+    list.length;
+
+
+  const wins =
+    list.filter(
+      trade =>
+      trade.result ===
+      "Win"
+    ).length;
+
+
+  const losses =
+    list.filter(
+      trade =>
+      trade.result ===
+      "Loss"
+    ).length;
+
+
+  const breakevens =
+    list.filter(
+      trade =>
+      trade.result ===
+      "BE"
+    ).length;
+
+
+  const winRate =
+    total
+
+    ?
+
+    (
+      wins /
+      total *
+      100
+    ).toFixed(1)
+
+    :
+
+    "0.0";
+
+
+  const pnl =
+    list.reduce(
+      (
+        sum,
+        trade
+      ) =>
+
+        sum +
+        Number(
+          trade.pnl ||
+          0
+        ),
+
+      0
+    );
+
+
+  const r =
+    list.reduce(
+      (
+        sum,
+        trade
+      ) =>
+
+        sum +
+        Number(
+          trade.r_multiple ||
+          0
+        ),
+
+      0
+    );
+
+
+  setStats(
+    total,
+    winRate,
+    pnl,
+    r,
+    wins,
+    losses,
+    breakevens
+  );
+
+
+  setProfileStats(
+    total,
+    winRate,
+    pnl,
+    r,
+    wins
+  );
+
+}
+
+
+function setStats(
+  total,
+  winRate,
+  pnl,
+  r,
+  wins,
+  losses,
+  breakevens
+){
+
+  if(
+    $("statTrades")
+  ){
+
+    $("statTrades")
+      .textContent =
+      total;
+
+  }
+
+  if(
+    $("statWinRate")
+  ){
+
+    $("statWinRate")
+      .textContent =
+      `${winRate}%`;
+
+  }
+
+  if(
+    $("statPnl")
+  ){
+
+    $("statPnl")
+      .textContent =
+      formatMoney(
+        pnl
+      );
+
+  }
+
+  if(
+    $("statR")
+  ){
+
+    $("statR")
+      .textContent =
+      `${Number(
+        r ||
+        0
+      ).toFixed(2)}R`;
+
+  }
+
+  if(
+    $("statWins")
+  ){
+
+    $("statWins")
+      .textContent =
+      wins ||
+      0;
+
+  }
+
+  if(
+    $("statLosses")
+  ){
+
+    $("statLosses")
+      .textContent =
+      losses ||
+      0;
+
+  }
+
+  if(
+    $("statBE")
+  ){
+
+    $("statBE")
+      .textContent =
+      breakevens ||
+      0;
+
+  }
+
+}
+
+
+function setProfileStats(
+  total,
+  winRate,
+  pnl,
+  r,
+  wins
+){
+
+  if(
+    $("profileTrades")
+  ){
+
+    $("profileTrades")
+      .textContent =
+      total;
+
+  }
+
+  if(
+    $("profileWinRate")
+  ){
+
+    $("profileWinRate")
+      .textContent =
+      `${winRate}%`;
+
+  }
+
+  if(
+    $("profilePnl")
+  ){
+
+    $("profilePnl")
+      .textContent =
+      formatMoney(
+        pnl
+      );
+
+  }
+
+  if(
+    $("profileR")
+  ){
+
+    $("profileR")
+      .textContent =
+      `${Number(
+        r ||
+        0
+      ).toFixed(2)}R`;
+
+  }
+
+  if(
+    $("profileWins")
+  ){
+
+    $("profileWins")
+      .textContent =
+      wins ||
+      0;
+
+  }
+
+}
+
+
+async function updateProfileStats(){
+
+  await updateStats();
+
+}
+
+
+/* =========================================================
+   AUTH STATE LISTENER
+========================================================= */
+
+supabaseClient
+  .auth
+  .onAuthStateChange(
+    (
+      event,
+      session
+    ) => {
+
+      currentUser =
+        session?.user ||
+        null;
+
+      if(
+        currentUser
+      ){
+
+        showApp();
+
+      }else{
+
+        showLogin();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    if(
+      $("tradeDate")
+    ){
+
+      $("tradeDate")
+        .value =
+        new Date()
+          .toISOString()
+          .split("T")[0];
+
+    }
+
+    checkSession();
+
+  }
+);
+
+</script>
