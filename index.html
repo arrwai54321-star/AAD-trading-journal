@@ -2714,15 +2714,49 @@ async function submitAuth(){
   }
 
 
-  const {
+  console.log(
+  "LOGIN START",
+  email
+);
+
+const {
+  data,
+  error
+} =
+  await db.auth.signInWithPassword(
+    {
+      email,
+      password
+    }
+  );
+
+console.log(
+  "LOGIN RESPONSE",
+  {
+    data,
     error
-  } =
-    await db.auth.signInWithPassword(
-      {
-        email,
-        password
-      }
-    );
+  }
+);
+
+
+if(error){
+
+  showToast(
+    getErrorMessage(
+      error
+    ),
+    "error"
+  );
+
+  return;
+
+}
+
+
+console.log(
+  "LOGIN SUCCESS"
+);
+
 
 
   if(error){
