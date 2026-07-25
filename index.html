@@ -2843,13 +2843,28 @@ async function showApp(){
     "";
 
 
+ try{
+
   await loadAll();
 
-  showPage(
-    "dashboard"
+}catch(error){
+
+  console.error(
+    "LOAD ALL ERROR:",
+    error
+  );
+
+  showToast(
+    "Login အောင်မြင်ပါတယ်။ Data Load လုပ်ရာမှာ Error ဖြစ်နေပါတယ်။",
+    "error"
   );
 
 }
+
+
+showPage(
+  "dashboard"
+);
 
 
 /* =========================================================
