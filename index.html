@@ -1,8 +1,19 @@
+<!-- AAD TRADING JOURNAL — FINAL UPDATED VERSION -->
+
+<!-- Supabase Schema:
+     traders
+     journal_months
+     daily_journals
+     daily_trades
+     trade_photos
+-->
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>AAD Trading Journal</title>
 
@@ -10,1568 +21,1012 @@
 
 <style>
 :root{
-  --bg:#060914;
-  --panel:#0d1424;
-  --panel2:#111b30;
-  --panel3:#16223a;
-  --border:#263653;
-  --text:#f7f9ff;
-  --muted:#91a0ba;
-  --primary:#765cff;
-  --primary2:#9a7cff;
-  --blue:#27a9ff;
-  --cyan:#20d9d2;
-  --green:#18d486;
-  --red:#ff5d78;
-  --yellow:#ffc857;
-  --orange:#ff8b3d;
-  --pink:#ff5bbd;
-  --shadow:0 24px 80px rgba(0,0,0,.42);
+--bg:#050812;
+--panel:#0d1424;
+--panel2:#111b30;
+--border:#263552;
+--text:#f7f9ff;
+--muted:#8f9bb5;
+--primary:#7667ff;
+--blue:#35a7ff;
+--green:#18c77d;
+--red:#ff5c72;
+--yellow:#f5bd4f;
+--shadow:0 25px 80px rgba(0,0,0,.4);
 }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  color:var(--text);
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 10% 0%,rgba(118,92,255,.20),transparent 28%),
-    radial-gradient(circle at 90% 10%,rgba(32,217,210,.10),transparent 25%),
-    radial-gradient(circle at 50% 100%,rgba(39,169,255,.08),transparent 30%),
-    var(--bg);
+font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+background:
+radial-gradient(circle at 10% 0%,rgba(118,103,255,.18),transparent 30%),
+radial-gradient(circle at 100% 100%,rgba(53,167,255,.10),transparent 30%),
+var(--bg);
+color:var(--text);
+min-height:100vh;
 }
 
-button,input,select,textarea{
-  font:inherit;
-}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
 
-button{
-  cursor:pointer;
-}
-
-.hidden{
-  display:none!important;
-}
+.hidden{display:none!important}
 
 .container{
-  width:min(1450px,94%);
-  margin:auto;
-}
-
-/* =========================================================
-   AUTH
-========================================================= */
-
-#authPage{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:25px;
-}
-
-.auth-card{
-  width:min(480px,100%);
-  padding:42px;
-  border-radius:30px;
-  border:1px solid rgba(118,92,255,.28);
-  background:
-    linear-gradient(145deg,rgba(17,27,48,.96),rgba(9,14,27,.96));
-  box-shadow:var(--shadow);
-  position:relative;
-  overflow:hidden;
-}
-
-.auth-card::before{
-  content:"";
-  position:absolute;
-  width:260px;
-  height:260px;
-  border-radius:50%;
-  background:rgba(118,92,255,.14);
-  filter:blur(60px);
-  top:-100px;
-  right:-80px;
-}
-
-.logo{
-  width:72px;
-  height:72px;
-  border-radius:22px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:1000;
-  letter-spacing:-1px;
-  font-size:22px;
-  background:linear-gradient(135deg,#765cff,#2e9dff,#20d9d2);
-  box-shadow:0 12px 35px rgba(118,92,255,.35);
-  margin-bottom:22px;
-  position:relative;
-}
-
-.auth-card h1{
-  font-size:31px;
-  margin-bottom:9px;
-  position:relative;
-}
-
-.subtitle{
-  color:var(--muted);
-  line-height:1.7;
-  margin-bottom:28px;
-  position:relative;
-}
-
-.field{
-  margin-bottom:16px;
-}
-
-.field label{
-  display:block;
-  font-size:12px;
-  color:var(--muted);
-  margin-bottom:8px;
-  font-weight:700;
-}
-
-input,select,textarea{
-  width:100%;
-  background:#080f1d;
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:13px;
-  padding:13px 14px;
-  outline:none;
-  transition:.2s;
-}
-
-input::placeholder,
-textarea::placeholder{
-  color:#53627d;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:var(--primary);
-  box-shadow:0 0 0 4px rgba(118,92,255,.13);
-}
-
-textarea{
-  min-height:115px;
-  resize:vertical;
+width:min(1450px,94%);
+margin:auto
 }
 
 .btn{
-  border:0;
-  border-radius:13px;
-  padding:12px 18px;
-  font-weight:800;
-  color:#fff;
-  background:linear-gradient(135deg,#765cff,#3f8cff);
-  box-shadow:0 8px 25px rgba(75,91,255,.18);
-  transition:.2s;
+border:0;
+border-radius:12px;
+padding:12px 18px;
+font-weight:800;
+color:#fff;
+background:linear-gradient(135deg,var(--primary),#427dff);
+transition:.2s;
 }
 
 .btn:hover{
-  transform:translateY(-2px);
-  filter:brightness(1.08);
-}
-
-.btn:active{
-  transform:translateY(0);
-}
-
-.btn.full{
-  width:100%;
+transform:translateY(-1px);
+filter:brightness(1.08)
 }
 
 .btn.secondary{
-  background:#17233a;
-  border:1px solid var(--border);
-  box-shadow:none;
+background:#18233a;
+border:1px solid var(--border)
 }
 
 .btn.green{
-  background:linear-gradient(135deg,#0ca96b,#19d486);
+background:linear-gradient(135deg,#0e9f68,#1bd38a)
 }
 
 .btn.danger{
-  background:rgba(255,93,120,.12);
-  border:1px solid rgba(255,93,120,.3);
-  color:#ff8a9d;
-  box-shadow:none;
+background:rgba(255,92,114,.12);
+border:1px solid rgba(255,92,114,.35);
+color:#ff8b9a
+}
+
+.btn.full{width:100%}
+
+input,select,textarea{
+width:100%;
+background:#080f1d;
+border:1px solid var(--border);
+border-radius:12px;
+padding:12px 14px;
+color:#fff;
+outline:none;
+}
+
+input:focus,select:focus,textarea:focus{
+border-color:var(--primary);
+box-shadow:0 0 0 3px rgba(118,103,255,.14)
+}
+
+textarea{
+min-height:110px;
+resize:vertical
+}
+
+.field{margin-bottom:14px}
+
+.field label{
+display:block;
+font-size:12px;
+font-weight:700;
+color:var(--muted);
+margin-bottom:7px
+}
+
+/* AUTH */
+
+#authPage{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:25px
+}
+
+.auth-card{
+width:min(460px,100%);
+background:rgba(13,20,36,.94);
+border:1px solid var(--border);
+border-radius:28px;
+padding:38px;
+box-shadow:var(--shadow)
+}
+
+.logo{
+width:65px;
+height:65px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:18px;
+background:linear-gradient(135deg,var(--primary),var(--blue));
+font-weight:1000;
+font-size:21px;
+margin-bottom:20px
+}
+
+.auth-card h1{font-size:30px;margin-bottom:8px}
+
+.subtitle{
+color:var(--muted);
+line-height:1.7;
+margin-bottom:28px
 }
 
 .auth-switch{
-  text-align:center;
-  color:var(--muted);
-  font-size:14px;
-  margin-top:18px;
+text-align:center;
+margin-top:18px;
+color:var(--muted);
+font-size:14px
 }
 
 .auth-switch button{
-  background:none;
-  border:0;
-  color:#a897ff;
-  font-weight:800;
+border:0;
+background:none;
+color:#a8a0ff;
+font-weight:800
 }
 
-/* =========================================================
-   HEADER
-========================================================= */
-
-#appPage{
-  min-height:100vh;
-}
+/* HEADER */
 
 header{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:rgba(6,9,20,.84);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(38,54,83,.75);
+position:sticky;
+top:0;
+z-index:100;
+background:rgba(5,8,18,.86);
+backdrop-filter:blur(18px);
+border-bottom:1px solid var(--border)
 }
 
 .nav{
-  min-height:78px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
+min-height:76px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:13px;
+display:flex;
+align-items:center;
+gap:12px
 }
 
 .brand-icon{
-  width:46px;
-  height:46px;
-  border-radius:14px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-weight:1000;
-  background:linear-gradient(135deg,#765cff,#3f8cff,#20d9d2);
-  box-shadow:0 10px 28px rgba(118,92,255,.25);
+width:45px;
+height:45px;
+border-radius:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:1000;
+background:linear-gradient(135deg,var(--primary),var(--blue))
 }
 
-.brand-text strong{
-  display:block;
-  font-size:15px;
-}
-
-.brand-text small{
-  display:block;
-  color:var(--muted);
-  margin-top:3px;
-  font-size:11px;
-}
+.brand-text strong{display:block}
+.brand-text small{color:var(--muted)}
 
 .user-area{
-  display:flex;
-  align-items:center;
-  gap:10px;
+display:flex;
+align-items:center;
+gap:10px
 }
 
 .user-email{
-  color:var(--muted);
-  font-size:12px;
+color:var(--muted);
+font-size:13px
 }
 
-/* =========================================================
-   MAIN
-========================================================= */
+/* MAIN */
 
-main{
-  padding:30px 0 70px;
+main{padding:30px 0 60px}
+
+.panel{
+background:rgba(13,20,36,.88);
+border:1px solid var(--border);
+border-radius:22px;
+padding:22px;
+box-shadow:0 12px 45px rgba(0,0,0,.18)
 }
 
 .top-grid{
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:20px;
-  margin-bottom:20px;
-}
-
-.panel{
-  background:
-    linear-gradient(145deg,rgba(14,21,36,.95),rgba(9,15,28,.95));
-  border:1px solid var(--border);
-  border-radius:23px;
-  padding:23px;
-  box-shadow:0 12px 45px rgba(0,0,0,.18);
+display:grid;
+grid-template-columns:1.2fr .8fr;
+gap:20px;
+margin-bottom:20px
 }
 
 .panel-title{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:19px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+margin-bottom:18px
 }
 
-.panel-title h2{
-  font-size:20px;
-}
-
+.panel-title h2{font-size:20px}
 .panel-title p{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:5px;
+color:var(--muted);
+font-size:13px;
+margin-top:4px
 }
 
-/* =========================================================
-   TRADER PROFILES
-========================================================= */
+/* TRADERS */
 
 .trader-buttons{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px
 }
 
 .trader-btn{
-  border:1px solid var(--border);
-  border-radius:17px;
-  background:
-    linear-gradient(145deg,#0c1526,#09101e);
-  color:#fff;
-  padding:20px;
-  text-align:left;
-  transition:.25s;
-  position:relative;
-  overflow:hidden;
-}
-
-.trader-btn::after{
-  content:"";
-  position:absolute;
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  background:rgba(118,92,255,.09);
-  right:-30px;
-  bottom:-30px;
+border:1px solid var(--border);
+background:#09111f;
+color:#fff;
+border-radius:16px;
+padding:18px;
+text-align:left;
+transition:.2s
 }
 
 .trader-btn:hover{
-  transform:translateY(-3px);
-  border-color:#725cff;
-  box-shadow:0 12px 30px rgba(118,92,255,.15);
+border-color:var(--primary);
+transform:translateY(-2px)
 }
 
 .trader-btn.active{
-  border-color:#8c78ff;
-  background:
-    linear-gradient(135deg,rgba(118,92,255,.27),rgba(39,169,255,.12));
-  box-shadow:0 12px 35px rgba(118,92,255,.16);
+border-color:var(--primary);
+background:linear-gradient(135deg,rgba(118,103,255,.25),rgba(53,167,255,.1));
+box-shadow:0 0 0 2px rgba(118,103,255,.08)
 }
 
 .trader-btn small{
-  display:block;
-  color:#8796b1;
-  font-size:10px;
-  font-weight:800;
-  margin-bottom:7px;
+display:block;
+color:var(--muted);
+font-size:10px;
+margin-bottom:6px
 }
 
-.trader-btn strong{
-  font-size:15px;
-}
-
-.loading{
-  text-align:center;
-  padding:28px;
-  color:var(--muted);
-}
-
-/* =========================================================
-   MONTH
-========================================================= */
-
-.month-bar{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.month-bar select{
-  flex:1;
-}
-
-/* =========================================================
-   STATS
-========================================================= */
+/* STATS */
 
 .stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:13px;
-  margin-bottom:20px;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:12px;
+margin-bottom:20px
 }
 
 .stat{
-  padding:20px;
-  border-radius:18px;
-  border:1px solid var(--border);
-  background:
-    linear-gradient(145deg,#101a2d,#0a111f);
-  position:relative;
-  overflow:hidden;
+background:#09111f;
+border:1px solid var(--border);
+border-radius:17px;
+padding:18px
 }
 
-.stat::after{
-  content:"";
-  position:absolute;
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  right:-50px;
-  top:-50px;
-  background:rgba(118,92,255,.10);
-  filter:blur(10px);
-}
-
-.stat small{
-  color:var(--muted);
-  font-size:11px;
-  font-weight:700;
-}
-
+.stat small{color:var(--muted)}
 .stat strong{
-  display:block;
-  margin-top:8px;
-  font-size:26px;
+display:block;
+font-size:24px;
+margin-top:7px
 }
 
-/* =========================================================
-   CALENDAR
-========================================================= */
+/* MONTH */
 
-.calendar-panel{
-  margin-bottom:20px;
+.month-bar{
+display:flex;
+gap:10px;
+align-items:center
 }
 
-.calendar-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
+.month-bar select{flex:1}
 
-.calendar-head h2{
-  font-size:23px;
-}
+/* CALENDAR */
+
+.calendar-panel{margin-bottom:20px}
 
 .calendar-grid{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:8px;
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:8px
 }
 
 .weekday{
-  text-align:center;
-  color:var(--muted);
-  font-size:11px;
-  font-weight:800;
-  padding:8px;
+color:var(--muted);
+font-size:12px;
+font-weight:700;
+text-align:center;
+padding:8px
 }
 
 .day{
-  min-height:100px;
-  padding:11px;
-  border:1px solid var(--border);
-  border-radius:15px;
-  background:#090f1c;
-  cursor:pointer;
-  transition:.2s;
-  position:relative;
+min-height:100px;
+border:1px solid var(--border);
+border-radius:14px;
+background:#080f1d;
+padding:10px;
+cursor:pointer;
+transition:.2s
 }
 
 .day:hover{
-  transform:translateY(-2px);
-  border-color:#6f5cff;
+border-color:var(--primary);
+transform:translateY(-1px)
 }
 
 .day.empty{
-  opacity:.2;
-  cursor:default;
+opacity:.2;
+cursor:default
 }
 
-.day-number{
-  font-size:14px;
-  font-weight:900;
-}
+.day-number{font-weight:900}
 
 .day-status{
-  margin-top:22px;
-  color:var(--muted);
-  font-size:10px;
+margin-top:20px;
+font-size:11px;
+color:var(--muted)
 }
 
 .day.has-entry{
-  box-shadow:inset 0 -3px 0 var(--blue);
+box-shadow:inset 0 -3px 0 var(--blue)
 }
 
 .day.win{
-  background:rgba(24,212,134,.09);
-  border-color:rgba(24,212,134,.55);
+border-color:rgba(24,199,125,.6);
+background:rgba(24,199,125,.08)
 }
 
 .day.loss{
-  background:rgba(255,93,120,.09);
-  border-color:rgba(255,93,120,.55);
+border-color:rgba(255,92,114,.6);
+background:rgba(255,92,114,.08)
 }
 
 .day.be{
-  background:rgba(255,200,87,.09);
-  border-color:rgba(255,200,87,.55);
+border-color:rgba(245,189,79,.6);
+background:rgba(245,189,79,.08)
 }
 
-.day.selected{
-  outline:2px solid var(--primary);
-  outline-offset:1px;
-}
-
-/* =========================================================
-   DAILY
-========================================================= */
+/* DAILY */
 
 .daily-layout{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px
 }
 
 .form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px
 }
 
-.form-grid .full-width{
-  grid-column:1/-1;
-}
+.full-width{grid-column:1/-1}
 
 .actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:18px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:16px
 }
 
-/* =========================================================
-   TRADES
-========================================================= */
+/* TRADES */
 
 .trade-card{
-  background:
-    linear-gradient(145deg,#0b1424,#080f1b);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:12px;
-  transition:.2s;
-}
-
-.trade-card:hover{
-  border-color:#40577e;
+background:#080f1d;
+border:1px solid var(--border);
+border-radius:17px;
+padding:17px;
+margin-bottom:12px
 }
 
 .trade-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  margin-bottom:15px;
-}
-
-.trade-top strong{
-  font-size:17px;
+display:flex;
+justify-content:space-between;
+gap:10px;
+margin-bottom:14px
 }
 
 .badge{
-  display:inline-flex;
-  align-items:center;
-  border-radius:999px;
-  padding:6px 11px;
-  font-size:10px;
-  font-weight:900;
+display:inline-flex;
+padding:5px 10px;
+border-radius:999px;
+font-size:11px;
+font-weight:900
 }
 
 .badge.win{
-  color:#69e9b0;
-  background:rgba(24,212,134,.12);
+color:#65e4ae;
+background:rgba(24,199,125,.12)
 }
 
 .badge.loss{
-  color:#ff8b9d;
-  background:rgba(255,93,120,.12);
+color:#ff8795;
+background:rgba(255,92,114,.12)
 }
 
 .badge.be{
-  color:#ffd56d;
-  background:rgba(255,200,87,.12);
+color:#ffd36b;
+background:rgba(245,189,79,.12)
 }
 
 .trade-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-
-.trade-item{
-  min-width:0;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px
 }
 
 .trade-item small{
-  display:block;
-  color:var(--muted);
-  font-size:10px;
+display:block;
+font-size:11px;
+color:var(--muted)
 }
 
 .trade-item strong{
-  display:block;
-  margin-top:4px;
-  font-size:13px;
-  word-break:break-word;
+display:block;
+margin-top:4px
 }
 
 .image-preview{
-  margin-top:10px;
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:10px
 }
 
 .image-preview img{
-  width:100%;
-  max-height:280px;
-  object-fit:contain;
-  border-radius:14px;
-  border:1px solid var(--border);
+width:120px;
+height:90px;
+object-fit:cover;
+border-radius:12px;
+border:1px solid var(--border)
 }
 
-/* =========================================================
-   FOOTER
-========================================================= */
+/* FOOTER */
 
 footer{
-  text-align:center;
-  padding:35px 20px;
-  color:var(--muted);
-  border-top:1px solid var(--border);
-  margin-top:30px;
-  line-height:1.8;
+text-align:center;
+padding:30px;
+color:var(--muted);
+border-top:1px solid var(--border)
 }
 
-footer strong{
-  color:#a997ff;
-}
+footer strong{color:#b5afff}
 
-/* =========================================================
-   TOAST
-========================================================= */
+/* TOAST */
 
 #toast{
-  position:fixed;
-  right:25px;
-  bottom:25px;
-  z-index:999;
-  padding:14px 18px;
-  border-radius:14px;
-  background:#151f34;
-  border:1px solid #354767;
-  color:#fff;
-  box-shadow:var(--shadow);
-  opacity:0;
-  transform:translateY(15px);
-  pointer-events:none;
-  transition:.25s;
-  max-width:380px;
+position:fixed;
+right:25px;
+bottom:25px;
+z-index:999;
+background:#151f33;
+border:1px solid var(--border);
+padding:14px 18px;
+border-radius:13px;
+box-shadow:var(--shadow);
+opacity:0;
+transform:translateY(15px);
+pointer-events:none;
+transition:.25s
 }
 
 #toast.show{
-  opacity:1;
-  transform:translateY(0);
+opacity:1;
+transform:translateY(0)
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+.loading{
+text-align:center;
+padding:25px;
+color:var(--muted)
+}
 
 @media(max-width:1050px){
-
-  .top-grid,
-  .daily-layout{
-    grid-template-columns:1fr;
-  }
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
+.top-grid,.daily-layout{grid-template-columns:1fr}
+.stats{grid-template-columns:repeat(3,1fr)}
 }
 
-@media(max-width:720px){
-
-  .container{
-    width:94%;
-  }
-
-  .nav{
-    padding:12px 0;
-  }
-
-  .user-email{
-    display:none;
-  }
-
-  .trader-buttons{
-    grid-template-columns:1fr;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .trade-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .calendar-grid{
-    gap:5px;
-  }
-
-  .day{
-    min-height:76px;
-    padding:7px;
-  }
-
-  .day-status{
-    margin-top:12px;
-    font-size:8px;
-  }
-
-  .auth-card{
-    padding:28px 22px;
-  }
-
-}
-
-@media(max-width:430px){
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .stat{
-    padding:15px;
-  }
-
-  .stat strong{
-    font-size:20px;
-  }
-
-  .month-bar{
-    flex-direction:column;
-  }
-
-  .month-bar select,
-  .month-bar button{
-    width:100%;
-  }
-
+@media(max-width:700px){
+.container{width:94%}
+.nav{padding:12px 0}
+.user-email{display:none}
+.trader-buttons{grid-template-columns:1fr}
+.stats{grid-template-columns:1fr 1fr}
+.form-grid{grid-template-columns:1fr}
+.trade-grid{grid-template-columns:repeat(2,1fr)}
+.calendar-grid{gap:5px}
+.day{min-height:75px;padding:7px}
+.day-status{margin-top:10px;font-size:9px}
+.month-bar{flex-direction:column}
+.month-bar select,.month-bar button{width:100%}
+.auth-card{padding:25px}
 }
 </style>
+
 </head>
 
 <body>
 
-<!-- =========================================================
-     AUTH PAGE
-========================================================= -->
+<!-- AUTH -->
 
 <section id="authPage">
 
-  <div class="auth-card">
+<div class="auth-card">
 
-    <div class="logo">AAD</div>
+<div class="logo">AAD</div>
 
-    <h1>AAD Trading Journal</h1>
+<h1>AAD Trading Journal</h1>
 
-    <p class="subtitle">
-      Your personal professional trading journal.<br>
-      ကိုယ့် Trading အတွေ့အကြုံ၊ Trade မှတ်တမ်းနဲ့
-      စိတ်ခံစားချက်တွေကို စနစ်တကျ သိမ်းဆည်းပါ။
-    </p>
+<p class="subtitle">
+Your professional trading journal.<br>
+ကိုယ့် Trading မှတ်တမ်းတွေကို စနစ်တကျ သိမ်းဆည်းပါ။
+</p>
 
-    <div id="loginForm">
+<div id="loginForm">
 
-      <div class="field">
-        <label>Email / Gmail</label>
-        <input id="loginEmail"
-               type="email"
-               placeholder="your@email.com">
-      </div>
+<div class="field">
+<label>Email / Gmail</label>
+<input id="loginEmail" type="email">
+</div>
 
-      <div class="field">
-        <label>Password</label>
-        <input id="loginPassword"
-               type="password"
-               placeholder="••••••••">
-      </div>
+<div class="field">
+<label>Password</label>
+<input id="loginPassword" type="password">
+</div>
 
-      <button class="btn full"
-              onclick="login()">
-        Login ဝင်မယ်
-      </button>
+<button class="btn full" onclick="login()">Login</button>
 
-      <div class="auth-switch">
-        Account မရှိသေးဘူးလား?
-        <button onclick="showSignup()">
-          Create Account
-        </button>
-      </div>
+<div class="auth-switch">
+Account မရှိသေးဘူးလား?
+<button onclick="showSignup()">Create Account</button>
+</div>
 
-    </div>
+</div>
 
-    <div id="signupForm" class="hidden">
+<div id="signupForm" class="hidden">
 
-      <div class="field">
-        <label>Email / Gmail</label>
-        <input id="signupEmail"
-               type="email"
-               placeholder="your@email.com">
-      </div>
+<div class="field">
+<label>Email / Gmail</label>
+<input id="signupEmail" type="email">
+</div>
 
-      <div class="field">
-        <label>Password</label>
-        <input id="signupPassword"
-               type="password"
-               placeholder="At least 6 characters">
-      </div>
+<div class="field">
+<label>Password</label>
+<input id="signupPassword" type="password">
+</div>
 
-      <button class="btn full"
-              onclick="signup()">
-        Account ဖန်တီးမယ်
-      </button>
+<button class="btn full" onclick="signup()">Create Account</button>
 
-      <div class="auth-switch">
-        Account ရှိပြီးသားလား?
-        <button onclick="showLogin()">
-          Login
-        </button>
-      </div>
+<div class="auth-switch">
+Account ရှိပြီးသားလား?
+<button onclick="showLogin()">Login</button>
+</div>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
 </section>
 
-
-<!-- =========================================================
-     APP
-========================================================= -->
+<!-- APP -->
 
 <section id="appPage" class="hidden">
 
 <header>
 
-  <div class="container nav">
+<div class="container nav">
 
-    <div class="brand">
+<div class="brand">
 
-      <div class="brand-icon">
-        AAD
-      </div>
+<div class="brand-icon">AAD</div>
 
-      <div class="brand-text">
-        <strong>AAD Trading Journal</strong>
-        <small>Professional Trading Journal</small>
-      </div>
+<div class="brand-text">
+<strong>AAD Trading Journal</strong>
+<small>Professional Trading Journal</small>
+</div>
 
-    </div>
+</div>
 
-    <div class="user-area">
+<div class="user-area">
 
-      <span id="userEmail"
-            class="user-email"></span>
+<span id="userEmail" class="user-email"></span>
 
-      <button class="btn secondary"
-              onclick="logout()">
-        Logout
-      </button>
+<button class="btn secondary" onclick="logout()">
+Logout
+</button>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
 </header>
-
 
 <main>
 
 <div class="container">
 
-
-<!-- =========================================================
-     TRADER + MONTH
-========================================================= -->
+<!-- TRADER + MONTH -->
 
 <div class="top-grid">
 
-  <div class="panel">
+<div class="panel">
 
-    <div class="panel-title">
+<div class="panel-title">
 
-      <div>
+<div>
+<h2>Trader Profiles</h2>
+<p>မှတ်တမ်းတင်မည့် Trader ကိုရွေးပါ</p>
+</div>
 
-        <h2>Trader Profiles</h2>
-
-        <p>
-          မှတ်တမ်းတင်မည့် Trader ကိုရွေးပါ
-        </p>
-
-      </div>
-
-    </div>
-
-    <div id="traderList"
-         class="trader-buttons">
-
-      <div class="loading">
-        Loading Trader Profiles...
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="panel">
-
-    <div class="panel-title">
-
-      <div>
-
-        <h2>Journal Months</h2>
-
-        <p>
-          လစဉ် Trading Journal ကို စီမံပါ
-        </p>
-
-      </div>
-
-    </div>
-
-    <div class="month-bar">
-
-      <select id="monthSelect"
-              onchange="changeMonth(this.value)">
-
-        <option value="">
-          Select Month
-        </option>
-
-      </select>
-
-      <button class="btn green"
-              onclick="createNewMonth()">
-        + Create Month
-      </button>
-
-    </div>
-
-  </div>
+<button class="btn green" onclick="createTrader()">
++ Create Trader
+</button>
 
 </div>
 
+<div id="traderList" class="trader-buttons">
+<div class="loading">Loading Traders...</div>
+</div>
 
-<!-- =========================================================
-     STATS
-========================================================= -->
+</div>
+
+<div class="panel">
+
+<div class="panel-title">
+
+<div>
+<h2>Monthly Journal</h2>
+<p>ရွေးထားသော Trader အတွက် Month စီမံပါ</p>
+</div>
+
+</div>
+
+<div class="month-bar">
+
+<select id="monthSelect" onchange="changeMonth(this.value)">
+<option value="">Select Month</option>
+</select>
+
+<button class="btn green" onclick="createNewMonth()">
++ Create Month
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STATS -->
 
 <div class="stats">
 
-  <div class="stat">
+<div class="stat">
+<small>Total Trades</small>
+<strong id="statTrades">0</strong>
+</div>
 
-    <small>Total Trades</small>
+<div class="stat">
+<small>Win Rate</small>
+<strong id="statWinRate">0%</strong>
+</div>
 
-    <strong id="statTrades">
-      0
-    </strong>
+<div class="stat">
+<small>Total P&L</small>
+<strong id="statPnl">$0.00</strong>
+</div>
 
-  </div>
+<div class="stat">
+<small>Total R</small>
+<strong id="statR">0R</strong>
+</div>
 
-  <div class="stat">
-
-    <small>Win Rate</small>
-
-    <strong id="statWinRate">
-      0%
-    </strong>
-
-  </div>
-
-  <div class="stat">
-
-    <small>Total P&amp;L</small>
-
-    <strong id="statPnl">
-      $0.00
-    </strong>
-
-  </div>
-
-  <div class="stat">
-
-    <small>Total R</small>
-
-    <strong id="statR">
-      0R
-    </strong>
-
-  </div>
+<div class="stat">
+<small>Profit Factor</small>
+<strong id="statPF">0</strong>
+</div>
 
 </div>
 
-
-<!-- =========================================================
-     CALENDAR
-========================================================= -->
+<!-- CALENDAR -->
 
 <div class="panel calendar-panel">
 
-  <div class="calendar-head">
+<div class="panel-title">
 
-    <div>
-
-      <h2 id="calendarTitle">
-        Trading Calendar
-      </h2>
-
-      <p style="color:var(--muted);margin-top:5px;">
-        နေ့ရက်ကိုနှိပ်ပြီး Daily Journal ဖြည့်ပါ
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="calendar-grid">
-
-    <div class="weekday">Sun</div>
-    <div class="weekday">Mon</div>
-    <div class="weekday">Tue</div>
-    <div class="weekday">Wed</div>
-    <div class="weekday">Thu</div>
-    <div class="weekday">Fri</div>
-    <div class="weekday">Sat</div>
-
-  </div>
-
-
-  <div id="calendar"
-       class="calendar-grid"></div>
+<div>
+<h2 id="calendarTitle">Trading Calendar</h2>
+<p>နေ့ရက်တစ်ရက်ကိုနှိပ်ပြီး Journal ဖြည့်ပါ</p>
+</div>
 
 </div>
 
+<div class="calendar-grid">
 
-<!-- =========================================================
-     DAILY JOURNAL + TRADE
-========================================================= -->
+<div class="weekday">Sun</div>
+<div class="weekday">Mon</div>
+<div class="weekday">Tue</div>
+<div class="weekday">Wed</div>
+<div class="weekday">Thu</div>
+<div class="weekday">Fri</div>
+<div class="weekday">Sat</div>
+
+</div>
+
+<div id="calendar" class="calendar-grid"></div>
+
+</div>
+
+<!-- DAILY + TRADE -->
 
 <div class="daily-layout">
-
 
 <!-- DAILY JOURNAL -->
 
 <div class="panel">
 
-  <div class="panel-title">
+<div class="panel-title">
 
-    <div>
-
-      <h2>Daily Journal</h2>
-
-      <p id="selectedDateText">
-        Select a date
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="form-grid">
-
-    <div class="field">
-
-      <label>Market Condition</label>
-
-      <input id="marketCondition"
-             placeholder="Trending / Ranging / Volatile">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Daily Bias</label>
-
-      <select id="dailyBias">
-
-        <option value="">
-          Select
-        </option>
-
-        <option>Strong Bullish</option>
-        <option>Bullish</option>
-        <option>Neutral</option>
-        <option>Bearish</option>
-        <option>Strong Bearish</option>
-
-      </select>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Emotion Before</label>
-
-      <input id="emotionBefore"
-             placeholder="Calm / Fear / Greed">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Emotion After</label>
-
-      <input id="emotionAfter"
-             placeholder="Calm / Happy / Frustrated">
-
-    </div>
-
-
-    <div class="field full-width">
-
-      <label>Today's Trading Plan</label>
-
-      <textarea id="dailyPlan"
-                placeholder="ဒီနေ့ ဘာကိုစောင့်မလဲ? ဘယ် Setup ကို Trade မလဲ?"></textarea>
-
-    </div>
-
-
-    <div class="field full-width">
-
-      <label>Daily Result</label>
-
-      <textarea id="dailyResult"
-                placeholder="ဒီနေ့ Trading Result"></textarea>
-
-    </div>
-
-
-    <div class="field full-width">
-
-      <label>Lessons Learned</label>
-
-      <textarea id="lesson"
-                placeholder="ဒီနေ့ ဘာသင်ယူခဲ့လဲ?"></textarea>
-
-    </div>
-
-
-    <div class="field full-width">
-
-      <label>Mistakes</label>
-
-      <textarea id="mistakes"
-                placeholder="ဘာတွေမှားခဲ့လဲ?"></textarea>
-
-    </div>
-
-
-    <div class="field full-width">
-
-      <label>Additional Notes</label>
-
-      <textarea id="dailyNotes"></textarea>
-
-    </div>
-
-  </div>
-
-
-  <div class="actions">
-
-    <button class="btn"
-            onclick="saveDailyEntry()">
-      Save Daily Journal
-    </button>
-
-    <button class="btn danger"
-            onclick="deleteDailyEntry()">
-      Delete Day
-    </button>
-
-  </div>
+<div>
+<h2>Daily Journal</h2>
+<p id="selectedDateText">Select a date</p>
+</div>
 
 </div>
 
+<div class="form-grid">
+
+<div class="field">
+<label>Market Condition</label>
+<input id="marketCondition" placeholder="Trending / Ranging / Volatile">
+</div>
+
+<div class="field">
+<label>Market Bias</label>
+<select id="marketBias">
+<option value="">Select</option>
+<option>Strong Bullish</option>
+<option>Bullish</option>
+<option>Neutral</option>
+<option>Bearish</option>
+<option>Strong Bearish</option>
+</select>
+</div>
+
+<div class="field full-width">
+<label>Today's Trading Plan</label>
+<textarea id="dailyPlan"></textarea>
+</div>
+
+<div class="field">
+<label>Emotion Before</label>
+<input id="emotionBefore">
+</div>
+
+<div class="field">
+<label>Emotion After</label>
+<input id="emotionAfter">
+</div>
+
+<div class="field full-width">
+<label>Daily Result</label>
+<textarea id="dailyResult"></textarea>
+</div>
+
+<div class="field full-width">
+<label>Lessons Learned</label>
+<textarea id="lessons"></textarea>
+</div>
+
+<div class="field full-width">
+<label>Mistakes</label>
+<textarea id="mistakes"></textarea>
+</div>
+
+<div class="field full-width">
+<label>Additional Notes</label>
+<textarea id="dailyNotes"></textarea>
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn" onclick="saveDailyJournal()">
+Save Daily Journal
+</button>
+
+<button class="btn danger" onclick="deleteDailyJournal()">
+Delete Day
+</button>
+
+</div>
+
+</div>
 
 <!-- TRADE FORM -->
 
 <div class="panel">
 
-  <div class="panel-title">
-
-    <div>
-
-      <h2>Add Trade</h2>
-
-      <p>
-        ရွေးထားသောနေ့အတွက် Trade ထည့်ပါ
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="form-grid">
-
-
-    <div class="field">
-
-      <label>Symbol</label>
-
-      <input id="tradeSymbol"
-             placeholder="EURUSD / XAUUSD / BTCUSDT">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Direction</label>
-
-      <select id="tradeDirection">
-
-        <option value="">
-          Select
-        </option>
-
-        <option value="Long">
-          Long
-        </option>
-
-        <option value="Short">
-          Short
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Entry Price</label>
-
-      <input id="tradeEntry"
-             type="number"
-             step="any">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Stop Loss</label>
-
-      <input id="tradeSL"
-             type="number"
-             step="any">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Take Profit</label>
-
-      <input id="tradeTP"
-             type="number"
-             step="any">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Lot Size</label>
-
-      <input id="tradeLot"
-             type="number"
-             step="any">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Risk %</label>
-
-      <input id="tradeRiskPercent"
-             type="number"
-             step="any">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Risk Amount</label>
-
-      <input id="tradeRiskAmount"
-             type="number"
-             step="any">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>P&amp;L ($)</label>
-
-      <input id="tradePnl"
-             type="number"
-             step="any">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>R Multiple</label>
-
-      <input id="tradeR"
-             type="number"
-             step="any"
-             placeholder="2">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Result</label>
-
-      <select id="tradeResult">
-
-        <option value="">
-          Select
-        </option>
-
-        <option value="Win">
-          Win
-        </option>
-
-        <option value="Loss">
-          Loss
-        </option>
-
-        <option value="BE">
-          Break Even
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Trade Rating</label>
-
-      <select id="tradeRating">
-
-        <option value="">
-          Select
-        </option>
-
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-
-      </select>
-
-    </div>
-
-
-    <div class="field full-width">
-
-      <label>Strategy</label>
-
-      <input id="tradeStrategy"
-             placeholder="SMC / Wyckoff / Breakout / Pullback">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Emotion</label>
-
-      <input id="tradeEmotion"
-             placeholder="Calm / Fear / FOMO">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>Entry Reason</label>
-
-      <input id="entryReason"
-             placeholder="Why did you enter?">
-
-    </div>
-
-
-    <div class="field full-width">
-
-      <label>Exit Reason</label>
-
-      <input id="exitReason"
-             placeholder="Why did you exit?">
-
-    </div>
-
-
-    <div class="field full-width">
-
-      <label>Trade Notes</label>
-
-      <textarea id="tradeNotes"></textarea>
-
-    </div>
-
-
-    <div class="field full-width">
-
-      <label>Trade Screenshot</label>
-
-      <input id="tradeImage"
-             type="file"
-             accept="image/*">
-
-      <div id="tradeImagePreview"
-           class="image-preview"></div>
-
-    </div>
-
-  </div>
-
-
-  <div class="actions">
-
-    <button class="btn green"
-            onclick="saveTrade()">
-      + Save Trade
-    </button>
-
-  </div>
+<div class="panel-title">
+
+<div>
+<h2>Add Trade</h2>
+<p>ရွေးထားသောနေ့အတွက် Trade ထည့်ပါ</p>
+</div>
+
+</div>
+
+<div class="form-grid">
+
+<div class="field">
+<label>Symbol</label>
+<input id="tradeSymbol" placeholder="EURUSD / XAUUSD / BTCUSDT">
+</div>
+
+<div class="field">
+<label>Direction</label>
+<select id="tradeDirection">
+<option value="">Select</option>
+<option>Long</option>
+<option>Short</option>
+</select>
+</div>
+
+<div class="field">
+<label>Entry Price</label>
+<input id="tradeEntry" type="number" step="any">
+</div>
+
+<div class="field">
+<label>Stop Loss</label>
+<input id="tradeSL" type="number" step="any">
+</div>
+
+<div class="field">
+<label>Take Profit</label>
+<input id="tradeTP" type="number" step="any">
+</div>
+
+<div class="field">
+<label>Lot Size</label>
+<input id="tradeLot" type="number" step="any">
+</div>
+
+<div class="field">
+<label>Risk %</label>
+<input id="tradeRiskPercent" type="number" step="any">
+</div>
+
+<div class="field">
+<label>Risk Amount</label>
+<input id="tradeRiskAmount" type="number" step="any">
+</div>
+
+<div class="field">
+<label>P&L ($)</label>
+<input id="tradePnl" type="number" step="any">
+</div>
+
+<div class="field">
+<label>R Multiple</label>
+<input id="tradeR" type="number" step="any">
+</div>
+
+<div class="field">
+<label>Result</label>
+<select id="tradeResult">
+<option value="">Select</option>
+<option>Win</option>
+<option>Loss</option>
+<option>BE</option>
+</select>
+</div>
+
+<div class="field">
+<label>Rating</label>
+<select id="tradeRating">
+<option value="">Select</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+</select>
+</div>
+
+<div class="field full-width">
+<label>Strategy</label>
+<input id="tradeStrategy" placeholder="SMC / Wyckoff / Breakout / Pullback">
+</div>
+
+<div class="field">
+<label>Emotion</label>
+<input id="tradeEmotion">
+</div>
+
+<div class="field">
+<label>Entry Reason</label>
+<input id="entryReason">
+</div>
+
+<div class="field full-width">
+<label>Exit Reason</label>
+<input id="exitReason">
+</div>
+
+<div class="field full-width">
+<label>Trade Notes</label>
+<textarea id="tradeNotes"></textarea>
+</div>
+
+<div class="field full-width">
+<label>Trade Screenshot</label>
+<input id="tradeImage" type="file" accept="image/*" multiple>
+<div id="tradeImagePreview" class="image-preview"></div>
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn green" onclick="saveTrade()">
++ Save Trade
+</button>
 
 </div>
 
 </div>
 
+</div>
 
-<!-- =========================================================
-     TRADES LIST
-========================================================= -->
+<!-- TRADE LIST -->
 
-<div class="panel"
-     style="margin-top:20px;">
+<div class="panel" style="margin-top:20px">
 
-  <div class="panel-title">
+<div class="panel-title">
 
-    <div>
-
-      <h2>Today's Trades</h2>
-
-      <p>
-        ရွေးထားသောနေ့၏ Trade မှတ်တမ်းများ
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div id="tradeList">
-
-    <div class="loading">
-      Select a date to view trades
-    </div>
-
-  </div>
+<div>
+<h2>Today's Trades</h2>
+<p>ရွေးထားသောနေ့၏ Trade မှတ်တမ်းများ</p>
+</div>
 
 </div>
 
+<div id="tradeList">
+<div class="loading">Select a date</div>
+</div>
+
+</div>
 
 </div>
 
 </main>
 
-
 <footer>
 
-  <div>
-    AAD Trading Journal
-  </div>
+<div>AAD Trading Journal</div>
 
-  <div style="margin-top:8px;">
-    ဒီ Website ကို ဖန်တီးသူ —
-    <strong>ကျော်ဝင်းစိန်</strong>
-  </div>
+<div style="margin-top:8px">
+ရေးသားသူ / ဖန်တီးသူ — <strong>ကျော်ဝင်းစိန်</strong>
+</div>
 
 </footer>
 
 </section>
 
-
 <div id="toast"></div>
-
 
 <script>
 
-/* =========================================================
-   SUPABASE
-========================================================= */
+/* ============================================================
+SUPABASE
+============================================================ */
 
 const SUPABASE_URL =
 "https://jxbqhaikqwsswnlxlzpa.supabase.co";
@@ -1581,2455 +1036,1619 @@ const SUPABASE_KEY =
 
 const supabaseClient =
 window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
 
-/* =========================================================
-   GLOBAL STATE
-========================================================= */
+/* ============================================================
+STATE
+============================================================ */
 
-let currentUser = null;
-let traders = [];
-let selectedTrader = null;
-let months = [];
-let currentMonth = null;
-let selectedDate = null;
-let currentDailyEntry = null;
+let currentUser=null;
+let traders=[];
+let selectedTrader=null;
+let months=[];
+let currentMonth=null;
+let selectedDate=null;
+let currentDailyJournal=null;
 
 
-/* =========================================================
-   HELPERS
-========================================================= */
+/* ============================================================
+HELPERS
+============================================================ */
 
 function toast(message){
 
-  const el =
-  document.getElementById("toast");
+const el=document.getElementById("toast");
 
-  el.textContent = message;
+el.textContent=message;
 
-  el.classList.add("show");
+el.classList.add("show");
 
-  clearTimeout(window.toastTimer);
-
-  window.toastTimer =
-  setTimeout(() => {
-
-    el.classList.remove("show");
-
-  },3500);
+setTimeout(()=>{
+el.classList.remove("show");
+},3500);
 
 }
 
 
 function escapeHtml(value){
 
-  if(value === null ||
-     value === undefined){
+if(value===null||value===undefined)
+return "";
 
-    return "";
-
-  }
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 
 }
 
 
-function numberValue(id){
+function num(id){
 
-  const value =
-  document
-  .getElementById(id)
-  .value
-  .trim();
+const v=document.getElementById(id).value;
 
-  if(value === "")
-    return null;
-
-  return Number(value);
+return v===""?null:Number(v);
 
 }
 
 
-/* =========================================================
-   AUTH UI
-========================================================= */
+/* ============================================================
+AUTH UI
+============================================================ */
 
 function showSignup(){
 
-  document
-  .getElementById("loginForm")
-  .classList.add("hidden");
+document.getElementById("loginForm")
+.classList.add("hidden");
 
-  document
-  .getElementById("signupForm")
-  .classList.remove("hidden");
+document.getElementById("signupForm")
+.classList.remove("hidden");
 
 }
 
 
 function showLogin(){
 
-  document
-  .getElementById("signupForm")
-  .classList.add("hidden");
+document.getElementById("signupForm")
+.classList.add("hidden");
 
-  document
-  .getElementById("loginForm")
-  .classList.remove("hidden");
+document.getElementById("loginForm")
+.classList.remove("hidden");
 
 }
 
 
-/* =========================================================
-   SIGNUP
-========================================================= */
+/* ============================================================
+SIGNUP
+============================================================ */
 
 async function signup(){
 
-  const email =
-  document
-  .getElementById("signupEmail")
-  .value
-  .trim();
+const email=
+document.getElementById("signupEmail")
+.value.trim();
 
-  const password =
-  document
-  .getElementById("signupPassword")
-  .value;
+const password=
+document.getElementById("signupPassword")
+.value;
 
+if(!email||!password){
 
-  if(!email || !password){
+toast("Email နဲ့ Password ဖြည့်ပါ");
 
-    toast(
-      "Email နဲ့ Password ဖြည့်ပါ"
-    );
+return;
 
-    return;
+}
 
-  }
+if(password.length<6){
 
+toast("Password အနည်းဆုံး 6 လုံးထားပါ");
 
-  if(password.length < 6){
+return;
 
-    toast(
-      "Password အနည်းဆုံး 6 လုံးထားပါ"
-    );
+}
 
-    return;
+const {error}=
+await supabaseClient.auth.signUp({
+email,
+password
+});
 
-  }
+if(error){
 
+toast(error.message);
 
-  const {
-    error
-  } =
-  await supabaseClient.auth.signUp({
+return;
 
-    email,
-    password
+}
 
-  });
+toast("Account Created Successfully");
 
-
-  if(error){
-
-    toast(error.message);
-
-    return;
-
-  }
-
-
-  toast(
-    "Account ဖန်တီးပြီးပါပြီ။ Email Confirmation လိုအပ်ရင် Email ကိုစစ်ပါ။"
-  );
-
-  showLogin();
+showLogin();
 
 }
 
 
-/* =========================================================
-   LOGIN
-========================================================= */
+/* ============================================================
+LOGIN
+============================================================ */
 
 async function login(){
 
-  const email =
-  document
-  .getElementById("loginEmail")
-  .value
-  .trim();
+const email=
+document.getElementById("loginEmail")
+.value.trim();
 
-  const password =
-  document
-  .getElementById("loginPassword")
-  .value;
+const password=
+document.getElementById("loginPassword")
+.value;
 
+const {data,error}=
+await supabaseClient.auth.signInWithPassword({
+email,
+password
+});
 
-  if(!email || !password){
+if(error){
 
-    toast(
-      "Email နဲ့ Password ဖြည့်ပါ"
-    );
+toast(error.message);
 
-    return;
+return;
 
-  }
+}
 
+currentUser=data.user;
 
-  const {
-    data,
-    error
-  } =
-  await supabaseClient.auth
-  .signInWithPassword({
-
-    email,
-    password
-
-  });
-
-
-  if(error){
-
-    toast(error.message);
-
-    return;
-
-  }
-
-
-  currentUser =
-  data.user;
-
-  await openApp();
+await openApp();
 
 }
 
 
-/* =========================================================
-   LOGOUT
-========================================================= */
+/* ============================================================
+LOGOUT
+============================================================ */
 
 async function logout(){
 
-  await supabaseClient.auth.signOut();
+await supabaseClient.auth.signOut();
 
-  currentUser = null;
-
-  location.reload();
+location.reload();
 
 }
 
 
-/* =========================================================
-   SESSION
-========================================================= */
-
-async function checkSession(){
-
-  const {
-    data
-  } =
-  await supabaseClient.auth.getSession();
-
-
-  if(data.session){
-
-    currentUser =
-    data.session.user;
-
-    await openApp();
-
-  }
-
-}
-
-
-/* =========================================================
-   OPEN APP
-========================================================= */
+/* ============================================================
+OPEN APP
+============================================================ */
 
 async function openApp(){
 
-  if(!currentUser)
-    return;
+document.getElementById("authPage")
+.classList.add("hidden");
 
+document.getElementById("appPage")
+.classList.remove("hidden");
 
-  document
-  .getElementById("authPage")
-  .classList.add("hidden");
+document.getElementById("userEmail")
+.textContent=currentUser.email;
 
-  document
-  .getElementById("appPage")
-  .classList.remove("hidden");
-
-
-  document
-  .getElementById("userEmail")
-  .textContent =
-  currentUser.email || "";
-
-
-  await loadTraders();
+await loadTraders();
 
 }
 
 
-/* =========================================================
-   LOAD TRADERS
-   IMPORTANT:
-   3 DEFAULT TRADERS ARE CREATED AUTOMATICALLY
-   IF THEY ARE MISSING.
-========================================================= */
+/* ============================================================
+LOAD TRADERS
+============================================================ */
 
 async function loadTraders(){
 
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("traders")
-  .select("id,name,created_at")
-  .order("created_at");
+const {data,error}=
+await supabaseClient
+.from("traders")
+.select("*")
+.order("name");
 
+if(error){
 
-  if(error){
+toast("Trader Error: "+error.message);
 
-    console.error(error);
-
-    toast(
-      "Trader loading error: " +
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  traders =
-  data || [];
-
-
-  /* =====================================================
-     AUTO RESTORE 3 DEFAULT TRADER PROFILES
-  ===================================================== */
-
-  const defaultNames = [
-
-    "Aye Min Naing",
-    "Nay Lin Aung",
-    "Tun Lin Maung"
-
-  ];
-
-
-  const existingNames =
-  traders.map(
-    t => t.name
-  );
-
-
-  const missing =
-  defaultNames.filter(
-    name =>
-    !existingNames.includes(name)
-  );
-
-
-  if(missing.length){
-
-    const {
-      data:newTraders,
-      error:insertError
-    } =
-    await supabaseClient
-    .from("traders")
-    .insert(
-      missing.map(
-        name => ({
-          name
-        })
-      )
-    )
-    .select();
-
-
-    if(insertError){
-
-      console.error(
-        "Could not restore default traders:",
-        insertError
-      );
-
-
-      toast(
-        "Trader Profiles မပေါ်သေးပါ။ Supabase RLS Policy ကိုစစ်ပါ။"
-      );
-
-    }else{
-
-      traders = [
-        ...traders,
-        ...(newTraders || [])
-      ];
-
-    }
-
-  }
-
-
-  /* Sort alphabetically */
-
-  traders.sort(
-    (a,b) =>
-    a.name.localeCompare(
-      b.name
-    )
-  );
-
-
-  renderTraders();
-
-
-  /* =====================================================
-     AUTOMATICALLY SELECT FIRST TRADER
-  ===================================================== */
-
-  if(!selectedTrader &&
-     traders.length){
-
-    await selectTrader(
-      traders[0].id
-    );
-
-  }
+return;
 
 }
 
+traders=data||[];
 
-/* =========================================================
-   RENDER TRADERS
-========================================================= */
+renderTraders();
+
+}
+
 
 function renderTraders(){
 
-  const container =
-  document
-  .getElementById("traderList");
+const box=document.getElementById("traderList");
 
+if(!traders.length){
 
-  if(!traders.length){
+box.innerHTML=
+`<div class="loading">
+No Trader Found
+</div>`;
 
-    container.innerHTML =
-    `<div class="loading">
+return;
 
-      Trader Profiles မရှိသေးပါ။
+}
 
-      <br><br>
+box.innerHTML=traders.map(t=>`
 
-      Supabase Database ထဲမှာ
-      Aye Min Naing /
-      Nay Lin Aung /
-      Tun Lin Maung
-      ရှိမရှိစစ်ပါ။
+<button
+class="trader-btn ${
+selectedTrader &&
+selectedTrader.id===t.id
+?"active":""
+}"
+onclick="selectTrader('${t.id}')"
+>
 
-    </div>`;
+<small>TRADER PROFILE</small>
 
-    return;
+<strong>
+${escapeHtml(t.name)}
+</strong>
 
-  }
+</button>
 
-
-  container.innerHTML =
-  traders.map(
-    trader => `
-
-      <button
-        class="trader-btn ${
-          selectedTrader &&
-          selectedTrader.id === trader.id
-          ? "active"
-          : ""
-        }"
-        onclick="selectTrader('${trader.id}')"
-      >
-
-        <small>
-          TRADER PROFILE
-        </small>
-
-        <strong>
-          ${escapeHtml(
-            trader.name
-          )}
-        </strong>
-
-      </button>
-
-    `
-  ).join("");
+`).join("");
 
 }
 
 
-/* =========================================================
-   SELECT TRADER
-========================================================= */
+/* ============================================================
+CREATE TRADER
+============================================================ */
+
+async function createTrader(){
+
+const name=
+prompt("Trader Name ထည့်ပါ");
+
+if(!name||!name.trim())
+return;
+
+const {error}=
+await supabaseClient
+.from("traders")
+.insert({
+name:name.trim()
+});
+
+if(error){
+
+toast("Create Trader Error: "+error.message);
+
+return;
+
+}
+
+toast("Trader Created");
+
+await loadTraders();
+
+}
+
+
+/* ============================================================
+SELECT TRADER
+============================================================ */
 
 async function selectTrader(id){
 
-  selectedTrader =
-  traders.find(
-    t => t.id === id
-  );
+selectedTrader=
+traders.find(t=>t.id===id);
 
+if(!selectedTrader)
+return;
 
-  if(!selectedTrader)
-    return;
+renderTraders();
 
+currentMonth=null;
+selectedDate=null;
+currentDailyJournal=null;
 
-  renderTraders();
+clearDailyForm();
 
-
-  currentMonth = null;
-
-  selectedDate = null;
-
-  currentDailyEntry = null;
-
-
-  clearDailyForm();
-
-  clearTradeForm();
-
-
-  await loadMonths();
+await loadMonths();
 
 }
 
 
-/* =========================================================
-   LOAD MONTHS
-========================================================= */
+/* ============================================================
+LOAD MONTHS
+============================================================ */
 
 async function loadMonths(){
 
-  if(!currentUser ||
-     !selectedTrader){
+if(!selectedTrader)
+return;
 
-    return;
+const {data,error}=
+await supabaseClient
+.from("journal_months")
+.select("*")
+.eq("user_id",currentUser.id)
+.eq("trader_id",selectedTrader.id)
+.order("year",{ascending:false})
+.order("month",{ascending:false});
 
-  }
+if(error){
 
+toast("Month Loading Error: "+error.message);
 
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("journal_months")
-  .select("*")
-  .eq(
-    "user_id",
-    currentUser.id
-  )
-  .eq(
-    "trader_id",
-    selectedTrader.id
-  )
-  .order(
-    "year",
-    {
-      ascending:false
-    }
-  )
-  .order(
-    "month",
-    {
-      ascending:false
-    }
-  );
+return;
 
+}
 
-  if(error){
+months=data||[];
 
-    toast(error.message);
+renderMonthSelect();
 
-    return;
+if(months.length){
 
-  }
+currentMonth=months[0];
 
+document.getElementById("monthSelect")
+.value=currentMonth.id;
 
-  months =
-  data || [];
+await renderCalendar();
 
+}else{
 
-  renderMonthSelect();
+clearCalendar();
 
-
-  if(months.length){
-
-    currentMonth =
-    months[0];
-
-
-    document
-    .getElementById("monthSelect")
-    .value =
-    currentMonth.id;
-
-
-    await renderCalendar();
-
-  }else{
-
-    currentMonth = null;
-
-    clearCalendar();
-
-  }
-
-
-  await updateStats();
+}
 
 }
 
 
-/* =========================================================
-   MONTH SELECT
-========================================================= */
+/* ============================================================
+MONTH SELECT
+============================================================ */
 
 function renderMonthSelect(){
 
-  const select =
-  document
-  .getElementById("monthSelect");
+const select=
+document.getElementById("monthSelect");
 
+select.innerHTML=
+`<option value="">
+Select Month
+</option>`;
 
-  select.innerHTML =
-  `<option value="">
-    Select Month
-  </option>`;
+months.forEach(m=>{
 
+const label=
+new Date(
+m.year,
+m.month-1,
+1
+).toLocaleString(
+"en-US",
+{
+month:"long",
+year:"numeric"
+}
+);
 
-  months.forEach(
-    month => {
+select.innerHTML+=
+`<option value="${m.id}">
+${label}
+</option>`;
 
-      const date =
-      new Date(
-        month.year,
-        month.month - 1,
-        1
-      );
-
-
-      const label =
-      date.toLocaleString(
-        "en-US",
-        {
-          month:"long",
-          year:"numeric"
-        }
-      );
-
-
-      select.innerHTML +=
-      `<option value="${month.id}">
-        ${label}
-      </option>`;
-
-    }
-  );
+});
 
 }
 
 
 async function changeMonth(id){
 
-  if(!id)
-    return;
+if(!id)
+return;
 
+currentMonth=
+months.find(m=>m.id===id);
 
-  currentMonth =
-  months.find(
-    m => m.id === id
-  );
+selectedDate=null;
 
+currentDailyJournal=null;
 
-  selectedDate = null;
+clearDailyForm();
 
-  currentDailyEntry = null;
-
-
-  clearDailyForm();
-
-  clearTradeForm();
-
-
-  await renderCalendar();
-
-  await updateStats();
+await renderCalendar();
 
 }
 
 
-/* =========================================================
-   CREATE MONTH
-========================================================= */
+/* ============================================================
+CREATE MONTH
+IMPORTANT:
+NO journal_id
+============================================================ */
 
 async function createNewMonth(){
 
-  if(!currentUser){
+if(!selectedTrader){
 
-    toast(
-      "Login ဝင်ထားရန်လိုအပ်ပါတယ်"
-    );
+toast("အရင် Trader Profile ရွေးပါ");
 
-    return;
+return;
 
-  }
+}
 
+const now=new Date();
 
-  if(!selectedTrader){
+const year=now.getFullYear();
 
-    toast(
-      "အရင် Trader Profile ရွေးပါ"
-    );
+const month=now.getMonth()+1;
 
-    return;
+const exists=
+months.find(
+m=>
+m.year===year &&
+m.month===month
+);
 
-  }
+if(exists){
 
+toast("ဒီလ Journal ရှိပြီးသားပါ");
 
-  const now =
-  new Date();
+return;
 
+}
 
-  const year =
-  now.getFullYear();
+const {data,error}=
+await supabaseClient
+.from("journal_months")
+.insert({
 
+user_id:currentUser.id,
 
-  const month =
-  now.getMonth() + 1;
+trader_id:selectedTrader.id,
 
+year:year,
 
-  const exists =
-  months.find(
-    m =>
-    m.year === year &&
-    m.month === month
-  );
+month:month
 
+})
+.select()
+.single();
 
-  if(exists){
+if(error){
 
-    currentMonth =
-    exists;
+toast(
+"Month Create Error: "+
+error.message
+);
 
+return;
 
-    document
-    .getElementById("monthSelect")
-    .value =
-    exists.id;
+}
 
+toast("Month Created Successfully");
 
-    await renderCalendar();
+await loadMonths();
 
-    toast(
-      "ဒီလ Journal ရှိပြီးသားပါ"
-    );
+currentMonth=data;
 
-    return;
+document.getElementById("monthSelect")
+.value=data.id;
 
-  }
-
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("journal_months")
-  .insert({
-
-    user_id:
-    currentUser.id,
-
-    trader_id:
-    selectedTrader.id,
-
-    year,
-
-    month
-
-  })
-  .select()
-  .single();
-
-
-  if(error){
-
-    toast(
-      "Month Create Error: " +
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  toast(
-    "New Month Created Successfully"
-  );
-
-
-  await loadMonths();
-
-
-  currentMonth =
-  data;
-
-
-  document
-  .getElementById("monthSelect")
-  .value =
-  data.id;
-
-
-  await renderCalendar();
+await renderCalendar();
 
 }
 
 
-/* =========================================================
-   CALENDAR
-========================================================= */
+/* ============================================================
+CALENDAR
+============================================================ */
 
 async function renderCalendar(){
 
-  const calendar =
-  document
-  .getElementById("calendar");
+const calendar=
+document.getElementById("calendar");
 
+calendar.innerHTML="";
 
-  calendar.innerHTML = "";
+if(!currentMonth){
 
+clearCalendar();
 
-  if(!currentMonth){
-
-    clearCalendar();
-
-    return;
-
-  }
-
-
-  const firstDay =
-  new Date(
-    currentMonth.year,
-    currentMonth.month - 1,
-    1
-  ).getDay();
-
-
-  const daysInMonth =
-  new Date(
-    currentMonth.year,
-    currentMonth.month,
-    0
-  ).getDate();
-
-
-  const title =
-  new Date(
-    currentMonth.year,
-    currentMonth.month - 1,
-    1
-  ).toLocaleString(
-    "en-US",
-    {
-      month:"long",
-      year:"numeric"
-    }
-  );
-
-
-  document
-  .getElementById("calendarTitle")
-  .textContent =
-  title;
-
-
-  for(
-    let i=0;
-    i<firstDay;
-    i++
-  ){
-
-    const empty =
-    document.createElement("div");
-
-    empty.className =
-    "day empty";
-
-    calendar.appendChild(empty);
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("daily_journals")
-  .select("*")
-  .eq(
-    "user_id",
-    currentUser.id
-  )
-  .eq(
-    "trader_id",
-    selectedTrader.id
-  )
-  .eq(
-    "month_id",
-    currentMonth.id
-  );
-
-
-  if(error){
-
-    toast(
-      "Calendar Error: " +
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  const entries =
-  data || [];
-
-
-  for(
-    let day=1;
-    day<=daysInMonth;
-    day++
-  ){
-
-    const div =
-    document.createElement("div");
-
-
-    const date =
-    `${currentMonth.year}-${
-      String(currentMonth.month)
-      .padStart(2,"0")
-    }-${
-      String(day)
-      .padStart(2,"0")
-    }`;
-
-
-    const entry =
-    entries.find(
-      e =>
-      e.journal_date === date
-    );
-
-
-    div.className =
-    "day";
-
-
-    if(
-      selectedDate === date
-    ){
-
-      div.classList.add(
-        "selected"
-      );
-
-    }
-
-
-    if(entry){
-
-      div.classList.add(
-        "has-entry"
-      );
-
-
-      const result =
-      (
-        entry.daily_result ||
-        ""
-      ).toLowerCase();
-
-
-      if(
-        result.includes("win")
-      ){
-
-        div.classList.add(
-          "win"
-        );
-
-      }else if(
-        result.includes("loss")
-      ){
-
-        div.classList.add(
-          "loss"
-        );
-
-      }else if(
-        result.includes("be") ||
-        result.includes("break")
-      ){
-
-        div.classList.add(
-          "be"
-        );
-
-      }
-
-    }
-
-
-    div.innerHTML = `
-
-      <div class="day-number">
-        ${day}
-      </div>
-
-      <div class="day-status">
-
-        ${
-          entry
-          ? "✓ Journal"
-          : "Empty"
-        }
-
-      </div>
-
-    `;
-
-
-    div.onclick =
-    () =>
-    selectDate(date);
-
-
-    calendar.appendChild(div);
-
-  }
+return;
 
 }
 
+document.getElementById("calendarTitle")
+.textContent=
+new Date(
+currentMonth.year,
+currentMonth.month-1,
+1
+).toLocaleString(
+"en-US",
+{
+month:"long",
+year:"numeric"
+}
+);
 
-/* =========================================================
-   CLEAR CALENDAR
-========================================================= */
+const firstDay=
+new Date(
+currentMonth.year,
+currentMonth.month-1,
+1
+).getDay();
+
+const days=
+new Date(
+currentMonth.year,
+currentMonth.month,
+0
+).getDate();
+
+for(let i=0;i<firstDay;i++){
+
+const empty=document.createElement("div");
+
+empty.className="day empty";
+
+calendar.appendChild(empty);
+
+}
+
+const {data}=await supabaseClient
+.from("daily_journals")
+.select("*")
+.eq("user_id",currentUser.id)
+.eq("trader_id",selectedTrader.id)
+.eq("month_id",currentMonth.id);
+
+const entries=data||[];
+
+for(let day=1;day<=days;day++){
+
+const date=
+`${currentMonth.year}-${
+String(currentMonth.month).padStart(2,"0")
+}-${
+String(day).padStart(2,"0")
+}`;
+
+const entry=
+entries.find(
+e=>e.journal_date===date
+);
+
+const div=
+document.createElement("div");
+
+div.className="day";
+
+if(entry){
+
+div.classList.add("has-entry");
+
+const result=
+(entry.daily_result||"")
+.toLowerCase();
+
+if(result.includes("win"))
+div.classList.add("win");
+
+else if(result.includes("loss"))
+div.classList.add("loss");
+
+else if(
+result.includes("be")||
+result.includes("break")
+)
+div.classList.add("be");
+
+}
+
+div.innerHTML=`
+
+<div class="day-number">${day}</div>
+
+<div class="day-status">
+${entry?"✓ Journal":"Empty"}
+</div>
+
+`;
+
+div.onclick=()=>selectDate(date);
+
+calendar.appendChild(div);
+
+}
+
+await updateStats();
+
+}
+
 
 function clearCalendar(){
 
-  document
-  .getElementById("calendar")
-  .innerHTML = "";
+document.getElementById("calendar")
+.innerHTML="";
 
+document.getElementById("calendarTitle")
+.textContent="Create a Month to Start";
 
-  document
-  .getElementById("calendarTitle")
-  .textContent =
-  "Create a Month to Start";
-
-
-  document
-  .getElementById("monthSelect")
-  .value = "";
-
-
-  setStats(
-    0,
-    0,
-    0,
-    0
-  );
+document.getElementById("monthSelect")
+.value="";
 
 }
 
 
-/* =========================================================
-   SELECT DATE
-========================================================= */
+/* ============================================================
+SELECT DATE
+============================================================ */
 
 async function selectDate(date){
 
-  if(!currentMonth ||
-     !selectedTrader){
+selectedDate=date;
 
-    return;
+document.getElementById("selectedDateText")
+.textContent=date;
 
-  }
+const {data,error}=
+await supabaseClient
+.from("daily_journals")
+.select("*")
+.eq("user_id",currentUser.id)
+.eq("trader_id",selectedTrader.id)
+.eq("month_id",currentMonth.id)
+.eq("journal_date",date)
+.maybeSingle();
 
+if(error){
 
-  selectedDate =
-  date;
+toast(error.message);
 
+return;
 
-  document
-  .getElementById("selectedDateText")
-  .textContent =
-  `${selectedTrader.name} • ${date}`;
+}
 
+currentDailyJournal=data;
 
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("daily_journals")
-  .select("*")
-  .eq(
-    "user_id",
-    currentUser.id
-  )
-  .eq(
-    "trader_id",
-    selectedTrader.id
-  )
-  .eq(
-    "month_id",
-    currentMonth.id
-  )
-  .eq(
-    "journal_date",
-    date
-  )
-  .maybeSingle();
+fillDailyForm(data);
 
-
-  if(error){
-
-    toast(
-      "Daily Journal Error: " +
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  currentDailyEntry =
-  data || null;
-
-
-  fillDailyForm(
-    currentDailyEntry
-  );
-
-
-  await loadTrades();
-
-  await renderCalendar();
+await loadTrades();
 
 }
 
 
-/* =========================================================
-   FILL DAILY FORM
-========================================================= */
+/* ============================================================
+DAILY FORM
+============================================================ */
 
-function fillDailyForm(entry){
+function fillDailyForm(e){
 
-  document
-  .getElementById("marketCondition")
-  .value =
-  entry?.market_condition || "";
+if(!e){
 
+clearDailyForm();
 
-  document
-  .getElementById("dailyBias")
-  .value =
-  entry?.market_bias || "";
-
-
-  document
-  .getElementById("emotionBefore")
-  .value =
-  entry?.emotion_before || "";
-
-
-  document
-  .getElementById("emotionAfter")
-  .value =
-  entry?.emotion_after || "";
-
-
-  document
-  .getElementById("dailyPlan")
-  .value =
-  entry?.daily_plan || "";
-
-
-  document
-  .getElementById("dailyResult")
-  .value =
-  entry?.daily_result || "";
-
-
-  document
-  .getElementById("lesson")
-  .value =
-  entry?.lessons || "";
-
-
-  document
-  .getElementById("mistakes")
-  .value =
-  entry?.mistakes || "";
-
-
-  document
-  .getElementById("dailyNotes")
-  .value =
-  entry?.notes || "";
+return;
 
 }
 
+document.getElementById("marketCondition").value=
+e.market_condition||"";
 
-/* =========================================================
-   CLEAR DAILY FORM
-========================================================= */
+document.getElementById("marketBias").value=
+e.market_bias||"";
+
+document.getElementById("dailyPlan").value=
+e.daily_plan||"";
+
+document.getElementById("emotionBefore").value=
+e.emotion_before||"";
+
+document.getElementById("emotionAfter").value=
+e.emotion_after||"";
+
+document.getElementById("dailyResult").value=
+e.daily_result||"";
+
+document.getElementById("lessons").value=
+e.lessons||"";
+
+document.getElementById("mistakes").value=
+e.mistakes||"";
+
+document.getElementById("dailyNotes").value=
+e.notes||"";
+
+}
+
 
 function clearDailyForm(){
 
-  [
-    "marketCondition",
-    "emotionBefore",
-    "emotionAfter",
-    "dailyPlan",
-    "dailyResult",
-    "lesson",
-    "mistakes",
-    "dailyNotes"
-  ]
-  .forEach(
-    id => {
+[
+"marketCondition",
+"dailyPlan",
+"emotionBefore",
+"emotionAfter",
+"dailyResult",
+"lessons",
+"mistakes",
+"dailyNotes"
+].forEach(id=>{
+document.getElementById(id).value="";
+});
 
-      document
-      .getElementById(id)
-      .value = "";
-
-    }
-  );
-
-
-  document
-  .getElementById("dailyBias")
-  .value = "";
-
-
-  document
-  .getElementById("selectedDateText")
-  .textContent =
-  "Select a date";
+document.getElementById("marketBias")
+.value="";
 
 }
 
 
-/* =========================================================
-   SAVE DAILY JOURNAL
-========================================================= */
+/* ============================================================
+SAVE DAILY JOURNAL
+============================================================ */
 
-async function saveDailyEntry(){
+async function saveDailyJournal(){
 
-  if(!currentUser ||
-     !selectedTrader ||
-     !currentMonth ||
-     !selectedDate){
+if(!selectedTrader){
 
-    toast(
-      "Trader + Month + Date ရွေးထားရန်လိုအပ်ပါတယ်"
-    );
+toast("Trader ရွေးပါ");
 
-    return;
+return;
 
-  }
+}
 
+if(!currentMonth||!selectedDate){
 
-  const payload = {
+toast("Calendar ထဲက Date ရွေးပါ");
 
-    user_id:
-    currentUser.id,
+return;
 
-    trader_id:
-    selectedTrader.id,
+}
 
-    month_id:
-    currentMonth.id,
+const payload={
 
-    journal_date:
-    selectedDate,
+user_id:currentUser.id,
 
-    daily_plan:
-    document
-    .getElementById("dailyPlan")
-    .value,
+trader_id:selectedTrader.id,
 
-    market_bias:
-    document
-    .getElementById("dailyBias")
-    .value,
+month_id:currentMonth.id,
 
-    market_condition:
-    document
-    .getElementById("marketCondition")
-    .value,
+journal_date:selectedDate,
 
-    emotion_before:
-    document
-    .getElementById("emotionBefore")
-    .value,
+market_condition:
+document.getElementById("marketCondition").value,
 
-    emotion_after:
-    document
-    .getElementById("emotionAfter")
-    .value,
+market_bias:
+document.getElementById("marketBias").value,
 
-    daily_result:
-    document
-    .getElementById("dailyResult")
-    .value,
+daily_plan:
+document.getElementById("dailyPlan").value,
 
-    lessons:
-    document
-    .getElementById("lesson")
-    .value,
+emotion_before:
+document.getElementById("emotionBefore").value,
 
-    mistakes:
-    document
-    .getElementById("mistakes")
-    .value,
+emotion_after:
+document.getElementById("emotionAfter").value,
 
-    notes:
-    document
-    .getElementById("dailyNotes")
-    .value
+daily_result:
+document.getElementById("dailyResult").value,
 
-  };
+lessons:
+document.getElementById("lessons").value,
 
+mistakes:
+document.getElementById("mistakes").value,
 
-  let result;
+notes:
+document.getElementById("dailyNotes").value
 
+};
 
-  if(currentDailyEntry){
+let result;
 
-    result =
-    await supabaseClient
-    .from("daily_journals")
-    .update(payload)
-    .eq(
-      "id",
-      currentDailyEntry.id
-    )
-    .eq(
-      "user_id",
-      currentUser.id
-    );
+if(currentDailyJournal){
 
-  }else{
+result=
+await supabaseClient
+.from("daily_journals")
+.update(payload)
+.eq("id",currentDailyJournal.id)
+.eq("user_id",currentUser.id);
 
-    result =
-    await supabaseClient
-    .from("daily_journals")
-    .insert(payload)
-    .select()
-    .single();
+}else{
 
-  }
+result=
+await supabaseClient
+.from("daily_journals")
+.insert(payload)
+.select()
+.single();
 
+if(!result.error)
+currentDailyJournal=result.data;
 
-  if(result.error){
+}
 
-    toast(
-      "Save Error: " +
-      result.error.message
-    );
+if(result.error){
 
-    return;
+toast(
+"Daily Journal Error: "+
+result.error.message
+);
 
-  }
+return;
 
+}
 
-  if(result.data){
+toast("Daily Journal Saved");
 
-    currentDailyEntry =
-    result.data;
+await renderCalendar();
 
-  }
-
-
-  toast(
-    "Daily Journal Saved Successfully"
-  );
-
-
-  await renderCalendar();
-
-  await loadTrades();
-
-  await updateStats();
+await selectDate(selectedDate);
 
 }
 
 
-/* =========================================================
-   DELETE DAILY JOURNAL
-========================================================= */
+/* ============================================================
+DELETE DAILY JOURNAL
+============================================================ */
 
-async function deleteDailyEntry(){
+async function deleteDailyJournal(){
 
-  if(!currentDailyEntry){
+if(!currentDailyJournal){
 
-    toast(
-      "ဖျက်ရန် Daily Journal မရှိပါ"
-    );
+toast("ဖျက်ရန် Journal မရှိပါ");
 
-    return;
+return;
 
-  }
+}
 
+if(!confirm("ဒီနေ့ Journal နှင့် ဆက်စပ် Trade အားလုံးကို ဖျက်မည်လား?"))
+return;
 
-  if(
-    !confirm(
-      "ဒီနေ့ရဲ့ Journal နဲ့ Trade အားလုံးကို ဖျက်မှာသေချာပါသလား?"
-    )
-  ){
+const {error}=
+await supabaseClient
+.from("daily_journals")
+.delete()
+.eq("id",currentDailyJournal.id)
+.eq("user_id",currentUser.id);
 
-    return;
+if(error){
 
-  }
+toast(error.message);
 
+return;
 
-  const {
-    error
-  } =
-  await supabaseClient
-  .from("daily_journals")
-  .delete()
-  .eq(
-    "id",
-    currentDailyEntry.id
-  )
-  .eq(
-    "user_id",
-    currentUser.id
-  );
+}
 
+currentDailyJournal=null;
 
-  if(error){
+clearDailyForm();
 
-    toast(
-      "Delete Error: " +
-      error.message
-    );
+toast("Daily Journal Deleted");
 
-    return;
+await renderCalendar();
 
-  }
-
-
-  currentDailyEntry = null;
-
-
-  clearDailyForm();
-
-  clearTradeForm();
-
-
-  toast(
-    "Daily Journal Deleted"
-  );
-
-
-  await renderCalendar();
-
-  await loadTrades();
-
-  await updateStats();
+await loadTrades();
 
 }
 
 
-/* =========================================================
-   SAVE TRADE
-========================================================= */
+/* ============================================================
+SAVE TRADE
+============================================================ */
 
 async function saveTrade(){
 
-  if(!currentUser ||
-     !selectedTrader ||
-     !currentDailyEntry){
+if(!currentDailyJournal){
 
-    toast(
-      "အရင် Date ရွေးပြီး Daily Journal Save လုပ်ပါ"
-    );
+toast("Trade ထည့်ရန် Daily Journal ကို အရင် Save လုပ်ပါ");
 
-    return;
-
-  }
-
-
-  const payload = {
-
-    user_id:
-    currentUser.id,
-
-    trader_id:
-    selectedTrader.id,
-
-    daily_journal_id:
-    currentDailyEntry.id,
-
-    symbol:
-    document
-    .getElementById("tradeSymbol")
-    .value
-    .trim(),
-
-    direction:
-    document
-    .getElementById("tradeDirection")
-    .value,
-
-    entry_price:
-    numberValue("tradeEntry"),
-
-    stop_loss:
-    numberValue("tradeSL"),
-
-    take_profit:
-    numberValue("tradeTP"),
-
-    lot_size:
-    numberValue("tradeLot"),
-
-    risk_percent:
-    numberValue("tradeRiskPercent") ?? 0,
-
-    risk_amount:
-    numberValue("tradeRiskAmount") ?? 0,
-
-    pnl:
-    numberValue("tradePnl") ?? 0,
-
-    r_multiple:
-    numberValue("tradeR") ?? 0,
-
-    result:
-    document
-    .getElementById("tradeResult")
-    .value || null,
-
-    strategy:
-    document
-    .getElementById("tradeStrategy")
-    .value,
-
-    emotion:
-    document
-    .getElementById("tradeEmotion")
-    .value,
-
-    rating:
-    numberValue("tradeRating"),
-
-    entry_reason:
-    document
-    .getElementById("entryReason")
-    .value,
-
-    exit_reason:
-    document
-    .getElementById("exitReason")
-    .value,
-
-    notes:
-    document
-    .getElementById("tradeNotes")
-    .value
-
-  };
-
-
-  if(!payload.symbol){
-
-    toast(
-      "Symbol ဖြည့်ပါ"
-    );
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("daily_trades")
-  .insert(payload)
-  .select()
-  .single();
-
-
-  if(error){
-
-    toast(
-      "Trade Save Error: " +
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  /* =====================================================
-     OPTIONAL IMAGE UPLOAD
-     Bucket: trade-images
-     If upload fails, trade itself remains saved.
-  ===================================================== */
-
-  const file =
-  document
-  .getElementById("tradeImage")
-  .files[0];
-
-
-  if(file){
-
-    await uploadTradePhoto(
-      data.id,
-      file
-    );
-
-  }
-
-
-  toast(
-    "Trade Saved Successfully"
-  );
-
-
-  clearTradeForm();
-
-  await loadTrades();
-
-  await updateStats();
+return;
 
 }
 
+const payload={
 
-/* =========================================================
-   UPLOAD TRADE PHOTO
-   Bucket: trade-images
-========================================================= */
+user_id:currentUser.id,
 
-async function uploadTradePhoto(
-  tradeId,
-  file
-){
+trader_id:selectedTrader.id,
 
-  if(!file)
-    return;
+daily_journal_id:currentDailyJournal.id,
 
+symbol:
+document.getElementById("tradeSymbol").value.trim(),
 
-  const safeName =
-  file.name
-  .replace(
-    /[^a-zA-Z0-9._-]/g,
-    "_"
-  );
+direction:
+document.getElementById("tradeDirection").value,
 
+entry_price:num("tradeEntry"),
 
-  const filePath =
-  `${currentUser.id}/${tradeId}/${Date.now()}_${safeName}`;
+stop_loss:num("tradeSL"),
 
+take_profit:num("tradeTP"),
 
-  const {
-    error:uploadError
-  } =
-  await supabaseClient
-  .storage
-  .from("trade-images")
-  .upload(
-    filePath,
-    file,
-    {
-      upsert:false,
-      contentType:file.type
-    }
-  );
+lot_size:num("tradeLot"),
 
+risk_percent:num("tradeRiskPercent"),
 
-  if(uploadError){
+risk_amount:num("tradeRiskAmount"),
 
-    console.error(
-      "Image Upload Error:",
-      uploadError
-    );
+pnl:num("tradePnl"),
 
-    toast(
-      "Trade Saved, but Image Upload Failed"
-    );
+r_multiple:num("tradeR"),
 
-    return;
+result:
+document.getElementById("tradeResult").value,
 
-  }
+strategy:
+document.getElementById("tradeStrategy").value,
 
+emotion:
+document.getElementById("tradeEmotion").value,
 
-  const {
-    error:dbError
-  } =
-  await supabaseClient
-  .from("trade_photos")
-  .insert({
+rating:num("tradeRating"),
 
-    user_id:
-    currentUser.id,
+entry_reason:
+document.getElementById("entryReason").value,
 
-    daily_trade_id:
-    tradeId,
+exit_reason:
+document.getElementById("exitReason").value,
 
-    file_path:
-    filePath,
+notes:
+document.getElementById("tradeNotes").value
 
-    file_name:
-    file.name
+};
 
-  });
+if(!payload.symbol){
 
+toast("Symbol ဖြည့်ပါ");
 
-  if(dbError){
-
-    console.error(
-      "Photo DB Error:",
-      dbError
-    );
-
-  }
+return;
 
 }
 
+const {data,error}=
+await supabaseClient
+.from("daily_trades")
+.insert(payload)
+.select()
+.single();
 
-/* =========================================================
-   CLEAR TRADE FORM
-========================================================= */
+if(error){
 
-function clearTradeForm(){
-
-  [
-
-    "tradeSymbol",
-    "tradeEntry",
-    "tradeSL",
-    "tradeTP",
-    "tradeLot",
-    "tradeRiskPercent",
-    "tradeRiskAmount",
-    "tradePnl",
-    "tradeR",
-    "tradeStrategy",
-    "tradeEmotion",
-    "entryReason",
-    "exitReason",
-    "tradeNotes"
-
-  ]
-  .forEach(
-    id => {
-
-      document
-      .getElementById(id)
-      .value = "";
-
-    }
-  );
-
-
-  document
-  .getElementById("tradeDirection")
-  .value = "";
-
-
-  document
-  .getElementById("tradeResult")
-  .value = "";
-
-
-  document
-  .getElementById("tradeRating")
-  .value = "";
-
-
-  document
-  .getElementById("tradeImage")
-  .value = "";
-
-
-  document
-  .getElementById("tradeImagePreview")
-  .innerHTML = "";
-
-}
-
-
-/* =========================================================
-   IMAGE PREVIEW
-========================================================= */
-
-document.addEventListener(
-  "change",
-  event => {
-
-    if(
-      event.target.id !==
-      "tradeImage"
-    ){
-
-      return;
-
-    }
-
-
-    const file =
-    event.target.files[0];
-
-
-    const preview =
-    document
-    .getElementById(
-      "tradeImagePreview"
-    );
-
-
-    preview.innerHTML = "";
-
-
-    if(!file)
-      return;
-
-
-    const img =
-    document.createElement("img");
-
-
-    img.src =
-    URL.createObjectURL(file);
-
-
-    preview.appendChild(img);
-
-  }
+toast(
+"Trade Save Error: "+
+error.message
 );
 
+return;
 
-/* =========================================================
-   LOAD TRADES
-========================================================= */
+}
+
+const files=
+document.getElementById("tradeImage")
+.files;
+
+if(files.length){
+
+for(const file of files){
+
+const path=
+`${currentUser.id}/${data.id}/${Date.now()}_${file.name}`;
+
+const upload=
+await supabaseClient
+.storage
+.from("trade-screenshots")
+.upload(
+path,
+file,
+{
+upsert:false
+}
+);
+
+if(upload.error){
+
+toast(
+"Image Upload Error: "+
+upload.error.message
+);
+
+continue;
+
+}
+
+await supabaseClient
+.from("trade_photos")
+.insert({
+
+user_id:currentUser.id,
+
+daily_trade_id:data.id,
+
+file_path:path,
+
+file_name:file.name
+
+});
+
+}
+
+}
+
+toast("Trade Saved Successfully");
+
+clearTradeForm();
+
+await loadTrades();
+
+await updateStats();
+
+}
+
+
+/* ============================================================
+LOAD TRADES
+============================================================ */
 
 async function loadTrades(){
 
-  const container =
-  document
-  .getElementById("tradeList");
+const box=
+document.getElementById("tradeList");
 
+if(!currentDailyJournal){
 
-  if(!currentDailyEntry){
+box.innerHTML=
+`<div class="loading">
+Select a date
+</div>`;
 
-    container.innerHTML =
-    `<div class="loading">
-      Select a date
-    </div>`;
+return;
 
-    return;
+}
 
-  }
+const {data,error}=
+await supabaseClient
+.from("daily_trades")
+.select(`
+*,
+trade_photos(*)
+`)
+.eq(
+"daily_journal_id",
+currentDailyJournal.id
+)
+.eq(
+"user_id",
+currentUser.id
+)
+.order(
+"created_at",
+{
+ascending:false
+}
+);
 
+if(error){
 
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("daily_trades")
-  .select("*")
-  .eq(
-    "user_id",
-    currentUser.id
-  )
-  .eq(
-    "daily_journal_id",
-    currentDailyEntry.id
-  )
-  .order(
-    "created_at",
-    {
-      ascending:false
-    }
-  );
+toast(error.message);
 
+return;
 
-  if(error){
+}
 
-    toast(
-      "Trade Loading Error: " +
-      error.message
-    );
+if(!data||!data.length){
 
-    return;
+box.innerHTML=
+`<div class="loading">
+No trades recorded for this day.
+</div>`;
 
-  }
+return;
 
+}
 
-  if(!data ||
-     !data.length){
+box.innerHTML=
+data.map(t=>{
 
-    container.innerHTML =
-    `<div class="loading">
-      No trades recorded for this day.
-    </div>`;
+const result=
+(t.result||"").toLowerCase();
 
-    return;
+let badge=
+`<span class="badge be">BE</span>`;
 
-  }
+if(result==="win")
+badge=
+`<span class="badge win">WIN</span>`;
 
+if(result==="loss")
+badge=
+`<span class="badge loss">LOSS</span>`;
 
-  container.innerHTML =
-  data.map(
-    trade => {
+const photos=
+(t.trade_photos||[])
+.map(p=>{
 
-      const result =
-      (
-        trade.result || ""
-      ).toLowerCase();
+const url=
+supabaseClient
+.storage
+.from("trade-screenshots")
+.getPublicUrl(p.file_path)
+.data.publicUrl;
 
+return `<img src="${url}" alt="Trade Screenshot">`;
 
-      let badge;
+})
+.join("");
 
+return`
 
-      if(result === "win"){
+<div class="trade-card">
 
-        badge =
-        `<span class="badge win">
-          WIN
-        </span>`;
+<div class="trade-top">
 
-      }else if(result === "loss"){
+<div>
 
-        badge =
-        `<span class="badge loss">
-          LOSS
-        </span>`;
+<strong>
+${escapeHtml(t.symbol||"-")}
+</strong>
 
-      }else{
+<span style="color:var(--muted);margin-left:8px">
+${escapeHtml(t.direction||"")}
+</span>
+
+</div>
+
+${badge}
 
-        badge =
-        `<span class="badge be">
-          BE
-        </span>`;
+</div>
 
-      }
 
+<div class="trade-grid">
 
-      return `
+<div class="trade-item">
+<small>Entry</small>
+<strong>${t.entry_price??"-"}</strong>
+</div>
+
+<div class="trade-item">
+<small>SL</small>
+<strong>${t.stop_loss??"-"}</strong>
+</div>
 
-        <div class="trade-card">
+<div class="trade-item">
+<small>TP</small>
+<strong>${t.take_profit??"-"}</strong>
+</div>
 
-          <div class="trade-top">
+<div class="trade-item">
+<small>Lot</small>
+<strong>${t.lot_size??"-"}</strong>
+</div>
 
-            <div>
+<div class="trade-item">
+<small>P&L</small>
+<strong>$${Number(t.pnl||0).toFixed(2)}</strong>
+</div>
 
-              <strong>
-                ${escapeHtml(
-                  trade.symbol
-                )}
-              </strong>
+<div class="trade-item">
+<small>R</small>
+<strong>${t.r_multiple??0}R</strong>
+</div>
 
-              <span style="
-                color:var(--muted);
-                margin-left:8px;
-              ">
+<div class="trade-item">
+<small>Risk</small>
+<strong>${t.risk_percent??0}%</strong>
+</div>
 
-                ${escapeHtml(
-                  trade.direction || ""
-                )}
+<div class="trade-item">
+<small>Rating</small>
+<strong>${t.rating??"-"}/5</strong>
+</div>
 
-              </span>
+</div>
 
-            </div>
 
-            ${badge}
+<div style="
+margin-top:14px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+color:var(--muted);
+font-size:13px;
+">
 
-          </div>
+<div>
+<strong style="color:white">Strategy:</strong>
+${escapeHtml(t.strategy||"-")}
+</div>
 
+<div>
+<strong style="color:white">Emotion:</strong>
+${escapeHtml(t.emotion||"-")}
+</div>
 
-          <div class="trade-grid">
+<div>
+<strong style="color:white">Entry Reason:</strong>
+${escapeHtml(t.entry_reason||"-")}
+</div>
 
+<div>
+<strong style="color:white">Exit Reason:</strong>
+${escapeHtml(t.exit_reason||"-")}
+</div>
 
-            <div class="trade-item">
-              <small>Entry</small>
-              <strong>
-                ${trade.entry_price ?? "-"}
-              </strong>
-            </div>
+</div>
 
 
-            <div class="trade-item">
-              <small>SL</small>
-              <strong>
-                ${trade.stop_loss ?? "-"}
-              </strong>
-            </div>
-
-
-            <div class="trade-item">
-              <small>TP</small>
-              <strong>
-                ${trade.take_profit ?? "-"}
-              </strong>
-            </div>
-
-
-            <div class="trade-item">
-              <small>Lot</small>
-              <strong>
-                ${trade.lot_size ?? "-"}
-              </strong>
-            </div>
-
-
-            <div class="trade-item">
-              <small>P&amp;L</small>
-              <strong>
-                $${Number(
-                  trade.pnl || 0
-                ).toFixed(2)}
-              </strong>
-            </div>
-
-
-            <div class="trade-item">
-              <small>R Multiple</small>
-              <strong>
-                ${Number(
-                  trade.r_multiple || 0
-                ).toFixed(2)}R
-              </strong>
-            </div>
-
-
-            <div class="trade-item">
-              <small>Risk</small>
-              <strong>
-                ${trade.risk_percent ?? 0}%
-              </strong>
-            </div>
-
-
-            <div class="trade-item">
-              <small>Rating</small>
-              <strong>
-                ${trade.rating
-                  ? "★".repeat(
-                      trade.rating
-                    )
-                  : "-"
-                }
-              </strong>
-            </div>
-
-
-            <div class="trade-item">
-              <small>Strategy</small>
-              <strong>
-                ${escapeHtml(
-                  trade.strategy || "-"
-                )}
-              </strong>
-            </div>
-
-
-            <div class="trade-item">
-              <small>Emotion</small>
-              <strong>
-                ${escapeHtml(
-                  trade.emotion || "-"
-                )}
-              </strong>
-            </div>
-
-          </div>
-
-
-          ${
-            trade.entry_reason
-            ?
-            `
-            <p style="
-              color:var(--muted);
-              margin-top:14px;
-              line-height:1.6;
-            ">
-              <b style="color:#fff;">
-                Entry Reason:
-              </b>
-              ${escapeHtml(
-                trade.entry_reason
-              )}
-            </p>
-            `
-            :
-            ""
-          }
-
-
-          ${
-            trade.exit_reason
-            ?
-            `
-            <p style="
-              color:var(--muted);
-              margin-top:8px;
-              line-height:1.6;
-            ">
-              <b style="color:#fff;">
-                Exit Reason:
-              </b>
-              ${escapeHtml(
-                trade.exit_reason
-              )}
-            </p>
-            `
-            :
-            ""
-          }
-
-
-          ${
-            trade.notes
-            ?
-            `
-            <p style="
-              color:var(--muted);
-              margin-top:10px;
-              line-height:1.6;
-            ">
-              ${escapeHtml(
-                trade.notes
-              )}
-            </p>
-            `
-            :
-            ""
-          }
-
-
-          <div class="actions">
-
-            <button
-              class="btn danger"
-              onclick="deleteTrade('${trade.id}')"
-            >
-              Delete Trade
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }
-  ).join("");
+${
+t.notes
+?
+`<p style="
+color:var(--muted);
+margin-top:14px;
+line-height:1.6
+">
+${escapeHtml(t.notes)}
+</p>`
+:""
+}
+
+
+<div class="image-preview">
+${photos}
+</div>
+
+
+<div class="actions">
+
+<button
+class="btn danger"
+onclick="deleteTrade('${t.id}')"
+>
+Delete Trade
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
 
 }
 
 
-/* =========================================================
-   DELETE TRADE
-========================================================= */
+/* ============================================================
+DELETE TRADE
+============================================================ */
 
 async function deleteTrade(id){
 
-  if(
-    !confirm(
-      "ဒီ Trade ကို ဖျက်မှာသေချာပါသလား?"
-    )
-  ){
+if(!confirm("ဒီ Trade ကို ဖျက်မလား?"))
+return;
 
-    return;
+const {data:photos}=
+await supabaseClient
+.from("trade_photos")
+.select("*")
+.eq("daily_trade_id",id);
 
-  }
+if(photos&&photos.length){
 
+await supabaseClient
+.storage
+.from("trade-screenshots")
+.remove(
+photos.map(p=>p.file_path)
+);
 
-  const {
-    error
-  } =
-  await supabaseClient
-  .from("daily_trades")
-  .delete()
-  .eq(
-    "id",
-    id
-  )
-  .eq(
-    "user_id",
-    currentUser.id
-  );
+}
 
+const {error}=
+await supabaseClient
+.from("daily_trades")
+.delete()
+.eq("id",id)
+.eq("user_id",currentUser.id);
 
-  if(error){
+if(error){
 
-    toast(
-      "Delete Error: " +
-      error.message
-    );
+toast(error.message);
 
-    return;
+return;
 
-  }
+}
 
+toast("Trade Deleted");
 
-  toast(
-    "Trade Deleted"
-  );
+await loadTrades();
 
+await updateStats();
 
-  await loadTrades();
-
-  await updateStats();
+await renderCalendar();
 
 }
 
 
-/* =========================================================
-   UPDATE STATS
-========================================================= */
+/* ============================================================
+CLEAR TRADE
+============================================================ */
+
+function clearTradeForm(){
+
+[
+"tradeSymbol",
+"tradeEntry",
+"tradeSL",
+"tradeTP",
+"tradeLot",
+"tradeRiskPercent",
+"tradeRiskAmount",
+"tradePnl",
+"tradeR",
+"tradeStrategy",
+"tradeEmotion",
+"entryReason",
+"exitReason",
+"tradeNotes"
+].forEach(id=>{
+document.getElementById(id).value="";
+});
+
+document.getElementById("tradeDirection").value="";
+document.getElementById("tradeResult").value="";
+document.getElementById("tradeRating").value="";
+document.getElementById("tradeImage").value="";
+document.getElementById("tradeImagePreview").innerHTML="";
+
+}
+
+
+/* ============================================================
+IMAGE PREVIEW
+============================================================ */
+
+document.addEventListener(
+"change",
+function(e){
+
+if(e.target.id!=="tradeImage")
+return;
+
+const box=
+document.getElementById("tradeImagePreview");
+
+box.innerHTML="";
+
+Array.from(e.target.files)
+.forEach(file=>{
+
+const reader=new FileReader();
+
+reader.onload=ev=>{
+
+const img=document.createElement("img");
+
+img.src=ev.target.result;
+
+box.appendChild(img);
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+}
+);
+
+
+/* ============================================================
+STATS
+============================================================ */
 
 async function updateStats(){
 
-  if(!currentUser ||
-     !selectedTrader){
+if(!selectedTrader)
+return;
 
-    setStats(
-      0,
-      0,
-      0,
-      0
-    );
+const {data:monthsData}=
+await supabaseClient
+.from("journal_months")
+.select("id")
+.eq("user_id",currentUser.id)
+.eq("trader_id",selectedTrader.id);
 
-    return;
+if(!monthsData||!monthsData.length){
 
-  }
+setStats(0,0,0,0,0);
 
+return;
 
-  const {
-    data:trades,
-    error
-  } =
-  await supabaseClient
-  .from("daily_trades")
-  .select(
-    "result,pnl,r_multiple"
-  )
-  .eq(
-    "user_id",
-    currentUser.id
-  )
-  .eq(
-    "trader_id",
-    selectedTrader.id
-  );
+}
 
+const monthIds=
+monthsData.map(m=>m.id);
 
-  if(error){
+const {data:entries}=
+await supabaseClient
+.from("daily_journals")
+.select("id")
+.in("month_id",monthIds)
+.eq("user_id",currentUser.id);
 
-    console.error(error);
+if(!entries||!entries.length){
 
-    return;
+setStats(0,0,0,0,0);
 
-  }
+return;
 
+}
 
-  if(
-    !trades ||
-    !trades.length
-  ){
+const entryIds=
+entries.map(e=>e.id);
 
-    setStats(
-      0,
-      0,
-      0,
-      0
-    );
+const {data:trades}=
+await supabaseClient
+.from("daily_trades")
+.select("result,pnl,r_multiple")
+.in("daily_journal_id",entryIds)
+.eq("user_id",currentUser.id);
 
-    return;
+if(!trades||!trades.length){
 
-  }
+setStats(0,0,0,0,0);
 
+return;
 
-  const total =
-  trades.length;
+}
 
+const total=trades.length;
 
-  const wins =
-  trades.filter(
-    t =>
-    t.result === "Win"
-  ).length;
+const wins=
+trades.filter(
+t=>t.result==="Win"
+).length;
 
+const losses=
+trades.filter(
+t=>t.result==="Loss"
+).length;
 
-  const winRate =
-  (
-    wins /
-    total *
-    100
-  ).toFixed(1);
+const winRate=
+(total?wins/total*100:0)
+.toFixed(1);
 
+const pnl=
+trades.reduce(
+(s,t)=>s+Number(t.pnl||0),
+0
+);
 
-  const pnl =
-  trades.reduce(
-    (
-      sum,
-      t
-    ) =>
-    sum +
-    Number(
-      t.pnl || 0
-    ),
-    0
-  );
+const r=
+trades.reduce(
+(s,t)=>s+Number(t.r_multiple||0),
+0
+);
 
+const grossProfit=
+trades
+.filter(t=>Number(t.pnl||0)>0)
+.reduce(
+(s,t)=>s+Number(t.pnl||0),
+0
+);
 
-  const r =
-  trades.reduce(
-    (
-      sum,
-      t
-    ) =>
-    sum +
-    Number(
-      t.r_multiple || 0
-    ),
-    0
-  );
+const grossLoss=
+Math.abs(
+trades
+.filter(t=>Number(t.pnl||0)<0)
+.reduce(
+(s,t)=>s+Number(t.pnl||0),
+0
+)
+);
 
+const pf=
+grossLoss?
+(grossProfit/grossLoss).toFixed(2):
+(grossProfit?"∞":"0");
 
-  setStats(
-    total,
-    winRate,
-    pnl,
-    r
-  );
+setStats(
+total,
+winRate,
+pnl,
+r,
+pf
+);
 
 }
 
 
 function setStats(
-  total,
-  winRate,
-  pnl,
-  r
+total,
+winRate,
+pnl,
+r,
+pf
 ){
 
-  document
-  .getElementById("statTrades")
-  .textContent =
-  total;
+document.getElementById("statTrades")
+.textContent=total;
 
+document.getElementById("statWinRate")
+.textContent=winRate+"%";
 
-  document
-  .getElementById("statWinRate")
-  .textContent =
-  `${winRate}%`;
+document.getElementById("statPnl")
+.textContent=
+"$"+Number(pnl||0).toFixed(2);
 
+document.getElementById("statR")
+.textContent=
+Number(r||0).toFixed(2)+"R";
 
-  document
-  .getElementById("statPnl")
-  .textContent =
-  `$${Number(
-    pnl || 0
-  ).toFixed(2)}`;
-
-
-  document
-  .getElementById("statR")
-  .textContent =
-  `${Number(
-    r || 0
-  ).toFixed(2)}R`;
+document.getElementById("statPF")
+.textContent=pf;
 
 }
 
 
-/* =========================================================
-   AUTH STATE LISTENER
-========================================================= */
+/* ============================================================
+SESSION
+============================================================ */
 
-supabaseClient.auth
-.onAuthStateChange(
-  async (
-    event,
-    session
-  ) => {
+async function checkSession(){
 
-    if(session?.user){
+const {data}=
+await supabaseClient.auth.getSession();
 
-      currentUser =
-      session.user;
+if(data.session){
 
-      await openApp();
+currentUser=data.session.user;
 
-    }
+await openApp();
 
-  }
+}
+
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+(event,session)=>{
+
+if(session){
+
+currentUser=session.user;
+
+}
+
+}
 );
 
 
-/* =========================================================
-   START
-========================================================= */
-
 document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    checkSession();
-
-  }
+"DOMContentLoaded",
+()=>{
+checkSession();
+}
 );
 
 </script>
