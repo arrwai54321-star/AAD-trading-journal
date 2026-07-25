@@ -4664,8 +4664,7 @@ async function saveTrade(){
   }
 
   const traderId =
-    $("tradeTrader")
-      .value;
+  $("tradeTrader")?.value?.trim() || null;
 
   const date =
     $("tradeDate")
@@ -8787,7 +8786,7 @@ function populateTraderSelect(){
   select.innerHTML = `
 
     <option value="">
-      Select Trader
+      Select Trader (Optional)
     </option>
 
     ${
@@ -8815,11 +8814,21 @@ function populateTraderSelect(){
   `;
 
   if(
-    selectedTrader
+    selectedTrader &&
+    traders.some(
+      trader =>
+        trader.id ===
+        selectedTrader.id
+    )
   ){
 
     select.value =
       selectedTrader.id;
+
+  }else{
+
+    select.value =
+      "";
 
   }
 
