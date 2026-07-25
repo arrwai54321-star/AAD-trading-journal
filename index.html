@@ -6924,6 +6924,248 @@ document
 
 
 /* =========================================================
+   AAD MONTH EXPANSION ADD-ON
+   CREATE UNLIMITED MONTHS
+   CREATE 30 JOURNAL DAYS
+   DO NOT DELETE EXISTING CODE
+========================================================= */
+
+(function(){
+
+  /*
+    CREATE NEXT MONTH
+
+    If July exists
+    -> Create August
+
+    If August exists
+    -> Create September
+
+    And so on...
+  */
+
+  async function aadCreateNextMonth(){
+
+    if(
+      !currentUser
+    ){
+
+      showToast(
+        "Please login first.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    /*
+      FIND NEXT MONTH DATE
+    */
+
+    let targetDate;
+
+
+    if(
+      journalMonths &&
+      journalMonths.length > 0
+    ){
+
+      const sortedMonths =
+        journalMonths
+          .slice()
+          .sort(
+            (
+              a,
+              b
+            ) =>
+              String(
+                b.month_date
+              )
+              .localeCompare(
+                String(
+                  a.month_date
+                )
+              )
+          );
+
+
+      const latestMonth =
+        sortedMonths[0];
+
+
+      const latestDate =
+        new Date(
+          latestMonth.month_date +
+          "T00:00:00"
+        );
+
+
+      /*
+        MOVE TO NEXT MONTH
+      */
+
+      latestDate.setMonth(
+        latestDate.getMonth() +
+        1
+      );
+
+
+      targetDate =
+        latestDate
+          .getFullYear() +
+        "-" +
+        String(
+          latestDate.getMonth() +
+          1
+        )
+        .padStart(
+          2,
+          "0"
+        ) +
+        "-01";
+
+
+    }else{
+
+      /*
+        NO MONTH EXISTS
+        CREATE CURRENT MONTH
+      */
+
+      const now =
+        new Date();
+
+
+      targetDate =
+        now.getFullYear() +
+        "-" +
+        String(
+          now.getMonth() +
+          1
+        )
+        .padStart(
+          2,
+          "0"
+        ) +
+        "-01";
+
+    }
+
+
+    /*
+      CREATE MONTH
+      AND 30 JOURNAL DAYS
+    */
+
+    const {
+      data,
+      error
+    } =
+      await db
+        .rpc(
+          "create_journal_month_with_30_days",
+          {
+            p_month_date:
+              targetDate
+          }
+        );
+
+
+    /*
+      ERROR
+    */
+
+    if(
+      error
+    ){
+
+      showToast(
+        getErrorMessage(
+          error
+        ),
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    /*
+      RELOAD MONTHS
+    */
+
+    await loadJournalMonths();
+
+
+    /*
+      SELECT NEW MONTH
+    */
+
+    selectedMonth =
+      journalMonths.find(
+        item =>
+          String(
+            item.month_date
+          ) ===
+          String(
+            targetDate
+          )
+      ) ||
+      null;
+
+
+    /*
+      RELOAD JOURNAL DAYS
+    */
+
+    await loadJournalDays();
+
+
+    /*
+      REFRESH MONTH LIST
+    */
+
+    renderMonths();
+
+
+    /*
+      REFRESH 30 DAY GRID
+    */
+
+    renderJournalDays();
+
+
+    /*
+      SUCCESS
+    */
+
+    showToast(
+      "Month အသစ် + 30 ရက် Journal Days ဖန်တီးပြီးပါပြီ။",
+      "success"
+    );
+
+  }
+
+
+  /*
+    CONNECT NEW FUNCTION
+    TO EXISTING BUTTON
+
+    Existing button:
+    onclick="createMonth()"
+  */
+
+  window.createMonth =
+    aadCreateNextMonth;
+
+
+})();
+
+
+/* =========================================================
    END OF ADD-ON
 ========================================================= */
 
