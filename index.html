@@ -104,12 +104,6 @@ button{
   width:100%;
 }
 
-.btn:disabled{
-  opacity:.55;
-  cursor:not-allowed;
-  transform:none;
-}
-
 input,
 select,
 textarea{
@@ -148,7 +142,11 @@ textarea{
 }
 
 .panel{
-  background:linear-gradient(145deg,rgba(16,26,49,.92),rgba(8,14,29,.92));
+  background:linear-gradient(
+    145deg,
+    rgba(16,26,49,.92),
+    rgba(8,14,29,.92)
+  );
   border:1px solid var(--border);
   border-radius:24px;
   padding:22px;
@@ -331,8 +329,14 @@ main{
 
 .trader-btn.active{
   border-color:var(--primary);
-  background:linear-gradient(145deg,rgba(124,92,255,.24),rgba(34,211,238,.08));
-  box-shadow:inset 0 0 0 1px rgba(124,92,255,.18),0 10px 30px rgba(124,92,255,.10);
+  background:linear-gradient(
+    145deg,
+    rgba(124,92,255,.24),
+    rgba(34,211,238,.08)
+  );
+  box-shadow:
+    inset 0 0 0 1px rgba(124,92,255,.18),
+    0 10px 30px rgba(124,92,255,.10);
 }
 
 .trader-btn small{
@@ -392,7 +396,11 @@ main{
   overflow:hidden;
   padding:19px;
   border-radius:18px;
-  background:linear-gradient(145deg,rgba(17,28,52,.95),rgba(8,14,28,.95));
+  background:linear-gradient(
+    145deg,
+    rgba(17,28,52,.95),
+    rgba(8,14,28,.95)
+  );
   border:1px solid var(--border);
 }
 
@@ -471,7 +479,9 @@ main{
 
 .day.selected{
   border-color:var(--cyan);
-  box-shadow:0 0 0 2px rgba(34,211,238,.13),0 10px 25px rgba(34,211,238,.08);
+  box-shadow:
+    0 0 0 2px rgba(34,211,238,.13),
+    0 10px 25px rgba(34,211,238,.08);
 }
 
 .day-number{
@@ -529,14 +539,18 @@ main{
   margin-top:18px;
 }
 
-/* TRADES */
+/* TRADE */
 
 .trade-card{
   border:1px solid var(--border);
   border-radius:18px;
   padding:18px;
   margin-bottom:13px;
-  background:linear-gradient(145deg,rgba(10,18,35,.96),rgba(7,12,24,.96));
+  background:linear-gradient(
+    145deg,
+    rgba(10,18,35,.96),
+    rgba(7,12,24,.96)
+  );
 }
 
 .trade-top{
@@ -602,7 +616,6 @@ main{
   display:block;
   margin-top:4px;
   font-size:13px;
-  word-break:break-word;
 }
 
 .trade-notes{
@@ -618,7 +631,7 @@ main{
 
 .photo-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:10px;
   margin-top:15px;
 }
@@ -637,6 +650,7 @@ main{
   height:100%;
   object-fit:cover;
   cursor:pointer;
+  display:block;
 }
 
 .photo-delete{
@@ -738,6 +752,7 @@ footer strong{
 /* RESPONSIVE */
 
 @media(max-width:1150px){
+
   .stats{
     grid-template-columns:repeat(3,1fr);
   }
@@ -746,16 +761,19 @@ footer strong{
     grid-template-columns:repeat(3,1fr);
   }
 
-  .trader-buttons{
-    grid-template-columns:repeat(2,1fr);
-  }
 }
 
 @media(max-width:1000px){
+
   .top-grid,
   .daily-layout{
     grid-template-columns:1fr;
   }
+
+  .trader-buttons{
+    grid-template-columns:repeat(2,1fr);
+  }
+
 }
 
 @media(max-width:700px){
@@ -820,17 +838,23 @@ footer strong{
   }
 
   .photo-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr);
   }
 
   .auth-card{
     padding:27px;
   }
+
 }
+
 </style>
 </head>
 
 <body>
+
+<!-- =========================================================
+     AUTH PAGE
+========================================================= -->
 
 <section id="authPage">
 
@@ -850,15 +874,17 @@ Your professional personal trading journal.<br>
 
 <div class="field">
 <label>Email / Gmail</label>
-<input id="loginEmail" type="email" autocomplete="email" placeholder="your@email.com">
+<input id="loginEmail" type="email" placeholder="your@email.com">
 </div>
 
 <div class="field">
 <label>Password</label>
-<input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••">
+<input id="loginPassword" type="password" placeholder="••••••••">
 </div>
 
-<button class="btn full" onclick="login()">Login ဝင်မယ်</button>
+<button class="btn full" onclick="login()">
+Login ဝင်မယ်
+</button>
 
 <div class="auth-switch">
 Account မရှိသေးဘူးလား?
@@ -871,15 +897,17 @@ Account မရှိသေးဘူးလား?
 
 <div class="field">
 <label>Email / Gmail</label>
-<input id="signupEmail" type="email" autocomplete="email" placeholder="your@email.com">
+<input id="signupEmail" type="email" placeholder="your@email.com">
 </div>
 
 <div class="field">
 <label>Password</label>
-<input id="signupPassword" type="password" autocomplete="new-password" placeholder="At least 6 characters">
+<input id="signupPassword" type="password" placeholder="At least 6 characters">
 </div>
 
-<button class="btn full" onclick="signup()">Account ဖန်တီးမယ်</button>
+<button class="btn full" onclick="signup()">
+Account ဖန်တီးမယ်
+</button>
 
 <div class="auth-switch">
 Account ရှိပြီးသားလား?
@@ -889,43 +917,60 @@ Account ရှိပြီးသားလား?
 </div>
 
 </div>
+
 </section>
 
+
+<!-- =========================================================
+     APP
+========================================================= -->
 
 <section id="appPage" class="hidden">
 
 <header>
+
 <div class="container nav">
 
 <div class="brand">
-<div class="brand-icon">AAD</div>
+
+<div class="brand-icon">
+AAD
+</div>
 
 <div class="brand-text">
 <strong>AAD Trading Journal</strong>
 <small>Professional Trading Journal</small>
 </div>
+
 </div>
 
 <div class="user-area">
+
 <span id="userEmail" class="user-email"></span>
 
 <button class="btn secondary" onclick="logout()">
 Logout
 </button>
+
 </div>
 
 </div>
+
 </header>
 
 
 <main>
+
 <div class="container">
+
+<!-- TRADER + MONTH -->
 
 <div class="top-grid">
 
 <div class="panel">
 
 <div class="panel-title">
+
 <div>
 <h2>Trader Profiles</h2>
 <p>မှတ်တမ်းတင်မည့် Trader ကိုရွေးပါ</p>
@@ -934,10 +979,15 @@ Logout
 <button class="btn green" onclick="openTraderModal()">
 + Create Trader
 </button>
+
 </div>
 
 <div id="traderList" class="trader-buttons">
-<div class="loading">Loading Traders...</div>
+
+<div class="loading">
+Loading Traders...
+</div>
+
 </div>
 
 </div>
@@ -946,10 +996,12 @@ Logout
 <div class="panel">
 
 <div class="panel-title">
+
 <div>
 <h2>Journal Months</h2>
 <p>ရွေးထားသော Trader ၏ Monthly Journal</p>
 </div>
+
 </div>
 
 <div class="month-bar">
@@ -962,16 +1014,14 @@ Logout
 + Create Month
 </button>
 
-<button class="btn red" onclick="deleteCurrentMonth()">
-Delete Month
-</button>
-
 </div>
 
 </div>
 
 </div>
 
+
+<!-- STATS -->
 
 <div class="stats">
 
@@ -1003,21 +1053,28 @@ Delete Month
 </div>
 
 
+<!-- CALENDAR -->
+
 <div class="panel calendar-panel">
 
 <div class="calendar-head">
 
 <div>
-<h2 id="calendarTitle">Create a Month to Start</h2>
+
+<h2 id="calendarTitle">
+Create a Month to Start
+</h2>
 
 <p style="color:var(--muted);margin-top:5px;">
 Calendar ရက်ကိုနှိပ်ပြီး Daily Journal ဖြည့်ပါ
 </p>
+
 </div>
 
 </div>
 
 <div class="calendar-grid">
+
 <div class="weekday">SUN</div>
 <div class="weekday">MON</div>
 <div class="weekday">TUE</div>
@@ -1025,6 +1082,7 @@ Calendar ရက်ကိုနှိပ်ပြီး Daily Journal ဖြည�
 <div class="weekday">THU</div>
 <div class="weekday">FRI</div>
 <div class="weekday">SAT</div>
+
 </div>
 
 <div id="calendar" class="calendar-grid"></div>
@@ -1032,15 +1090,24 @@ Calendar ရက်ကိုနှိပ်ပြီး Daily Journal ဖြည�
 </div>
 
 
+<!-- DAILY + TRADE -->
+
 <div class="daily-layout">
+
+<!-- DAILY JOURNAL -->
 
 <div class="panel">
 
 <div class="panel-title">
 
 <div>
+
 <h2>Daily Journal</h2>
-<p id="selectedDateText">Select a date</p>
+
+<p id="selectedDateText">
+Select a date
+</p>
+
 </div>
 
 </div>
@@ -1050,51 +1117,69 @@ Calendar ရက်ကိုနှိပ်ပြီး Daily Journal ဖြည�
 
 <div class="field">
 <label>Market Condition</label>
-<input id="marketCondition" placeholder="Trending / Ranging / Volatile">
+<input id="marketCondition"
+placeholder="Trending / Ranging / Volatile">
 </div>
+
 
 <div class="field">
 <label>Market Bias</label>
 
 <select id="marketBias">
+
 <option value="">Select</option>
 <option>Strong Bullish</option>
 <option>Bullish</option>
 <option>Neutral</option>
 <option>Bearish</option>
 <option>Strong Bearish</option>
+
 </select>
+
 </div>
+
 
 <div class="field">
 <label>Emotion Before</label>
-<input id="emotionBefore" placeholder="Calm / Fear / Greed / FOMO">
+<input id="emotionBefore"
+placeholder="Calm / Fear / Greed / FOMO">
 </div>
+
 
 <div class="field">
 <label>Emotion After</label>
-<input id="emotionAfter" placeholder="Calm / Happy / Frustrated">
+<input id="emotionAfter"
+placeholder="Calm / Happy / Frustrated">
 </div>
+
 
 <div class="field full-width">
 <label>Today's Trading Plan</label>
-<textarea id="dailyPlan" placeholder="ဒီနေ့ ဘာကိုစောင့်မလဲ? Entry Plan ဘာလဲ?"></textarea>
+<textarea id="dailyPlan"
+placeholder="ဒီနေ့ ဘာကိုစောင့်မလဲ? Entry Plan ဘာလဲ?"></textarea>
 </div>
+
 
 <div class="field full-width">
 <label>Daily Result</label>
-<textarea id="dailyResult" placeholder="ဒီနေ့ Trading Result"></textarea>
+<textarea id="dailyResult"
+placeholder="ဒီနေ့ Trading Result"></textarea>
 </div>
+
 
 <div class="field full-width">
 <label>Lessons Learned</label>
-<textarea id="lessons" placeholder="ဒီနေ့ ဘာသင်ယူခဲ့လဲ?"></textarea>
+<textarea id="lessons"
+placeholder="ဒီနေ့ ဘာသင်ယူခဲ့လဲ?"></textarea>
 </div>
+
 
 <div class="field full-width">
 <label>Mistakes</label>
-<textarea id="mistakes" placeholder="ဘာတွေမှားခဲ့လဲ?"></textarea>
+<textarea id="mistakes"
+placeholder="ဘာတွေမှားခဲ့လဲ?"></textarea>
 </div>
+
 
 <div class="field full-width">
 <label>Additional Notes</label>
@@ -1119,13 +1204,20 @@ Delete Journal
 </div>
 
 
+<!-- TRADE FORM -->
+
 <div class="panel">
 
 <div class="panel-title">
 
 <div>
+
 <h2>Add Trade</h2>
-<p>ရွေးထားသောနေ့အတွက် Trade ထည့်ပါ</p>
+
+<p>
+ရွေးထားသောနေ့အတွက် Trade အများကြီးထည့်နိုင်ပါတယ်
+</p>
+
 </div>
 
 </div>
@@ -1135,8 +1227,10 @@ Delete Journal
 
 <div class="field">
 <label>Symbol</label>
-<input id="tradeSymbol" placeholder="EURUSD / XAUUSD / BTCUSDT">
+<input id="tradeSymbol"
+placeholder="EURUSD / XAUUSD / BTCUSDT">
 </div>
+
 
 <div class="field">
 <label>Direction</label>
@@ -1146,47 +1240,57 @@ Delete Journal
 <option value="Long">Long</option>
 <option value="Short">Short</option>
 </select>
+
 </div>
+
 
 <div class="field">
 <label>Entry Price</label>
 <input id="tradeEntry" type="number" step="any">
 </div>
 
+
 <div class="field">
 <label>Stop Loss</label>
 <input id="tradeSL" type="number" step="any">
 </div>
+
 
 <div class="field">
 <label>Take Profit</label>
 <input id="tradeTP" type="number" step="any">
 </div>
 
+
 <div class="field">
 <label>Lot Size</label>
 <input id="tradeLot" type="number" step="any">
 </div>
+
 
 <div class="field">
 <label>Risk %</label>
 <input id="tradeRiskPercent" type="number" step="any">
 </div>
 
+
 <div class="field">
 <label>Risk Amount ($)</label>
 <input id="tradeRiskAmount" type="number" step="any">
 </div>
+
 
 <div class="field">
 <label>P&L ($)</label>
 <input id="tradePnl" type="number" step="any">
 </div>
 
+
 <div class="field">
 <label>R Multiple</label>
 <input id="tradeR" type="number" step="any" placeholder="2">
 </div>
+
 
 <div class="field">
 <label>Result</label>
@@ -1197,7 +1301,9 @@ Delete Journal
 <option value="Loss">Loss</option>
 <option value="BE">Break Even</option>
 </select>
+
 </div>
+
 
 <div class="field">
 <label>Rating</label>
@@ -1210,41 +1316,63 @@ Delete Journal
 <option value="4">4 ⭐⭐⭐⭐</option>
 <option value="5">5 ⭐⭐⭐⭐⭐</option>
 </select>
+
 </div>
+
 
 <div class="field full-width">
 <label>Strategy</label>
-<input id="tradeStrategy" placeholder="SMC / Wyckoff / Breakout / Pullback">
+<input id="tradeStrategy"
+placeholder="SMC / Wyckoff / Breakout / Pullback">
 </div>
+
 
 <div class="field">
 <label>Emotion</label>
-<input id="tradeEmotion" placeholder="Calm / Fear / FOMO">
+<input id="tradeEmotion"
+placeholder="Calm / Fear / FOMO">
 </div>
+
 
 <div class="field">
 <label>Entry Reason</label>
-<input id="entryReason" placeholder="Why did you enter?">
+<input id="entryReason"
+placeholder="Why did you enter?">
 </div>
+
 
 <div class="field full-width">
 <label>Exit Reason</label>
-<input id="exitReason" placeholder="Why did you exit?">
+<input id="exitReason"
+placeholder="Why did you exit?">
 </div>
+
 
 <div class="field full-width">
 <label>Trade Notes</label>
 <textarea id="tradeNotes"></textarea>
 </div>
 
+
 <div class="field full-width">
 
-<label>Trade Screenshot</label>
+<label>
+Trade Screenshots — Maximum 3 Photos
+</label>
 
-<input id="tradeImage" type="file" accept="image/*" multiple>
+<input
+id="tradeImage"
+type="file"
+accept="image/*"
+multiple
+>
 
-<small style="display:block;color:var(--muted);margin-top:7px;">
-Multiple screenshots allowed
+<small style="
+display:block;
+color:var(--muted);
+margin-top:7px;
+">
+Trade တစ်ကြောင်းစာအတွက် Screenshot 3 ပုံအထိ ထည့်နိုင်ပါတယ်။
 </small>
 
 </div>
@@ -1258,37 +1386,55 @@ Multiple screenshots allowed
 + Save Trade
 </button>
 
-</div>
+<button class="btn secondary" onclick="clearTradeForm()">
+Clear Form
+</button>
 
 </div>
 
 </div>
 
+</div>
+
+
+<!-- TRADES LIST -->
 
 <div class="panel" style="margin-top:20px;">
 
 <div class="panel-title">
 
 <div>
+
 <h2>Today's Trades</h2>
-<p>ရွေးထားသောနေ့၏ Trade History</p>
+
+<p>
+ရွေးထားသောနေ့၏ Trade History — Trade အများကြီးသိမ်းထားနိုင်ပါတယ်
+</p>
+
 </div>
 
 </div>
 
 <div id="tradeList">
-<div class="loading">Select a date to view trades</div>
+
+<div class="loading">
+Select a date to view trades
 </div>
 
 </div>
 
 </div>
+
+</div>
+
 </main>
 
 
 <footer>
 
-<div>AAD Trading Journal</div>
+<div>
+AAD Trading Journal
+</div>
 
 <div style="margin-top:9px;">
 ရေးသားသူ — <strong>ကျော်ဝင်းစိန်</strong>
@@ -1299,15 +1445,23 @@ Multiple screenshots allowed
 </section>
 
 
+<!-- =========================================================
+     TRADER MODAL
+========================================================= -->
+
 <div id="traderModal" class="modal hidden">
 
 <div class="modal-card">
 
 <div class="modal-head">
 
-<h2 id="traderModalTitle">Create Trader</h2>
+<h2 id="traderModalTitle">
+Create Trader
+</h2>
 
-<button class="close-btn" onclick="closeTraderModal()">×</button>
+<button class="close-btn" onclick="closeTraderModal()">
+×
+</button>
 
 </div>
 
@@ -1315,7 +1469,10 @@ Multiple screenshots allowed
 
 <label>Trader Name</label>
 
-<input id="traderNameInput" placeholder="Enter Trader Name">
+<input
+id="traderNameInput"
+placeholder="Enter Trader Name"
+>
 
 </div>
 
@@ -1380,7 +1537,6 @@ let currentMonth = null;
 let selectedDate = null;
 let currentDailyJournal = null;
 let editingTraderId = null;
-let toastTimer = null;
 
 
 /* =========================================================
@@ -1389,17 +1545,15 @@ let toastTimer = null;
 
 function toast(message){
 
-  const el = document.getElementById("toast");
+  const el =
+  document.getElementById("toast");
 
-  if(!el) return;
-
-  el.textContent = String(message || "Something went wrong");
+  el.textContent =
+  message;
 
   el.classList.add("show");
 
-  clearTimeout(toastTimer);
-
-  toastTimer = setTimeout(() => {
+  setTimeout(() => {
     el.classList.remove("show");
   },3500);
 
@@ -1408,9 +1562,8 @@ function toast(message){
 
 function escapeHtml(value){
 
-  if(value === null || value === undefined){
+  if(value === null || value === undefined)
     return "";
-  }
 
   return String(value)
     .replaceAll("&","&amp;")
@@ -1424,30 +1577,28 @@ function escapeHtml(value){
 
 function numberValue(id){
 
-  const el = document.getElementById(id);
+  const el =
+  document.getElementById(id);
 
-  if(!el) return null;
+  if(!el)
+    return null;
 
-  const value = el.value.trim();
+  const value =
+  el.value;
 
-  if(value === "") return null;
+  if(value === "")
+    return null;
 
-  const number = Number(value);
-
-  return Number.isFinite(number)
-    ? number
-    : null;
+  return Number(value);
 
 }
 
 
 function formatMoney(value){
 
-  const number = Number(value || 0);
-
   return "$" +
-    (Number.isFinite(number) ? number : 0)
-    .toFixed(2);
+  Number(value || 0)
+  .toFixed(2);
 
 }
 
@@ -1455,8 +1606,8 @@ function formatMoney(value){
 function monthLabel(year,month){
 
   return new Date(
-    Number(year),
-    Number(month) - 1,
+    year,
+    month - 1,
     1
   ).toLocaleString(
     "en-US",
@@ -1469,40 +1620,32 @@ function monthLabel(year,month){
 }
 
 
-function todayYearMonth(){
-
-  const now = new Date();
-
-  return {
-    year: now.getFullYear(),
-    month: now.getMonth() + 1
-  };
-
-}
-
-
 /* =========================================================
    AUTH UI
 ========================================================= */
 
 function showSignup(){
 
-  document.getElementById("loginForm")
-    .classList.add("hidden");
+  document
+  .getElementById("loginForm")
+  .classList.add("hidden");
 
-  document.getElementById("signupForm")
-    .classList.remove("hidden");
+  document
+  .getElementById("signupForm")
+  .classList.remove("hidden");
 
 }
 
 
 function showLogin(){
 
-  document.getElementById("signupForm")
-    .classList.add("hidden");
+  document
+  .getElementById("signupForm")
+  .classList.add("hidden");
 
-  document.getElementById("loginForm")
-    .classList.remove("hidden");
+  document
+  .getElementById("loginForm")
+  .classList.remove("hidden");
 
 }
 
@@ -1516,37 +1659,53 @@ async function signup(){
   try{
 
     const email =
-      document.getElementById("signupEmail")
-      .value.trim();
+    document
+    .getElementById("signupEmail")
+    .value
+    .trim();
 
     const password =
-      document.getElementById("signupPassword")
-      .value;
+    document
+    .getElementById("signupPassword")
+    .value;
+
 
     if(!email || !password){
+
       toast("Email နဲ့ Password ဖြည့်ပါ");
       return;
+
     }
+
 
     if(password.length < 6){
+
       toast("Password အနည်းဆုံး 6 လုံးထားပါ");
       return;
+
     }
 
-    const {error} =
-      await supabaseClient.auth.signUp({
-        email,
-        password
-      });
+
+    const {
+      error
+    } =
+    await supabaseClient
+    .auth
+    .signUp({
+      email,
+      password
+    });
+
 
     if(error){
+
       toast(error.message);
       return;
+
     }
 
-    toast("Account Created Successfully");
 
-    document.getElementById("signupPassword").value = "";
+    toast("Account Created Successfully");
 
     showLogin();
 
@@ -1554,7 +1713,10 @@ async function signup(){
 
     console.error(error);
 
-    toast("Account Create Error: " + error.message);
+    toast(
+      "Signup Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -1570,30 +1732,48 @@ async function login(){
   try{
 
     const email =
-      document.getElementById("loginEmail")
-      .value.trim();
+    document
+    .getElementById("loginEmail")
+    .value
+    .trim();
 
     const password =
-      document.getElementById("loginPassword")
-      .value;
+    document
+    .getElementById("loginPassword")
+    .value;
+
 
     if(!email || !password){
+
       toast("Email နဲ့ Password ဖြည့်ပါ");
       return;
+
     }
 
-    const {data,error} =
-      await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-      });
+
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+    .auth
+    .signInWithPassword({
+      email,
+      password
+    });
+
 
     if(error){
+
       toast(error.message);
       return;
+
     }
 
-    currentUser = data.user;
+
+    currentUser =
+    data.user;
+
 
     await openApp();
 
@@ -1601,7 +1781,10 @@ async function login(){
 
     console.error(error);
 
-    toast("Login Error: " + error.message);
+    toast(
+      "Login Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -1616,38 +1799,17 @@ async function logout(){
 
   try{
 
-    const {error} =
-      await supabaseClient.auth.signOut();
-
-    if(error){
-      toast(error.message);
-      return;
-    }
-
-    currentUser = null;
-
-    selectedTrader = null;
-    currentMonth = null;
-    selectedDate = null;
-    currentDailyJournal = null;
-
-    document.getElementById("appPage")
-      .classList.add("hidden");
-
-    document.getElementById("authPage")
-      .classList.remove("hidden");
-
-    showLogin();
-
-    toast("Logged Out");
+    await supabaseClient
+    .auth
+    .signOut();
 
   }catch(error){
 
     console.error(error);
 
-    toast("Logout Error: " + error.message);
-
   }
+
+  location.reload();
 
 }
 
@@ -1661,20 +1823,17 @@ async function checkSession(){
   try{
 
     const {
-      data,
-      error
+      data
     } =
-    await supabaseClient.auth.getSession();
+    await supabaseClient
+    .auth
+    .getSession();
 
-    if(error){
-      console.error(error);
-      return;
-    }
 
-    if(data && data.session){
+    if(data.session){
 
       currentUser =
-        data.session.user;
+      data.session.user;
 
       await openApp();
 
@@ -1684,7 +1843,10 @@ async function checkSession(){
 
     console.error(error);
 
-    toast("Session Error: " + error.message);
+    toast(
+      "Session Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -1697,17 +1859,20 @@ async function checkSession(){
 
 async function openApp(){
 
-  if(!currentUser) return;
+  document
+  .getElementById("authPage")
+  .classList.add("hidden");
 
-  document.getElementById("authPage")
-    .classList.add("hidden");
+  document
+  .getElementById("appPage")
+  .classList.remove("hidden");
 
-  document.getElementById("appPage")
-    .classList.remove("hidden");
 
-  document.getElementById("userEmail")
-    .textContent =
-    currentUser.email || "";
+  document
+  .getElementById("userEmail")
+  .textContent =
+  currentUser.email;
+
 
   await loadTraders();
 
@@ -1720,8 +1885,6 @@ async function openApp(){
 
 async function loadTraders(){
 
-  if(!currentUser) return;
-
   try{
 
     const {
@@ -1729,47 +1892,48 @@ async function loadTraders(){
       error
     } =
     await supabaseClient
-      .from("traders")
-      .select("*")
-      .eq("user_id",currentUser.id)
-      .order("name",{ascending:true});
+    .from("traders")
+    .select("*")
+    .order(
+      "name",
+      {
+        ascending:true
+      }
+    );
+
 
     if(error){
+
       console.error(error);
-      toast("Trader Loading Error: " + error.message);
+
+      toast(
+        "Trader Loading Error: " +
+        error.message
+      );
+
       return;
+
     }
 
-    traders = data || [];
 
-    if(
-      selectedTrader &&
-      !traders.some(
-        t => t.id === selectedTrader.id
-      )
-    ){
-      selectedTrader = null;
-    }
+    traders =
+    data || [];
 
-    if(!selectedTrader && traders.length){
-      selectedTrader = traders[0];
-    }
 
     renderTraders();
 
-    if(selectedTrader){
+
+    if(
+      traders.length &&
+      !selectedTrader
+    ){
+
+      selectedTrader =
+      traders[0];
+
+      renderTraders();
 
       await loadMonths();
-
-    }else{
-
-      months = [];
-      currentMonth = null;
-
-      renderMonthSelect();
-      clearCalendar();
-
-      setStats(0,0,0,0,0);
 
     }
 
@@ -1777,7 +1941,10 @@ async function loadTraders(){
 
     console.error(error);
 
-    toast("Trader Loading Error: " + error.message);
+    toast(
+      "Trader Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -1791,9 +1958,9 @@ async function loadTraders(){
 function renderTraders(){
 
   const container =
-    document.getElementById("traderList");
+  document
+  .getElementById("traderList");
 
-  if(!container) return;
 
   if(!traders.length){
 
@@ -1807,52 +1974,55 @@ function renderTraders(){
 
   }
 
-  container.innerHTML =
-    traders.map(
-      trader => `
 
-      <div class="trader-wrap">
+  container.innerHTML =
+  traders.map(
+    trader => `
+
+    <div class="trader-wrap">
+
+      <button
+        class="trader-btn ${
+          selectedTrader &&
+          selectedTrader.id === trader.id
+          ? "active"
+          : ""
+        }"
+        onclick="selectTrader('${trader.id}')"
+      >
+
+        <small>
+          TRADER PROFILE
+        </small>
+
+        <strong>
+          ${escapeHtml(trader.name)}
+        </strong>
+
+      </button>
+
+      <div class="trader-actions">
 
         <button
-          class="trader-btn ${
-            selectedTrader &&
-            selectedTrader.id === trader.id
-              ? "active"
-              : ""
-          }"
-          onclick="selectTrader('${trader.id}')"
+          class="mini-btn"
+          onclick="event.stopPropagation();editTrader('${trader.id}')"
         >
-
-          <small>TRADER PROFILE</small>
-
-          <strong>
-            ${escapeHtml(trader.name)}
-          </strong>
-
+          Edit
         </button>
 
-        <div class="trader-actions">
-
-          <button
-            class="mini-btn"
-            onclick="event.stopPropagation();editTrader('${trader.id}')"
-          >
-            Edit
-          </button>
-
-          <button
-            class="mini-btn"
-            onclick="event.stopPropagation();deleteTrader('${trader.id}')"
-          >
-            Delete
-          </button>
-
-        </div>
+        <button
+          class="mini-btn"
+          onclick="event.stopPropagation();deleteTrader('${trader.id}')"
+        >
+          Delete
+        </button>
 
       </div>
 
-    `
-    ).join("");
+    </div>
+
+  `
+  ).join("");
 
 }
 
@@ -1865,27 +2035,30 @@ async function selectTrader(id){
 
   try{
 
-    const trader =
-      traders.find(
-        trader => trader.id === id
-      );
+    selectedTrader =
+    traders.find(
+      trader =>
+      trader.id === id
+    );
 
-    if(!trader) return;
 
-    selectedTrader = trader;
+    if(!selectedTrader)
+      return;
 
-    selectedDate = null;
-    currentDailyJournal = null;
-    currentMonth = null;
+
+    selectedDate =
+    null;
+
+    currentDailyJournal =
+    null;
+
 
     renderTraders();
 
     clearDailyForm();
+
     clearTradeForm();
 
-    document.getElementById("tradeList")
-      .innerHTML =
-      `<div class="loading">Select a date to view trades</div>`;
 
     await loadMonths();
 
@@ -1893,7 +2066,10 @@ async function selectTrader(id){
 
     console.error(error);
 
-    toast("Trader Select Error: " + error.message);
+    toast(
+      "Trader Select Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -1906,24 +2082,36 @@ async function selectTrader(id){
 
 function openTraderModal(){
 
-  editingTraderId = null;
+  editingTraderId =
+  null;
 
-  document.getElementById("traderModalTitle")
-    .textContent = "Create Trader";
 
-  document.getElementById("traderNameInput")
-    .value = "";
+  document
+  .getElementById("traderModalTitle")
+  .textContent =
+  "Create Trader";
 
-  document.getElementById("traderModal")
-    .classList.remove("hidden");
+
+  document
+  .getElementById("traderNameInput")
+  .value =
+  "";
+
+
+  document
+  .getElementById("traderModal")
+  .classList
+  .remove("hidden");
 
 }
 
 
 function closeTraderModal(){
 
-  document.getElementById("traderModal")
-    .classList.add("hidden");
+  document
+  .getElementById("traderModal")
+  .classList
+  .add("hidden");
 
 }
 
@@ -1936,44 +2124,49 @@ async function saveTrader(){
 
   try{
 
-    if(!currentUser){
-      toast("Login ဝင်ထားရပါမယ်");
-      return;
-    }
-
     const name =
-      document.getElementById("traderNameInput")
-      .value.trim();
+    document
+    .getElementById("traderNameInput")
+    .value
+    .trim();
+
 
     if(!name){
+
       toast("Trader Name ဖြည့်ပါ");
       return;
+
     }
 
+
     let result;
+
 
     if(editingTraderId){
 
       result =
-        await supabaseClient
-          .from("traders")
-          .update({
-            name
-          })
-          .eq("id",editingTraderId)
-          .eq("user_id",currentUser.id);
+      await supabaseClient
+      .from("traders")
+      .update({
+        name
+      })
+      .eq(
+        "id",
+        editingTraderId
+      );
+
 
     }else{
 
       result =
-        await supabaseClient
-          .from("traders")
-          .insert({
-            user_id: currentUser.id,
-            name
-          });
+      await supabaseClient
+      .from("traders")
+      .insert({
+        name
+      });
 
     }
+
 
     if(result.error){
 
@@ -1986,11 +2179,13 @@ async function saveTrader(){
 
     }
 
+
     toast(
       editingTraderId
-        ? "Trader Updated"
-        : "Trader Created"
+      ? "Trader Updated"
+      : "Trader Created"
     );
+
 
     closeTraderModal();
 
@@ -2000,7 +2195,10 @@ async function saveTrader(){
 
     console.error(error);
 
-    toast("Trader Error: " + error.message);
+    toast(
+      "Trader Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -2014,22 +2212,35 @@ async function saveTrader(){
 function editTrader(id){
 
   const trader =
-    traders.find(
-      t => t.id === id
-    );
+  traders.find(
+    t => t.id === id
+  );
 
-  if(!trader) return;
 
-  editingTraderId = id;
+  if(!trader)
+    return;
 
-  document.getElementById("traderModalTitle")
-    .textContent = "Edit Trader";
 
-  document.getElementById("traderNameInput")
-    .value = trader.name || "";
+  editingTraderId =
+  id;
 
-  document.getElementById("traderModal")
-    .classList.remove("hidden");
+
+  document
+  .getElementById("traderModalTitle")
+  .textContent =
+  "Edit Trader";
+
+
+  document
+  .getElementById("traderNameInput")
+  .value =
+  trader.name;
+
+
+  document
+  .getElementById("traderModal")
+  .classList
+  .remove("hidden");
 
 }
 
@@ -2042,25 +2253,35 @@ async function deleteTrader(id){
 
   try{
 
-    if(!currentUser) return;
-
     const trader =
-      traders.find(
-        t => t.id === id
-      );
+    traders.find(
+      t => t.id === id
+    );
 
-    if(!trader) return;
 
-    if(!confirm(`Delete ${trader.name}?`)){
+    if(!trader)
       return;
-    }
 
-    const {error} =
-      await supabaseClient
-        .from("traders")
-        .delete()
-        .eq("id",id)
-        .eq("user_id",currentUser.id);
+
+    if(
+      !confirm(
+        `Delete ${trader.name}?`
+      )
+    )
+    return;
+
+
+    const {
+      error
+    } =
+    await supabaseClient
+    .from("traders")
+    .delete()
+    .eq(
+      "id",
+      id
+    );
+
 
     if(error){
 
@@ -2073,20 +2294,32 @@ async function deleteTrader(id){
 
     }
 
+
     if(
       selectedTrader &&
       selectedTrader.id === id
     ){
 
-      selectedTrader = null;
-      currentMonth = null;
-      selectedDate = null;
-      currentDailyJournal = null;
+      selectedTrader =
+      null;
+
+      currentMonth =
+      null;
+
+      selectedDate =
+      null;
+
+      currentDailyJournal =
+      null;
 
       clearDailyForm();
+
       clearTradeForm();
 
+      clearCalendar();
+
     }
+
 
     toast("Trader Deleted");
 
@@ -2096,7 +2329,10 @@ async function deleteTrader(id){
 
     console.error(error);
 
-    toast("Delete Error: " + error.message);
+    toast(
+      "Delete Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -2109,32 +2345,43 @@ async function deleteTrader(id){
 
 async function loadMonths(){
 
-  if(!currentUser || !selectedTrader){
+  try{
 
-    months = [];
-    currentMonth = null;
-
-    renderMonthSelect();
-    clearCalendar();
-    setStats(0,0,0,0,0);
-
+    if(
+      !currentUser ||
+      !selectedTrader
+    )
     return;
 
-  }
-
-  try{
 
     const {
       data,
       error
     } =
     await supabaseClient
-      .from("journal_months")
-      .select("*")
-      .eq("user_id",currentUser.id)
-      .eq("trader_id",selectedTrader.id)
-      .order("year",{ascending:false})
-      .order("month",{ascending:false});
+    .from("journal_months")
+    .select("*")
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .eq(
+      "trader_id",
+      selectedTrader.id
+    )
+    .order(
+      "year",
+      {
+        ascending:false
+      }
+    )
+    .order(
+      "month",
+      {
+        ascending:false
+      }
+    );
+
 
     if(error){
 
@@ -2147,46 +2394,42 @@ async function loadMonths(){
 
     }
 
-    months = data || [];
+
+    months =
+    data || [];
+
 
     renderMonthSelect();
 
+
     if(months.length){
 
-      if(
-        currentMonth &&
-        months.some(
-          m => m.id === currentMonth.id
-        )
-      ){
+      currentMonth =
+      months[0];
 
-        currentMonth =
-          months.find(
-            m => m.id === currentMonth.id
-          );
 
-      }else{
+      document
+      .getElementById("monthSelect")
+      .value =
+      currentMonth.id;
 
-        currentMonth = months[0];
-
-      }
-
-      document.getElementById("monthSelect")
-        .value = currentMonth.id;
 
       await renderCalendar();
 
     }else{
 
-      currentMonth = null;
-      selectedDate = null;
-      currentDailyJournal = null;
+      currentMonth =
+      null;
 
-      clearDailyForm();
-      clearTradeForm();
       clearCalendar();
 
-      setStats(0,0,0,0,0);
+      setStats(
+        0,
+        0,
+        0,
+        0,
+        0
+      );
 
     }
 
@@ -2194,7 +2437,10 @@ async function loadMonths(){
 
     console.error(error);
 
-    toast("Month Loading Error: " + error.message);
+    toast(
+      "Month Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -2208,33 +2454,31 @@ async function loadMonths(){
 function renderMonthSelect(){
 
   const select =
-    document.getElementById("monthSelect");
+  document
+  .getElementById("monthSelect");
 
-  if(!select) return;
 
   select.innerHTML =
-    `<option value="">Select Month</option>`;
+  `<option value="">
+    Select Month
+  </option>`;
+
 
   months.forEach(
     month => {
 
-      select.innerHTML += `
-        <option value="${month.id}">
-          ${escapeHtml(
-            monthLabel(
-              month.year,
-              month.month
-            )
-          )}
-        </option>
+      select.innerHTML +=
+      `
+      <option value="${month.id}">
+        ${monthLabel(
+          month.year,
+          month.month
+        )}
+      </option>
       `;
 
     }
   );
-
-  if(currentMonth){
-    select.value = currentMonth.id;
-  }
 
 }
 
@@ -2247,22 +2491,27 @@ async function changeMonth(id){
 
   try{
 
-    if(!id) return;
+    if(!id)
+      return;
 
-    const month =
-      months.find(
-        m => m.id === id
-      );
 
-    if(!month) return;
+    currentMonth =
+    months.find(
+      m => m.id === id
+    );
 
-    currentMonth = month;
 
-    selectedDate = null;
-    currentDailyJournal = null;
+    selectedDate =
+    null;
+
+    currentDailyJournal =
+    null;
+
 
     clearDailyForm();
+
     clearTradeForm();
+
 
     await renderCalendar();
 
@@ -2270,7 +2519,10 @@ async function changeMonth(id){
 
     console.error(error);
 
-    toast("Month Change Error: " + error.message);
+    toast(
+      "Month Change Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -2286,32 +2538,56 @@ async function createNewMonth(){
   try{
 
     if(!currentUser){
+
       toast("Login ဝင်ထားရပါမယ်");
       return;
+
     }
+
 
     if(!selectedTrader){
+
       toast("အရင် Trader Profile ရွေးပါ");
       return;
+
     }
 
-    const {
-      year,
-      month
-    } = todayYearMonth();
+
+    const now =
+    new Date();
+
+    const year =
+    now.getFullYear();
+
+    const month =
+    now.getMonth() + 1;
+
 
     const {
       data:existingMonth,
       error:checkError
     } =
     await supabaseClient
-      .from("journal_months")
-      .select("*")
-      .eq("user_id",currentUser.id)
-      .eq("trader_id",selectedTrader.id)
-      .eq("year",year)
-      .eq("month",month)
-      .maybeSingle();
+    .from("journal_months")
+    .select("*")
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .eq(
+      "trader_id",
+      selectedTrader.id
+    )
+    .eq(
+      "year",
+      year
+    )
+    .eq(
+      "month",
+      month
+    )
+    .maybeSingle();
+
 
     if(checkError){
 
@@ -2324,14 +2600,18 @@ async function createNewMonth(){
 
     }
 
+
     if(existingMonth){
 
-      currentMonth = existingMonth;
+      currentMonth =
+      existingMonth;
 
-      renderMonthSelect();
 
-      document.getElementById("monthSelect")
-        .value = currentMonth.id;
+      document
+      .getElementById("monthSelect")
+      .value =
+      currentMonth.id;
+
 
       toast("ဒီ Month ရှိပြီးသားပါ");
 
@@ -2341,20 +2621,31 @@ async function createNewMonth(){
 
     }
 
+
     const {
       data,
       error
     } =
     await supabaseClient
-      .from("journal_months")
-      .insert({
-        user_id:currentUser.id,
-        trader_id:selectedTrader.id,
-        year,
-        month
-      })
-      .select()
-      .single();
+    .from("journal_months")
+    .insert({
+
+      user_id:
+      currentUser.id,
+
+      trader_id:
+      selectedTrader.id,
+
+      year:
+      year,
+
+      month:
+      month
+
+    })
+    .select()
+    .single();
+
 
     if(error){
 
@@ -2367,9 +2658,15 @@ async function createNewMonth(){
 
     }
 
-    currentMonth = data;
 
-    toast("New Month Created Successfully");
+    currentMonth =
+    data;
+
+
+    toast(
+      "New Month Created Successfully"
+    );
+
 
     await loadMonths();
 
@@ -2377,7 +2674,10 @@ async function createNewMonth(){
 
     console.error(error);
 
-    toast("Month Create Error: " + error.message);
+    toast(
+      "Month Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -2392,30 +2692,33 @@ async function deleteCurrentMonth(){
 
   try{
 
-    if(!currentMonth){
-      toast("ဖျက်ရန် Month မရှိပါ");
+    if(!currentMonth)
       return;
-    }
 
-    if(!currentUser){
-      toast("Login ဝင်ထားရပါမယ်");
-      return;
-    }
 
     if(
       !confirm(
         "ဒီ Month တစ်ခုလုံးကို ဖျက်မှာသေချာပါသလား?"
       )
-    ){
-      return;
-    }
+    )
+    return;
 
-    const {error} =
-      await supabaseClient
-        .from("journal_months")
-        .delete()
-        .eq("id",currentMonth.id)
-        .eq("user_id",currentUser.id);
+
+    const {
+      error
+    } =
+    await supabaseClient
+    .from("journal_months")
+    .delete()
+    .eq(
+      "id",
+      currentMonth.id
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    );
+
 
     if(error){
 
@@ -2424,12 +2727,16 @@ async function deleteCurrentMonth(){
 
     }
 
-    currentMonth = null;
-    selectedDate = null;
-    currentDailyJournal = null;
 
-    clearDailyForm();
-    clearTradeForm();
+    currentMonth =
+    null;
+
+    selectedDate =
+    null;
+
+    currentDailyJournal =
+    null;
+
 
     toast("Month Deleted");
 
@@ -2439,7 +2746,10 @@ async function deleteCurrentMonth(){
 
     console.error(error);
 
-    toast("Month Delete Error: " + error.message);
+    toast(
+      "Delete Month Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -2452,141 +2762,213 @@ async function deleteCurrentMonth(){
 
 async function renderCalendar(){
 
-  const calendar =
-    document.getElementById("calendar");
-
-  if(!calendar) return;
-
-  calendar.innerHTML = "";
-
-  if(!currentMonth){
-
-    clearCalendar();
-
-    return;
-
-  }
-
   try{
 
-    const firstDay =
-      new Date(
-        currentMonth.year,
-        currentMonth.month - 1,
-        1
-      ).getDay();
+    const calendar =
+    document
+    .getElementById("calendar");
 
-    const daysInMonth =
-      new Date(
-        currentMonth.year,
-        currentMonth.month,
-        0
-      ).getDate();
 
-    document.getElementById("calendarTitle")
-      .textContent =
-      monthLabel(
-        currentMonth.year,
-        currentMonth.month
-      );
+    calendar.innerHTML =
+    "";
 
-    for(let i=0;i<firstDay;i++){
 
-      const empty =
-        document.createElement("div");
+    if(!currentMonth){
 
-      empty.className = "day empty";
-
-      calendar.appendChild(empty);
+      clearCalendar();
+      return;
 
     }
+
+
+    const firstDay =
+    new Date(
+      currentMonth.year,
+      currentMonth.month - 1,
+      1
+    ).getDay();
+
+
+    const daysInMonth =
+    new Date(
+      currentMonth.year,
+      currentMonth.month,
+      0
+    ).getDate();
+
+
+    document
+    .getElementById("calendarTitle")
+    .textContent =
+    monthLabel(
+      currentMonth.year,
+      currentMonth.month
+    );
+
+
+    for(
+      let i = 0;
+      i < firstDay;
+      i++
+    ){
+
+      const empty =
+      document
+      .createElement("div");
+
+      empty.className =
+      "day empty";
+
+      calendar.appendChild(
+        empty
+      );
+
+    }
+
 
     const {
       data,
       error
     } =
     await supabaseClient
-      .from("daily_journals")
-      .select("*")
-      .eq("user_id",currentUser.id)
-      .eq("trader_id",selectedTrader.id)
-      .eq("month_id",currentMonth.id);
+    .from("daily_journals")
+    .select("*")
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .eq(
+      "trader_id",
+      selectedTrader.id
+    )
+    .eq(
+      "month_id",
+      currentMonth.id
+    );
+
 
     if(error){
 
-      toast(
-        "Calendar Loading Error: " +
-        error.message
-      );
-
+      toast(error.message);
       return;
 
     }
 
-    const entries = data || [];
+
+    const entries =
+    data || [];
+
 
     for(
-      let day=1;
-      day<=daysInMonth;
+      let day = 1;
+      day <= daysInMonth;
       day++
     ){
 
       const div =
-        document.createElement("div");
+      document
+      .createElement("div");
+
 
       const date =
-        `${currentMonth.year}-${
-          String(currentMonth.month).padStart(2,"0")
-        }-${
-          String(day).padStart(2,"0")
-        }`;
+      `${currentMonth.year}-${
+        String(
+          currentMonth.month
+        ).padStart(2,"0")
+      }-${
+        String(day)
+        .padStart(2,"0")
+      }`;
+
 
       const entry =
-        entries.find(
-          e => e.journal_date === date
+      entries.find(
+        e =>
+        e.journal_date === date
+      );
+
+
+      div.className =
+      "day";
+
+
+      if(
+        selectedDate === date
+      ){
+
+        div.classList.add(
+          "selected"
         );
 
-      div.className = "day";
-
-      if(selectedDate === date){
-        div.classList.add("selected");
       }
+
 
       if(entry){
 
-        div.classList.add("has-entry");
+        div.classList.add(
+          "has-entry"
+        );
+
 
         const result =
-          String(
-            entry.daily_result || ""
-          ).toLowerCase();
+        (
+          entry.daily_result ||
+          ""
+        ).toLowerCase();
 
-        if(result.includes("win")){
+
+        if(
+          result.includes("win")
+        ){
+
           div.classList.add("win");
-        }else if(result.includes("loss")){
+
+        }else if(
+          result.includes("loss")
+        ){
+
           div.classList.add("loss");
+
         }else if(
           result.includes("be") ||
           result.includes("break")
         ){
+
           div.classList.add("be");
+
         }
 
       }
 
+
       div.innerHTML = `
-        <div class="day-number">${day}</div>
+
+        <div class="day-number">
+          ${day}
+        </div>
 
         <div class="day-status">
-          ${entry ? "✓ Journal Saved" : "Empty"}
+          ${
+            entry
+            ? "✓ Journal Saved"
+            : "Empty"
+          }
         </div>
+
       `;
 
-      div.onclick = () => selectDate(date);
 
-      calendar.appendChild(div);
+      div.onclick =
+      () =>
+      selectDate(date);
+
+
+      calendar.appendChild(
+        div
+      );
 
     }
+
 
     await updateStats();
 
@@ -2594,7 +2976,10 @@ async function renderCalendar(){
 
     console.error(error);
 
-    toast("Calendar Error: " + error.message);
+    toast(
+      "Calendar Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -2607,14 +2992,22 @@ async function renderCalendar(){
 
 function clearCalendar(){
 
-  document.getElementById("calendar")
-    .innerHTML = "";
+  document
+  .getElementById("calendar")
+  .innerHTML =
+  "";
 
-  document.getElementById("calendarTitle")
-    .textContent = "Create a Month to Start";
 
-  document.getElementById("monthSelect")
-    .value = "";
+  document
+  .getElementById("calendarTitle")
+  .textContent =
+  "Create a Month to Start";
+
+
+  document
+  .getElementById("monthSelect")
+  .value =
+  "";
 
 }
 
@@ -2625,54 +3018,70 @@ function clearCalendar(){
 
 async function selectDate(date){
 
-  if(
-    !currentMonth ||
-    !selectedTrader ||
-    !currentUser
-  ){
-    toast("Trader + Month ရွေးပါ");
-    return;
-  }
-
   try{
 
-    selectedDate = date;
+    if(!currentMonth)
+      return;
 
-    document.getElementById("selectedDateText")
-      .textContent =
-      `${selectedTrader.name} — ${date}`;
+
+    selectedDate =
+    date;
+
+
+    document
+    .getElementById("selectedDateText")
+    .textContent =
+    `${selectedTrader.name} — ${date}`;
+
 
     const {
       data,
       error
     } =
     await supabaseClient
-      .from("daily_journals")
-      .select("*")
-      .eq("user_id",currentUser.id)
-      .eq("trader_id",selectedTrader.id)
-      .eq("month_id",currentMonth.id)
-      .eq("journal_date",date)
-      .maybeSingle();
+    .from("daily_journals")
+    .select("*")
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .eq(
+      "trader_id",
+      selectedTrader.id
+    )
+    .eq(
+      "month_id",
+      currentMonth.id
+    )
+    .eq(
+      "journal_date",
+      date
+    )
+    .maybeSingle();
+
 
     if(error){
 
-      toast(
-        "Journal Loading Error: " +
-        error.message
-      );
-
+      toast(error.message);
       return;
 
     }
 
-    currentDailyJournal = data || null;
 
-    fillDailyForm(currentDailyJournal);
+    currentDailyJournal =
+    data;
+
+
+    fillDailyForm(
+      currentDailyJournal
+    );
+
 
     clearTradeForm();
 
+
     await loadTrades();
+
 
     await renderCalendar();
 
@@ -2680,7 +3089,10 @@ async function selectDate(date){
 
     console.error(error);
 
-    toast("Date Select Error: " + error.message);
+    toast(
+      "Date Loading Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -2696,45 +3108,63 @@ function fillDailyForm(entry){
   if(!entry){
 
     clearDailyForm();
-
-    if(selectedDate && selectedTrader){
-
-      document.getElementById("selectedDateText")
-        .textContent =
-        `${selectedTrader.name} — ${selectedDate}`;
-
-    }
-
     return;
 
   }
 
-  document.getElementById("marketCondition")
-    .value = entry.market_condition || "";
 
-  document.getElementById("marketBias")
-    .value = entry.market_bias || "";
+  document
+  .getElementById("marketCondition")
+  .value =
+  entry.market_condition || "";
 
-  document.getElementById("emotionBefore")
-    .value = entry.emotion_before || "";
 
-  document.getElementById("emotionAfter")
-    .value = entry.emotion_after || "";
+  document
+  .getElementById("marketBias")
+  .value =
+  entry.market_bias || "";
 
-  document.getElementById("dailyPlan")
-    .value = entry.daily_plan || "";
 
-  document.getElementById("dailyResult")
-    .value = entry.daily_result || "";
+  document
+  .getElementById("emotionBefore")
+  .value =
+  entry.emotion_before || "";
 
-  document.getElementById("lessons")
-    .value = entry.lessons || "";
 
-  document.getElementById("mistakes")
-    .value = entry.mistakes || "";
+  document
+  .getElementById("emotionAfter")
+  .value =
+  entry.emotion_after || "";
 
-  document.getElementById("dailyNotes")
-    .value = entry.notes || "";
+
+  document
+  .getElementById("dailyPlan")
+  .value =
+  entry.daily_plan || "";
+
+
+  document
+  .getElementById("dailyResult")
+  .value =
+  entry.daily_result || "";
+
+
+  document
+  .getElementById("lessons")
+  .value =
+  entry.lessons || "";
+
+
+  document
+  .getElementById("mistakes")
+  .value =
+  entry.mistakes || "";
+
+
+  document
+  .getElementById("dailyNotes")
+  .value =
+  entry.notes || "";
 
 }
 
@@ -2759,105 +3189,148 @@ function clearDailyForm(){
     id => {
 
       const el =
-        document.getElementById(id);
+      document.getElementById(id);
 
-      if(el) el.value = "";
+      if(el)
+        el.value = "";
 
     }
   );
 
-  document.getElementById("marketBias")
-    .value = "";
 
-  document.getElementById("selectedDateText")
-    .textContent = "Select a date";
+  document
+  .getElementById("marketBias")
+  .value =
+  "";
+
+
+  document
+  .getElementById("selectedDateText")
+  .textContent =
+  "Select a date";
 
 }
 
 
 /* =========================================================
    SAVE DAILY JOURNAL
+   ONE JOURNAL PER DAY
 ========================================================= */
 
 async function saveDailyJournal(){
 
-  if(
-    !currentUser ||
-    !selectedTrader ||
-    !currentMonth ||
-    !selectedDate
-  ){
-
-    toast("Trader + Month + Date ရွေးပါ");
-
-    return;
-
-  }
-
   try{
+
+    if(
+      !currentUser ||
+      !selectedTrader ||
+      !currentMonth ||
+      !selectedDate
+    ){
+
+      toast(
+        "Trader + Month + Date ရွေးပါ"
+      );
+
+      return;
+
+    }
+
 
     const payload = {
 
-      user_id:currentUser.id,
+      user_id:
+      currentUser.id,
 
-      trader_id:selectedTrader.id,
+      trader_id:
+      selectedTrader.id,
 
-      month_id:currentMonth.id,
+      month_id:
+      currentMonth.id,
 
-      journal_date:selectedDate,
+      journal_date:
+      selectedDate,
 
       daily_plan:
-        document.getElementById("dailyPlan").value,
+      document
+      .getElementById("dailyPlan")
+      .value,
 
       market_bias:
-        document.getElementById("marketBias").value,
+      document
+      .getElementById("marketBias")
+      .value,
 
       market_condition:
-        document.getElementById("marketCondition").value,
+      document
+      .getElementById("marketCondition")
+      .value,
 
       emotion_before:
-        document.getElementById("emotionBefore").value,
+      document
+      .getElementById("emotionBefore")
+      .value,
 
       emotion_after:
-        document.getElementById("emotionAfter").value,
+      document
+      .getElementById("emotionAfter")
+      .value,
 
       daily_result:
-        document.getElementById("dailyResult").value,
+      document
+      .getElementById("dailyResult")
+      .value,
 
       lessons:
-        document.getElementById("lessons").value,
+      document
+      .getElementById("lessons")
+      .value,
 
       mistakes:
-        document.getElementById("mistakes").value,
+      document
+      .getElementById("mistakes")
+      .value,
 
       notes:
-        document.getElementById("dailyNotes").value
+      document
+      .getElementById("dailyNotes")
+      .value
 
     };
 
+
     let result;
+
 
     if(currentDailyJournal){
 
       result =
-        await supabaseClient
-          .from("daily_journals")
-          .update(payload)
-          .eq("id",currentDailyJournal.id)
-          .eq("user_id",currentUser.id)
-          .select()
-          .single();
+      await supabaseClient
+      .from("daily_journals")
+      .update(payload)
+      .eq(
+        "id",
+        currentDailyJournal.id
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .select()
+      .single();
+
 
     }else{
 
       result =
-        await supabaseClient
-          .from("daily_journals")
-          .insert(payload)
-          .select()
-          .single();
+      await supabaseClient
+      .from("daily_journals")
+      .insert(payload)
+      .select()
+      .single();
 
     }
+
 
     if(result.error){
 
@@ -2870,14 +3343,19 @@ async function saveDailyJournal(){
 
     }
 
+
     if(result.data){
 
       currentDailyJournal =
-        result.data;
+      result.data;
 
     }
 
-    toast("Daily Journal Saved");
+
+    toast(
+      "Daily Journal Saved"
+    );
+
 
     await renderCalendar();
 
@@ -2887,7 +3365,10 @@ async function saveDailyJournal(){
 
     console.error(error);
 
-    toast("Daily Journal Error: " + error.message);
+    toast(
+      "Journal Save Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -2900,62 +3381,77 @@ async function saveDailyJournal(){
 
 async function deleteDailyJournal(){
 
-  if(!currentDailyJournal){
-
-    toast("ဖျက်ရန် Journal မရှိပါ");
-
-    return;
-
-  }
-
-  if(
-    !confirm(
-      "ဒီနေ့ရဲ့ Journal နဲ့ Trade အားလုံးကို ဖျက်မှာသေချာပါသလား?"
-    )
-  ){
-    return;
-  }
-
   try{
 
-    const {
-      error
-    } =
-    await supabaseClient
-      .from("daily_journals")
-      .delete()
-      .eq("id",currentDailyJournal.id)
-      .eq("user_id",currentUser.id);
-
-    if(error){
+    if(!currentDailyJournal){
 
       toast(
-        "Journal Delete Error: " +
-        error.message
+        "ဖျက်ရန် Journal မရှိပါ"
       );
 
       return;
 
     }
 
-    currentDailyJournal = null;
+
+    if(
+      !confirm(
+        "ဒီနေ့ရဲ့ Journal နဲ့ Trade အားလုံးကို ဖျက်မှာသေချာပါသလား?"
+      )
+    )
+    return;
+
+
+    const {
+      error
+    } =
+    await supabaseClient
+    .from("daily_journals")
+    .delete()
+    .eq(
+      "id",
+      currentDailyJournal.id
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    );
+
+
+    if(error){
+
+      toast(error.message);
+      return;
+
+    }
+
+
+    currentDailyJournal =
+    null;
+
 
     clearDailyForm();
+
     clearTradeForm();
 
-    document.getElementById("tradeList")
-      .innerHTML =
-      `<div class="loading">Select a date to view trades</div>`;
 
-    toast("Daily Journal Deleted");
+    toast(
+      "Daily Journal Deleted"
+    );
+
 
     await renderCalendar();
+
+    await loadTrades();
 
   }catch(error){
 
     console.error(error);
 
-    toast("Journal Delete Error: " + error.message);
+    toast(
+      "Delete Journal Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -2988,132 +3484,274 @@ function clearTradeForm(){
     id => {
 
       const el =
-        document.getElementById(id);
+      document.getElementById(id);
 
-      if(el) el.value = "";
+      if(el)
+        el.value = "";
 
     }
   );
 
-  document.getElementById("tradeDirection")
-    .value = "";
 
-  document.getElementById("tradeResult")
-    .value = "";
+  document
+  .getElementById("tradeDirection")
+  .value =
+  "";
 
-  document.getElementById("tradeRating")
-    .value = "";
 
-  document.getElementById("tradeImage")
-    .value = "";
+  document
+  .getElementById("tradeResult")
+  .value =
+  "";
+
+
+  document
+  .getElementById("tradeRating")
+  .value =
+  "";
+
+
+  document
+  .getElementById("tradeImage")
+  .value =
+  "";
 
 }
 
 
 /* =========================================================
    SAVE TRADE
+   MULTIPLE TRADES PER ONE DAY
 ========================================================= */
 
 async function saveTrade(){
 
-  if(
-    !currentUser ||
-    !selectedTrader ||
-    !currentMonth ||
-    !currentDailyJournal
-  ){
-
-    toast(
-      "အရင် Trader + Month + Date + Daily Journal Save လုပ်ပါ"
-    );
-
-    return;
-
-  }
-
   try{
 
-    const symbol =
-      document.getElementById("tradeSymbol")
-      .value.trim();
+    if(
+      !currentUser ||
+      !selectedTrader ||
+      !currentMonth ||
+      !selectedDate
+    ){
 
-    if(!symbol){
-
-      toast("Symbol ဖြည့်ပါ");
+      toast(
+        "အရင် Date တစ်ရက်ရွေးပါ"
+      );
 
       return;
 
     }
 
+
+    /*
+      IMPORTANT:
+      Daily Journal မရှိသေးရင်
+      အလိုအလျောက် Journal တစ်ကြောင်း
+      create လုပ်ပေးမယ်။
+      ဒါကြောင့် Add Trade ကို
+      Journal Save မလုပ်ရသေးခင်လည်း
+      အသုံးပြုလို့ရပါတယ်။
+    */
+
+    if(!currentDailyJournal){
+
+      const journalPayload = {
+
+        user_id:
+        currentUser.id,
+
+        trader_id:
+        selectedTrader.id,
+
+        month_id:
+        currentMonth.id,
+
+        journal_date:
+        selectedDate,
+
+        daily_plan:
+        document
+        .getElementById("dailyPlan")
+        .value,
+
+        market_bias:
+        document
+        .getElementById("marketBias")
+        .value,
+
+        market_condition:
+        document
+        .getElementById("marketCondition")
+        .value,
+
+        emotion_before:
+        document
+        .getElementById("emotionBefore")
+        .value,
+
+        emotion_after:
+        document
+        .getElementById("emotionAfter")
+        .value,
+
+        daily_result:
+        document
+        .getElementById("dailyResult")
+        .value,
+
+        lessons:
+        document
+        .getElementById("lessons")
+        .value,
+
+        mistakes:
+        document
+        .getElementById("mistakes")
+        .value,
+
+        notes:
+        document
+        .getElementById("dailyNotes")
+        .value
+
+      };
+
+
+      const {
+        data:journalData,
+        error:journalError
+      } =
+      await supabaseClient
+      .from("daily_journals")
+      .insert(journalPayload)
+      .select()
+      .single();
+
+
+      if(journalError){
+
+        toast(
+          "Daily Journal Auto Create Error: " +
+          journalError.message
+        );
+
+        return;
+
+      }
+
+
+      currentDailyJournal =
+      journalData;
+
+    }
+
+
+    const symbol =
+    document
+    .getElementById("tradeSymbol")
+    .value
+    .trim();
+
+
+    if(!symbol){
+
+      toast("Symbol ဖြည့်ပါ");
+      return;
+
+    }
+
+
     const payload = {
 
-      user_id:currentUser.id,
+      user_id:
+      currentUser.id,
 
-      trader_id:selectedTrader.id,
+      trader_id:
+      selectedTrader.id,
 
-      daily_journal_id:currentDailyJournal.id,
+      daily_journal_id:
+      currentDailyJournal.id,
+
+      symbol:
 
       symbol,
 
       direction:
-        document.getElementById("tradeDirection").value,
+      document
+      .getElementById("tradeDirection")
+      .value,
 
       entry_price:
-        numberValue("tradeEntry"),
+      numberValue("tradeEntry"),
 
       stop_loss:
-        numberValue("tradeSL"),
+      numberValue("tradeSL"),
 
       take_profit:
-        numberValue("tradeTP"),
+      numberValue("tradeTP"),
 
       lot_size:
-        numberValue("tradeLot"),
+      numberValue("tradeLot"),
 
       risk_percent:
-        numberValue("tradeRiskPercent") ?? 0,
+      numberValue("tradeRiskPercent") || 0,
 
       risk_amount:
-        numberValue("tradeRiskAmount") ?? 0,
+      numberValue("tradeRiskAmount") || 0,
 
       pnl:
-        numberValue("tradePnl") ?? 0,
+      numberValue("tradePnl") || 0,
 
       r_multiple:
-        numberValue("tradeR") ?? 0,
+      numberValue("tradeR") || 0,
 
       result:
-        document.getElementById("tradeResult").value,
+      document
+      .getElementById("tradeResult")
+      .value,
 
       strategy:
-        document.getElementById("tradeStrategy").value,
+      document
+      .getElementById("tradeStrategy")
+      .value,
 
       emotion:
-        document.getElementById("tradeEmotion").value,
+      document
+      .getElementById("tradeEmotion")
+      .value,
 
       rating:
-        numberValue("tradeRating"),
+      numberValue("tradeRating"),
 
       entry_reason:
-        document.getElementById("entryReason").value,
+      document
+      .getElementById("entryReason")
+      .value,
 
       exit_reason:
-        document.getElementById("exitReason").value,
+      document
+      .getElementById("exitReason")
+      .value,
 
       notes:
-        document.getElementById("tradeNotes").value
+      document
+      .getElementById("tradeNotes")
+      .value
 
     };
+
 
     const {
       data:trade,
       error
     } =
     await supabaseClient
-      .from("daily_trades")
-      .insert(payload)
-      .select()
-      .single();
+    .from("daily_trades")
+    .insert(payload)
+    .select()
+    .single();
+
 
     if(error){
 
@@ -3126,39 +3764,70 @@ async function saveTrade(){
 
     }
 
+
+    /*
+      MAX 3 PHOTOS
+    */
+
+    const fileInput =
+    document
+    .getElementById("tradeImage");
+
+
     const files =
-      document.getElementById("tradeImage")
-      .files;
+    Array.from(
+      fileInput.files || []
+    )
+    .slice(0,3);
 
-    let uploadFailed = false;
 
-    if(files && files.length){
+    if(files.length){
+
+      let successCount = 0;
+
 
       for(
         const file of files
       ){
 
-        const uploaded =
-          await uploadTradePhoto(
-            trade.id,
-            file
-          );
+        const success =
+        await uploadTradePhoto(
+          trade.id,
+          file
+        );
 
-        if(!uploaded){
-          uploadFailed = true;
-        }
+
+        if(success)
+          successCount++;
 
       }
 
+
+      if(successCount < files.length){
+
+        toast(
+          `Trade Saved. ${successCount}/${files.length} Photos Uploaded`
+        );
+
+      }else{
+
+        toast(
+          "Trade + Photos Saved Successfully"
+        );
+
+      }
+
+    }else{
+
+      toast(
+        "Trade Saved Successfully"
+      );
+
     }
 
-    toast(
-      uploadFailed
-        ? "Trade Saved, but some screenshots failed"
-        : "Trade Saved Successfully"
-    );
 
     clearTradeForm();
+
 
     await loadTrades();
 
@@ -3170,7 +3839,10 @@ async function saveTrade(){
 
     console.error(error);
 
-    toast("Trade Save Error: " + error.message);
+    toast(
+      "Save Trade Error: " +
+      (error.message || "Unknown error")
+    );
 
   }
 
@@ -3179,6 +3851,7 @@ async function saveTrade(){
 
 /* =========================================================
    UPLOAD TRADE PHOTO
+   MAX 3
 ========================================================= */
 
 async function uploadTradePhoto(
@@ -3186,113 +3859,194 @@ async function uploadTradePhoto(
   file
 ){
 
-  if(
-    !currentUser ||
-    !selectedTrader ||
-    !tradeId ||
-    !file
-  ){
-    return false;
-  }
+  try{
 
-  for(
-    const bucket of STORAGE_BUCKETS
-  ){
+    if(!file)
+      return false;
 
-    try{
 
-      const safeName =
-        String(file.name)
-          .replace(/[^\w.\-]+/g,"_");
+    /*
+      File name safe လုပ်ခြင်း
+    */
 
-      const path =
-        `${currentUser.id}/${
-          selectedTrader.id
-        }/${
-          tradeId
-        }/${
-          Date.now()
-        }_${
-          safeName
-        }`;
+    const safeName =
+    file.name
+    .replace(
+      /[^a-zA-Z0-9._-]/g,
+      "_"
+    );
+
+
+    /*
+      trade-images bucket ကို
+      ပထမဆုံးအသုံးပြုမယ်
+    */
+
+    const bucket =
+    "trade-images";
+
+
+    const path =
+    `${currentUser.id}/${
+      selectedTrader.id
+    }/${
+      tradeId
+    }/${
+      Date.now()
+    }_${
+      Math.random()
+      .toString(36)
+      .slice(2)
+    }_${
+      safeName
+    }`;
+
+
+    const {
+      error:uploadError
+    } =
+    await supabaseClient
+    .storage
+    .from(bucket)
+    .upload(
+      path,
+      file,
+      {
+        upsert:false,
+        contentType:file.type
+      }
+    );
+
+
+    if(uploadError){
+
+      console.error(
+        "Photo Upload Error:",
+        uploadError
+      );
+
+
+      /*
+        fallback bucket
+      */
+
+      const fallbackBucket =
+      "trade-screenshots";
+
 
       const {
-        error
+        error:fallbackError
       } =
       await supabaseClient
-        .storage
-        .from(bucket)
-        .upload(
-          path,
-          file,
-          {
-            upsert:false
-          }
+      .storage
+      .from(fallbackBucket)
+      .upload(
+        path,
+        file,
+        {
+          upsert:false,
+          contentType:file.type
+        }
+      );
+
+
+      if(fallbackError){
+
+        console.error(
+          "Fallback Photo Upload Error:",
+          fallbackError
         );
 
-      if(error){
-
-        console.warn(
-          "Bucket failed:",
-          bucket,
-          error.message
-        );
-
-        continue;
+        return false;
 
       }
+
 
       const {
         error:dbError
       } =
       await supabaseClient
-        .from("trade_photos")
-        .insert({
+      .from("trade_photos")
+      .insert({
 
-          user_id:
-            currentUser.id,
+        user_id:
+        currentUser.id,
 
-          daily_trade_id:
-            tradeId,
+        daily_trade_id:
+        tradeId,
 
-          file_path:
-            `${bucket}/${path}`,
+        file_path:
+        `${fallbackBucket}/${path}`,
 
-          file_name:
-            file.name
+        file_name:
+        file.name
 
-        });
+      });
+
 
       if(dbError){
 
-        console.warn(
+        console.error(
           "Photo DB Error:",
-          dbError.message
+          dbError
         );
 
-        await supabaseClient
-          .storage
-          .from(bucket)
-          .remove([path]);
-
-        continue;
+        return false;
 
       }
 
+
       return true;
-
-    }catch(error){
-
-      console.warn(
-        "Photo upload error:",
-        error
-      );
 
     }
 
-  }
 
-  return false;
+    const {
+      error:dbError
+    } =
+    await supabaseClient
+    .from("trade_photos")
+    .insert({
+
+      user_id:
+      currentUser.id,
+
+      daily_trade_id:
+      tradeId,
+
+      file_path:
+      `${bucket}/${path}`,
+
+      file_name:
+      file.name
+
+    });
+
+
+    if(dbError){
+
+      console.error(
+        "Photo DB Error:",
+        dbError
+      );
+
+      return false;
+
+    }
+
+
+    return true;
+
+  }catch(error){
+
+    console.error(
+      "Photo Upload Exception:",
+      error
+    );
+
+    return false;
+
+  }
 
 }
 
@@ -3301,38 +4055,45 @@ async function uploadTradePhoto(
    GET PHOTO URL
 ========================================================= */
 
-function getPhotoUrl(filePath){
-
-  if(!filePath) return "";
-
-  const parts =
-    String(filePath).split("/");
-
-  const bucket =
-    parts.shift();
-
-  const path =
-    parts.join("/");
-
-  if(!bucket || !path){
-    return "";
-  }
+function getPhotoUrl(
+  filePath
+){
 
   try{
+
+    if(!filePath)
+      return "";
+
+
+    const parts =
+    filePath.split("/");
+
+
+    const bucket =
+    parts.shift();
+
+
+    const path =
+    parts.join("/");
+
 
     const {
       data
     } =
     supabaseClient
-      .storage
-      .from(bucket)
-      .getPublicUrl(path);
+    .storage
+    .from(bucket)
+    .getPublicUrl(path);
 
-    return data.publicUrl || "";
+
+    return data.publicUrl;
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Photo URL Error:",
+      error
+    );
 
     return "";
 
@@ -3347,52 +4108,56 @@ function getPhotoUrl(filePath){
 
 async function loadTrades(){
 
-  const container =
-    document.getElementById("tradeList");
-
-  if(!container) return;
-
-  if(!currentDailyJournal){
-
-    container.innerHTML =
-      `<div class="loading">
-        Select a date to view trades
-      </div>`;
-
-    return;
-
-  }
-
   try{
+
+    const container =
+    document
+    .getElementById("tradeList");
+
+
+    if(!currentDailyJournal){
+
+      container.innerHTML =
+      `
+      <div class="loading">
+        Select a date to view trades
+      </div>
+      `;
+
+      return;
+
+    }
+
 
     const {
       data,
       error
     } =
     await supabaseClient
-      .from("daily_trades")
-      .select(`
-        *,
-        trade_photos (
-          id,
-          file_path,
-          file_name
-        )
-      `)
-      .eq(
-        "daily_journal_id",
-        currentDailyJournal.id
+    .from("daily_trades")
+    .select(`
+      *,
+      trade_photos (
+        id,
+        file_path,
+        file_name
       )
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
-      );
+    `)
+    .eq(
+      "daily_journal_id",
+      currentDailyJournal.id
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
 
     if(error){
 
@@ -3405,238 +4170,326 @@ async function loadTrades(){
 
     }
 
-    if(!data || !data.length){
+
+    if(
+      !data ||
+      !data.length
+    ){
 
       container.innerHTML =
-        `<div class="loading">
-          No trades recorded for this day.
-        </div>`;
+      `
+      <div class="loading">
+        No trades recorded for this day.
+      </div>
+      `;
 
       return;
 
     }
 
+
     container.innerHTML =
-      data.map(
-        trade => {
+    data.map(
+      trade => {
 
-          const result =
-            String(
-              trade.result || ""
-            ).toLowerCase();
-
-          let badge =
-            `<span class="badge be">BE</span>`;
-
-          if(result === "win"){
-            badge =
-              `<span class="badge win">WIN</span>`;
-          }else if(result === "loss"){
-            badge =
-              `<span class="badge loss">LOSS</span>`;
-          }
-
-          const photos =
-            trade.trade_photos || [];
-
-          return `
-
-          <div class="trade-card">
-
-            <div class="trade-top">
-
-              <div class="trade-title">
-
-                <strong>
-                  ${escapeHtml(trade.symbol)}
-                </strong>
-
-                <span class="direction">
-                  ${escapeHtml(trade.direction || "")}
-                </span>
-
-              </div>
-
-              ${badge}
-
-            </div>
+        const result =
+        (
+          trade.result ||
+          ""
+        ).toLowerCase();
 
 
-            <div class="trade-grid">
-
-              <div class="trade-item">
-                <small>Entry</small>
-                <strong>${trade.entry_price ?? "-"}</strong>
-              </div>
-
-              <div class="trade-item">
-                <small>SL</small>
-                <strong>${trade.stop_loss ?? "-"}</strong>
-              </div>
-
-              <div class="trade-item">
-                <small>TP</small>
-                <strong>${trade.take_profit ?? "-"}</strong>
-              </div>
-
-              <div class="trade-item">
-                <small>Lot</small>
-                <strong>${trade.lot_size ?? "-"}</strong>
-              </div>
-
-              <div class="trade-item">
-                <small>P&L</small>
-                <strong>${formatMoney(trade.pnl)}</strong>
-              </div>
-
-              <div class="trade-item">
-                <small>R Multiple</small>
-                <strong>${trade.r_multiple ?? 0}R</strong>
-              </div>
-
-              <div class="trade-item">
-                <small>Risk</small>
-                <strong>${trade.risk_percent ?? 0}%</strong>
-              </div>
-
-              <div class="trade-item">
-                <small>Risk Amount</small>
-                <strong>${formatMoney(trade.risk_amount)}</strong>
-              </div>
-
-              <div class="trade-item">
-                <small>Strategy</small>
-                <strong>
-                  ${escapeHtml(trade.strategy || "-")}
-                </strong>
-              </div>
-
-              <div class="trade-item">
-                <small>Rating</small>
-                <strong>
-                  ${
-                    trade.rating
-                      ? "⭐".repeat(
-                          Math.min(
-                            5,
-                            Math.max(
-                              0,
-                              Number(trade.rating)
-                            )
-                          )
-                        )
-                      : "-"
-                  }
-                </strong>
-              </div>
-
-            </div>
+        let badge =
+        `<span class="badge be">
+          BE
+        </span>`;
 
 
-            ${
-              trade.entry_reason
-                ? `
-                  <p class="trade-notes">
-                    <strong>Entry Reason:</strong>
-                    ${escapeHtml(trade.entry_reason)}
-                  </p>
-                `
-                : ""
-            }
+        if(result === "win"){
+
+          badge =
+          `<span class="badge win">
+            WIN
+          </span>`;
+
+        }else if(result === "loss"){
+
+          badge =
+          `<span class="badge loss">
+            LOSS
+          </span>`;
+
+        }
 
 
-            ${
-              trade.exit_reason
-                ? `
-                  <p class="trade-notes">
-                    <strong>Exit Reason:</strong>
-                    ${escapeHtml(trade.exit_reason)}
-                  </p>
-                `
-                : ""
-            }
+        const photos =
+        trade.trade_photos ||
+        [];
 
 
-            ${
-              trade.notes
-                ? `
-                  <p class="trade-notes">
-                    ${escapeHtml(trade.notes)}
-                  </p>
-                `
-                : ""
-            }
+        return `
+
+        <div class="trade-card">
+
+        <div class="trade-top">
+
+        <div class="trade-title">
+
+        <strong>
+        ${escapeHtml(
+          trade.symbol
+        )}
+        </strong>
+
+        <span class="direction">
+        ${escapeHtml(
+          trade.direction || ""
+        )}
+        </span>
+
+        </div>
+
+        ${badge}
+
+        </div>
 
 
-            ${
-              photos.length
-                ? `
-                  <div class="photo-grid">
+        <div class="trade-grid">
 
-                    ${
-                      photos.map(
-                        photo => `
+        <div class="trade-item">
+        <small>Entry</small>
+        <strong>
+        ${trade.entry_price ?? "-"}
+        </strong>
+        </div>
 
-                        <div class="photo-box">
+        <div class="trade-item">
+        <small>SL</small>
+        <strong>
+        ${trade.stop_loss ?? "-"}
+        </strong>
+        </div>
 
-                          <img
-                            src="${escapeHtml(
-                              getPhotoUrl(
-                                photo.file_path
-                              )
-                            )}"
-                            onclick="window.open(this.src,'_blank')"
-                          >
+        <div class="trade-item">
+        <small>TP</small>
+        <strong>
+        ${trade.take_profit ?? "-"}
+        </strong>
+        </div>
 
-                          <button
-                            class="photo-delete"
-                            onclick="deletePhoto(
-                              '${photo.id}',
-                              '${escapeHtml(
-                                photo.file_path
-                              )}'
-                            )"
-                          >
-                            ×
-                          </button>
+        <div class="trade-item">
+        <small>Lot</small>
+        <strong>
+        ${trade.lot_size ?? "-"}
+        </strong>
+        </div>
 
-                        </div>
+        <div class="trade-item">
+        <small>P&L</small>
+        <strong>
+        ${formatMoney(
+          trade.pnl
+        )}
+        </strong>
+        </div>
 
-                      `
-                      ).join("")
-                    }
+        <div class="trade-item">
+        <small>R Multiple</small>
+        <strong>
+        ${trade.r_multiple ?? 0}R
+        </strong>
+        </div>
 
+        <div class="trade-item">
+        <small>Risk</small>
+        <strong>
+        ${trade.risk_percent ?? 0}%
+        </strong>
+        </div>
+
+        <div class="trade-item">
+        <small>Risk Amount</small>
+        <strong>
+        ${formatMoney(
+          trade.risk_amount
+        )}
+        </strong>
+        </div>
+
+        <div class="trade-item">
+        <small>Strategy</small>
+        <strong>
+        ${escapeHtml(
+          trade.strategy || "-"
+        )}
+        </strong>
+        </div>
+
+        <div class="trade-item">
+        <small>Rating</small>
+        <strong>
+        ${
+          trade.rating
+          ? "⭐".repeat(
+            trade.rating
+          )
+          : "-"
+        }
+        </strong>
+        </div>
+
+        </div>
+
+
+        ${
+          trade.entry_reason
+          ?
+          `
+          <p class="trade-notes">
+          <strong>Entry Reason:</strong>
+          ${escapeHtml(
+            trade.entry_reason
+          )}
+          </p>
+          `
+          :
+          ""
+        }
+
+
+        ${
+          trade.exit_reason
+          ?
+          `
+          <p class="trade-notes">
+          <strong>Exit Reason:</strong>
+          ${escapeHtml(
+            trade.exit_reason
+          )}
+          </p>
+          `
+          :
+          ""
+        }
+
+
+        ${
+          trade.notes
+          ?
+          `
+          <p class="trade-notes">
+          ${escapeHtml(
+            trade.notes
+          )}
+          </p>
+          `
+          :
+          ""
+        }
+
+
+        ${
+          photos.length
+          ?
+          `
+
+          <div class="photo-grid">
+
+          ${
+            photos
+            .slice(0,3)
+            .map(
+              photo => {
+
+                const photoUrl =
+                getPhotoUrl(
+                  photo.file_path
+                );
+
+
+                return `
+
+                <div class="photo-box">
+
+                ${
+                  photoUrl
+                  ?
+                  `
+                  <img
+                    src="${photoUrl}"
+                    alt="${escapeHtml(
+                      photo.file_name
+                    )}"
+                    onclick="window.open(this.src,'_blank')"
+                    onerror="this.style.display='none';this.parentElement.innerHTML+='<div style=&quot;padding:15px;color:#ff91a4;font-size:12px;&quot;>Image unavailable</div>'"
+                  >
+                  `
+                  :
+                  `
+                  <div style="
+                    padding:15px;
+                    color:var(--muted);
+                    font-size:12px;
+                  ">
+                    Image unavailable
                   </div>
-                `
-                : ""
-            }
+                  `
+                }
 
+                <button
+                  class="photo-delete"
+                  onclick="deletePhoto(
+                    '${photo.id}',
+                    '${escapeHtml(
+                      photo.file_path
+                    )}'
+                  )"
+                >
+                  ×
+                </button>
 
-            <div class="actions">
+                </div>
 
-              <button
-                class="btn red"
-                onclick="deleteTrade('${trade.id}')"
-              >
-                Delete Trade
-              </button>
+                `;
 
-            </div>
+              }
+            ).join("")
+          }
 
           </div>
 
-          `;
-
+          `
+          :
+          ""
         }
-      ).join("");
+
+
+        <div class="actions">
+
+        <button
+          class="btn red"
+          onclick="deleteTrade('${trade.id}')"
+        >
+          Delete Trade
+        </button>
+
+        </div>
+
+
+        </div>
+
+        `;
+
+      }
+    ).join("");
 
   }catch(error){
 
     console.error(error);
 
     toast(
-      "Trade Loading Error: " +
-      error.message
+      "Load Trades Error: " +
+      (error.message || "Unknown error")
     );
 
   }
@@ -3650,47 +4503,37 @@ async function loadTrades(){
 
 async function deleteTrade(id){
 
-  if(!currentUser){
-    toast("Login ဝင်ထားရပါမယ်");
-    return;
-  }
-
-  if(
-    !confirm(
-      "ဒီ Trade နဲ့ Screenshot အားလုံးကို ဖျက်မှာသေချာပါသလား?"
-    )
-  ){
-    return;
-  }
-
   try{
 
+    if(
+      !confirm(
+        "ဒီ Trade နဲ့ Screenshot အားလုံးကို ဖျက်မှာသေချာပါသလား?"
+      )
+    )
+    return;
+
+
+    /*
+      Delete photo files first
+    */
+
     const {
-      data:photos,
-      error:photoLoadError
+      data:photos
     } =
     await supabaseClient
-      .from("trade_photos")
-      .select("id,file_path")
-      .eq(
-        "daily_trade_id",
-        id
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      );
+    .from("trade_photos")
+    .select(
+      "id,file_path"
+    )
+    .eq(
+      "daily_trade_id",
+      id
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    );
 
-    if(photoLoadError){
-
-      toast(
-        "Photo Loading Error: " +
-        photoLoadError.message
-      );
-
-      return;
-
-    }
 
     if(photos && photos.length){
 
@@ -3698,41 +4541,87 @@ async function deleteTrade(id){
         const photo of photos
       ){
 
-        await deleteStorageFile(
-          photo.file_path
-        );
+        try{
+
+          const parts =
+          photo.file_path.split("/");
+
+          const bucket =
+          parts.shift();
+
+          const path =
+          parts.join("/");
+
+
+          await supabaseClient
+          .storage
+          .from(bucket)
+          .remove([
+            path
+          ]);
+
+        }catch(storageError){
+
+          console.error(
+            storageError
+          );
+
+        }
 
       }
 
     }
 
+
+    /*
+      Delete DB photo records
+    */
+
+    await supabaseClient
+    .from("trade_photos")
+    .delete()
+    .eq(
+      "daily_trade_id",
+      id
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    );
+
+
+    /*
+      Delete Trade
+    */
+
     const {
       error
     } =
     await supabaseClient
-      .from("daily_trades")
-      .delete()
-      .eq(
-        "id",
-        id
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      );
+    .from("daily_trades")
+    .delete()
+    .eq(
+      "id",
+      id
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    );
+
 
     if(error){
 
-      toast(
-        "Trade Delete Error: " +
-        error.message
-      );
-
+      toast(error.message);
       return;
 
     }
 
-    toast("Trade Deleted");
+
+    toast(
+      "Trade Deleted"
+    );
+
 
     await loadTrades();
 
@@ -3745,50 +4634,8 @@ async function deleteTrade(id){
     console.error(error);
 
     toast(
-      "Trade Delete Error: " +
-      error.message
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   DELETE STORAGE FILE
-========================================================= */
-
-async function deleteStorageFile(
-  filePath
-){
-
-  if(!filePath) return;
-
-  try{
-
-    const parts =
-      String(filePath).split("/");
-
-    const bucket =
-      parts.shift();
-
-    const path =
-      parts.join("/");
-
-    if(bucket && path){
-
-      await supabaseClient
-        .storage
-        .from(bucket)
-        .remove([path]);
-
-    }
-
-  }catch(error){
-
-    console.warn(
-      "Storage delete error:",
-      error
+      "Delete Trade Error: " +
+      (error.message || "Unknown error")
     );
 
   }
@@ -3805,52 +4652,77 @@ async function deletePhoto(
   filePath
 ){
 
-  if(!currentUser){
-    toast("Login ဝင်ထားရပါမယ်");
-    return;
-  }
-
-  if(
-    !confirm(
-      "ဒီ Screenshot ကို ဖျက်မလား?"
-    )
-  ){
-    return;
-  }
-
   try{
 
-    await deleteStorageFile(
-      filePath
-    );
+    if(
+      !confirm(
+        "ဒီ Screenshot ကို ဖျက်မလား?"
+      )
+    )
+    return;
+
+
+    const parts =
+    filePath.split("/");
+
+
+    const bucket =
+    parts.shift();
+
+
+    const path =
+    parts.join("/");
+
+
+    const {
+      error:storageError
+    } =
+    await supabaseClient
+    .storage
+    .from(bucket)
+    .remove([
+      path
+    ]);
+
+
+    if(storageError){
+
+      console.error(
+        "Storage Delete Error:",
+        storageError
+      );
+
+    }
+
 
     const {
       error
     } =
     await supabaseClient
-      .from("trade_photos")
-      .delete()
-      .eq(
-        "id",
-        id
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      );
+    .from("trade_photos")
+    .delete()
+    .eq(
+      "id",
+      id
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    );
+
 
     if(error){
 
-      toast(
-        "Screenshot Delete Error: " +
-        error.message
-      );
-
+      toast(error.message);
       return;
 
     }
 
-    toast("Screenshot Deleted");
+
+    toast(
+      "Screenshot Deleted"
+    );
+
 
     await loadTrades();
 
@@ -3859,8 +4731,8 @@ async function deletePhoto(
     console.error(error);
 
     toast(
-      "Screenshot Delete Error: " +
-      error.message
+      "Delete Photo Error: " +
+      (error.message || "Unknown error")
     );
 
   }
@@ -3874,34 +4746,36 @@ async function deletePhoto(
 
 async function updateStats(){
 
-  if(
-    !currentUser ||
-    !selectedTrader
-  ){
-
-    setStats(0,0,0,0,0);
-
-    return;
-
-  }
-
   try{
+
+    if(
+      !currentUser ||
+      !selectedTrader
+    ){
+
+      return;
+
+    }
+
 
     const {
       data:trades,
       error
     } =
     await supabaseClient
-      .from("daily_trades")
-      .select("result,pnl,r_multiple")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .eq(
-        "trader_id",
-        selectedTrader.id
-      );
+    .from("daily_trades")
+    .select(
+      "result,pnl,r_multiple"
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .eq(
+      "trader_id",
+      selectedTrader.id
+    );
+
 
     if(error){
 
@@ -3911,69 +4785,77 @@ async function updateStats(){
 
     }
 
-    if(!trades || !trades.length){
 
-      setStats(0,0,0,0,0);
+    if(
+      !trades ||
+      !trades.length
+    ){
+
+      setStats(
+        0,
+        0,
+        0,
+        0,
+        0
+      );
 
       return;
 
     }
 
+
     const total =
-      trades.length;
+    trades.length;
+
 
     const wins =
-      trades.filter(
-        t =>
-        String(t.result || "")
-          .toLowerCase() === "win"
-      ).length;
+    trades.filter(
+      t =>
+      String(
+        t.result || ""
+      ).toLowerCase() === "win"
+    ).length;
 
-    const decidedTrades =
-      trades.filter(
-        t =>
-        ["win","loss"]
-          .includes(
-            String(
-              t.result || ""
-            ).toLowerCase()
-          )
-      ).length;
 
     const winRate =
-      decidedTrades
-        ? (
-            wins /
-            decidedTrades *
-            100
-          ).toFixed(1)
-        : 0;
+    total
+    ?
+    (
+      wins /
+      total *
+      100
+    ).toFixed(1)
+    :
+    0;
+
 
     const pnl =
-      trades.reduce(
-        (
-          sum,
-          t
-        ) =>
-        sum +
-        Number(
-          t.pnl || 0
-        ),
-        0
-      );
+    trades.reduce(
+      (
+        sum,
+        t
+      ) =>
+      sum +
+      Number(
+        t.pnl || 0
+      ),
+      0
+    );
+
 
     const r =
-      trades.reduce(
-        (
-          sum,
-          t
-        ) =>
-        sum +
-        Number(
-          t.r_multiple || 0
-        ),
-        0
-      );
+    trades.reduce(
+      (
+        sum,
+        t
+      ) =>
+      sum +
+      Number(
+        t.r_multiple || 0
+      ),
+      0
+    );
+
 
     setStats(
       total,
@@ -3985,11 +4867,9 @@ async function updateStats(){
 
   }catch(error){
 
-    console.error(error);
-
-    toast(
-      "Stats Error: " +
-      error.message
+    console.error(
+      "Stats Error:",
+      error
     );
 
   }
@@ -4009,77 +4889,38 @@ function setStats(
   wins
 ){
 
-  document.getElementById("statTrades")
-    .textContent =
-    total || 0;
+  document
+  .getElementById("statTrades")
+  .textContent =
+  total;
 
-  document.getElementById("statWinRate")
-    .textContent =
-    `${winRate || 0}%`;
 
-  document.getElementById("statPnl")
-    .textContent =
-    formatMoney(pnl);
+  document
+  .getElementById("statWinRate")
+  .textContent =
+  `${winRate}%`;
 
-  document.getElementById("statR")
-    .textContent =
-    `${Number(r || 0).toFixed(2)}R`;
 
-  document.getElementById("statWins")
-    .textContent =
-    wins || 0;
+  document
+  .getElementById("statPnl")
+  .textContent =
+  formatMoney(pnl);
+
+
+  document
+  .getElementById("statR")
+  .textContent =
+  `${Number(
+    r || 0
+  ).toFixed(2)}R`;
+
+
+  document
+  .getElementById("statWins")
+  .textContent =
+  wins || 0;
 
 }
-
-
-/* =========================================================
-   MODAL CLICK OUTSIDE
-========================================================= */
-
-document.addEventListener(
-  "click",
-  event => {
-
-    const modal =
-      document.getElementById("traderModal");
-
-    if(
-      modal &&
-      event.target === modal
-    ){
-      closeTraderModal();
-    }
-
-  }
-);
-
-
-/* =========================================================
-   ENTER KEY
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if(
-      event.key === "Escape"
-    ){
-
-      const modal =
-        document.getElementById("traderModal");
-
-      if(
-        modal &&
-        !modal.classList.contains("hidden")
-      ){
-        closeTraderModal();
-      }
-
-    }
-
-  }
-);
 
 
 /* =========================================================
