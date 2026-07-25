@@ -4564,7 +4564,11 @@ function renderTraders(){
       .map(
         trader => `
 
-          <div class="trader-card">
+         <div
+  class="trader-card"
+  onclick="openTraderJournal('${trader.id}')"
+  style="cursor:pointer;"
+>
 
             ${
               trader.avatar_url
