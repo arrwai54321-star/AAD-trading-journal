@@ -3447,6 +3447,10 @@ async function createJournalDay(){
    RENDER DAYS
 ========================================================= */
 
+/* =========================================================
+   RENDER JOURNAL DAYS - 30 DAY GRID
+========================================================= */
+
 function renderJournalDays(){
 
   const card =
@@ -3483,71 +3487,77 @@ function renderJournalDays(){
     );
 
 
+  /*
+    GET ALL 30 DAYS
+    FOR CURRENT MONTH
+  */
+
   const days =
     journalDays
       .filter(
         day =>
-          day.month_id ===
-          selectedMonth.id
+          String(
+            day.month_id
+          ) ===
+          String(
+            selectedMonth.id
+          )
       )
       .sort(
         (
           a,
           b
         ) =>
-          b.journal_date
-            .localeCompare(
-              a.journal_date
+          String(
+            a.journal_date
+          )
+          .localeCompare(
+            String(
+              b.journal_date
             )
+          )
       );
 
 
   $("selectedMonthMeta")
     .textContent =
     days.length +
-    " journal day(s)";
+    " / 30 journal days";
 
 
-  if(
-    !days.length
-  ){
+  /*
+    CREATE 30 DAY GRID
+  */
 
-    container.innerHTML = `
+  container.innerHTML = `
 
-      <div class="empty">
+    <div
+      class="
+        aad-30-day-grid
+      "
+    >
 
-        Journal Day မရှိသေးပါ။
-
-        <br><br>
-
-        <button
-          class="btn btn-primary"
-          onclick="createJournalDay()"
-        >
-          ＋ Journal Day
-        </button>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    days
-      .map(
-        day =>
-          renderDayCard(
-            day
+      ${
+        days
+          .map(
+            day =>
+              renderDayCard(
+                day
+              )
           )
-      )
-      .join("");
+          .join("")
+      }
+
+    </div>
+
+  `;
 
 }
 
+
+/* =========================================================
+   RENDER SINGLE DAY CARD
+========================================================= */
 
 function renderDayCard(
   day
@@ -3556,8 +3566,12 @@ function renderDayCard(
   const dayTrades =
     trades.filter(
       trade =>
-        trade.trade_date ===
-        day.journal_date
+        String(
+          trade.trade_date
+        ) ===
+        String(
+          day.journal_date
+        )
     );
 
 
@@ -3567,79 +3581,246 @@ function renderDayCard(
     );
 
 
+  /*
+    GET DAY NUMBER
+  */
+
+  const dateParts =
+    String(
+      day.journal_date
+    )
+    .split(
+      "-"
+    );
+
+
+  const dayNumber =
+    dateParts.length ===
+    3
+      ? Number(
+          dateParts[2]
+        )
+      : "";
+
+
+  /*
+    PNL STATUS
+  */
+
+  let pnlClass =
+    "aad-pnl-neutral";
+
+
+  if(
+    Number(
+      stats.pnl
+    ) > 0
+  ){
+
+    pnlClass =
+      "aad-pnl-win";
+
+  }
+
+
+  if(
+    Number(
+      stats.pnl
+    ) < 0
+  ){
+
+    pnlClass =
+      "aad-pnl-loss";
+
+  }
+
+
+  /*
+    JOURNAL STATUS
+  */
+
+  const hasTrades =
+    dayTrades.length >
+    0;
+
+
   return `
 
-    <div class="day-card">
+    <div
+      class="
+        aad-day-card
+        ${
+          hasTrades
+            ? "has-trades"
+            : ""
+        }
+      "
+      onclick="
+        openTradeModal(
+          '${day.journal_date}'
+        )
+      "
+    >
 
-      <div class="day-header">
+
+      <!-- DAY NUMBER -->
+
+      <div
+        class="
+          aad-day-number
+        "
+      >
+
+        DAY
+        ${
+          String(
+            dayNumber
+          )
+          .padStart(
+            2,
+            "0"
+          )
+        }
+
+      </div>
+
+
+      <!-- DATE -->
+
+      <div
+        class="
+          aad-day-date
+        "
+      >
+
+        ${
+          escapeHtml(
+            formatDate(
+              day.journal_date
+            )
+          )
+        }
+
+      </div>
+
+
+      <!-- STATUS -->
+
+      <div
+        class="
+          aad-day-status
+        "
+      >
+
+        ${
+          hasTrades
+            ? "● Trading Activity"
+            : "○ No Trades Yet"
+        }
+
+      </div>
+
+
+      <!-- STATS -->
+
+      <div
+        class="
+          aad-day-stats
+        "
+      >
 
         <div>
 
-          <div class="day-date">
+          <span>
+            Trades
+          </span>
 
-            ${escapeHtml(
-              formatDate(
-                day.journal_date
-              )
-            )}
-
-          </div>
-
-          <div class="day-meta">
-
-            ${stats.total}
-            trade(s)
-            ·
-            ${stats.winRate}%
-            Win Rate
-            ·
-            ${formatMoney(
-              stats.pnl
-            )}
-
-          </div>
+          <strong>
+            ${
+              stats.total
+            }
+          </strong>
 
         </div>
 
 
-        <button
-          class="btn btn-primary btn-small"
-          onclick="
-            openTradeModal(
-              '${day.journal_date}'
-            )
-          "
-        >
-          ＋ Add Trade
-        </button>
+        <div>
+
+          <span>
+            Win Rate
+          </span>
+
+          <strong>
+            ${
+              stats.winRate
+            }%
+          </strong>
+
+        </div>
 
       </div>
 
 
-      <div class="trade-list">
+      <!-- PNL -->
+
+      <div
+        class="
+          aad-day-pnl
+          ${
+            pnlClass
+          }
+        "
+      >
 
         ${
-          dayTrades.length
-            ? dayTrades
-                .map(
-                  renderTradeRow
-                )
-                .join("")
-            : `
-              <div class="empty">
-                ဒီနေ့ Trade မရှိသေးပါ။
-              </div>
-            `
+          formatMoney(
+            stats.pnl
+          )
         }
 
       </div>
+
+
+      <!-- OPEN -->
+
+      <div
+        class="
+          aad-day-open
+        "
+      >
+
+        Click to open →
+
+      </div>
+
+
+      <!-- ADD TRADE -->
+
+      <button
+        class="
+          btn
+          btn-primary
+          btn-small
+        "
+        onclick="
+          event.stopPropagation();
+
+          openTradeModal(
+            '${day.journal_date}'
+          );
+        "
+      >
+
+        ＋ Add Trade
+
+      </button>
+
 
     </div>
 
   `;
 
 }
-
 
 /* =========================================================
    TRADER SELECT
