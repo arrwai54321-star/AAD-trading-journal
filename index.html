@@ -4670,15 +4670,18 @@ function renderTraders(){
 
 /* =========================================================
    OPEN TRADER JOURNAL
+   SELECT PROFILE
+   LOAD THAT TRADER'S JOURNAL DATA
 ========================================================= */
 
-function openTraderJournal(traderId){
+async function openTraderJournal(traderId){
 
   const trader =
     traders.find(
       item =>
         item.id === traderId
     );
+
 
   if(
     !trader
@@ -4694,13 +4697,59 @@ function openTraderJournal(traderId){
   }
 
 
+  /*
+    SELECT TRADER
+  */
+
   selectedTrader =
     trader;
 
 
+  /*
+    RESET OLD SELECTIONS
+  */
+
+  selectedMonth =
+    null;
+
+
+  selectedDay =
+    null;
+
+
+  /*
+    LOAD SELECTED TRADER'S DATA
+  */
+
+  await loadJournalMonths();
+
+
+  await loadJournalDays();
+
+
+  await loadTrades();
+
+
+  /*
+    OPEN JOURNAL PAGE
+  */
+
   showPage(
     "journal"
   );
+
+
+  /*
+    REFRESH UI
+  */
+
+  renderMonths();
+
+
+  renderJournalDays();
+
+
+  renderTrades();
 
 }
   
