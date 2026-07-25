@@ -4666,6 +4666,42 @@ function renderTraders(){
 
 }
 
+/* =========================================================
+   OPEN TRADER JOURNAL
+========================================================= */
+
+function openTraderJournal(traderId){
+
+  const trader =
+    traders.find(
+      item =>
+        item.id === traderId
+    );
+
+  if(
+    !trader
+  ){
+
+    showToast(
+      "Trader မတွေ့ပါ။",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  selectedTrader =
+    trader;
+
+
+  showPage(
+    "journal"
+  );
+
+}
+  
 
 /* =========================================================
    DELETE TRADER
