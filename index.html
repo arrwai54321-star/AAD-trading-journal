@@ -9022,6 +9022,645 @@ document
     }
   );
 
+/* =========================================================
+   CREATE JOURNAL MONTH
+========================================================= */
+
+async function createMonth(){
+
+  if(
+    !currentUser
+  ){
+
+    showToast(
+      "Please login first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const now =
+    new Date();
+
+
+  const year =
+    now.getFullYear();
+
+
+  const month =
+    now.getMonth() + 1;
+
+
+  /* =======================================================
+     CHECK IF MONTH ALREADY EXISTS
+  ======================================================= */
+
+  const existing =
+    journalMonths.find(
+      item =>
+        Number(
+          item.year
+        ) ===
+        Number(
+          year
+        ) &&
+        Number(
+          item.month
+        ) ===
+        Number(
+          month
+        )
+    );
+
+
+  if(
+    existing
+  ){
+
+    selectedMonth =
+      existing;
+
+
+    renderMonths();
+
+    renderJournalDays();
+
+    showToast(
+      "Current month already exists."
+    );
+
+    return;
+
+  }
+
+
+  /* =======================================================
+     CREATE LOCAL MONTH IMMEDIATELY
+  ======================================================= */
+
+  const tempId =
+    "temp-month-" +
+    Date.now();
+
+
+  const localMonth = {
+
+    id:
+      tempId,
+
+    user_id:
+      currentUser.id,
+
+    year:
+      year,
+
+    month:
+      month,
+
+    title:
+      "",
+
+    notes:
+      "",
+
+    created_at:
+      new Date()
+        .toISOString()
+
+  };
+
+
+  journalMonths.unshift(
+    localMonth
+  );
+
+
+  selectedMonth =
+    localMonth;
+
+
+  /* =======================================================
+     INSTANT UI UPDATE
+  ======================================================= */
+
+  renderMonths();
+
+  renderJournalDays();
+
+
+  showToast(
+    "Current month created."
+  );
+
+
+  /* =======================================================
+     SAVE TO SUPABASE
+  ======================================================= */
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from(
+        "journal_months"
+      )
+      .insert({
+
+        user_id:
+          currentUser.id,
+
+        year:
+          year,
+
+        month:
+          month,
+
+        title:
+          "",
+
+        notes:
+          ""
+
+      })
+      .select()
+      .single();
+
+
+  /* =======================================================
+     ROLLBACK IF ERROR
+  ======================================================= */
+
+  if(
+    error
+  ){
+
+    journalMonths =
+      journalMonths.filter(
+        item =>
+          item.id !==
+          tempId
+      );
+
+
+    selectedMonth =
+      null;
+
+
+    renderMonths();
+
+    renderJournalDays();
+
+
+    console.error(
+      error
+    );
+
+
+    showToast(
+      getErrorMessage(
+        error
+      ),
+      "error"
+    );
+
+
+    return;
+
+  }
+
+
+  /* =======================================================
+     REPLACE TEMP ID WITH REAL DATABASE ID
+  ======================================================= */
+
+  journalMonths =
+    journalMonths.map(
+      item =>
+        item.id ===
+        tempId
+          ? data
+          : item
+    );
+
+
+  selectedMonth =
+    data;
+
+
+  renderMonths();
+
+  renderJournalDays();
+
+}
+
+
+/* =========================================================
+   CREATE JOURNAL DAY
+========================================================= */
+
+async function createJournalDay(){
+
+  if(
+    !currentUser
+  ){
+
+    showToast(
+      "Please login first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !selectedMonth
+  ){
+
+    showToast(
+      "Please select a journal month first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const today =
+    new Date();
+
+
+  const date =
+    today
+      .toISOString()
+      .split(
+        "T"
+      )[0];
+
+
+  /* =======================================================
+     CHECK EXISTING DAY
+  ======================================================= */
+
+  const existing =
+    journalDays.find(
+      day =>
+        day.journal_month_id ===
+        selectedMonth.id &&
+        day.journal_date ===
+        date
+    );
+
+
+  if(
+    existing
+  ){
+
+    showToast(
+      "Today's journal day already exists."
+    );
+
+    return;
+
+  }
+
+
+  /* =======================================================
+     CREATE LOCAL DAY
+  ======================================================= */
+
+  const tempId =
+    "temp-day-" +
+    Date.now();
+
+
+  const localDay = {
+
+    id:
+      tempId,
+
+    user_id:
+      currentUser.id,
+
+    journal_month_id:
+      selectedMonth.id,
+
+    journal_date:
+      date,
+
+    title:
+      "",
+
+    content:
+      "",
+
+    mood:
+      "",
+
+    discipline:
+      "",
+
+    lessons:
+      "",
+
+    created_at:
+      new Date()
+        .toISOString()
+
+  };
+
+
+  journalDays.unshift(
+    localDay
+  );
+
+
+  /* =======================================================
+     INSTANT UI
+  ======================================================= */
+
+  renderJournalDays();
+
+
+  showToast(
+    "Journal day created."
+  );
+
+
+  /* =======================================================
+     SAVE DATABASE
+  ======================================================= */
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from(
+        "journal_days"
+      )
+      .insert({
+
+        user_id:
+          currentUser.id,
+
+        month_id:
+          selectedMonth.id,
+
+        journal_date:
+          date,
+
+        title:
+          "",
+
+        content:
+          "",
+
+        mood:
+          "",
+
+        discipline:
+          "",
+
+        lessons:
+          ""
+
+      })
+      .select()
+      .single();
+
+
+  /* =======================================================
+     ERROR ROLLBACK
+  ======================================================= */
+
+  if(
+    error
+  ){
+
+    journalDays =
+      journalDays.filter(
+        day =>
+          day.id !==
+          tempId
+      );
+
+
+    renderJournalDays();
+
+
+    console.error(
+      error
+    );
+
+
+    showToast(
+      getErrorMessage(
+        error
+      ),
+      "error"
+    );
+
+
+    return;
+
+  }
+
+
+  /* =======================================================
+     REPLACE TEMP DAY
+  ======================================================= */
+
+  journalDays =
+    journalDays.map(
+      day =>
+        day.id ===
+        tempId
+          ? data
+          : day
+    );
+
+
+  renderJournalDays();
+
+}
+
+
+/* =========================================================
+   LOAD JOURNAL MONTHS
+========================================================= */
+
+async function loadJournalMonths(){
+
+  if(
+    !currentUser
+  ){
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await db
+    .from(
+      "journal_months"
+    )
+    .select(
+      "*"
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "year",
+      {
+        ascending:
+          false
+      }
+    )
+    .order(
+      "month",
+      {
+        ascending:
+          false
+      }
+    );
+
+
+  if(
+    error
+  ){
+
+    console.error(
+      "Journal months error:",
+      error
+    );
+
+    return;
+
+  }
+
+
+  journalMonths =
+    data ||
+    [];
+
+
+  renderMonths();
+
+}
+
+
+/* =========================================================
+   LOAD JOURNAL DAYS
+========================================================= */
+
+async function loadJournalDays(){
+
+  if(
+    !currentUser
+  ){
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await db
+    .from(
+      "journal_days"
+    )
+    .select(
+      "*"
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "journal_date",
+      {
+        ascending:
+          false
+      }
+    );
+
+
+  if(
+    error
+  ){
+
+    console.error(
+      "Journal days error:",
+      error
+    );
+
+    return;
+
+  }
+
+
+  journalDays =
+    data ||
+    [];
+
+
+  renderJournalDays();
+
+}
+
+
+/* =========================================================
+   CREATE MONTH BUTTON COMPATIBILITY
+========================================================= */
+
+function createJournalMonth(){
+
+  return createMonth();
+
+}
+
+
+/* =========================================================
+   CREATE DAY BUTTON COMPATIBILITY
+========================================================= */
+
+function createJournalDay(){
+
+  return createJournalDay();
+
+}
+
+
+/* =========================================================
+   INITIAL APP START
+========================================================= */
+
+document
+  .addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+      checkSession();
+
+    }
+  );
+
 
 </script>
 
