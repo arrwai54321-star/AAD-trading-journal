@@ -9958,22 +9958,40 @@ async function saveTrade(){
       .trim();
 
 
-  if(
-    !traderId ||
-    !date ||
-    !symbol ||
-    !direction ||
-    !result
-  ){
+ if(
+  !traderId ||
+  !date ||
+  !symbol ||
+  !direction ||
+  !result
+){
 
-    showToast(
-      "Please complete trader, date, symbol, direction and result.",
-      "error"
-    );
+  console.log({
+    traderId,
+    date,
+    symbol,
+    direction,
+    result
+  });
 
-    return;
+  showToast(
+    `Missing: ${
+      !traderId ? "Trader " : ""
+    }${
+      !date ? "Date " : ""
+    }${
+      !symbol ? "Symbol " : ""
+    }${
+      !direction ? "Direction " : ""
+    }${
+      !result ? "Result" : ""
+    }`,
+    "error"
+  );
 
-  }
+  return;
+
+}
 
 
   const monthDate =
