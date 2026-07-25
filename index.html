@@ -3204,7 +3204,7 @@ function renderTraders(){
       .map(
         trader => `
 
-          <button
+          <div
             class="
               trader-item
               ${
@@ -3256,7 +3256,20 @@ function renderTraders(){
 
             </div>
 
-          </button>
+
+            <button
+              type="button"
+              class="delete-trader-btn"
+              onclick="
+                event.stopPropagation();
+                deleteTrader('${trader.id}');
+              "
+              title="Delete Trader"
+            >
+              🗑
+            </button>
+
+          </div>
 
         `
       )
@@ -3264,7 +3277,119 @@ function renderTraders(){
 
 }
 
+  async function deleteTrader(id){
 
+  if(!currentUser){
+
+    showToast(
+      "Please login first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const trader =
+    traders.find(
+      t =>
+      t.id === id
+    );
+
+  if(!trader){
+
+    return;
+
+  }
+
+  const confirmed =
+    confirm(
+      `Delete trader "${trader.name}"?`
+    );
+
+  if(!confirmed){
+
+    return;
+
+  }
+
+  const {
+    error
+  } =
+  await supabaseClient
+    .from("journal_traders")
+    .delete()
+    .eq(
+      "id",
+      id
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    showToast(
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  traders =
+    traders.filter(
+      trader =>
+      trader.id !== id
+    );
+
+
+  if(
+    selectedTrader &&
+    selectedTrader.id === id
+  ){
+
+    selectedTrader =
+      null;
+
+    if($("traderEmpty")){
+
+      $("traderEmpty")
+        .classList
+        .remove("hidden");
+
+    }
+
+    if($("traderProfile")){
+
+      $("traderProfile")
+        .classList
+        .add("hidden");
+
+    }
+
+  }
+
+
+  renderTraders();
+
+  populateTraderSelect();
+
+  await updateStats();
+
+
+  showToast(
+    "Trader deleted successfully."
+  );
+
+}
+  
 function selectTrader(
   id
 ){
