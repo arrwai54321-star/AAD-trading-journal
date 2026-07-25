@@ -7874,14 +7874,18 @@ async function createJournalDay(){
   }
 
 
-  const exists =
-    journalDays.some(
-      day =>
-        day.journal_month_id ===
-        month.id &&
-        day.journal_date ===
-        date
-    );
+ const exists =
+  journalDays.some(
+    day =>
+      String(
+        day.month_id
+      ) ===
+      String(
+        month.id
+      ) &&
+      day.journal_date ===
+      date
+  );
 
 
   if(
