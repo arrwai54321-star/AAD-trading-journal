@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AAD Trading Journal</title>
 
@@ -15,2856 +10,1124 @@
 
 <style>
 
-/* =========================================================
-   AAD TRADING JOURNAL
-   NOTION STYLE — PART 1
-========================================================= */
-
 :root{
-
-  --bg:
-    #f7f7f5;
-
-  --surface:
-    #ffffff;
-
-  --surface-soft:
-    #fbfbfa;
-
-  --border:
-    #e9e9e7;
-
-  --border-dark:
-    #dededb;
-
-  --text:
-    #37352f;
-
-  --text-soft:
-    #787774;
-
-  --text-muted:
-    #9b9a97;
-
-  --blue:
-    #2383e2;
-
-  --blue-soft:
-    #eaf3ff;
-
-  --green:
-    #0f7b6c;
-
-  --green-soft:
-    #e7f6f2;
-
-  --red:
-    #d44c47;
-
-  --red-soft:
-    #fdebec;
-
-  --yellow:
-    #dfab01;
-
-  --yellow-soft:
-    #fff7d6;
-
-  --purple:
-    #9065b0;
-
-  --purple-soft:
-    #f4edfa;
-
-  --shadow:
-    0 1px 3px rgba(
-      15,
-      15,
-      15,
-      0.06
-    );
-
-  --shadow-large:
-    0 12px 40px rgba(
-      15,
-      15,
-      15,
-      0.12
-    );
-
-  --radius:
-    8px;
-
-  --sidebar-width:
-    250px;
-
-  --transition:
-    0.18s ease;
-
+  --bg:#070b14;
+  --panel:#0d1422;
+  --panel2:#111b2d;
+  --panel3:#172238;
+  --border:#24334d;
+  --text:#f4f7fb;
+  --muted:#8f9db2;
+  --primary:#6c63ff;
+  --primary2:#8d85ff;
+  --success:#20c997;
+  --danger:#ff5d73;
+  --warning:#f5b942;
+  --shadow:0 20px 60px rgba(0,0,0,.35);
+  --radius:18px;
 }
 
 *{
-
-  box-sizing:
-    border-box;
-
-  margin:
-    0;
-
-  padding:
-    0;
-
+  box-sizing:border-box;
 }
 
-html{
-
-  scroll-behavior:
-    smooth;
-
-}
-
+html,
 body{
-
-  min-height:
-    100vh;
-
+  margin:0;
+  padding:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
   font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
-    Helvetica,
-    Arial,
     sans-serif;
+}
 
-  background:
-    var(--bg);
-
-  color:
-    var(--text);
-
-  font-size:
-    14px;
-
-  line-height:
-    1.5;
-
+body{
+  overflow-x:hidden;
 }
 
 button,
 input,
 select,
 textarea{
-
-  font:
-    inherit;
-
+  font:inherit;
 }
 
 button{
-
-  cursor:
-    pointer;
-
+  cursor:pointer;
 }
 
 .hidden{
-
-  display:
-    none !important;
-
+  display:none !important;
 }
 
+.app{
+  min-height:100vh;
+  display:flex;
+}
+
+
 /* =========================================================
-   AUTH / LOGIN
+   SIDEBAR
 ========================================================= */
 
-#loginScreen{
+.sidebar{
+  width:260px;
+  min-height:100vh;
+  background:
+    linear-gradient(
+      180deg,
+      #0b1120 0%,
+      #080d18 100%
+    );
+  border-right:1px solid var(--border);
+  padding:22px 16px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  z-index:20;
+}
 
-  min-height:
-    100vh;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:8px 10px 24px;
+}
 
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  padding:
-    24px;
-
+.brand-logo{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
   background:
     linear-gradient(
       135deg,
-      #f7f7f5 0%,
-      #ffffff 50%,
-      #f1f1ee 100%
+      var(--primary),
+      #3b82f6
     );
-
-}
-
-.login-card{
-
-  width:
-    100%;
-
-  max-width:
-    420px;
-
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      0.96
-    );
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    16px;
-
-  padding:
-    40px;
-
   box-shadow:
-    var(--shadow-large);
-
+    0 12px 30px
+    rgba(108,99,255,.35);
+  font-weight:900;
+  font-size:18px;
 }
 
-.login-brand{
-
-  text-align:
-    center;
-
-  margin-bottom:
-    32px;
-
+.brand-text strong{
+  display:block;
+  font-size:16px;
 }
 
-.login-logo{
-
-  width:
-    58px;
-
-  height:
-    58px;
-
-  margin:
-    0 auto 18px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  border-radius:
-    14px;
-
-  background:
-    var(--text);
-
-  color:
-    white;
-
-  font-size:
-    22px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    -1px;
-
+.brand-text span{
+  color:var(--muted);
+  font-size:12px;
 }
 
-.login-brand h1{
-
-  font-size:
-    26px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    -0.7px;
-
-}
-
-.login-brand p{
-
-  margin-top:
-    6px;
-
-  color:
-    var(--text-soft);
-
-}
-
-.form-group{
-
-  margin-bottom:
-    16px;
-
-}
-
-.form-group label{
-
-  display:
-    block;
-
-  margin-bottom:
-    7px;
-
-  color:
-    var(--text);
-
-  font-size:
-    13px;
-
-  font-weight:
-    600;
-
-}
-
-.form-control{
-
-  width:
-    100%;
-
-  min-height:
-    42px;
-
-  padding:
-    10px 12px;
-
-  border:
-    1px solid var(--border-dark);
-
-  border-radius:
-    7px;
-
-  outline:
-    none;
-
-  background:
-    white;
-
-  color:
-    var(--text);
-
-  transition:
-    var(--transition);
-
-}
-
-.form-control:focus{
-
-  border-color:
-    var(--blue);
-
-  box-shadow:
-    0 0 0 2px
-    rgba(
-      35,
-      131,
-      226,
-      0.12
-    );
-
-}
-
-textarea.form-control{
-
-  min-height:
-    100px;
-
-  resize:
-    vertical;
-
-}
-
-.login-actions{
-
-  display:
-    grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:
-    10px;
-
-  margin-top:
-    22px;
-
-}
-
-.btn{
-
-  min-height:
-    40px;
-
-  padding:
-    9px 16px;
-
-  border:
-    1px solid transparent;
-
-  border-radius:
-    7px;
-
-  font-weight:
-    600;
-
-  transition:
-    var(--transition);
-
-}
-
-.btn:hover{
-
-  transform:
-    translateY(-1px);
-
-}
-
-.btn-primary{
-
-  background:
-    var(--text);
-
-  color:
-    white;
-
-}
-
-.btn-primary:hover{
-
-  background:
-    #22211e;
-
-}
-
-.btn-secondary{
-
-  background:
-    white;
-
-  color:
-    var(--text);
-
-  border-color:
-    var(--border-dark);
-
-}
-
-.btn-secondary:hover{
-
-  background:
-    var(--surface-soft);
-
-}
-
-.btn-danger{
-
-  background:
-    var(--red-soft);
-
-  color:
-    var(--red);
-
-  border-color:
-    #f2c7c7;
-
-}
-
-.btn-small{
-
-  min-height:
-    34px;
-
-  padding:
-    6px 11px;
-
-  font-size:
-    12px;
-
-}
-
-/* =========================================================
-   APP LAYOUT
-========================================================= */
-
-#app{
-
-  min-height:
-    100vh;
-
-  display:
-    flex;
-
-}
-
-.sidebar{
-
-  position:
-    fixed;
-
-  top:
-    0;
-
-  left:
-    0;
-
-  bottom:
-    0;
-
-  width:
-    var(--sidebar-width);
-
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  background:
-    #fbfbfa;
-
-  border-right:
-    1px solid var(--border);
-
-  z-index:
-    100;
-
-}
-
-.sidebar-brand{
-
-  height:
-    64px;
-
-  padding:
-    0 18px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    11px;
-
-  border-bottom:
-    1px solid var(--border);
-
-}
-
-.sidebar-logo{
-
-  width:
-    34px;
-
-  height:
-    34px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  border-radius:
-    8px;
-
-  background:
-    var(--text);
-
-  color:
-    white;
-
-  font-size:
-    13px;
-
-  font-weight:
-    700;
-
-}
-
-.sidebar-brand strong{
-
-  font-size:
-    15px;
-
-  font-weight:
-    700;
-
-}
-
-.sidebar-nav{
-
-  flex:
-    1;
-
-  padding:
-    14px 10px;
-
-  overflow-y:
-    auto;
-
-}
-
-.nav-section-title{
-
-  padding:
-    8px 10px;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    11px;
-
-  font-weight:
-    700;
-
-  text-transform:
-    uppercase;
-
-  letter-spacing:
-    0.6px;
-
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
 }
 
 .nav-btn{
-
-  width:
-    100%;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    10px;
-
-  padding:
-    9px 10px;
-
-  margin-bottom:
-    2px;
-
-  border:
-    none;
-
-  border-radius:
-    6px;
-
-  background:
-    transparent;
-
-  color:
-    var(--text-soft);
-
-  text-align:
-    left;
-
-  transition:
-    var(--transition);
-
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:12px 13px;
+  border-radius:12px;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  transition:.2s;
 }
 
 .nav-btn:hover{
-
-  background:
-    #efefed;
-
-  color:
-    var(--text);
-
+  background:rgba(255,255,255,.05);
+  color:var(--text);
 }
 
 .nav-btn.active{
-
   background:
-    #e9e9e7;
-
-  color:
-    var(--text);
-
-  font-weight:
-    600;
-
+    linear-gradient(
+      135deg,
+      rgba(108,99,255,.25),
+      rgba(59,130,246,.12)
+    );
+  color:#fff;
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(108,99,255,.25);
 }
 
 .nav-icon{
-
-  width:
-    20px;
-
-  text-align:
-    center;
-
-  font-size:
-    15px;
-
+  width:24px;
+  text-align:center;
 }
 
 .sidebar-bottom{
-
-  padding:
-    12px;
-
-  border-top:
-    1px solid var(--border);
-
+  position:absolute;
+  left:16px;
+  right:16px;
+  bottom:20px;
 }
 
 .user-card{
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    10px;
-
-  padding:
-    9px;
-
-  border-radius:
-    7px;
-
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:12px;
+  overflow:hidden;
 }
 
-.user-card:hover{
-
-  background:
-    #efefed;
-
+.user-email{
+  font-size:12px;
+  color:var(--muted);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-bottom:10px;
 }
 
-.user-avatar{
-
-  width:
-    32px;
-
-  height:
-    32px;
-
-  border-radius:
-    50%;
-
-  object-fit:
-    cover;
-
-  background:
-    #e9e9e7;
-
+.logout-btn{
+  width:100%;
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--text);
+  padding:9px;
+  border-radius:10px;
 }
 
-.user-info{
-
-  min-width:
-    0;
-
-  flex:
-    1;
-
+.logout-btn:hover{
+  border-color:var(--danger);
+  color:#fff;
 }
 
-.user-info strong{
-
-  display:
-    block;
-
-  max-width:
-    145px;
-
-  overflow:
-    hidden;
-
-  white-space:
-    nowrap;
-
-  text-overflow:
-    ellipsis;
-
-  font-size:
-    12px;
-
-}
-
-.user-info span{
-
-  display:
-    block;
-
-  margin-top:
-    1px;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    11px;
-
-}
 
 /* =========================================================
    MAIN
 ========================================================= */
 
 .main{
-
-  width:
-    calc(
-      100% -
-      var(--sidebar-width)
-    );
-
-  margin-left:
-    var(--sidebar-width);
-
-  min-height:
-    100vh;
-
+  margin-left:260px;
+  width:calc(100% - 260px);
+  min-height:100vh;
 }
 
 .topbar{
-
-  position:
-    sticky;
-
-  top:
-    0;
-
-  z-index:
-    50;
-
-  height:
-    64px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  padding:
-    0 28px;
-
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      0.94
-    );
-
-  backdrop-filter:
-    blur(12px);
-
-  border-bottom:
-    1px solid var(--border);
-
-}
-
-.topbar-left{
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    12px;
-
-}
-
-.menu-btn{
-
-  display:
-    none;
-
-  width:
-    36px;
-
-  height:
-    36px;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  border:
-    none;
-
-  border-radius:
-    6px;
-
-  background:
-    transparent;
-
-  font-size:
-    20px;
-
+  height:72px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  background:rgba(7,11,20,.82);
+  backdrop-filter:blur(16px);
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
 .page-title{
-
-  font-size:
-    16px;
-
-  font-weight:
-    700;
-
+  font-size:20px;
+  font-weight:800;
 }
 
 .page-subtitle{
-
-  margin-top:
-    1px;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    12px;
-
-}
-
-.topbar-right{
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    8px;
-
+  color:var(--muted);
+  font-size:12px;
+  margin-top:3px;
 }
 
 .content{
-
-  max-width:
-    1400px;
-
-  margin:
-    0 auto;
-
-  padding:
-    30px;
-
+  padding:28px;
+  max-width:1500px;
+  margin:auto;
 }
 
 .page{
-
-  display:
-    none;
-
+  display:none;
 }
 
 .page.active{
-
-  display:
-    block;
-
+  display:block;
 }
+
 
 /* =========================================================
-   PAGE HEADER
+   BUTTONS
 ========================================================= */
 
-.page-header{
-
-  display:
-    flex;
-
-  align-items:
-    flex-start;
-
-  justify-content:
-    space-between;
-
-  gap:
-    20px;
-
-  margin-bottom:
-    26px;
-
+.btn{
+  border:0;
+  border-radius:11px;
+  padding:10px 15px;
+  color:#fff;
+  transition:.2s;
+  font-weight:700;
 }
 
-.page-header h1{
-
-  font-size:
-    28px;
-
-  line-height:
-    1.2;
-
-  letter-spacing:
-    -0.7px;
-
+.btn:hover{
+  transform:translateY(-1px);
 }
 
-.page-header p{
-
-  margin-top:
-    6px;
-
-  color:
-    var(--text-soft);
-
-}
-
-.page-header-actions{
-
-  display:
-    flex;
-
-  gap:
-    8px;
-
-  flex-wrap:
-    wrap;
-
-}
-
-/* =========================================================
-   DASHBOARD STATS
-========================================================= */
-
-.stats-grid{
-
-  display:
-    grid;
-
-  grid-template-columns:
-    repeat(
-      5,
-      minmax(
-        0,
-        1fr
-      )
-    );
-
-  gap:
-    12px;
-
-  margin-bottom:
-    24px;
-
-}
-
-.stat-card{
-
-  min-height:
-    120px;
-
-  padding:
-    18px;
-
+.btn-primary{
   background:
-    var(--surface);
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    10px;
-
+    linear-gradient(
+      135deg,
+      var(--primary),
+      #4f46e5
+    );
   box-shadow:
-    var(--shadow);
-
+    0 10px 25px
+    rgba(108,99,255,.2);
 }
 
-.stat-label{
-
-  color:
-    var(--text-soft);
-
-  font-size:
-    12px;
-
-  font-weight:
-    600;
-
+.btn-secondary{
+  background:var(--panel3);
+  border:1px solid var(--border);
 }
 
-.stat-value{
-
-  margin-top:
-    12px;
-
-  font-size:
-    25px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    -0.6px;
-
+.btn-danger{
+  background:rgba(255,93,115,.12);
+  border:1px solid rgba(255,93,115,.35);
+  color:#ff8c9b;
 }
 
-.stat-meta{
-
-  margin-top:
-    5px;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    11px;
-
+.btn-success{
+  background:rgba(32,201,151,.12);
+  border:1px solid rgba(32,201,151,.35);
+  color:#54dfb1;
 }
+
+.btn-small{
+  padding:7px 10px;
+  font-size:12px;
+}
+
 
 /* =========================================================
-   CARD
+   CARDS
 ========================================================= */
 
 .card{
-
   background:
-    var(--surface);
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    10px;
-
-  box-shadow:
-    var(--shadow);
-
+    linear-gradient(
+      145deg,
+      rgba(17,27,45,.98),
+      rgba(11,18,31,.98)
+    );
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
 }
 
 .card-header{
-
-  min-height:
-    58px;
-
-  padding:
-    14px 18px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  gap:
-    12px;
-
-  border-bottom:
-    1px solid var(--border);
-
+  padding:20px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
 }
 
 .card-title{
-
-  font-weight:
-    700;
-
+  font-size:16px;
+  font-weight:800;
 }
 
 .card-subtitle{
-
-  margin-top:
-    2px;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    12px;
-
+  font-size:12px;
+  color:var(--muted);
+  margin-top:4px;
 }
 
 .card-body{
-
-  padding:
-    18px;
-
+  padding:20px;
 }
 
+
 /* =========================================================
-   TRADER LIST
+   DASHBOARD
 ========================================================= */
 
-.trader-layout{
-
-  display:
-    grid;
-
-  grid-template-columns:
-    280px
-    minmax(
-      0,
-      1fr
+.hero{
+  padding:26px;
+  border-radius:22px;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(108,99,255,.28),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #111a31,
+      #0c1321
     );
-
-  gap:
-    18px;
-
+  border:1px solid var(--border);
+  margin-bottom:22px;
 }
 
-.trader-sidebar{
-
-  min-height:
-    500px;
-
+.hero h1{
+  margin:0 0 7px;
+  font-size:28px;
 }
 
-.trader-list{
-
-  padding:
-    8px;
-
+.hero p{
+  margin:0;
+  color:var(--muted);
 }
 
-.trader-item{
-
-  width:
-    100%;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    10px;
-
-  padding:
-    10px;
-
-  margin-bottom:
-    3px;
-
-  border:
-    none;
-
-  border-radius:
-    7px;
-
-  background:
-    transparent;
-
-  color:
-    var(--text);
-
-  text-align:
-    left;
-
-  transition:
-    var(--transition);
-
-}
-
-.trader-item:hover{
-
-  background:
-    #f1f1ef;
-
-}
-
-.trader-item.active{
-
-  background:
-    #e9e9e7;
-
-}
-
-.trader-avatar{
-
-  width:
-    38px;
-
-  height:
-    38px;
-
-  flex:
-    0 0 38px;
-
-  border-radius:
-    50%;
-
-  object-fit:
-    cover;
-
-  background:
-    #eeeeec;
-
-}
-
-.trader-info{
-
-  min-width:
-    0;
-
-}
-
-.trader-info strong{
-
-  display:
-    block;
-
-  overflow:
-    hidden;
-
-  white-space:
-    nowrap;
-
-  text-overflow:
-    ellipsis;
-
-  font-size:
-    13px;
-
-}
-
-.trader-info span{
-
-  display:
-    block;
-
-  margin-top:
-    2px;
-
-  overflow:
-    hidden;
-
-  white-space:
-    nowrap;
-
-  text-overflow:
-    ellipsis;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    11px;
-
-}
-
-.empty-state{
-
-  min-height:
-    240px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  text-align:
-    center;
-
-  color:
-    var(--text-muted);
-
-}
-
-.empty-icon{
-
-  margin-bottom:
-    10px;
-
-  font-size:
-    30px;
-
-}
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-.profile-header{
-
-  padding:
-    24px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    18px;
-
-  border-bottom:
-    1px solid var(--border);
-
-}
-
-.profile-avatar{
-
-  width:
-    78px;
-
-  height:
-    78px;
-
-  border-radius:
-    50%;
-
-  object-fit:
-    cover;
-
-  background:
-    #eeeeec;
-
-}
-
-.profile-info{
-
-  flex:
-    1;
-
-  min-width:
-    0;
-
-}
-
-.profile-info h2{
-
-  font-size:
-    22px;
-
-  letter-spacing:
-    -0.4px;
-
-}
-
-.profile-info p{
-
-  margin-top:
-    5px;
-
-  color:
-    var(--text-soft);
-
-}
-
-.profile-actions{
-
-  display:
-    flex;
-
-  gap:
-    8px;
-
-}
-
-.profile-stats{
-
-  display:
-    grid;
-
+.stats-grid{
+  display:grid;
   grid-template-columns:
     repeat(
-      5,
-      1fr
+      auto-fit,
+      minmax(160px,1fr)
     );
-
-  border-bottom:
-    1px solid var(--border);
-
+  gap:14px;
+  margin-bottom:22px;
 }
 
-.profile-stat{
-
-  padding:
-    18px;
-
-  border-right:
-    1px solid var(--border);
-
+.stat-card{
+  padding:18px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
 }
 
-.profile-stat:last-child{
-
-  border-right:
-    none;
-
+.stat-label{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:9px;
 }
 
-.profile-stat span{
-
-  display:
-    block;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    11px;
-
+.stat-value{
+  font-size:25px;
+  font-weight:900;
 }
 
-.profile-stat strong{
-
-  display:
-    block;
-
-  margin-top:
-    5px;
-
-  font-size:
-    18px;
-
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(300px,1fr)
+    );
+  gap:18px;
 }
+
 
 /* =========================================================
-   MONTH LIST
+   JOURNAL
 ========================================================= */
 
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:18px;
+}
+
 .month-grid{
-
-  display:
-    grid;
-
+  display:grid;
   grid-template-columns:
     repeat(
       auto-fill,
-      minmax(
-        180px,
-        1fr
-      )
+      minmax(210px,1fr)
     );
-
-  gap:
-    12px;
-
+  gap:14px;
 }
 
 .month-card{
-
-  padding:
-    18px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    9px;
-
-  background:
-    white;
-
-  text-align:
-    left;
-
-  transition:
-    var(--transition);
-
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  border-radius:16px;
+  padding:18px;
+  text-align:left;
+  transition:.2s;
 }
 
 .month-card:hover{
-
-  border-color:
-    var(--border-dark);
-
-  box-shadow:
-    var(--shadow);
-
-  transform:
-    translateY(
-      -1px
-    );
-
+  border-color:var(--primary);
+  transform:translateY(-2px);
 }
 
 .month-card.active{
-
-  border-color:
-    var(--blue);
-
+  border-color:var(--primary);
   background:
-    var(--blue-soft);
-
+    linear-gradient(
+      135deg,
+      rgba(108,99,255,.18),
+      rgba(17,27,45,.98)
+    );
 }
 
 .month-icon{
-
-  width:
-    34px;
-
-  height:
-    34px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  margin-bottom:
-    12px;
-
-  border-radius:
-    7px;
-
-  background:
-    #f1f1ef;
-
+  font-size:25px;
+  margin-bottom:12px;
 }
 
 .month-card strong{
-
-  display:
-    block;
-
-  font-size:
-    14px;
-
+  display:block;
+  font-size:16px;
 }
 
 .month-card span{
-
-  display:
-    block;
-
-  margin-top:
-    4px;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    11px;
-
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:6px;
 }
 
-/* =========================================================
-   JOURNAL DAYS
-========================================================= */
-
 .journal-day{
-
-  margin-bottom:
-    16px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    10px;
-
-  background:
-    white;
-
-  overflow:
-    hidden;
-
+  padding:18px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:16px;
+  margin-bottom:14px;
 }
 
 .journal-day-header{
-
-  min-height:
-    58px;
-
-  padding:
-    12px 16px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  gap:
-    12px;
-
-  background:
-    #fbfbfa;
-
-  border-bottom:
-    1px solid var(--border);
-
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:15px;
 }
 
 .day-date{
-
-  font-weight:
-    700;
-
+  font-size:16px;
+  font-weight:800;
 }
 
 .day-meta{
-
-  margin-top:
-    2px;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    11px;
-
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px;
 }
 
 .trade-list{
-
-  padding:
-    8px;
-
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
 .trade-row{
-
-  padding:
-    14px;
-
-  border-bottom:
-    1px solid var(--border);
-
-}
-
-.trade-row:last-child{
-
-  border-bottom:
-    none;
-
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:15px;
 }
 
 .trade-top{
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  gap:
-    12px;
-
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
 }
 
 .trade-symbol{
-
-  font-weight:
-    700;
-
+  font-size:15px;
+  font-weight:800;
 }
 
 .trade-badges{
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    6px;
-
-  flex-wrap:
-    wrap;
-
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
 }
 
 .badge{
-
-  display:
-    inline-flex;
-
-  align-items:
-    center;
-
-  padding:
-    3px 8px;
-
-  border-radius:
-    5px;
-
-  font-size:
-    11px;
-
-  font-weight:
-    600;
-
-}
-
-.badge-win{
-
-  background:
-    var(--green-soft);
-
-  color:
-    var(--green);
-
-}
-
-.badge-loss{
-
-  background:
-    var(--red-soft);
-
-  color:
-    var(--red);
-
-}
-
-.badge-be{
-
-  background:
-    var(--yellow-soft);
-
-  color:
-    #8a6a00;
-
+  display:inline-flex;
+  align-items:center;
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
 }
 
 .badge-neutral{
+  background:rgba(255,255,255,.07);
+  color:#cbd5e1;
+}
 
-  background:
-    #f1f1ef;
+.badge-win{
+  background:rgba(32,201,151,.13);
+  color:#53dfb1;
+}
 
-  color:
-    var(--text-soft);
+.badge-loss{
+  background:rgba(255,93,115,.13);
+  color:#ff8798;
+}
 
+.badge-be{
+  background:rgba(245,185,66,.13);
+  color:#f5c968;
 }
 
 .trade-details{
-
-  display:
-    grid;
-
+  display:grid;
   grid-template-columns:
     repeat(
-      5,
-      minmax(
-        0,
-        1fr
-      )
+      auto-fit,
+      minmax(100px,1fr)
     );
-
-  gap:
-    10px;
-
-  margin-top:
-    12px;
-
+  gap:10px;
+  margin-top:14px;
 }
 
 .trade-detail{
-
-  padding:
-    9px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    6px;
-
-  background:
-    var(--surface-soft);
-
+  padding:9px;
+  background:rgba(255,255,255,.025);
+  border-radius:9px;
 }
 
 .trade-detail span{
-
-  display:
-    block;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    10px;
-
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-bottom:3px;
 }
 
 .trade-detail strong{
-
-  display:
-    block;
-
-  margin-top:
-    3px;
-
-  font-size:
-    12px;
-
+  font-size:12px;
 }
 
 .trade-notes{
-
-  margin-top:
-    12px;
-
-  padding:
-    10px;
-
-  border-left:
-    3px solid
-    var(--border-dark);
-
-  background:
-    #fafaf9;
-
-  color:
-    var(--text-soft);
-
-  font-size:
-    12px;
-
-}
-
-.trade-images{
-
-  display:
-    flex;
-
-  gap:
-    8px;
-
-  margin-top:
-    12px;
-
-  overflow-x:
-    auto;
-
-}
-
-.trade-images img{
-
-  width:
-    120px;
-
-  height:
-    75px;
-
-  object-fit:
-    cover;
-
-  border-radius:
-    6px;
-
-  border:
-    1px solid var(--border);
-
+  margin-top:12px;
+  color:#c6d0df;
+  font-size:12px;
+  line-height:1.6;
 }
 
 .trade-actions{
-
-  display:
-    flex;
-
-  gap:
-    6px;
-
-  margin-top:
-    12px;
-
+  display:flex;
+  justify-content:flex-end;
+  gap:7px;
+  margin-top:13px;
 }
 
+
 /* =========================================================
-   ADD TRADE FORM
+   TRADERS
+========================================================= */
+
+.trader-layout{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:18px;
+}
+
+.trader-list{
+  padding:12px;
+}
+
+.trader-item{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:11px;
+  border:0;
+  background:transparent;
+  color:var(--text);
+  border-radius:12px;
+  text-align:left;
+  margin-bottom:5px;
+}
+
+.trader-item:hover,
+.trader-item.active{
+  background:rgba(108,99,255,.13);
+}
+
+.trader-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  object-fit:cover;
+  background:var(--panel3);
+  flex-shrink:0;
+}
+
+.trader-info{
+  min-width:0;
+}
+
+.trader-info strong{
+  display:block;
+  font-size:13px;
+}
+
+.trader-info span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-top:3px;
+}
+
+.profile{
+  padding:25px;
+}
+
+.profile-head{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.profile-avatar{
+  width:80px;
+  height:80px;
+  border-radius:22px;
+  object-fit:cover;
+  background:var(--panel3);
+}
+
+.profile h2{
+  margin:0;
+}
+
+.profile p{
+  color:var(--muted);
+  margin:6px 0 0;
+}
+
+
+/* =========================================================
+   FORM
 ========================================================= */
 
 .form-grid{
-
-  display:
-    grid;
-
+  display:grid;
   grid-template-columns:
     repeat(
       2,
-      minmax(
-        0,
-        1fr
-      )
+      minmax(0,1fr)
     );
-
-  gap:
-    16px;
-
+  gap:15px;
 }
 
-.form-grid-3{
-
-  display:
-    grid;
-
-  grid-template-columns:
-    repeat(
-      3,
-      minmax(
-        0,
-        1fr
-      )
-    );
-
-  gap:
-    16px;
-
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
 }
 
-.form-full{
-
-  grid-column:
-    1 / -1;
-
+.form-group.full{
+  grid-column:1/-1;
 }
 
-.optional-label{
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    11px;
-
-  font-weight:
-    400;
-
+.form-group label{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:700;
 }
 
-.chip-group{
-
-  display:
-    flex;
-
-  flex-wrap:
-    wrap;
-
-  gap:
-    7px;
-
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid var(--border);
+  background:#0a111e;
+  color:var(--text);
+  border-radius:11px;
+  padding:11px 12px;
+  outline:none;
 }
 
-.chip{
-
-  min-height:
-    34px;
-
-  padding:
-    6px 12px;
-
-  border:
-    1px solid var(--border-dark);
-
-  border-radius:
-    6px;
-
-  background:
-    white;
-
-  color:
-    var(--text-soft);
-
-  font-size:
-    12px;
-
-  transition:
-    var(--transition);
-
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--primary);
+  box-shadow:
+    0 0 0 3px
+    rgba(108,99,255,.1);
 }
 
-.chip:hover{
-
-  background:
-    #f5f5f3;
-
+textarea{
+  min-height:100px;
+  resize:vertical;
 }
 
-.chip.active{
-
-  background:
-    var(--text);
-
-  border-color:
-    var(--text);
-
-  color:
-    white;
-
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:20px;
 }
 
-.image-upload{
 
-  padding:
-    20px;
+/* =========================================================
+   EMPTY
+========================================================= */
 
-  border:
-    1px dashed var(--border-dark);
-
-  border-radius:
-    8px;
-
-  background:
-    var(--surface-soft);
-
-  text-align:
-    center;
-
+.empty-state{
+  min-height:160px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  color:var(--muted);
+  padding:25px;
 }
 
-.image-upload input{
-
-  display:
-    none;
-
+.empty-icon{
+  font-size:34px;
+  margin-bottom:10px;
 }
 
-.image-upload-label{
-
-  display:
-    inline-flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  min-height:
-    38px;
-
-  padding:
-    8px 14px;
-
-  border:
-    1px solid var(--border-dark);
-
-  border-radius:
-    7px;
-
-  background:
-    white;
-
-  font-weight:
-    600;
-
-  cursor:
-    pointer;
-
-}
-
-.image-upload p{
-
-  margin-top:
-    7px;
-
-  color:
-    var(--text-muted);
-
-  font-size:
-    11px;
-
-}
-
-.image-preview{
-
-  display:
-    grid;
-
-  grid-template-columns:
-    repeat(
-      3,
-      1fr
-    );
-
-  gap:
-    10px;
-
-  margin-top:
-    14px;
-
-}
-
-.preview-item{
-
-  position:
-    relative;
-
-  height:
-    120px;
-
-  border-radius:
-    7px;
-
-  overflow:
-    hidden;
-
-  border:
-    1px solid var(--border);
-
-}
-
-.preview-item img{
-
-  width:
-    100%;
-
-  height:
-    100%;
-
-  object-fit:
-    cover;
-
-}
-
-.preview-remove{
-
-  position:
-    absolute;
-
-  top:
-    6px;
-
-  right:
-    6px;
-
-  width:
-    24px;
-
-  height:
-    24px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  border:
-    none;
-
-  border-radius:
-    50%;
-
-  background:
-    rgba(
-      0,
-      0,
-      0,
-      0.65
-    );
-
-  color:
-    white;
-
-  font-size:
-    14px;
-
-}
 
 /* =========================================================
    MODAL
 ========================================================= */
 
 .modal{
-
-  position:
-    fixed;
-
-  inset:
-    0;
-
-  z-index:
-    500;
-
-  display:
-    none;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  padding:
-    20px;
-
-  background:
-    rgba(
-      0,
-      0,
-      0,
-      0.35
-    );
-
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(8px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 
-.modal.open{
-
-  display:
-    flex;
-
+.modal.show{
+  display:flex;
 }
 
-.modal-card{
-
-  width:
-    100%;
-
-  max-width:
-    520px;
-
-  max-height:
-    90vh;
-
-  overflow-y:
-    auto;
-
-  background:
-    white;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    12px;
-
-  box-shadow:
-    var(--shadow-large);
-
+.modal-box{
+  width:min(650px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:0 30px 100px rgba(0,0,0,.55);
 }
 
 .modal-header{
-
-  padding:
-    18px 20px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    space-between;
-
-  border-bottom:
-    1px solid var(--border);
-
+  padding:18px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
-.modal-header h3{
-
-  font-size:
-    16px;
-
+.modal-title{
+  font-weight:800;
 }
 
 .modal-close{
-
-  width:
-    30px;
-
-  height:
-    30px;
-
-  border:
-    none;
-
-  border-radius:
-    6px;
-
-  background:
-    transparent;
-
-  color:
-    var(--text-soft);
-
-  font-size:
-    20px;
-
-}
-
-.modal-close:hover{
-
-  background:
-    #f1f1ef;
-
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  font-size:22px;
 }
 
 .modal-body{
-
-  padding:
-    20px;
-
+  padding:20px;
 }
 
-.modal-footer{
-
-  padding:
-    14px 20px;
-
-  display:
-    flex;
-
-  justify-content:
-    flex-end;
-
-  gap:
-    8px;
-
-  border-top:
-    1px solid var(--border);
-
-}
 
 /* =========================================================
    TOAST
 ========================================================= */
 
-#toastContainer{
-
-  position:
-    fixed;
-
-  right:
-    20px;
-
-  bottom:
-    20px;
-
-  z-index:
-    1000;
-
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  gap:
-    8px;
-
+.toast-container{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:300;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
 .toast{
-
-  min-width:
-    250px;
-
-  max-width:
-    380px;
-
-  padding:
-    12px 15px;
-
-  border:
-    1px solid #cce9df;
-
-  border-radius:
-    8px;
-
-  background:
-    white;
-
-  color:
-    var(--green);
-
-  box-shadow:
-    var(--shadow-large);
-
-  animation:
-    toastIn
-    0.2s
-    ease;
-
+  min-width:250px;
+  max-width:360px;
+  padding:13px 15px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  box-shadow:var(--shadow);
+  font-size:13px;
 }
 
 .toast.error{
-
-  border-color:
-    #f0c7c7;
-
-  color:
-    var(--red);
-
+  border-color:rgba(255,93,115,.5);
 }
 
-@keyframes toastIn{
-
-  from{
-
-    opacity:
-      0;
-
-    transform:
-      translateY(
-        10px
-      );
-
-  }
-
-  to{
-
-    opacity:
-      1;
-
-    transform:
-      translateY(
-        0
-      );
-
-  }
-
+.toast.success{
+  border-color:rgba(32,201,151,.5);
 }
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+.auth-screen{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(108,99,255,.2),
+      transparent 35%
+    ),
+    var(--bg);
+}
+
+.auth-box{
+  width:min(420px,100%);
+  padding:28px;
+}
+
+.auth-logo{
+  width:58px;
+  height:58px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      #3b82f6
+    );
+  font-weight:900;
+  font-size:23px;
+  margin-bottom:20px;
+}
+
+.auth-box h1{
+  margin:0;
+}
+
+.auth-box p{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.auth-form{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:20px;
+}
+
+.auth-switch{
+  margin-top:15px;
+  color:var(--muted);
+  text-align:center;
+  font-size:12px;
+}
+
+.auth-switch button{
+  border:0;
+  background:none;
+  color:#9b94ff;
+}
+
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media(
-  max-width:
-  1100px
-){
-
-  .stats-grid{
-
-    grid-template-columns:
-      repeat(
-        3,
-        1fr
-      );
-
-  }
-
-  .trade-details{
-
-    grid-template-columns:
-      repeat(
-        3,
-        1fr
-      );
-
-  }
-
-}
-
-@media(
-  max-width:
-  800px
-){
-
-  :root{
-
-    --sidebar-width:
-      250px;
-
-  }
+@media(max-width:900px){
 
   .sidebar{
-
-    transform:
-      translateX(
-        -100%
-      );
-
-    transition:
-      transform
-      0.2s
-      ease;
-
+    width:72px;
+    padding:15px 10px;
   }
 
-  .sidebar.open{
+  .brand-text,
+  .nav-btn span,
+  .user-card{
+    display:none;
+  }
 
-    transform:
-      translateX(
-        0
-      );
+  .brand{
+    justify-content:center;
+    padding:5px 0 20px;
+  }
 
+  .nav-btn{
+    justify-content:center;
+    padding:13px;
   }
 
   .main{
-
-    width:
-      100%;
-
-    margin-left:
-      0;
-
-  }
-
-  .menu-btn{
-
-    display:
-      flex;
-
-  }
-
-  .content{
-
-    padding:
-      20px;
-
-  }
-
-  .stats-grid{
-
-    grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
-
+    margin-left:72px;
+    width:calc(100% - 72px);
   }
 
   .trader-layout{
-
-    grid-template-columns:
-      1fr;
-
-  }
-
-  .profile-stats{
-
-    grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
-
-  }
-
-  .profile-stat{
-
-    border-bottom:
-      1px solid var(--border);
-
-  }
-
-  .form-grid,
-  .form-grid-3{
-
-    grid-template-columns:
-      1fr;
-
-  }
-
-  .form-full{
-
-    grid-column:
-      auto;
-
+    grid-template-columns:1fr;
   }
 
 }
 
-@media(
-  max-width:
-  520px
-){
-
-  .login-card{
-
-    padding:
-      28px 20px;
-
-  }
+@media(max-width:650px){
 
   .topbar{
-
-    padding:
-      0 16px;
-
+    padding:0 15px;
   }
 
   .content{
-
-    padding:
-      16px;
-
+    padding:15px;
   }
 
-  .page-header{
-
-    flex-direction:
-      column;
-
+  .form-grid{
+    grid-template-columns:1fr;
   }
 
-  .stats-grid{
-
-    grid-template-columns:
-      1fr;
-
+  .form-group.full{
+    grid-column:auto;
   }
 
-  .trade-details{
-
-    grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
-
+  .journal-day-header{
+    align-items:flex-start;
+    flex-direction:column;
   }
 
-  .profile-header{
-
-    align-items:
-      flex-start;
-
-    flex-direction:
-      column;
-
-  }
-
-  .profile-actions{
-
-    width:
-      100%;
-
-  }
-
-  .profile-actions .btn{
-
-    flex:
-      1;
-
-  }
-
-  .login-actions{
-
-    grid-template-columns:
-      1fr;
-
+  .trade-top{
+    flex-direction:column;
+    align-items:flex-start;
   }
 
 }
 
-/* =========================================================
-   PART 2 CONTINUES DIRECTLY BELOW
-========================================================= */
-
 </style>
-
 </head>
+
 
 <body>
 
+
 <!-- =======================================================
-     LOGIN SCREEN
-======================================================= -->
+     AUTH SCREEN
+======================================================== -->
 
-<div id="loginScreen">
+<div
+  id="authScreen"
+  class="auth-screen"
+>
 
-  <div class="login-card">
+  <div class="auth-box card">
 
-    <div class="login-brand">
+    <div class="auth-logo">
+      AAD
+    </div>
 
-      <div class="login-logo">
-        AAD
+    <h1>
+      AAD Trading Journal
+    </h1>
+
+    <p>
+      Organize your trades,
+      journal days and trading performance.
+    </p>
+
+
+    <form
+      id="authForm"
+      class="auth-form"
+    >
+
+      <div
+        id="authNameGroup"
+        class="form-group hidden"
+      >
+
+        <label>
+          Name
+        </label>
+
+        <input
+          id="authName"
+          type="text"
+          placeholder="Your name"
+        >
+
       </div>
 
-      <h1>
-        AAD Trading Journal
-      </h1>
 
-      <p>
-        Professional trading performance journal
-      </p>
+      <div class="form-group">
 
-    </div>
+        <label>
+          Email
+        </label>
 
+        <input
+          id="authEmail"
+          type="email"
+          placeholder="you@example.com"
+          required
+        >
 
-    <div class="form-group">
-
-      <label for="loginEmail">
-        Email
-      </label>
-
-      <input
-        id="loginEmail"
-        class="form-control"
-        type="email"
-        autocomplete="email"
-        placeholder="Enter your email"
-      >
-
-    </div>
+      </div>
 
 
-    <div class="form-group">
+      <div class="form-group">
 
-      <label for="loginPassword">
-        Password
-      </label>
+        <label>
+          Password
+        </label>
 
-      <input
-        id="loginPassword"
-        class="form-control"
-        type="password"
-        autocomplete="current-password"
-        placeholder="Enter your password"
-      >
+        <input
+          id="authPassword"
+          type="password"
+          placeholder="Password"
+          required
+        >
 
-    </div>
+      </div>
 
-
-    <div class="login-actions">
 
       <button
+        id="authSubmit"
         class="btn btn-primary"
-        onclick="loginUser()"
+        type="submit"
       >
         Login
       </button>
 
+    </form>
+
+
+    <div class="auth-switch">
+
+      <span id="authSwitchText">
+        Don't have an account?
+      </span>
+
       <button
-        class="btn btn-secondary"
-        onclick="signupUser()"
+        id="authSwitch"
+        type="button"
       >
-        Create Account
+        Create account
       </button>
 
     </div>
@@ -2875,1388 +1138,913 @@ textarea.form-control{
 
 
 <!-- =======================================================
-     MAIN APPLICATION
-======================================================= -->
+     APP
+======================================================== -->
 
 <div
   id="app"
-  class="hidden"
+  class="app hidden"
 >
 
 
-  <!-- =====================================================
-       SIDEBAR
-  ====================================================== -->
+<!-- =======================================================
+     SIDEBAR
+======================================================== -->
 
-  <aside
-    id="sidebar"
-    class="sidebar"
-  >
+<aside class="sidebar">
 
-    <div class="sidebar-brand">
+  <div class="brand">
 
-      <div class="sidebar-logo">
-        AAD
-      </div>
+    <div class="brand-logo">
+      A
+    </div>
+
+    <div class="brand-text">
 
       <strong>
-        Trading Journal
+        AAD Journal
       </strong>
 
+      <span>
+        Trading Workspace
+      </span>
+
     </div>
 
-
-    <nav class="sidebar-nav">
-
-      <div class="nav-section-title">
-        Workspace
-      </div>
+  </div>
 
 
-      <button
-        class="nav-btn active"
-        onclick="showPageById('dashboard')"
-      >
+  <nav class="nav">
 
-        <span class="nav-icon">
-          ⌂
-        </span>
+    <button
+      class="nav-btn active"
+      data-page="dashboard"
+    >
 
+      <span class="nav-icon">
+        ◈
+      </span>
+
+      <span>
         Dashboard
+      </span>
 
-      </button>
+    </button>
 
 
-      <button
-        class="nav-btn"
-        onclick="showPageById('traders')"
-      >
+    <button
+      class="nav-btn"
+      data-page="journal"
+    >
 
-        <span class="nav-icon">
-          ◎
-        </span>
+      <span class="nav-icon">
+        ▣
+      </span>
 
+      <span>
+        Trading Journal
+      </span>
+
+    </button>
+
+
+    <button
+      class="nav-btn"
+      data-page="traders"
+    >
+
+      <span class="nav-icon">
+        👤
+      </span>
+
+      <span>
         Traders
+      </span>
 
-      </button>
-
-
-      <button
-        class="nav-btn"
-        onclick="showPageById('journal')"
-      >
-
-        <span class="nav-icon">
-          ▤
-        </span>
-
-        Journal
-
-      </button>
+    </button>
 
 
-      <button
-        class="nav-btn"
-        onclick="showPageById('addTrade')"
-      >
+    <button
+      class="nav-btn"
+      data-page="addTrade"
+    >
 
-        <span class="nav-icon">
-          ＋
-        </span>
+      <span class="nav-icon">
+        ＋
+      </span>
 
+      <span>
         Add Trade
+      </span>
 
-      </button>
+    </button>
+
+  </nav>
 
 
-      <div class="nav-section-title">
-        Account
+  <div class="sidebar-bottom">
+
+    <div class="user-card">
+
+      <div
+        id="userEmail"
+        class="user-email"
+      >
+        —
       </div>
 
-
       <button
-        class="nav-btn"
-        onclick="logoutUser()"
+        id="logoutBtn"
+        class="logout-btn"
       >
-
-        <span class="nav-icon">
-          ↪
-        </span>
-
         Logout
-
       </button>
 
-    </nav>
+    </div>
+
+  </div>
+
+</aside>
 
 
-    <div class="sidebar-bottom">
+<!-- =======================================================
+     MAIN
+======================================================== -->
 
-      <div class="user-card">
+<main class="main">
 
-        <img
-          id="userAvatar"
-          class="user-avatar"
-          alt="User"
-        >
 
-        <div class="user-info">
+  <header class="topbar">
 
-          <strong id="sidebarUser">
-            User
-          </strong>
+    <div>
 
-          <span>
-            Personal Workspace
-          </span>
+      <div
+        id="pageTitle"
+        class="page-title"
+      >
+        Dashboard
+      </div>
 
-        </div>
-
+      <div
+        id="pageSubtitle"
+        class="page-subtitle"
+      >
+        Your trading performance overview
       </div>
 
     </div>
 
-  </aside>
+  </header>
 
 
-  <!-- =====================================================
-       MAIN CONTENT
-  ====================================================== -->
-
-  <main class="main">
+  <div class="content">
 
 
-    <header class="topbar">
+<!-- =======================================================
+     DASHBOARD PAGE
+======================================================== -->
 
-      <div class="topbar-left">
+<section
+  id="page-dashboard"
+  class="page active"
+>
 
-        <button
-          class="menu-btn"
-          onclick="toggleSidebar()"
-        >
-          ☰
-        </button>
+  <div class="hero">
+
+    <h1>
+      Trading Performance
+    </h1>
+
+    <p>
+      Review your trading activity,
+      results and performance.
+    </p>
+
+  </div>
+
+
+  <div class="stats-grid">
+
+    <div class="stat-card">
+
+      <div class="stat-label">
+        Total Trades
+      </div>
+
+      <div
+        id="statTotal"
+        class="stat-value"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-label">
+        Wins
+      </div>
+
+      <div
+        id="statWins"
+        class="stat-value"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-label">
+        Losses
+      </div>
+
+      <div
+        id="statLosses"
+        class="stat-value"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-label">
+        Win Rate
+      </div>
+
+      <div
+        id="statWinRate"
+        class="stat-value"
+      >
+        0%
+      </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-label">
+        Total PnL
+      </div>
+
+      <div
+        id="statPnl"
+        class="stat-value"
+      >
+        $0.00
+      </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-label">
+        Average R
+      </div>
+
+      <div
+        id="statAvgR"
+        class="stat-value"
+      >
+        0R
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-grid">
+
+    <div class="card">
+
+      <div class="card-header">
 
         <div>
 
-          <div
-            id="pageHeading"
-            class="page-title"
-          >
-            Trading Dashboard
+          <div class="card-title">
+            Recent Trades
           </div>
 
-          <div
-            id="pageSubheading"
-            class="page-subtitle"
-          >
-            Review your trading performance
+          <div class="card-subtitle">
+            Your latest trading activity
           </div>
 
         </div>
 
       </div>
 
+      <div
+        id="recentTrades"
+        class="card-body"
+      >
 
-      <div class="topbar-right">
-
-        <span
-          id="userEmail"
-          class="page-subtitle"
-        >
-          User
-        </span>
+        <div class="empty-state">
+          No trades yet.
+        </div>
 
       </div>
-
-    </header>
-
-
-    <div class="content">
-
-
-      <!-- =================================================
-           DASHBOARD PAGE
-      ================================================== -->
-
-      <section
-        id="page-dashboard"
-        class="page active"
-      >
-
-        <div class="page-header">
-
-          <div>
-
-            <h1>
-              Trading Dashboard
-            </h1>
-
-            <p>
-              Your overall trading performance at a glance.
-            </p>
-
-          </div>
-
-          <div class="page-header-actions">
-
-            <button
-              class="btn btn-primary"
-              onclick="showPageById('addTrade')"
-            >
-              ＋ Add Trade
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div class="stats-grid">
-
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              Total Trades
-            </div>
-
-            <div
-              id="statTrades"
-              class="stat-value"
-            >
-              0
-            </div>
-
-            <div class="stat-meta">
-              All recorded trades
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              Win Rate
-            </div>
-
-            <div
-              id="statWinRate"
-              class="stat-value"
-            >
-              0.0%
-            </div>
-
-            <div class="stat-meta">
-              Based on winning trades
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              Total PnL
-            </div>
-
-            <div
-              id="statPnl"
-              class="stat-value"
-            >
-              $0.00
-            </div>
-
-            <div class="stat-meta">
-              Net trading result
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              Total R
-            </div>
-
-            <div
-              id="statR"
-              class="stat-value"
-            >
-              0.00R
-            </div>
-
-            <div class="stat-meta">
-              Total R multiple
-            </div>
-
-          </div>
-
-
-          <div class="stat-card">
-
-            <div class="stat-label">
-              Winning Trades
-            </div>
-
-            <div
-              id="statWins"
-              class="stat-value"
-            >
-              0
-            </div>
-
-            <div class="stat-meta">
-              Total recorded wins
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-header">
-
-            <div>
-
-              <div class="card-title">
-                Quick Workspace
-              </div>
-
-              <div class="card-subtitle">
-                Manage your traders and journal
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="card-body">
-
-            <div class="month-grid">
-
-
-              <button
-                class="month-card"
-                onclick="showPageById('traders')"
-              >
-
-                <div class="month-icon">
-                  ◎
-                </div>
-
-                <strong>
-                  Trader Profiles
-                </strong>
-
-                <span>
-                  Manage your trading accounts
-                </span>
-
-              </button>
-
-
-              <button
-                class="month-card"
-                onclick="showPageById('journal')"
-              >
-
-                <div class="month-icon">
-                  ▤
-                </div>
-
-                <strong>
-                  Monthly Journal
-                </strong>
-
-                <span>
-                  Review your trading history
-                </span>
-
-              </button>
-
-
-              <button
-                class="month-card"
-                onclick="showPageById('addTrade')"
-              >
-
-                <div class="month-icon">
-                  ＋
-                </div>
-
-                <strong>
-                  Record a Trade
-                </strong>
-
-                <span>
-                  Add a new trading execution
-                </span>
-
-              </button>
-
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =================================================
-           TRADERS PAGE
-      ================================================== -->
-
-      <section
-        id="page-traders"
-        class="page"
-      >
-
-        <div class="page-header">
-
-          <div>
-
-            <h1>
-              Trader Management
-            </h1>
-
-            <p>
-              Manage your trading profiles and accounts.
-            </p>
-
-          </div>
-
-          <div class="page-header-actions">
-
-            <button
-              class="btn btn-primary"
-              onclick="openTraderModal()"
-            >
-              ＋ New Trader
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div class="trader-layout">
-
-
-          <div class="card trader-sidebar">
-
-            <div class="card-header">
-
-              <div>
-
-                <div class="card-title">
-                  Traders
-                </div>
-
-                <div class="card-subtitle">
-
-                  <span id="traderCount">
-                    0
-                  </span>
-
-                  profile(s)
-
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div
-              id="traderList"
-              class="trader-list"
-            >
-
-              <div class="empty-state">
-
-                <div>
-
-                  <div class="empty-icon">
-                    ◎
-                  </div>
-
-                  No traders yet.
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div
-            id="traderProfile"
-            class="card hidden"
-          >
-
-            <div class="profile-header">
-
-              <img
-                id="profileAvatar"
-                class="profile-avatar"
-                alt="Trader"
-              >
-
-
-              <div class="profile-info">
-
-                <h2 id="profileName">
-                  Trader
-                </h2>
-
-                <p id="profileDescription">
-                  Trading profile
-                </p>
-
-              </div>
-
-
-              <div class="profile-actions">
-
-                <button
-                  class="btn btn-secondary btn-small"
-                  onclick="editSelectedTrader()"
-                >
-                  Edit
-                </button>
-
-                <button
-                  class="btn btn-danger btn-small"
-                  onclick="deleteSelectedTrader()"
-                >
-                  Delete
-                </button>
-
-              </div>
-
-            </div>
-
-
-            <div class="profile-stats">
-
-
-              <div class="profile-stat">
-
-                <span>
-                  Trades
-                </span>
-
-                <strong id="profileTrades">
-                  0
-                </strong>
-
-              </div>
-
-
-              <div class="profile-stat">
-
-                <span>
-                  Win Rate
-                </span>
-
-                <strong id="profileWinRate">
-                  0.0%
-                </strong>
-
-              </div>
-
-
-              <div class="profile-stat">
-
-                <span>
-                  PnL
-                </span>
-
-                <strong id="profilePnl">
-                  $0.00
-                </strong>
-
-              </div>
-
-
-              <div class="profile-stat">
-
-                <span>
-                  Total R
-                </span>
-
-                <strong id="profileR">
-                  0.00R
-                </strong>
-
-              </div>
-
-
-              <div class="profile-stat">
-
-                <span>
-                  Wins
-                </span>
-
-                <strong id="profileWins">
-                  0
-                </strong>
-
-              </div>
-
-
-            </div>
-
-
-            <div class="card-body">
-
-              <div class="empty-state">
-
-                <div>
-
-                  Select Journal to view
-                  this trader's trades.
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div
-            id="traderEmpty"
-            class="card"
-          >
-
-            <div class="empty-state">
-
-              <div>
-
-                <div class="empty-icon">
-                  ◎
-                </div>
-
-                Select a trader to view
-                their profile.
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-        </div>
-
-      </section>
-
-
-      <!-- =================================================
-           JOURNAL PAGE
-      ================================================== -->
-
-      <section
-        id="page-journal"
-        class="page"
-      >
-
-        <div class="page-header">
-
-          <div>
-
-            <h1>
-              Trading Journal
-            </h1>
-
-            <p>
-              Organize your trades by month and journal day.
-            </p>
-
-          </div>
-
-          <div class="page-header-actions">
-
-            <button
-              class="btn btn-secondary"
-              onclick="createCurrentMonth()"
-            >
-              ＋ Current Month
-            </button>
-
-            <button
-              class="btn btn-primary"
-              onclick="createJournalDay()"
-            >
-              ＋ Journal Day
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-header">
-
-            <div>
-
-              <div class="card-title">
-                Journal Months
-              </div>
-
-              <div class="card-subtitle">
-                Select a month to view journal days
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="card-body">
-
-            <div
-              id="monthList"
-              class="month-grid"
-            >
-
-              <div class="empty-state">
-
-                <div>
-
-                  No months created.
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div
-          id="journalMonthCard"
-          class="card hidden"
-          style="margin-top:18px;"
-        >
-
-          <div class="card-header">
-
-            <div>
-
-              <div
-                id="journalMonthTitle"
-                class="card-title"
-              >
-                Journal Month
-              </div>
-
-              <div
-                id="journalMonthSubtitle"
-                class="card-subtitle"
-              >
-                All journal days and trades
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div
-            id="journalDays"
-            class="card-body"
-          >
-
-            <div class="empty-state">
-
-              <div>
-                No journal days yet.
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- =================================================
-           ADD TRADE PAGE
-      ================================================== -->
-
-      <section
-        id="page-addTrade"
-        class="page"
-      >
-
-        <div class="page-header">
-
-          <div>
-
-            <h1>
-              Add New Trade
-            </h1>
-
-            <p>
-              Record your trading execution.
-              All fields except date are optional.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-body">
-
-
-            <div class="form-grid">
-
-
-              <div class="form-group">
-
-                <label for="tradeTrader">
-
-                  Trader
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <select
-                  id="tradeTrader"
-                  class="form-control"
-                >
-
-                  <option value="">
-                    Select Trader (Optional)
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="tradeDate">
-                  Journal Date
-                </label>
-
-                <input
-                  id="tradeDate"
-                  class="form-control"
-                  type="date"
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="tradeSymbol">
-
-                  Symbol
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <input
-                  id="tradeSymbol"
-                  class="form-control"
-                  type="text"
-                  placeholder="EURUSD, XAUUSD, BTC..."
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="tradeSession">
-
-                  Session
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <select
-                  id="tradeSession"
-                  class="form-control"
-                >
-
-                  <option value="">
-                    Select Session
-                  </option>
-
-                  <option value="Asia">
-                    Asia
-                  </option>
-
-                  <option value="London">
-                    London
-                  </option>
-
-                  <option value="New York">
-                    New York
-                  </option>
-
-                  <option value="London / New York">
-                    London / New York
-                  </option>
-
-                  <option value="Other">
-                    Other
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <div class="form-group form-full">
-
-                <label>
-                  Direction
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <div class="chip-group">
-
-                  <button
-                    type="button"
-                    class="chip"
-                    onclick="
-                      selectChip(
-                        this,
-                        'tradeDirection',
-                        'Long'
-                      )
-                    "
-                  >
-                    Long
-                  </button>
-
-                  <button
-                    type="button"
-                    class="chip"
-                    onclick="
-                      selectChip(
-                        this,
-                        'tradeDirection',
-                        'Short'
-                      )
-                    "
-                  >
-                    Short
-                  </button>
-
-                </div>
-
-                <input
-                  id="tradeDirection"
-                  type="hidden"
-                  value=""
-                >
-
-              </div>
-
-
-              <div class="form-group form-full">
-
-                <label>
-                  Result
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <div class="chip-group">
-
-                  <button
-                    type="button"
-                    class="chip"
-                    onclick="
-                      selectChip(
-                        this,
-                        'tradeResult',
-                        'Win'
-                      )
-                    "
-                  >
-                    Win
-                  </button>
-
-                  <button
-                    type="button"
-                    class="chip"
-                    onclick="
-                      selectChip(
-                        this,
-                        'tradeResult',
-                        'Loss'
-                      )
-                    "
-                  >
-                    Loss
-                  </button>
-
-                  <button
-                    type="button"
-                    class="chip"
-                    onclick="
-                      selectChip(
-                        this,
-                        'tradeResult',
-                        'BE'
-                      )
-                    "
-                  >
-                    BE
-                  </button>
-
-                </div>
-
-                <input
-                  id="tradeResult"
-                  type="hidden"
-                  value=""
-                >
-
-              </div>
-
-
-              <div class="form-group form-full">
-
-                <label for="tradeSetup">
-
-                  Setup
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <input
-                  id="tradeSetup"
-                  class="form-control"
-                  type="text"
-                  placeholder="Describe your setup..."
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="tradeEntry">
-
-                  Entry Price
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <input
-                  id="tradeEntry"
-                  class="form-control"
-                  type="number"
-                  step="any"
-                  placeholder="0.00"
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="tradeSL">
-
-                  Stop Loss
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <input
-                  id="tradeSL"
-                  class="form-control"
-                  type="number"
-                  step="any"
-                  placeholder="0.00"
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="tradeTP">
-
-                  Take Profit
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <input
-                  id="tradeTP"
-                  class="form-control"
-                  type="number"
-                  step="any"
-                  placeholder="0.00"
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="tradePnl">
-
-                  PnL
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <input
-                  id="tradePnl"
-                  class="form-control"
-                  type="number"
-                  step="any"
-                  placeholder="0.00"
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="tradeR">
-
-                  R Multiple
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <input
-                  id="tradeR"
-                  class="form-control"
-                  type="number"
-                  step="any"
-                  placeholder="0.00"
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="tradeRisk">
-
-                  Risk %
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <input
-                  id="tradeRisk"
-                  class="form-control"
-                  type="number"
-                  step="any"
-                  placeholder="0.00"
-                >
-
-              </div>
-
-
-              <div class="form-group form-full">
-
-                <label for="tradeNotes">
-
-                  Notes
-
-                  <span class="optional-label">
-                    Optional
-                  </span>
-
-                </label>
-
-                <textarea
-                  id="tradeNotes"
-                  class="form-control"
-                  placeholder="Write your trade notes..."
-                ></textarea>
-
-              </div>
-
-
-              <div class="form-group form-full">
-
-                <label>
-                  Trade Charts
-
-                  <span class="optional-label">
-                    Optional — Maximum 3 images
-                  </span>
-
-                </label>
-
-
-                <div class="image-upload">
-
-                  <label
-                    for="tradeImages"
-                    class="image-upload-label"
-                  >
-                    ＋ Select Images
-                  </label>
-
-                  <input
-                    id="tradeImages"
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onchange="
-                      previewImages(this)
-                    "
-                  >
-
-                  <p>
-                    Upload up to 3 screenshots
-                    of your trade.
-                  </p>
-
-
-                  <div
-                    id="imagePreview"
-                    class="image-preview"
-                  ></div>
-
-                </div>
-
-              </div>
-
-
-            </div>
-
-
-            <div
-              style="
-                display:flex;
-                justify-content:flex-end;
-                gap:8px;
-                margin-top:24px;
-                padding-top:18px;
-                border-top:1px solid var(--border);
-              "
-            >
-
-              <button
-                class="btn btn-secondary"
-                onclick="clearTradeForm()"
-              >
-                Clear
-              </button>
-
-              <button
-                class="btn btn-primary"
-                onclick="saveTrade()"
-              >
-                Save Trade
-              </button>
-
-            </div>
-
-
-          </div>
-
-        </div>
-
-      </section>
-
 
     </div>
 
-  </main>
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div>
+
+          <div class="card-title">
+            Trading Summary
+          </div>
+
+          <div class="card-subtitle">
+            Performance breakdown
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        id="summaryContent"
+        class="card-body"
+      >
+
+        <div class="empty-state">
+          No data yet.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     JOURNAL PAGE
+======================================================== -->
+
+<section
+  id="page-journal"
+  class="page"
+>
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+
+        <div class="card-title">
+          Trading Journal
+        </div>
+
+        <div class="card-subtitle">
+          Organize your trades by month and journal day.
+        </div>
+
+      </div>
+
+
+      <div class="toolbar">
+
+        <button
+          id="createMonthBtn"
+          class="btn btn-primary"
+        >
+          ＋ Current Month
+        </button>
+
+        <button
+          id="createDayBtn"
+          class="btn btn-secondary"
+        >
+          ＋ Journal Day
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+      <h3>
+        Journal Months
+      </h3>
+
+      <div
+        id="journalMonths"
+        class="month-grid"
+      >
+
+        <div class="empty-state">
+          No journal months created.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="journalMonthCard"
+    class="card hidden"
+    style="margin-top:18px;"
+  >
+
+    <div class="card-header">
+
+      <div>
+
+        <div
+          id="journalMonthTitle"
+          class="card-title"
+        >
+          Journal
+        </div>
+
+        <div
+          id="journalMonthSubtitle"
+          class="card-subtitle"
+        >
+          0 journal day(s)
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      id="journalDays"
+      class="card-body"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     TRADERS PAGE
+======================================================== -->
+
+<section
+  id="page-traders"
+  class="page"
+>
+
+  <div class="trader-layout">
+
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div>
+
+          <div class="card-title">
+            Traders
+          </div>
+
+          <div
+            id="traderCount"
+            class="card-subtitle"
+          >
+            0
+          </div>
+
+        </div>
+
+        <button
+          id="addTraderBtn"
+          class="btn btn-primary btn-small"
+        >
+          ＋
+        </button>
+
+      </div>
+
+
+      <div
+        id="traderList"
+        class="trader-list"
+      >
+
+        <div class="empty-state">
+          No traders yet.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div
+        id="traderProfile"
+        class="profile"
+      >
+
+        <div class="empty-state">
+          Select a trader to view profile.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     ADD TRADE PAGE
+======================================================== -->
+
+<section
+  id="page-addTrade"
+  class="page"
+>
+
+  <div class="card">
+
+    <div class="card-header">
+
+      <div>
+
+        <div
+          id="tradeFormTitle"
+          class="card-title"
+        >
+          Add Trade
+        </div>
+
+        <div class="card-subtitle">
+          Record your trading activity.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card-body">
+
+      <form
+        id="tradeForm"
+      >
+
+        <div class="form-grid">
+
+
+          <div class="form-group">
+
+            <label>
+              Trader
+            </label>
+
+            <select
+              id="tradeTrader"
+            >
+
+              <option value="">
+                Select Trader (Optional)
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Date *
+            </label>
+
+            <input
+              id="tradeDate"
+              type="date"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Symbol
+            </label>
+
+            <input
+              id="tradeSymbol"
+              type="text"
+              placeholder="EURUSD, XAUUSD, BTC..."
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Session
+            </label>
+
+            <select
+              id="tradeSession"
+            >
+
+              <option value="">
+                Select Session
+              </option>
+
+              <option>
+                Asia
+              </option>
+
+              <option>
+                London
+              </option>
+
+              <option>
+                New York
+              </option>
+
+              <option>
+                London / New York
+              </option>
+
+              <option>
+                Other
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Direction
+            </label>
+
+            <select
+              id="tradeDirection"
+            >
+
+              <option value="">
+                Select Direction
+              </option>
+
+              <option value="Long">
+                Long
+              </option>
+
+              <option value="Short">
+                Short
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Result
+            </label>
+
+            <select
+              id="tradeResult"
+            >
+
+              <option value="">
+                Select Result
+              </option>
+
+              <option value="Win">
+                Win
+              </option>
+
+              <option value="Loss">
+                Loss
+              </option>
+
+              <option value="BE">
+                BE
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Setup
+            </label>
+
+            <input
+              id="tradeSetup"
+              type="text"
+              placeholder="Your setup"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Entry
+            </label>
+
+            <input
+              id="tradeEntry"
+              type="number"
+              step="any"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Stop Loss
+            </label>
+
+            <input
+              id="tradeSL"
+              type="number"
+              step="any"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Take Profit
+            </label>
+
+            <input
+              id="tradeTP"
+              type="number"
+              step="any"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              PnL
+            </label>
+
+            <input
+              id="tradePnl"
+              type="number"
+              step="any"
+              placeholder="0"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              R Multiple
+            </label>
+
+            <input
+              id="tradeR"
+              type="number"
+              step="any"
+              placeholder="0"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Risk %
+            </label>
+
+            <input
+              id="tradeRisk"
+              type="number"
+              step="any"
+              placeholder="1"
+            >
+
+          </div>
+
+
+          <div class="form-group full">
+
+            <label>
+              Notes
+            </label>
+
+            <textarea
+              id="tradeNotes"
+              placeholder="Trade notes..."
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+          <button
+            id="cancelTradeBtn"
+            type="button"
+            class="btn btn-secondary"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save Trade
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+  </div>
+
+</main>
 
 </div>
 
 
 <!-- =======================================================
      TRADER MODAL
-======================================================= -->
+======================================================== -->
 
 <div
   id="traderModal"
   class="modal"
 >
 
-  <div class="modal-card">
-
+  <div class="modal-box">
 
     <div class="modal-header">
 
-      <h3 id="traderModalTitle">
-        Create Trader
-      </h3>
+      <div
+        id="traderModalTitle"
+        class="modal-title"
+      >
+        Add Trader
+      </div>
 
       <button
+        id="closeTraderModal"
         class="modal-close"
-        onclick="closeTraderModal()"
+        type="button"
       >
         ×
       </button>
@@ -4266,144 +2054,116 @@ textarea.form-control{
 
     <div class="modal-body">
 
+      <form
+        id="traderForm"
+      >
 
-      <div class="form-group">
+        <div class="form-group">
 
-        <label for="newTraderName">
-          Trader Name
-        </label>
+          <label>
+            Trader Name *
+          </label>
 
-        <input
-          id="newTraderName"
-          class="form-control"
-          type="text"
-          placeholder="Aye Min Naing"
+          <input
+            id="newTraderName"
+            type="text"
+            placeholder="Trader name"
+            required
+          >
+
+        </div>
+
+
+        <div
+          class="form-group"
+          style="margin-top:15px;"
         >
 
-      </div>
+          <label>
+            Description
+          </label>
+
+          <textarea
+            id="newTraderDescription"
+            placeholder="Describe this trader or account..."
+          ></textarea>
+
+        </div>
 
 
-      <div class="form-group">
+        <div
+          class="form-group"
+          style="margin-top:15px;"
+        >
 
-        <label for="newTraderDescription">
-          Description
-        </label>
-
-        <textarea
-          id="newTraderDescription"
-          class="form-control"
-          placeholder="Describe this trader or account..."
-        ></textarea>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>
-          Profile Image
-        </label>
-
-        <div class="image-upload">
-
-          <label
-            for="traderImage"
-            class="image-upload-label"
-          >
-            ＋ Choose Profile Image
+          <label>
+            Profile Image
           </label>
 
           <input
             id="traderImage"
             type="file"
             accept="image/*"
-            onchange="
-              previewTraderImage(this)
-            "
           >
-
-          <div
-            id="traderImagePreview"
-            class="image-preview"
-          ></div>
 
         </div>
 
-      </div>
 
+        <div class="form-actions">
+
+          <button
+            id="cancelTraderBtn"
+            type="button"
+            class="btn btn-secondary"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Save Trader
+          </button>
+
+        </div>
+
+      </form>
 
     </div>
-
-
-    <div class="modal-footer">
-
-      <button
-        class="btn btn-secondary"
-        onclick="closeTraderModal()"
-      >
-        Cancel
-      </button>
-
-      <button
-        id="saveTraderButton"
-        class="btn btn-primary"
-        onclick="saveTrader()"
-      >
-        Save Trader
-      </button>
-
-    </div>
-
 
   </div>
 
 </div>
 
 
-<!-- =======================================================
-     TOAST
-======================================================= -->
+<div
+  id="toastContainer"
+  class="toast-container"
+></div>
 
-<div id="toastContainer"></div>
 
-
-<!-- =======================================================
-     JAVASCRIPT STARTS IN PART 2
-======================================================= -->
-  <script>
+<script>
 
 /* =========================================================
-   AAD TRADING JOURNAL
-   JAVASCRIPT — PART 2
-========================================================= */
-
-
-/* =========================================================
-   SUPABASE CONFIGURATION
+   SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
   "https://jxbqhaikqwsswnlxlzpa.supabase.co";
 
-const SUPABASE_ANON_KEY =
+const SUPABASE_KEY =
   "sb_publishable_nW-hpRo-HYB-LjhcaHHW2Q_ih0iMjnX";
 
-
-const {
-  createClient
-} =
-  supabase;
-
-
 const db =
-  createClient(
+  window.supabase.createClient(
     SUPABASE_URL,
-    SUPABASE_ANON_KEY
+    SUPABASE_KEY
   );
 
 
 /* =========================================================
-   GLOBAL STATE
+   STATE
 ========================================================= */
 
 let currentUser =
@@ -4412,13 +2172,13 @@ let currentUser =
 let traders =
   [];
 
-let trades =
-  [];
-
 let journalMonths =
   [];
 
 let journalDays =
+  [];
+
+let trades =
   [];
 
 let selectedTrader =
@@ -4427,24 +2187,15 @@ let selectedTrader =
 let selectedMonth =
   null;
 
-let selectedDay =
-  null;
-
 let editingTraderId =
   null;
 
 let editingTradeId =
   null;
 
-let selectedTradeImages =
-  [];
-
-let selectedTraderImage =
-  null;
-
 
 /* =========================================================
-   SHORT DOM HELPER
+   HELPER
 ========================================================= */
 
 function $(id){
@@ -4456,25 +2207,13 @@ function $(id){
 }
 
 
-/* =========================================================
-   HTML ESCAPE
-========================================================= */
-
 function escapeHtml(
   value
 ){
 
-  if(
-    value === null ||
-    value === undefined
-  ){
-
-    return "";
-
-  }
-
   return String(
-    value
+    value ??
+    ""
   )
   .replace(
     /&/g,
@@ -4500,151 +2239,63 @@ function escapeHtml(
 }
 
 
-/* =========================================================
-   DEFAULT AVATAR
-========================================================= */
-
-function defaultAvatar(
-  name
-){
-
-  const safeName =
-    String(
-      name ||
-      "Trader"
-    )
-    .trim()
-    .charAt(
-      0
-    )
-    .toUpperCase();
-
-  return (
-    "https://ui-avatars.com/api/" +
-    "?name=" +
-    encodeURIComponent(
-      safeName
-    ) +
-    "&background=37352f" +
-    "&color=ffffff" +
-    "&size=128"
-  );
-
-}
-
-
-/* =========================================================
-   FORMAT MONEY
-========================================================= */
-
-function formatMoney(
+function optionalNumber(
   value
 ){
 
-  const number =
-    Number(
-      value
-    ) || 0;
-
-  return (
-    "$" +
-    number.toLocaleString(
-      "en-US",
-      {
-        minimumFractionDigits:
-          2,
-
-        maximumFractionDigits:
-          2
-      }
-    )
-  );
-
-}
-
-
-/* =========================================================
-   FORMAT NUMBER
-========================================================= */
-
-function formatNumber(
-  value,
-  digits = 2
-){
-
-  const number =
-    Number(
-      value
-    ) || 0;
-
-  return number.toLocaleString(
-    "en-US",
-    {
-      minimumFractionDigits:
-        digits,
-
-      maximumFractionDigits:
-        digits
-    }
-  );
-
-}
-
-
-/* =========================================================
-   FORMAT DATE
-========================================================= */
-
-function formatDate(
-  date
-){
-
   if(
-    !date
+    value ===
+    "" ||
+    value ===
+    null ||
+    value ===
+    undefined
   ){
 
-    return "";
+    return null;
 
   }
+
+  const n =
+    Number(
+      value
+    );
+
+  return Number.isFinite(
+    n
+  )
+    ? n
+    : null;
+
+}
+
+
+function formatMonth(
+  year,
+  month
+){
 
   const d =
     new Date(
-      date +
-      "T00:00:00"
+      Number(year),
+      Number(month) - 1,
+      1
     );
-
-  if(
-    Number.isNaN(
-      d.getTime()
-    )
-  ){
-
-    return date;
-
-  }
 
   return d.toLocaleDateString(
     "en-US",
     {
       year:
         "numeric",
-
       month:
-        "long",
-
-      day:
-        "numeric"
+        "long"
     }
   );
 
 }
 
 
-/* =========================================================
-   FORMAT MONTH
-========================================================= */
-
-function formatMonth(
+function formatDate(
   value
 ){
 
@@ -4659,7 +2310,7 @@ function formatMonth(
   const d =
     new Date(
       value +
-      "-01T00:00:00"
+      "T00:00:00"
     );
 
   if(
@@ -4677,105 +2328,116 @@ function formatMonth(
     {
       year:
         "numeric",
-
       month:
-        "long"
+        "long",
+      day:
+        "numeric"
     }
   );
 
 }
 
 
-/* =========================================================
-   CURRENT MONTH
-========================================================= */
+function formatMoney(
+  value
+){
 
-function getCurrentMonth(){
-
-  const now =
-    new Date();
-
-  const year =
-    now.getFullYear();
-
-  const month =
-    String(
-      now.getMonth() + 1
-    )
-    .padStart(
-      2,
-      "0"
+  const n =
+    Number(
+      value
     );
 
-  return (
-    year +
-    "-" +
-    month
+  if(
+    !Number.isFinite(
+      n
+    )
+  ){
+
+    return "$0.00";
+
+  }
+
+  return n.toLocaleString(
+    "en-US",
+    {
+      style:
+        "currency",
+      currency:
+        "USD"
+    }
   );
 
 }
 
 
-/* =========================================================
-   TODAY
-========================================================= */
+function formatNumber(
+  value
+){
 
-function getToday(){
-
-  const now =
-    new Date();
-
-  const year =
-    now.getFullYear();
-
-  const month =
-    String(
-      now.getMonth() + 1
-    )
-    .padStart(
-      2,
-      "0"
+  const n =
+    Number(
+      value
     );
 
-  const day =
-    String(
-      now.getDate()
-    )
-    .padStart(
-      2,
-      "0"
-    );
-
-  return (
-    year +
-    "-" +
-    month +
-    "-" +
-    day
-  );
+  return Number.isFinite(
+    n
+  )
+    ? n.toFixed(2)
+    : "0.00";
 
 }
 
 
-/* =========================================================
-   TOAST
-========================================================= */
+function defaultAvatar(
+  name
+){
+
+  const letter =
+    String(
+      name ||
+      "T"
+    )
+    .trim()
+    .charAt(0)
+    .toUpperCase();
+
+  return (
+    "data:image/svg+xml;charset=UTF-8," +
+    encodeURIComponent(
+      `
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100"
+        height="100"
+      >
+        <rect
+          width="100%"
+          height="100%"
+          rx="20"
+          fill="#172238"
+        />
+        <text
+          x="50%"
+          y="56%"
+          text-anchor="middle"
+          fill="white"
+          font-size="42"
+          font-family="Arial"
+        >
+          ${letter}
+        </text>
+      </svg>
+      `
+    )
+  );
+
+}
+
 
 function showToast(
   message,
-  type = "success"
+  type="success"
 ){
-
-  const container =
-    $("toastContainer");
-
-  if(
-    !container
-  ){
-
-    return;
-
-  }
 
   const toast =
     document.createElement(
@@ -4783,24 +2445,16 @@ function showToast(
     );
 
   toast.className =
-    "toast";
-
-  if(
-    type === "error"
-  ){
-
-    toast.classList.add(
-      "error"
-    );
-
-  }
+    "toast " +
+    type;
 
   toast.textContent =
     message;
 
-  container.appendChild(
-    toast
-  );
+  $("toastContainer")
+    .appendChild(
+      toast
+    );
 
   setTimeout(
     () => {
@@ -4808,15 +2462,11 @@ function showToast(
       toast.remove();
 
     },
-    3500
+    3000
   );
 
 }
 
-
-/* =========================================================
-   AUTH ERROR MESSAGE
-========================================================= */
 
 function getErrorMessage(
   error
@@ -4826,646 +2476,16 @@ function getErrorMessage(
     !error
   ){
 
-    return "Unknown error.";
+    return "Something went wrong.";
 
   }
 
   return (
     error.message ||
-    error.error_description ||
+    error.details ||
+    error.hint ||
     "Something went wrong."
   );
-
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-async function loginUser(){
-
-  const email =
-    $("loginEmail")
-    .value
-    .trim();
-
-  const password =
-    $("loginPassword")
-    .value;
-
-  if(
-    !email ||
-    !password
-  ){
-
-    showToast(
-      "Please enter email and password.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await db.auth.signInWithPassword(
-      {
-        email,
-        password
-      }
-    );
-
-
-  if(
-    error
-  ){
-
-    showToast(
-      getErrorMessage(
-        error
-      ),
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  currentUser =
-    data.user;
-
-  showToast(
-    "Login successful."
-  );
-
-  await initializeApp();
-
-}
-
-
-/* =========================================================
-   SIGN UP
-========================================================= */
-
-async function signupUser(){
-
-  const email =
-    $("loginEmail")
-    .value
-    .trim();
-
-  const password =
-    $("loginPassword")
-    .value;
-
-
-  if(
-    !email ||
-    !password
-  ){
-
-    showToast(
-      "Please enter email and password.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    password.length <
-    6
-  ){
-
-    showToast(
-      "Password must be at least 6 characters.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await db.auth.signUp(
-      {
-        email,
-        password
-      }
-    );
-
-
-  if(
-    error
-  ){
-
-    showToast(
-      getErrorMessage(
-        error
-      ),
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    data.user
-  ){
-
-    showToast(
-      "Account created successfully. You can now login."
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-async function logoutUser(){
-
-  const {
-    error
-  } =
-    await db.auth.signOut();
-
-
-  if(
-    error
-  ){
-
-    showToast(
-      getErrorMessage(
-        error
-      ),
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  currentUser =
-    null;
-
-  traders =
-    [];
-
-  trades =
-    [];
-
-  journalMonths =
-    [];
-
-  journalDays =
-    [];
-
-  selectedTrader =
-    null;
-
-  selectedMonth =
-    null;
-
-  selectedDay =
-    null;
-
-
-  $("app")
-    .classList
-    .add(
-      "hidden"
-    );
-
-
-  $("loginScreen")
-    .style
-    .display =
-    "flex";
-
-
-  showToast(
-    "Logged out successfully."
-  );
-
-}
-
-
-/* =========================================================
-   AUTH SESSION CHECK
-========================================================= */
-
-async function checkSession(){
-
-  const {
-    data
-  } =
-    await db.auth.getSession();
-
-
-  if(
-    data &&
-    data.session &&
-    data.session.user
-  ){
-
-    currentUser =
-      data.session.user;
-
-    await initializeApp();
-
-  }else{
-
-    $("app")
-      .classList
-      .add(
-        "hidden"
-      );
-
-    $("loginScreen")
-      .style
-      .display =
-      "flex";
-
-  }
-
-}
-
-
-/* =========================================================
-   INITIALIZE APPLICATION
-========================================================= */
-
-async function initializeApp(){
-
-  if(
-    !currentUser
-  ){
-
-    return;
-
-  }
-
-
-  $("loginScreen")
-    .style
-    .display =
-    "none";
-
-
-  $("app")
-    .classList
-    .remove(
-      "hidden"
-    );
-
-
-  $("userEmail")
-    .textContent =
-    currentUser.email ||
-    "User";
-
-
-  $("sidebarUser")
-    .textContent =
-    currentUser.email ||
-    "User";
-
-
-  $("userAvatar")
-    .src =
-    defaultAvatar(
-      currentUser.email ||
-      "User"
-    );
-
-
-  $("tradeDate")
-    .value =
-    getToday();
-
-
-  await loadAllData();
-
-}
-
-
-/* =========================================================
-   LOAD ALL DATA
-========================================================= */
-
-async function loadAllData(){
-
-  await Promise.all(
-    [
-
-      loadTraders(),
-
-      loadTrades(),
-
-      loadJournalMonths(),
-
-      loadJournalDays()
-
-    ]
-  );
-
-
-  populateTraderSelect();
-
-  renderTraders();
-
-  renderMonths();
-
-  updateDashboard();
-
-  updateSelectedTraderProfile();
-
-}
-
-
-/* =========================================================
-   LOAD TRADERS
-========================================================= */
-
-async function loadTraders(){
-
-  if(
-    !currentUser
-  ){
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from(
-        "traders"
-      )
-      .select(
-        "*"
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .order(
-        "created_at",
-        {
-          ascending:
-            true
-        }
-      );
-
-
-  if(
-    error
-  ){
-
-    console.error(
-      error
-    );
-
-    showToast(
-      "Could not load traders: " +
-      getErrorMessage(
-        error
-      ),
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  traders =
-    data ||
-    [];
-
-}
-
-
-/* =========================================================
-   LOAD TRADES
-========================================================= */
-
-async function loadTrades(){
-
-  if(
-    !currentUser
-  ){
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from(
-        "daily_trades"
-      )
-      .select(
-        "*"
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .order(
-        "trade_date",
-        {
-          ascending:
-            false
-        }
-      );
-
-
-  if(
-    error
-  ){
-
-    console.error(
-      error
-    );
-
-    showToast(
-      "Could not load trades: " +
-      getErrorMessage(
-        error
-      ),
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  trades =
-    data ||
-    [];
-
-}
-
-
-/* =========================================================
-   LOAD JOURNAL MONTHS
-========================================================= */
-
-async function loadJournalMonths(){
-
-  if(
-    !currentUser
-  ){
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from(
-        "journal_months"
-      )
-      .select(
-        "*"
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .order(
-        "month",
-        {
-          ascending:
-            false
-        }
-      );
-
-
-  if(
-    error
-  ){
-
-    console.error(
-      error
-    );
-
-    showToast(
-      "Could not load journal months: " +
-      getErrorMessage(
-        error
-      ),
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  journalMonths =
-    data ||
-    [];
-
-}
-
-
-/* =========================================================
-   LOAD JOURNAL DAYS
-========================================================= */
-
-async function loadJournalDays(){
-
-  if(
-    !currentUser
-  ){
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from(
-        "journal_days"
-      )
-      .select(
-        "*"
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .order(
-        "journal_date",
-        {
-          ascending:
-            false
-        }
-      );
-
-
-  if(
-    error
-  ){
-
-    console.error(
-      error
-    );
-
-    showToast(
-      "Could not load journal days: " +
-      getErrorMessage(
-        error
-      ),
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  journalDays =
-    data ||
-    [];
 
 }
 
@@ -5474,29 +2494,55 @@ async function loadJournalDays(){
    PAGE NAVIGATION
 ========================================================= */
 
+const pageTitles = {
+
+  dashboard: [
+    "Dashboard",
+    "Your trading performance overview"
+  ],
+
+  journal: [
+    "Trading Journal",
+    "Organize your trades by month and journal day"
+  ],
+
+  traders: [
+    "Traders",
+    "Manage your trading profiles"
+  ],
+
+  addTrade: [
+    "Add Trade",
+    "Record your trading activity"
+  ]
+
+};
+
+
 function showPageById(
-  pageId
+  page
 ){
 
-  const pages =
-    document.querySelectorAll(
+  document
+    .querySelectorAll(
       ".page"
+    )
+    .forEach(
+      item => {
+
+        item.classList.remove(
+          "active"
+        );
+
+      }
     );
 
 
-  pages.forEach(
-    page => {
-
-      page.classList.remove(
-        "active"
-      );
-
-    }
-  );
-
-
   const target =
-    $("page-" + pageId);
+    $(
+      "page-" +
+      page
+    );
 
 
   if(
@@ -5510,161 +2556,419 @@ function showPageById(
   }
 
 
-  const navButtons =
-    document.querySelectorAll(
+  document
+    .querySelectorAll(
       ".nav-btn"
+    )
+    .forEach(
+      btn => {
+
+        btn.classList.toggle(
+          "active",
+          btn.dataset.page ===
+          page
+        );
+
+      }
     );
 
 
-  navButtons.forEach(
-    button => {
+  if(
+    pageTitles[page]
+  ){
 
-      button.classList.remove(
-        "active"
+    $("pageTitle")
+      .textContent =
+      pageTitles[page][0];
+
+    $("pageSubtitle")
+      .textContent =
+      pageTitles[page][1];
+
+  }
+
+}
+
+
+document
+  .querySelectorAll(
+    ".nav-btn"
+  )
+  .forEach(
+    btn => {
+
+      btn.addEventListener(
+        "click",
+        () => {
+
+          showPageById(
+            btn.dataset.page
+          );
+
+        }
       );
 
     }
   );
 
 
-  navButtons.forEach(
-    button => {
+/* =========================================================
+   AUTH
+========================================================= */
 
-      const onclick =
-        button.getAttribute(
-          "onclick"
-        ) ||
-        "";
+let authMode =
+  "login";
 
-      if(
-        onclick.includes(
-          "'" +
-          pageId +
-          "'"
-        )
-      ){
 
-        button.classList.add(
-          "active"
+$("authSwitch")
+  .addEventListener(
+    "click",
+    () => {
+
+      authMode =
+        authMode ===
+        "login"
+          ? "signup"
+          : "login";
+
+
+      $("authNameGroup")
+        .classList.toggle(
+          "hidden",
+          authMode ===
+          "login"
         );
 
-      }
+
+      $("authSubmit")
+        .textContent =
+        authMode ===
+        "login"
+          ? "Login"
+          : "Create Account";
+
+
+      $("authSwitchText")
+        .textContent =
+        authMode ===
+        "login"
+          ? "Don't have an account?"
+          : "Already have an account?";
+
+
+      $("authSwitch")
+        .textContent =
+        authMode ===
+        "login"
+          ? "Create account"
+          : "Login";
 
     }
   );
 
 
-  const titles = {
+$("authForm")
+  .addEventListener(
+    "submit",
+    async event => {
 
-    dashboard: [
-      "Trading Dashboard",
-      "Review your trading performance"
-    ],
-
-    traders: [
-      "Trader Management",
-      "Manage your trading profiles"
-    ],
-
-    journal: [
-      "Trading Journal",
-      "Organize your trades by month and journal day"
-    ],
-
-    addTrade: [
-      "Add New Trade",
-      "Record your trading execution"
-    ]
-
-  };
+      event.preventDefault();
 
 
-  if(
-    titles[pageId]
-  ){
+      const email =
+        $("authEmail")
+          .value
+          .trim();
 
-    $("pageHeading")
-      .textContent =
-      titles[pageId][0];
 
-    $("pageSubheading")
-      .textContent =
-      titles[pageId][1];
+      const password =
+        $("authPassword")
+          .value;
+
+
+      if(
+        authMode ===
+        "login"
+      ){
+
+        const {
+          error
+        } =
+        await db.auth.signInWithPassword({
+
+          email:
+            email,
+
+          password:
+            password
+
+        });
+
+
+        if(
+          error
+        ){
+
+          showToast(
+            getErrorMessage(
+              error
+            ),
+            "error"
+          );
+
+          return;
+
+        }
+
+        return;
+
+      }
+
+
+      const {
+        error
+      } =
+      await db.auth.signUp({
+
+        email:
+          email,
+
+        password:
+          password,
+
+        options: {
+
+          data: {
+
+            name:
+              $("authName")
+                .value
+                .trim()
+
+          }
+
+        }
+
+      });
+
+
+      if(
+        error
+      ){
+
+        showToast(
+          getErrorMessage(
+            error
+          ),
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      showToast(
+        "Account created. Please check your email if confirmation is required."
+      );
+
+    }
+  );
+
+
+$("logoutBtn")
+  .addEventListener(
+    "click",
+    async () => {
+
+      await db.auth.signOut();
+
+    }
+  );
+
+
+db.auth.onAuthStateChange(
+  (
+    event,
+    session
+  ) => {
+
+    currentUser =
+      session
+        ? session.user
+        : null;
+
+
+    if(
+      currentUser
+    ){
+
+      startApp();
+
+    }else{
+
+      stopApp();
+
+    }
 
   }
+);
 
 
-  $("sidebar")
-    .classList
-    .remove(
-      "open"
-    );
+async function checkSession(){
+
+  const {
+    data
+  } =
+  await db.auth.getSession();
 
 
-  if(
-    pageId ===
-    "traders"
-  ){
-
-    renderTraders();
-
-  }
-
-
-  if(
-    pageId ===
-    "journal"
-  ){
-
-    renderMonths();
-
-  }
+  currentUser =
+    data.session
+      ? data.session.user
+      : null;
 
 
   if(
-    pageId ===
-    "addTrade"
+    currentUser
   ){
 
-    populateTraderSelect();
+    startApp();
+
+  }else{
+
+    stopApp();
 
   }
 
 }
 
 
-/* =========================================================
-   MOBILE SIDEBAR
-========================================================= */
+function startApp(){
 
-function toggleSidebar(){
+  $("authScreen")
+    .classList.add(
+      "hidden"
+    );
 
-  $("sidebar")
-    .classList
-    .toggle(
-      "open"
+  $("app")
+    .classList.remove(
+      "hidden"
+    );
+
+  $("userEmail")
+    .textContent =
+    currentUser.email ||
+    "";
+
+  loadAll();
+
+}
+
+
+function stopApp(){
+
+  $("authScreen")
+    .classList.remove(
+      "hidden"
+    );
+
+  $("app")
+    .classList.add(
+      "hidden"
     );
 
 }
 
 
 /* =========================================================
-   RENDER TRADERS
+   LOAD ALL
 ========================================================= */
+
+async function loadAll(){
+
+  await Promise.all([
+    loadTraders(),
+    loadJournalMonths(),
+    loadJournalDays(),
+    loadTrades()
+  ]);
+
+
+  renderMonths();
+
+  renderJournalDays();
+
+  renderTraders();
+
+  populateTraderSelect();
+
+  updateDashboard();
+
+}
+
+
+/* =========================================================
+   TRADERS
+========================================================= */
+
+async function loadTraders(){
+
+  const {
+    data,
+    error
+  } =
+  await db
+    .from(
+      "traders"
+    )
+    .select(
+      "*"
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "created_at",
+      {
+        ascending:
+          false
+      }
+    );
+
+
+  if(
+    error
+  ){
+
+    console.error(
+      error
+    );
+
+    showToast(
+      getErrorMessage(
+        error
+      ),
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  traders =
+    data ||
+    [];
+
+}
+
 
 function renderTraders(){
 
   const list =
     $("traderList");
-
-
-  if(
-    !list
-  ){
-
-    return;
-
-  }
 
 
   $("traderCount")
@@ -5693,21 +2997,6 @@ function renderTraders(){
       </div>
 
     `;
-
-
-    $("traderProfile")
-      .classList
-      .add(
-        "hidden"
-      );
-
-
-    $("traderEmpty")
-      .classList
-      .remove(
-        "hidden"
-      );
-
 
     return;
 
@@ -5740,11 +3029,9 @@ function renderTraders(){
             <img
               class="trader-avatar"
               src="${
-                escapeHtml(
-                  trader.avatar_url ||
-                  defaultAvatar(
-                    trader.name
-                  )
+                trader.avatar_url ||
+                defaultAvatar(
+                  trader.name
                 )
               }"
               alt=""
@@ -5777,49 +3064,24 @@ function renderTraders(){
       )
       .join("");
 
-
-  if(
-    selectedTrader
-  ){
-
-    updateSelectedTraderProfile();
-
-  }
-
 }
 
-
-/* =========================================================
-   SELECT TRADER
-========================================================= */
 
 function selectTrader(
   traderId
 ){
 
-  const trader =
+  selectedTrader =
     traders.find(
-      item =>
+      trader =>
         String(
-          item.id
+          trader.id
         ) ===
         String(
           traderId
         )
-    );
-
-
-  if(
-    !trader
-  ){
-
-    return;
-
-  }
-
-
-  selectedTrader =
-    trader;
+    ) ||
+    null;
 
 
   renderTraders();
@@ -5829,53 +3091,27 @@ function selectTrader(
 }
 
 
-/* =========================================================
-   UPDATE TRADER PROFILE
-========================================================= */
-
 function updateSelectedTraderProfile(){
+
+  const box =
+    $("traderProfile");
+
 
   if(
     !selectedTrader
   ){
 
+    box.innerHTML = `
+
+      <div class="empty-state">
+        Select a trader to view profile.
+      </div>
+
+    `;
+
     return;
 
   }
-
-
-  $("traderProfile")
-    .classList
-    .remove(
-      "hidden"
-    );
-
-
-  $("traderEmpty")
-    .classList
-    .add(
-      "hidden"
-    );
-
-
-  $("profileName")
-    .textContent =
-    selectedTrader.name ||
-    "Trader";
-
-
-  $("profileDescription")
-    .textContent =
-    selectedTrader.description ||
-    "Trading profile";
-
-
-  $("profileAvatar")
-    .src =
-    selectedTrader.avatar_url ||
-    defaultAvatar(
-      selectedTrader.name
-    );
 
 
   const traderTrades =
@@ -5896,51 +3132,166 @@ function updateSelectedTraderProfile(){
     );
 
 
-  $("profileTrades")
-    .textContent =
-    stats.total;
+  box.innerHTML = `
+
+    <div class="profile-head">
+
+      <img
+        class="profile-avatar"
+        src="${
+          selectedTrader.avatar_url ||
+          defaultAvatar(
+            selectedTrader.name
+          )
+        }"
+      >
+
+      <div>
+
+        <h2>
+          ${
+            escapeHtml(
+              selectedTrader.name
+            )
+          }
+        </h2>
+
+        <p>
+          ${
+            escapeHtml(
+              selectedTrader.description ||
+              "Trading profile"
+            )
+          }
+        </p>
+
+      </div>
+
+    </div>
 
 
-  $("profileWinRate")
-    .textContent =
-    stats.winRate +
-    "%";
+    <div
+      class="stats-grid"
+      style="margin-top:25px;"
+    >
+
+      <div class="stat-card">
+
+        <div class="stat-label">
+          Trades
+        </div>
+
+        <div class="stat-value">
+          ${stats.total}
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-label">
+          Win Rate
+        </div>
+
+        <div class="stat-value">
+          ${stats.winRate}%
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-label">
+          PnL
+        </div>
+
+        <div class="stat-value">
+          ${formatMoney(stats.pnl)}
+        </div>
+
+      </div>
+
+    </div>
 
 
-  $("profilePnl")
-    .textContent =
-    formatMoney(
-      stats.pnl
-    );
+    <div class="form-actions">
 
+      <button
+        class="btn btn-secondary"
+        onclick="
+          openEditTrader(
+            '${selectedTrader.id}'
+          )
+        "
+      >
+        Edit
+      </button>
 
-  $("profileR")
-    .textContent =
-    formatNumber(
-      stats.r
-    ) +
-    "R";
+      <button
+        class="btn btn-danger"
+        onclick="
+          deleteTrader(
+            '${selectedTrader.id}'
+          )
+        "
+      >
+        Delete
+      </button>
 
+    </div>
 
-  $("profileWins")
-    .textContent =
-    stats.wins;
+  `;
 
 }
 
 
-/* =========================================================
-   POPULATE TRADER SELECT
-========================================================= */
+function openTraderModal(){
 
-function populateTraderSelect(){
+  editingTraderId =
+    null;
 
-  const select =
-    $("tradeTrader");
+  $("traderModalTitle")
+    .textContent =
+    "Add Trader";
+
+  $("newTraderName")
+    .value =
+    "";
+
+  $("newTraderDescription")
+    .value =
+    "";
+
+  $("traderImage")
+    .value =
+    "";
+
+  $("traderModal")
+    .classList.add(
+      "show"
+    );
+
+}
+
+
+function openEditTrader(
+  id
+){
+
+  const trader =
+    traders.find(
+      item =>
+        String(
+          item.id
+        ) ===
+        String(
+          id
+        )
+    );
 
 
   if(
-    !select
+    !trader
   ){
 
     return;
@@ -5948,131 +3299,25 @@ function populateTraderSelect(){
   }
 
 
-  const currentValue =
-    select.value;
-
-
-  select.innerHTML = `
-
-    <option value="">
-      Select Trader (Optional)
-    </option>
-
-    ${
-      traders
-        .map(
-          trader => `
-
-            <option
-              value="${escapeHtml(
-                trader.id
-              )}"
-            >
-
-              ${
-                escapeHtml(
-                  trader.name
-                )
-              }
-
-            </option>
-
-          `
-        )
-        .join("")
-    }
-
-  `;
-
-
-  if(
-    selectedTrader &&
-    traders.some(
-      trader =>
-        String(
-          trader.id
-        ) ===
-        String(
-          selectedTrader.id
-        )
-    )
-  ){
-
-    select.value =
-      selectedTrader.id;
-
-  }else if(
-    currentValue &&
-    traders.some(
-      trader =>
-        String(
-          trader.id
-        ) ===
-        String(
-          currentValue
-        )
-    )
-  ){
-
-    select.value =
-      currentValue;
-
-  }else{
-
-    select.value =
-      "";
-
-  }
-
-}
-
-
-/* =========================================================
-   OPEN TRADER MODAL
-========================================================= */
-
-function openTraderModal(
-  trader = null
-){
-
   editingTraderId =
-    trader
-      ? trader.id
-      : null;
-
-
-  selectedTraderImage =
-    null;
+    trader.id;
 
 
   $("traderModalTitle")
     .textContent =
-    trader
-      ? "Edit Trader"
-      : "Create Trader";
-
-
-  $("saveTraderButton")
-    .textContent =
-    trader
-      ? "Update Trader"
-      : "Save Trader";
+    "Edit Trader";
 
 
   $("newTraderName")
     .value =
-    trader
-      ? trader.name ||
-        ""
-      : "";
+    trader.name ||
+    "";
 
 
   $("newTraderDescription")
     .value =
-    trader
-      ? trader.description ||
-        ""
-      : "";
+    trader.description ||
+    "";
 
 
   $("traderImage")
@@ -6080,612 +3325,64 @@ function openTraderModal(
     "";
 
 
-  $("traderImagePreview")
-    .innerHTML =
-    trader &&
-    trader.avatar_url
-      ? `
-
-        <div class="preview-item">
-
-          <img
-            src="${escapeHtml(
-              trader.avatar_url
-            )}"
-            alt=""
-          >
-
-        </div>
-
-      `
-      : "";
-
-
   $("traderModal")
-    .classList
-    .add(
-      "open"
+    .classList.add(
+      "show"
     );
 
 }
 
-
-/* =========================================================
-   CLOSE TRADER MODAL
-========================================================= */
 
 function closeTraderModal(){
 
   $("traderModal")
-    .classList
-    .remove(
-      "open"
+    .classList.remove(
+      "show"
     );
-
-
-  editingTraderId =
-    null;
-
-  selectedTraderImage =
-    null;
 
 }
 
 
-/* =========================================================
-   PREVIEW TRADER IMAGE
-========================================================= */
-
-function previewTraderImage(
-  input
-){
-
-  if(
-    !input.files ||
-    !input.files[0]
-  ){
-
-    return;
-
-  }
-
-
-  const file =
-    input.files[0];
-
-
-  selectedTraderImage =
-    file;
-
-
-  const reader =
-    new FileReader();
-
-
-  reader.onload =
-    function(
-      event
-    ){
-
-      $("traderImagePreview")
-        .innerHTML = `
-
-          <div class="preview-item">
-
-            <img
-              src="${event.target.result}"
-              alt=""
-            >
-
-          </div>
-
-        `;
-
-    };
-
-
-  reader.readAsDataURL(
-    file
-  );
-
-}
-
-
-/* =========================================================
-   SAVE TRADER
-========================================================= */
-
-async function saveTrader(){
-
-  /* =====================================================
-     1. LOGIN CHECK
-  ===================================================== */
-
-  if(
-    !currentUser
-  ){
-
-    showToast(
-      "Please login first.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  /* =====================================================
-     2. GET FORM VALUES
-  ===================================================== */
-
-  const name =
-    $("newTraderName")
-    .value
-    .trim();
-
-
-  const description =
-    $("newTraderDescription")
-    .value
-    .trim();
-
-
-  /* =====================================================
-     3. NAME IS REQUIRED
-  ===================================================== */
-
-  if(
-    !name
-  ){
-
-    showToast(
-      "Please enter trader name.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  /* =====================================================
-     4. SAVE CURRENT EDITING ID
-  ===================================================== */
-
-  const isEditing =
-    Boolean(
-      editingTraderId
-    );
-
-
-  const currentEditingId =
-    editingTraderId;
-
-
-  /* =====================================================
-     5. GET OLD AVATAR
-  ===================================================== */
-
-  let avatarUrl =
-    null;
-
-
-  if(
-    isEditing
-  ){
-
-    const existing =
-      traders.find(
-        trader =>
-          String(
-            trader.id
-          ) ===
-          String(
-            currentEditingId
-          )
-      );
-
-
-    avatarUrl =
-      existing
-        ? existing.avatar_url
-        : null;
-
-  }
-
-
-  /* =====================================================
-     6. PROCESS NEW IMAGE
-  ===================================================== */
-
-  if(
-    selectedTraderImage
-  ){
-
-    try{
-
-      avatarUrl =
-        await fileToDataUrl(
-          selectedTraderImage
-        );
-
-    }catch(error){
-
-      console.error(
-        "Avatar error:",
-        error
-      );
-
-    }
-
-  }
-
-
-  /* =====================================================
-     7. CREATE LOCAL TRADER
-     UI WILL UPDATE IMMEDIATELY
-  ===================================================== */
-
-  const tempId =
-    isEditing
-      ? currentEditingId
-      : "temp-" +
-        Date.now();
-
-
-  const localTrader = {
-
-    id:
-      tempId,
-
-    user_id:
-      currentUser.id,
-
-    name:
-      name,
-
-    description:
-      description ||
-      "",
-
-    avatar_url:
-      avatarUrl ||
-      "",
-
-    created_at:
-      new Date()
-        .toISOString(),
-
-    updated_at:
-      new Date()
-        .toISOString()
-
-  };
-
-
-  /* =====================================================
-     8. INSTANT UI UPDATE
-  ===================================================== */
-
-  if(
-    isEditing
-  ){
-
-    const index =
-      traders.findIndex(
-        trader =>
-          String(
-            trader.id
-          ) ===
-          String(
-            currentEditingId
-          )
-      );
-
-
-    if(
-      index !== -1
-    ){
-
-      traders[index] =
-        {
-          ...traders[index],
-          ...localTrader
-        };
-
-    }
-
-  }else{
-
-    traders.unshift(
-      localTrader
-    );
-
-  }
-
-
-  /* =====================================================
-     9. CLOSE MODAL IMMEDIATELY
-  ===================================================== */
-
-  closeTraderModal();
-
-
-  /* =====================================================
-     10. REFRESH UI IMMEDIATELY
-  ===================================================== */
-
-  populateTraderSelect();
-
-  renderTraders();
-
-  updateDashboard();
-
-
-  /* =====================================================
-     11. SHOW SUCCESS IMMEDIATELY
-  ===================================================== */
-
-  showToast(
-    isEditing
-      ? "Trader updated."
-      : "Trader created."
+$("addTraderBtn")
+  .addEventListener(
+    "click",
+    openTraderModal
   );
 
 
-  /* =====================================================
-     12. CLEAR FORM STATE
-  ===================================================== */
-
-  selectedTraderImage =
-    null;
-
-  editingTraderId =
-    null;
+$("closeTraderModal")
+  .addEventListener(
+    "click",
+    closeTraderModal
+  );
 
 
-  /* =====================================================
-     13. SAVE TO SUPABASE IN BACKGROUND
-  ===================================================== */
-
-  const payload = {
-
-    user_id:
-      currentUser.id,
-
-    name:
-      name,
-
-    description:
-      description ||
-      null,
-
-    avatar_url:
-      avatarUrl ||
-      null
-
-  };
+$("cancelTraderBtn")
+  .addEventListener(
+    "click",
+    closeTraderModal
+  );
 
 
-  try{
-
-    let result;
-
-
-    /* =================================================
-       UPDATE EXISTING TRADER
-    ================================================= */
-
-    if(
-      isEditing
-    ){
-
-      result =
-        await db
-          .from(
-            "traders"
-          )
-          .update(
-            payload
-          )
-          .eq(
-            "id",
-            currentEditingId
-          )
-          .eq(
-            "user_id",
-            currentUser.id
-          )
-          .select()
-          .single();
-
-
-    /* =================================================
-       CREATE NEW TRADER
-    ================================================= */
-
-    }else{
-
-      result =
-        await db
-          .from(
-            "traders"
-          )
-          .insert(
-            payload
-          )
-          .select()
-          .single();
-
-    }
-
-
-    /* =================================================
-       DATABASE ERROR
-    ================================================= */
-
-    if(
-      result.error
-    ){
-
-      console.error(
-        "Trader save error:",
-        result.error
-      );
-
-
-      /* ===============================================
-         ROLLBACK LOCAL UI
-      =============================================== */
+$("traderModal")
+  .addEventListener(
+    "click",
+    event => {
 
       if(
-        isEditing
+        event.target ===
+        $("traderModal")
       ){
 
-        await loadTraders();
-
-      }else{
-
-        traders =
-          traders.filter(
-            trader =>
-              trader.id !==
-              tempId
-          );
+        closeTraderModal();
 
       }
 
-
-      populateTraderSelect();
-
-      renderTraders();
-
-      updateDashboard();
-
-
-      showToast(
-        getErrorMessage(
-          result.error
-        ),
-        "error"
-      );
-
-
-      return;
-
     }
+  );
 
 
-    /* =================================================
-       REPLACE TEMP TRADER WITH REAL DATABASE ROW
-    ================================================= */
-
-    if(
-      !isEditing &&
-      result.data
-    ){
-
-      traders =
-        traders.map(
-          trader =>
-            trader.id ===
-            tempId
-              ? result.data
-              : trader
-        );
-
-    }
-
-
-    /* =================================================
-       FINAL UI SYNC
-    ================================================= */
-
-    populateTraderSelect();
-
-    renderTraders();
-
-    updateDashboard();
-
-
-    /* =================================================
-       UPDATE SELECTED TRADER
-    ================================================= */
-
-    if(
-      selectedTrader
-    ){
-
-      selectedTrader =
-        traders.find(
-          trader =>
-            String(
-              trader.id
-            ) ===
-            String(
-              selectedTrader.id
-            )
-        ) ||
-        selectedTrader;
-
-    }
-
-
-    updateSelectedTraderProfile();
-
-
-  }catch(error){
-
-    console.error(
-      "Unexpected trader error:",
-      error
-    );
-
-
-    /* ===============================================
-       ROLLBACK ON UNEXPECTED ERROR
-    =============================================== */
-
-    if(
-      !isEditing
-    ){
-
-      traders =
-        traders.filter(
-          trader =>
-            trader.id !==
-            tempId
-        );
-
-    }else{
-
-      await loadTraders();
-
-    }
-
-
-    populateTraderSelect();
-
-    renderTraders();
-
-    updateDashboard();
-
-
-    showToast(
-      "Could not save trader. Please try again.",
-      "error"
-    );
-
-  }
-
-}
-
-/* =========================================================
-   FILE TO DATA URL
-========================================================= */
-
-function fileToDataUrl(
+async function fileToDataUrl(
   file
 ){
 
@@ -6700,10 +3397,13 @@ function fileToDataUrl(
 
 
       reader.onload =
-        () =>
+        () => {
+
           resolve(
             reader.result
           );
+
+        };
 
 
       reader.onerror =
@@ -6720,45 +3420,47 @@ function fileToDataUrl(
 }
 
 
-/* =========================================================
-   EDIT SELECTED TRADER
-========================================================= */
-
-function editSelectedTrader(){
-
-  if(
-    !selectedTrader
-  ){
-
-    showToast(
-      "Please select a trader first.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  openTraderModal(
-    selectedTrader
+$("traderForm")
+  .addEventListener(
+    "submit",
+    saveTrader
   );
 
-}
 
+async function saveTrader(
+  event
+){
 
-/* =========================================================
-   DELETE SELECTED TRADER
-========================================================= */
+  event.preventDefault();
 
-async function deleteSelectedTrader(){
 
   if(
-    !selectedTrader
+    !currentUser
+  ){
+
+    return;
+
+  }
+
+
+  const name =
+    $("newTraderName")
+      .value
+      .trim();
+
+
+  const description =
+    $("newTraderDescription")
+      .value
+      .trim();
+
+
+  if(
+    !name
   ){
 
     showToast(
-      "Please select a trader first.",
+      "Please enter trader name.",
       "error"
     );
 
@@ -6767,50 +3469,111 @@ async function deleteSelectedTrader(){
   }
 
 
-  const confirmed =
-    confirm(
-      "Delete this trader profile?"
-    );
+  let avatarUrl =
+    "";
+
+
+  const existing =
+    editingTraderId
+      ? traders.find(
+          item =>
+            String(
+              item.id
+            ) ===
+            String(
+              editingTraderId
+            )
+        )
+      : null;
+
+
+  avatarUrl =
+    existing
+      ? existing.avatar_url ||
+        ""
+      : "";
+
+
+  const file =
+    $("traderImage")
+      .files[0];
 
 
   if(
-    !confirmed
+    file
   ){
 
-    return;
+    avatarUrl =
+      await fileToDataUrl(
+        file
+      );
 
   }
 
 
-  const traderId =
-    selectedTrader.id;
+  const payload = {
+
+    user_id:
+      currentUser.id,
+
+    name:
+      name,
+
+    description:
+      description,
+
+    avatar_url:
+      avatarUrl
+
+  };
 
 
-  const {
-    error
-  } =
-    await db
-      .from(
-        "traders"
-      )
-      .delete()
-      .eq(
-        "id",
-        traderId
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      );
+  let result;
 
 
   if(
-    error
+    editingTraderId
+  ){
+
+    result =
+      await db
+        .from(
+          "traders"
+        )
+        .update(
+          payload
+        )
+        .eq(
+          "id",
+          editingTraderId
+        )
+        .eq(
+          "user_id",
+          currentUser.id
+        );
+
+
+  }else{
+
+    result =
+      await db
+        .from(
+          "traders"
+        )
+        .insert(
+          payload
+        );
+
+  }
+
+
+  if(
+    result.error
   ){
 
     showToast(
       getErrorMessage(
-        error
+        result.error
       ),
       "error"
     );
@@ -6820,7 +3583,10 @@ async function deleteSelectedTrader(){
   }
 
 
-  selectedTrader =
+  closeTraderModal();
+
+
+  editingTraderId =
     null;
 
 
@@ -6831,8 +3597,91 @@ async function deleteSelectedTrader(){
 
   renderTraders();
 
-  updateDashboard();
+  updateSelectedTraderProfile();
 
+  showToast(
+    "Trader saved."
+  );
+
+}
+
+
+async function deleteTrader(
+  id
+){
+
+  if(
+    !confirm(
+      "Delete this trader?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+  await db
+    .from(
+      "traders"
+    )
+    .delete()
+    .eq(
+      "id",
+      id
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    );
+
+
+  if(
+    error
+  ){
+
+    showToast(
+      getErrorMessage(
+        error
+      ),
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    selectedTrader &&
+    String(
+      selectedTrader.id
+    ) ===
+    String(
+      id
+    )
+  ){
+
+    selectedTrader =
+      null;
+
+  }
+
+
+  await loadTraders();
+
+  await loadTrades();
+
+  renderTraders();
+
+  populateTraderSelect();
+
+  updateSelectedTraderProfile();
+
+  updateDashboard();
 
   showToast(
     "Trader deleted."
@@ -6841,1147 +3690,130 @@ async function deleteSelectedTrader(){
 }
 
 
-/* =========================================================
-   SELECT CHIP
-========================================================= */
-
-function selectChip(
-  button,
-  inputId,
-  value
-){
-
-  const parent =
-    button.parentElement;
-
-
-  parent
-    .querySelectorAll(
-      ".chip"
-    )
-    .forEach(
-      chip => {
-
-        chip.classList.remove(
-          "active"
-        );
-
-      }
-    );
-
-
-  button.classList.add(
-    "active"
-  );
-
-
-  $(inputId)
-    .value =
-    value;
-
-}
-
-
-/* =========================================================
-   PREVIEW TRADE IMAGES
-========================================================= */
-
-function previewImages(
-  input
-){
-
-  const files =
-    Array.from(
-      input.files ||
-      []
-    );
-
-
-  if(
-    files.length >
-    3
-  ){
-
-    showToast(
-      "You can upload a maximum of 3 images.",
-      "error"
-    );
-
-  }
-
-
-  selectedTradeImages =
-    files.slice(
-      0,
-      3
-    );
-
-
-  renderImagePreview();
-
-}
-
-
-/* =========================================================
-   RENDER IMAGE PREVIEW
-========================================================= */
-
-function renderImagePreview(){
-
-  const container =
-    $("imagePreview");
-
-
-  if(
-    !container
-  ){
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    "";
-
-
-  selectedTradeImages
-    .forEach(
-      (
-        file,
-        index
-      ) => {
-
-        const reader =
-          new FileReader();
-
-
-        reader.onload =
-          function(
-            event
-          ){
-
-            const item =
-              document.createElement(
-                "div"
-              );
-
-
-            item.className =
-              "preview-item";
-
-
-            item.innerHTML = `
-
-              <img
-                src="${event.target.result}"
-                alt=""
-              >
-
-              <button
-                type="button"
-                class="preview-remove"
-                onclick="
-                  removeTradeImage(
-                    ${index}
-                  )
-                "
-              >
-                ×
-              </button>
-
-            `;
-
-
-            container.appendChild(
-              item
-            );
-
-          };
-
-
-        reader.readAsDataURL(
-          file
-        );
-
-      }
-    );
-
-}
-
-
-/* =========================================================
-   REMOVE TRADE IMAGE
-========================================================= */
-
-function removeTradeImage(
-  index
-){
-
-  selectedTradeImages
-    .splice(
-      index,
-      1
-    );
-
-
-  renderImagePreview();
-
-}
-
-
-/* =========================================================
-   CLEAR TRADE FORM
-========================================================= */
-
-function clearTradeForm(){
-
-  $("tradeTrader")
-    .value =
-    "";
-
-
-  $("tradeDate")
-    .value =
-    getToday();
-
-
-  $("tradeSymbol")
-    .value =
-    "";
-
-
-  $("tradeSession")
-    .value =
-    "";
-
-
-  $("tradeDirection")
-    .value =
-    "";
-
-
-  $("tradeResult")
-    .value =
-    "";
-
-
-  $("tradeSetup")
-    .value =
-    "";
-
-
-  $("tradeEntry")
-    .value =
-    "";
-
-
-  $("tradeSL")
-    .value =
-    "";
-
-
-  $("tradeTP")
-    .value =
-    "";
-
-
-  $("tradePnl")
-    .value =
-    "";
-
-
-  $("tradeR")
-    .value =
-    "";
-
-
-  $("tradeRisk")
-    .value =
-    "";
-
-
-  $("tradeNotes")
-    .value =
-    "";
-
-
-  selectedTradeImages =
-    [];
-
-
-  $("imagePreview")
-    .innerHTML =
-    "";
-
-
-  document
-    .querySelectorAll(
-      "#page-addTrade .chip"
-    )
-    .forEach(
-      chip => {
-
-        chip.classList.remove(
-          "active"
-        );
-
-      }
-    );
-
-
-  editingTradeId =
-    null;
-
-}
-
-
-/* =========================================================
-   GET OPTIONAL NUMBER
-========================================================= */
-
-function optionalNumber(
-  value
-){
-
-  if(
-    value ===
-    null ||
-    value ===
-    undefined ||
-    String(
-      value
-    ).trim() ===
-    ""
-  ){
-
-    return null;
-
-  }
-
-
-  const number =
-    Number(
-      value
-    );
-
-
-  if(
-    Number.isNaN(
-      number
-    )
-  ){
-
-    return null;
-
-  }
-
-
-  return number;
-
-}
-
-
-/* =========================================================
-   SAVE TRADE
-========================================================= */
-
-async function saveTrade(){
-
-  if(
-    !currentUser
-  ){
-
-    showToast(
-      "Please login first.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const traderId =
-    $("tradeTrader")
-    .value
-    .trim();
-
-
-  const date =
-    $("tradeDate")
-    .value;
-
-
-  const symbol =
-    $("tradeSymbol")
-    .value
-    .trim();
-
-
-  const session =
-    $("tradeSession")
-    .value;
-
-
-  const direction =
-    $("tradeDirection")
-    .value;
-
-
-  const result =
-    $("tradeResult")
-    .value;
-
-
-  const setup =
-    $("tradeSetup")
-    .value
-    .trim();
-
-
-  const entry =
-    optionalNumber(
-      $("tradeEntry")
-        .value
-    );
-
-
-  const sl =
-    optionalNumber(
-      $("tradeSL")
-        .value
-    );
-
-
-  const tp =
-    optionalNumber(
-      $("tradeTP")
-        .value
-    );
-
-
-  const pnl =
-    optionalNumber(
-      $("tradePnl")
-        .value
-    );
-
-
-  const rMultiple =
-    optionalNumber(
-      $("tradeR")
-        .value
-    );
-
-
-  const riskPercent =
-    optionalNumber(
-      $("tradeRisk")
-        .value
-    );
-
-
-  const notes =
-    $("tradeNotes")
-    .value
-    .trim();
-
-
-  /* =======================================================
-     DATE IS THE ONLY REQUIRED TRADE FIELD
-  ====================================================== */
-
-  if(
-    !date
-  ){
-
-    showToast(
-      "Please select a journal date.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  /* =======================================================
-     IMPORTANT:
-     EMPTY OPTIONAL VALUES BECOME NULL.
-     THIS PREVENTS:
-     UUID ""
-     CHECK CONSTRAINT ""
-     FOREIGN KEY ""
-  ====================================================== */
-
-  let safeTraderId =
-    null;
-
-
-  if(
-    traderId
-  ){
-
-    const traderExists =
-      traders.some(
-        trader =>
-          String(
-            trader.id
-          ) ===
-          String(
-            traderId
-          )
-      );
-
-
-    if(
-      traderExists
-    ){
-
-      safeTraderId =
-        traderId;
-
+function populateTraderSelect(){
+
+  const select =
+    $("tradeTrader");
+
+
+  select.innerHTML = `
+
+    <option value="">
+      Select Trader (Optional)
+    </option>
+
+    ${
+      traders
+        .map(
+          trader => `
+
+            <option
+              value="${trader.id}"
+            >
+              ${
+                escapeHtml(
+                  trader.name
+                )
+              }
+            </option>
+
+          `
+        )
+        .join("")
     }
 
-  }
+  `;
+
+}
 
 
-  const payload = {
+/* =========================================================
+   JOURNAL MONTHS
+========================================================= */
 
-    user_id:
-      currentUser.id,
+async function loadJournalMonths(){
 
-    trader_id:
-      safeTraderId,
-
-    trade_date:
-      date,
-
-    symbol:
-      symbol ||
-      null,
-
-    session:
-      session ||
-      null,
-
-    direction:
-      direction ||
-      null,
-
-    result:
-      result ||
-      null,
-
-    setup:
-      setup ||
-      null,
-
-    entry_price:
-      entry,
-
-    stop_loss:
-      sl,
-
-    take_profit:
-      tp,
-
-    pnl:
-      pnl,
-
-    r_multiple:
-      rMultiple,
-
-    risk_percent:
-      riskPercent,
-
-    notes:
-      notes ||
-      null
-
-  };
-
-
-  console.log(
-    "Saving trade:",
-    payload
-  );
-
-
-  let response;
+  const {
+    data,
+    error
+  } =
+  await db
+    .from(
+      "journal_months"
+    )
+    .select(
+      "*"
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "year",
+      {
+        ascending:
+          false
+      }
+    )
+    .order(
+      "month",
+      {
+        ascending:
+          false
+      }
+    );
 
 
   if(
-    editingTradeId
-  ){
-
-    response =
-      await db
-        .from(
-          "daily_trades"
-        )
-        .update(
-          payload
-        )
-        .eq(
-          "id",
-          editingTradeId
-        )
-        .eq(
-          "user_id",
-          currentUser.id
-        );
-
-  }else{
-
-    response =
-      await db
-        .from(
-          "daily_trades"
-        )
-        .insert(
-          payload
-        );
-
-  }
-
-
-  if(
-    response.error
+    error
   ){
 
     console.error(
-      "SAVE TRADE ERROR:",
-      response.error
+      error
     );
-
 
     showToast(
       getErrorMessage(
-        response.error
+        error
       ),
       "error"
     );
 
-
     return;
 
   }
 
 
-  showToast(
-    editingTradeId
-      ? "Trade updated successfully."
-      : "Trade saved successfully."
-  );
-
-
-  clearTradeForm();
-
-
-  await loadTrades();
-
-
-  updateDashboard();
-
-  updateSelectedTraderProfile();
+  journalMonths =
+    data ||
+    [];
 
 
   if(
     selectedMonth
   ){
 
-    renderJournalDays();
-
-  }
-
-
-  showPageById(
-    "journal"
-  );
-
-}
-
-
-/* =========================================================
-   CALCULATE STATISTICS
-========================================================= */
-
-function calculateStats(
-  list
-){
-
-  const total =
-    list.length;
-
-
-  const wins =
-    list.filter(
-      trade =>
-        String(
-          trade.result ||
-          ""
-        ).toLowerCase() ===
-        "win"
-    ).length;
-
-
-  const losses =
-    list.filter(
-      trade =>
-        String(
-          trade.result ||
-          ""
-        ).toLowerCase() ===
-        "loss"
-    ).length;
-
-
-  const be =
-    list.filter(
-      trade =>
-        String(
-          trade.result ||
-          ""
-        ).toLowerCase() ===
-        "be"
-    ).length;
-
-
-  const pnl =
-    list.reduce(
-      (
-        totalValue,
-        trade
-      ) =>
-        totalValue +
-        (
-          Number(
-            trade.pnl
-          ) ||
-          0
-        ),
-      0
-    );
-
-
-  const r =
-    list.reduce(
-      (
-        totalValue,
-        trade
-      ) =>
-        totalValue +
-        (
-          Number(
-            trade.r_multiple
-          ) ||
-          0
-        ),
-      0
-    );
-
-
-  const winRate =
-    total >
-    0
-      ? (
-          wins /
-          total *
-          100
-        ).toFixed(
-          1
-        )
-      : "0.0";
-
-
-  return {
-
-    total,
-
-    wins,
-
-    losses,
-
-    be,
-
-    pnl,
-
-    r,
-
-    winRate
-
-  };
-
-}
-
-
-/* =========================================================
-   UPDATE DASHBOARD
-========================================================= */
-
-function updateDashboard(){
-
-  const stats =
-    calculateStats(
-      trades
-    );
-
-
-  $("statTrades")
-    .textContent =
-    stats.total;
-
-
-  $("statWinRate")
-    .textContent =
-    stats.winRate +
-    "%";
-
-
-  $("statPnl")
-    .textContent =
-    formatMoney(
-      stats.pnl
-    );
-
-
-  $("statR")
-    .textContent =
-    formatNumber(
-      stats.r
-    ) +
-    "R";
-
-
-  $("statWins")
-    .textContent =
-    stats.wins;
-
-}
-
-
-/* =========================================================
-   CREATE CURRENT MONTH
-========================================================= */
-
-async function createCurrentMonth(){
-
-  const month =
-    getCurrentMonth();
-
-
-  if(
-    journalMonths.some(
-      item =>
-        item.month ===
-        month
-    )
-  ){
-
     selectedMonth =
       journalMonths.find(
         item =>
-          item.month ===
-          month
-      );
-
-
-    renderMonths();
-
-    renderJournalDays();
-
-    showToast(
-      "Current month already exists."
-    );
-
-    return;
+          String(
+            item.id
+          ) ===
+          String(
+            selectedMonth.id
+          )
+      ) ||
+      null;
 
   }
-
-
-  const payload = {
-
-    user_id:
-      currentUser.id,
-
-    month:
-      month
-
-  };
-
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from(
-        "journal_months"
-      )
-      .insert(
-        payload
-      )
-      .select()
-      .single();
-
-
-  if(
-    error
-  ){
-
-    showToast(
-      getErrorMessage(
-        error
-      ),
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  journalMonths.push(
-    data
-  );
-
-
-  selectedMonth =
-    data;
-
-
-  renderMonths();
-
-  renderJournalDays();
-
-
-  showToast(
-    "Current month created."
-  );
 
 }
 
-
-/* =========================================================
-   CREATE JOURNAL DAY
-========================================================= */
-
-async function createJournalDay(){
-
-  if(
-    !currentUser
-  ){
-
-    return;
-
-  }
-
-
-  let month =
-    selectedMonth;
-
-
-  if(
-    !month
-  ){
-
-    const currentMonth =
-      getCurrentMonth();
-
-
-    month =
-      journalMonths.find(
-        item =>
-          item.month ===
-          currentMonth
-      );
-
-
-    if(
-      !month
-    ){
-
-      showToast(
-        "Please create or select a journal month first.",
-        "error"
-      );
-
-      return;
-
-    }
-
-  }
-
-
-  const date =
-    prompt(
-      "Enter journal date (YYYY-MM-DD):",
-      getToday()
-    );
-
-
-  if(
-    !date
-  ){
-
-    return;
-
-  }
-
-
-  const validDate =
-    /^\d{4}-\d{2}-\d{2}$/
-      .test(
-        date
-      );
-
-
-  if(
-    !validDate
-  ){
-
-    showToast(
-      "Please use YYYY-MM-DD format.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const monthValue =
-    date.slice(
-      0,
-      7
-    );
-
-
-  if(
-    monthValue !==
-    month.month
-  ){
-
-    showToast(
-      "The date must belong to the selected month.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
- const exists =
-  journalDays.some(
-    day =>
-      String(
-        day.month_id
-      ) ===
-      String(
-        month.id
-      ) &&
-      day.journal_date ===
-      date
-  );
-
-
-  if(
-    exists
-  ){
-
-    showToast(
-      "This journal day already exists."
-    );
-
-    return;
-
-  }
-
-
-  const payload = {
-
-    user_id:
-      currentUser.id,
-
-    journal_month_id:
-      month.id,
-
-    journal_date:
-      date
-
-  };
-
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from(
-        "journal_days"
-      )
-      .insert(
-        payload
-      )
-      .select()
-      .single();
-
-
-  if(
-    error
-  ){
-
-    showToast(
-      getErrorMessage(
-        error
-      ),
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  journalDays.push(
-    data
-  );
-
-
-  selectedMonth =
-    month;
-
-
-  renderJournalDays();
-
-
-  showToast(
-    "Journal day created."
-  );
-
-}
-
-
-/* =========================================================
-   RENDER MONTHS
-========================================================= */
 
 function renderMonths(){
 
   const container =
-    $("monthList");
-
-
-  if(
-    !container
-  ){
-
-    return;
-
-  }
+    $("journalMonths");
 
 
   if(
@@ -7992,19 +3824,14 @@ function renderMonths(){
 
       <div class="empty-state">
 
-        <div>
-
-          No journal months created.
-
-        </div>
+        No journal months created.
 
       </div>
 
     `;
 
     $("journalMonthCard")
-      .classList
-      .add(
+      .classList.add(
         "hidden"
       );
 
@@ -8023,8 +3850,12 @@ function renderMonths(){
               month-card
               ${
                 selectedMonth &&
-                selectedMonth.id ===
-                month.id
+                String(
+                  selectedMonth.id
+                ) ===
+                String(
+                  month.id
+                )
                   ? "active"
                   : ""
               }
@@ -8044,6 +3875,7 @@ function renderMonths(){
               ${
                 escapeHtml(
                   formatMonth(
+                    month.year,
                     month.month
                   )
                 )
@@ -8051,14 +3883,21 @@ function renderMonths(){
             </strong>
 
             <span>
+
               ${
                 journalDays.filter(
                   day =>
-                    day.month_id
-                    month.id
+                    String(
+                      day.month_id
+                    ) ===
+                    String(
+                      month.id
+                    )
                 ).length
               }
+
               journal day(s)
+
             </span>
 
           </button>
@@ -8069,10 +3908,6 @@ function renderMonths(){
 
 }
 
-
-/* =========================================================
-   SELECT MONTH
-========================================================= */
 
 function selectMonth(
   monthId
@@ -8098,9 +3933,195 @@ function selectMonth(
 }
 
 
+$("createMonthBtn")
+  .addEventListener(
+    "click",
+    createMonth
+  );
+
+
+async function createMonth(){
+
+  if(
+    !currentUser
+  ){
+
+    return;
+
+  }
+
+
+  const now =
+    new Date();
+
+
+  const year =
+    now.getFullYear();
+
+
+  const month =
+    now.getMonth() + 1;
+
+
+  const exists =
+    journalMonths.find(
+      item =>
+        Number(
+          item.year
+        ) ===
+        year &&
+        Number(
+          item.month
+        ) ===
+        month
+    );
+
+
+  if(
+    exists
+  ){
+
+    selectedMonth =
+      exists;
+
+    renderMonths();
+
+    renderJournalDays();
+
+    showToast(
+      "This month already exists."
+    );
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await db
+    .from(
+      "journal_months"
+    )
+    .insert({
+
+      user_id:
+        currentUser.id,
+
+      year:
+        year,
+
+      month:
+        month,
+
+      title:
+        formatMonth(
+          year,
+          month
+        ),
+
+      notes:
+        ""
+
+    })
+    .select()
+    .single();
+
+
+  if(
+    error
+  ){
+
+    showToast(
+      getErrorMessage(
+        error
+      ),
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  journalMonths.unshift(
+    data
+  );
+
+
+  selectedMonth =
+    data;
+
+
+  renderMonths();
+
+  renderJournalDays();
+
+  showToast(
+    "Journal month created."
+  );
+
+}
+
+
 /* =========================================================
-   RENDER JOURNAL DAYS
+   JOURNAL DAYS
 ========================================================= */
+
+async function loadJournalDays(){
+
+  const {
+    data,
+    error
+  } =
+  await db
+    .from(
+      "journal_days"
+    )
+    .select(
+      "*"
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "journal_date",
+      {
+        ascending:
+          false
+      }
+    );
+
+
+  if(
+    error
+  ){
+
+    console.error(
+      error
+    );
+
+    showToast(
+      getErrorMessage(
+        error
+      ),
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  journalDays =
+    data ||
+    [];
+
+}
+
 
 function renderJournalDays(){
 
@@ -8113,8 +4134,7 @@ function renderJournalDays(){
   ){
 
     $("journalMonthCard")
-      .classList
-      .add(
+      .classList.add(
         "hidden"
       );
 
@@ -8124,8 +4144,7 @@ function renderJournalDays(){
 
 
   $("journalMonthCard")
-    .classList
-    .remove(
+    .classList.remove(
       "hidden"
     );
 
@@ -8133,6 +4152,7 @@ function renderJournalDays(){
   $("journalMonthTitle")
     .textContent =
     formatMonth(
+      selectedMonth.year,
       selectedMonth.month
     );
 
@@ -8182,7 +4202,7 @@ function renderJournalDays(){
 
           No journal days yet.
 
-          <br>
+          <br><br>
 
           Click
           <strong>
@@ -8214,9 +4234,202 @@ function renderJournalDays(){
 }
 
 
-/* =========================================================
-   RENDER SINGLE JOURNAL DAY
-========================================================= */
+$("createDayBtn")
+  .addEventListener(
+    "click",
+    createJournalDay
+  );
+
+
+async function createJournalDay(){
+
+  if(
+    !currentUser
+  ){
+
+    return;
+
+  }
+
+
+  if(
+    !selectedMonth
+  ){
+
+    showToast(
+      "Please select a month first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const date =
+    prompt(
+      "Enter journal date (YYYY-MM-DD)",
+      new Date()
+        .toISOString()
+        .slice(
+          0,
+          10
+        )
+    );
+
+
+  if(
+    !date
+  ){
+
+    return;
+
+  }
+
+
+  if(
+    !/^\d{4}-\d{2}-\d{2}$/
+      .test(
+        date
+      )
+  ){
+
+    showToast(
+      "Please use YYYY-MM-DD format.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const exists =
+    journalDays.some(
+      day =>
+        String(
+          day.month_id
+        ) ===
+        String(
+          selectedMonth.id
+        ) &&
+        day.journal_date ===
+        date
+    );
+
+
+  if(
+    exists
+  ){
+
+    showToast(
+      "This journal day already exists.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const selectedDate =
+    new Date(
+      date +
+      "T00:00:00"
+    );
+
+
+  if(
+    selectedDate.getFullYear() !==
+    Number(
+      selectedMonth.year
+    ) ||
+    selectedDate.getMonth() + 1 !==
+    Number(
+      selectedMonth.month
+    )
+  ){
+
+    showToast(
+      "The date must belong to the selected month.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await db
+    .from(
+      "journal_days"
+    )
+    .insert({
+
+      user_id:
+        currentUser.id,
+
+      month_id:
+        selectedMonth.id,
+
+      journal_date:
+        date,
+
+      title:
+        "",
+
+      content:
+        "",
+
+      mood:
+        "",
+
+      discipline:
+        "",
+
+      lessons:
+        ""
+
+    })
+    .select()
+    .single();
+
+
+  if(
+    error
+  ){
+
+    showToast(
+      getErrorMessage(
+        error
+      ),
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  journalDays.unshift(
+    data
+  );
+
+
+  renderMonths();
+
+  renderJournalDays();
+
+  showToast(
+    "Journal day created."
+  );
+
+}
+
 
 function renderJournalDay(
   day
@@ -8245,11 +4458,13 @@ function renderJournalDay(
         <div>
 
           <div class="day-date">
-            ${escapeHtml(
-              formatDate(
-                day.journal_date
+            ${
+              escapeHtml(
+                formatDate(
+                  day.journal_date
+                )
               )
-            )}
+            }
           </div>
 
           <div class="day-meta">
@@ -8258,7 +4473,9 @@ function renderJournalDay(
               stats.total
             }
             trade(s)
+
             ·
+
             ${
               stats.winRate
             }%
@@ -8268,20 +4485,17 @@ function renderJournalDay(
 
         </div>
 
-        <div>
 
-          <button
-            class="btn btn-primary btn-small"
-            onclick="
-              addTradeForDate(
-                '${day.journal_date}'
-              )
-            "
-          >
-            ＋ Add Trade
-          </button>
-
-        </div>
+        <button
+          class="btn btn-primary btn-small"
+          onclick="
+            addTradeForDate(
+              '${day.journal_date}'
+            )
+          "
+        >
+          ＋ Add Trade
+        </button>
 
       </div>
 
@@ -8302,12 +4516,8 @@ function renderJournalDay(
 
               <div class="empty-state">
 
-                <div>
-
-                  No trades recorded
-                  for this day.
-
-                </div>
+                No trades recorded
+                for this day.
 
               </div>
 
@@ -8323,10 +4533,6 @@ function renderJournalDay(
 }
 
 
-/* =========================================================
-   ADD TRADE FOR DATE
-========================================================= */
-
 function addTradeForDate(
   date
 ){
@@ -8334,6 +4540,15 @@ function addTradeForDate(
   $("tradeDate")
     .value =
     date;
+
+
+  editingTradeId =
+    null;
+
+
+  $("tradeFormTitle")
+    .textContent =
+    "Add Trade";
 
 
   showPageById(
@@ -8344,8 +4559,347 @@ function addTradeForDate(
 
 
 /* =========================================================
-   RENDER TRADE ROW
+   TRADES
 ========================================================= */
+
+async function loadTrades(){
+
+  const {
+    data,
+    error
+  } =
+  await db
+    .from(
+      "daily_trades"
+    )
+    .select(
+      "*"
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    )
+    .order(
+      "trade_date",
+      {
+        ascending:
+          false
+      }
+    )
+    .order(
+      "created_at",
+      {
+        ascending:
+          false
+      }
+    );
+
+
+  if(
+    error
+  ){
+
+    console.error(
+      error
+    );
+
+    showToast(
+      getErrorMessage(
+        error
+      ),
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  trades =
+    data ||
+    [];
+
+}
+
+
+$("tradeForm")
+  .addEventListener(
+    "submit",
+    saveTrade
+  );
+
+
+async function saveTrade(
+  event
+){
+
+  event.preventDefault();
+
+
+  if(
+    !currentUser
+  ){
+
+    showToast(
+      "Please login first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const traderId =
+    $("tradeTrader")
+      .value
+      .trim();
+
+
+  const date =
+    $("tradeDate")
+      .value;
+
+
+  const symbol =
+    $("tradeSymbol")
+      .value
+      .trim();
+
+
+  const session =
+    $("tradeSession")
+      .value;
+
+
+  const direction =
+    $("tradeDirection")
+      .value;
+
+
+  const result =
+    $("tradeResult")
+      .value;
+
+
+  const setup =
+    $("tradeSetup")
+      .value
+      .trim();
+
+
+  const entry =
+    optionalNumber(
+      $("tradeEntry")
+        .value
+    );
+
+
+  const sl =
+    optionalNumber(
+      $("tradeSL")
+        .value
+    );
+
+
+  const tp =
+    optionalNumber(
+      $("tradeTP")
+        .value
+    );
+
+
+  const pnl =
+    optionalNumber(
+      $("tradePnl")
+        .value
+    );
+
+
+  const rMultiple =
+    optionalNumber(
+      $("tradeR")
+        .value
+    );
+
+
+  const riskPercent =
+    optionalNumber(
+      $("tradeRisk")
+        .value
+    );
+
+
+  const notes =
+    $("tradeNotes")
+      .value
+      .trim();
+
+
+  if(
+    !date
+  ){
+
+    showToast(
+      "Please select a journal date.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const payload = {
+
+    user_id:
+      currentUser.id,
+
+    trader_id:
+      traderId ||
+      null,
+
+    trade_date:
+      date,
+
+    symbol:
+      symbol,
+
+    session:
+      session,
+
+    direction:
+      direction,
+
+    result:
+      result,
+
+    setup:
+      setup,
+
+    entry_price:
+      entry,
+
+    stop_loss:
+      sl,
+
+    take_profit:
+      tp,
+
+    pnl:
+      pnl,
+
+    r_multiple:
+      rMultiple,
+
+    risk_percent:
+      riskPercent,
+
+    notes:
+      notes
+
+  };
+
+
+  let query;
+
+
+  if(
+    editingTradeId
+  ){
+
+    query =
+      db
+        .from(
+          "daily_trades"
+        )
+        .update(
+          payload
+        )
+        .eq(
+          "id",
+          editingTradeId
+        )
+        .eq(
+          "user_id",
+          currentUser.id
+        );
+
+
+  }else{
+
+    query =
+      db
+        .from(
+          "daily_trades"
+        )
+        .insert(
+          payload
+        );
+
+  }
+
+
+  const {
+    error
+  } =
+  await query;
+
+
+  if(
+    error
+  ){
+
+    console.error(
+      error
+    );
+
+    showToast(
+      getErrorMessage(
+        error
+      ),
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  editingTradeId =
+    null;
+
+
+  $("tradeForm")
+    .reset();
+
+
+  $("tradeFormTitle")
+    .textContent =
+    "Add Trade";
+
+
+  await loadTrades();
+
+
+  updateDashboard();
+
+  updateSelectedTraderProfile();
+
+  renderJournalDays();
+
+
+  showPageById(
+    "journal"
+  );
+
+
+  showToast(
+    "Trade saved."
+  );
+
+}
+
 
 function renderTradeRow(
   trade
@@ -8355,15 +4909,8 @@ function renderTradeRow(
     "badge-neutral";
 
 
-  const result =
-    String(
-      trade.result ||
-      ""
-    );
-
-
   if(
-    result ===
+    trade.result ===
     "Win"
   ){
 
@@ -8374,7 +4921,7 @@ function renderTradeRow(
 
 
   if(
-    result ===
+    trade.result ===
     "Loss"
   ){
 
@@ -8385,7 +4932,7 @@ function renderTradeRow(
 
 
   if(
-    result ===
+    trade.result ===
     "BE"
   ){
 
@@ -8499,7 +5046,6 @@ function renderTradeRow(
 
       <div class="trade-details">
 
-
         <div class="trade-detail">
 
           <span>
@@ -8610,7 +5156,6 @@ function renderTradeRow(
 
         </div>
 
-
       </div>
 
 
@@ -8689,10 +5234,6 @@ function renderTradeRow(
 
 }
 
-
-/* =========================================================
-   EDIT TRADE
-========================================================= */
 
 function editTrade(
   tradeId
@@ -8807,55 +5348,9 @@ function editTrade(
     "";
 
 
-  document
-    .querySelectorAll(
-      "#page-addTrade .chip"
-    )
-    .forEach(
-      chip => {
-
-        chip.classList.remove(
-          "active"
-        );
-
-      }
-    );
-
-
-  document
-    .querySelectorAll(
-      "#page-addTrade .chip"
-    )
-    .forEach(
-      chip => {
-
-        if(
-          chip.textContent
-            .trim() ===
-          trade.direction
-        ){
-
-          chip.classList.add(
-            "active"
-          );
-
-        }
-
-
-        if(
-          chip.textContent
-            .trim() ===
-          trade.result
-        ){
-
-          chip.classList.add(
-            "active"
-          );
-
-        }
-
-      }
-    );
+  $("tradeFormTitle")
+    .textContent =
+    "Edit Trade";
 
 
   showPageById(
@@ -8865,22 +5360,14 @@ function editTrade(
 }
 
 
-/* =========================================================
-   DELETE TRADE
-========================================================= */
-
 async function deleteTrade(
   tradeId
 ){
 
-  const confirmed =
-    confirm(
-      "Delete this trade permanently?"
-    );
-
-
   if(
-    !confirmed
+    !confirm(
+      "Delete this trade permanently?"
+    )
   ){
 
     return;
@@ -8891,19 +5378,19 @@ async function deleteTrade(
   const {
     error
   } =
-    await db
-      .from(
-        "daily_trades"
-      )
-      .delete()
-      .eq(
-        "id",
-        tradeId
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      );
+  await db
+    .from(
+      "daily_trades"
+    )
+    .delete()
+    .eq(
+      "id",
+      tradeId
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    );
 
 
   if(
@@ -8924,13 +5411,11 @@ async function deleteTrade(
 
   await loadTrades();
 
-
   updateDashboard();
 
   updateSelectedTraderProfile();
 
   renderJournalDays();
-
 
   showToast(
     "Trade deleted."
@@ -8940,51 +5425,335 @@ async function deleteTrade(
 
 
 /* =========================================================
-   AUTH STATE LISTENER
+   DASHBOARD
 ========================================================= */
 
-db.auth.onAuthStateChange(
-  (
-    event,
-    session
-  ) => {
+function calculateStats(
+  list
+){
 
-    if(
-      session &&
-      session.user
-    ){
+  const total =
+    list.length;
 
-      currentUser =
-        session.user;
 
-    }else{
+  const wins =
+    list.filter(
+      trade =>
+        trade.result ===
+        "Win"
+    ).length;
 
-      currentUser =
-        null;
 
-    }
+  const losses =
+    list.filter(
+      trade =>
+        trade.result ===
+        "Loss"
+    ).length;
+
+
+  const be =
+    list.filter(
+      trade =>
+        trade.result ===
+        "BE"
+    ).length;
+
+
+  const pnl =
+    list.reduce(
+      (
+        sum,
+        trade
+      ) =>
+        sum +
+        (
+          Number(
+            trade.pnl
+          ) ||
+          0
+        ),
+      0
+    );
+
+
+  const rValues =
+    list
+      .map(
+        trade =>
+          Number(
+            trade.r_multiple
+          )
+      )
+      .filter(
+        Number.isFinite
+      );
+
+
+  const avgR =
+    rValues.length
+      ? rValues.reduce(
+          (
+            a,
+            b
+          ) =>
+            a +
+            b,
+          0
+        ) /
+        rValues.length
+      : 0;
+
+
+  const winRate =
+    total
+      ? (
+          wins /
+          total *
+          100
+        ).toFixed(
+          1
+        )
+      : 0;
+
+
+  return {
+
+    total,
+
+    wins,
+
+    losses,
+
+    be,
+
+    pnl,
+
+    avgR,
+
+    winRate
+
+  };
+
+}
+
+
+function updateDashboard(){
+
+  const stats =
+    calculateStats(
+      trades
+    );
+
+
+  $("statTotal")
+    .textContent =
+    stats.total;
+
+
+  $("statWins")
+    .textContent =
+    stats.wins;
+
+
+  $("statLosses")
+    .textContent =
+    stats.losses;
+
+
+  $("statWinRate")
+    .textContent =
+    stats.winRate +
+    "%";
+
+
+  $("statPnl")
+    .textContent =
+    formatMoney(
+      stats.pnl
+    );
+
+
+  $("statAvgR")
+    .textContent =
+    formatNumber(
+      stats.avgR
+    ) +
+    "R";
+
+
+  renderRecentTrades();
+
+  renderSummary();
+
+}
+
+
+function renderRecentTrades(){
+
+  const container =
+    $("recentTrades");
+
+
+  const recent =
+    trades
+      .slice(
+        0,
+        8
+      );
+
+
+  if(
+    !recent.length
+  ){
+
+    container.innerHTML = `
+
+      <div class="empty-state">
+        No trades yet.
+      </div>
+
+    `;
+
+    return;
 
   }
-);
+
+
+  container.innerHTML =
+    recent
+      .map(
+        trade =>
+          renderTradeRow(
+            trade
+          )
+      )
+      .join("");
+
+}
+
+
+function renderSummary(){
+
+  const stats =
+    calculateStats(
+      trades
+    );
+
+
+  $("summaryContent")
+    .innerHTML = `
+
+      <div
+        class="trade-details"
+      >
+
+        <div class="trade-detail">
+
+          <span>
+            Total Trades
+          </span>
+
+          <strong>
+            ${stats.total}
+          </strong>
+
+        </div>
+
+
+        <div class="trade-detail">
+
+          <span>
+            Wins
+          </span>
+
+          <strong>
+            ${stats.wins}
+          </strong>
+
+        </div>
+
+
+        <div class="trade-detail">
+
+          <span>
+            Losses
+          </span>
+
+          <strong>
+            ${stats.losses}
+          </strong>
+
+        </div>
+
+
+        <div class="trade-detail">
+
+          <span>
+            Break Even
+          </span>
+
+          <strong>
+            ${stats.be}
+          </strong>
+
+        </div>
+
+
+        <div class="trade-detail">
+
+          <span>
+            Total PnL
+          </span>
+
+          <strong>
+            ${formatMoney(stats.pnl)}
+          </strong>
+
+        </div>
+
+
+        <div class="trade-detail">
+
+          <span>
+            Average R
+          </span>
+
+          <strong>
+            ${formatNumber(stats.avgR)}R
+          </strong>
+
+        </div>
+
+      </div>
+
+    `;
+
+}
 
 
 /* =========================================================
-   CLOSE MODAL WHEN CLICKING BACKDROP
+   CANCEL TRADE
 ========================================================= */
 
-$("traderModal")
+$("cancelTradeBtn")
   .addEventListener(
     "click",
-    event => {
+    () => {
 
-      if(
-        event.target ===
-        $("traderModal")
-      ){
+      editingTradeId =
+        null;
 
-        closeTraderModal();
+      $("tradeForm")
+        .reset();
 
-      }
+      $("tradeFormTitle")
+        .textContent =
+        "Add Trade";
+
+      showPageById(
+        "journal"
+      );
 
     }
   );
@@ -9025,646 +5794,6 @@ document
 
     }
   );
-
-/* =========================================================
-   CREATE JOURNAL MONTH
-========================================================= */
-
-async function createMonth(){
-
-  if(
-    !currentUser
-  ){
-
-    showToast(
-      "Please login first.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const now =
-    new Date();
-
-
-  const year =
-    now.getFullYear();
-
-
-  const month =
-    now.getMonth() + 1;
-
-
-  /* =======================================================
-     CHECK IF MONTH ALREADY EXISTS
-  ======================================================= */
-
-  const existing =
-    journalMonths.find(
-      item =>
-        Number(
-          item.year
-        ) ===
-        Number(
-          year
-        ) &&
-        Number(
-          item.month
-        ) ===
-        Number(
-          month
-        )
-    );
-
-
-  if(
-    existing
-  ){
-
-    selectedMonth =
-      existing;
-
-
-    renderMonths();
-
-    renderJournalDays();
-
-    showToast(
-      "Current month already exists."
-    );
-
-    return;
-
-  }
-
-
-  /* =======================================================
-     CREATE LOCAL MONTH IMMEDIATELY
-  ======================================================= */
-
-  const tempId =
-    "temp-month-" +
-    Date.now();
-
-
-  const localMonth = {
-
-    id:
-      tempId,
-
-    user_id:
-      currentUser.id,
-
-    year:
-      year,
-
-    month:
-      month,
-
-    title:
-      "",
-
-    notes:
-      "",
-
-    created_at:
-      new Date()
-        .toISOString()
-
-  };
-
-
-  journalMonths.unshift(
-    localMonth
-  );
-
-
-  selectedMonth =
-    localMonth;
-
-
-  /* =======================================================
-     INSTANT UI UPDATE
-  ======================================================= */
-
-  renderMonths();
-
-  renderJournalDays();
-
-
-  showToast(
-    "Current month created."
-  );
-
-
-  /* =======================================================
-     SAVE TO SUPABASE
-  ======================================================= */
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from(
-        "journal_months"
-      )
-      .insert({
-
-        user_id:
-          currentUser.id,
-
-        year:
-          year,
-
-        month:
-          month,
-
-        title:
-          "",
-
-        notes:
-          ""
-
-      })
-      .select()
-      .single();
-
-
-  /* =======================================================
-     ROLLBACK IF ERROR
-  ======================================================= */
-
-  if(
-    error
-  ){
-
-    journalMonths =
-      journalMonths.filter(
-        item =>
-          item.id !==
-          tempId
-      );
-
-
-    selectedMonth =
-      null;
-
-
-    renderMonths();
-
-    renderJournalDays();
-
-
-    console.error(
-      error
-    );
-
-
-    showToast(
-      getErrorMessage(
-        error
-      ),
-      "error"
-    );
-
-
-    return;
-
-  }
-
-
-  /* =======================================================
-     REPLACE TEMP ID WITH REAL DATABASE ID
-  ======================================================= */
-
-  journalMonths =
-    journalMonths.map(
-      item =>
-        item.id ===
-        tempId
-          ? data
-          : item
-    );
-
-
-  selectedMonth =
-    data;
-
-
-  renderMonths();
-
-  renderJournalDays();
-
-}
-
-
-/* =========================================================
-   CREATE JOURNAL DAY
-========================================================= */
-
-async function createJournalDay(){
-
-  if(
-    !currentUser
-  ){
-
-    showToast(
-      "Please login first.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !selectedMonth
-  ){
-
-    showToast(
-      "Please select a journal month first.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const today =
-    new Date();
-
-
-  const date =
-    today
-      .toISOString()
-      .split(
-        "T"
-      )[0];
-
-
-  /* =======================================================
-     CHECK EXISTING DAY
-  ======================================================= */
-
-  const existing =
-    journalDays.find(
-      day =>
-        dday.month_id
-        selectedMonth.id &&
-        day.journal_date ===
-        date
-    );
-
-
-  if(
-    existing
-  ){
-
-    showToast(
-      "Today's journal day already exists."
-    );
-
-    return;
-
-  }
-
-
-  /* =======================================================
-     CREATE LOCAL DAY
-  ======================================================= */
-
-  const tempId =
-    "temp-day-" +
-    Date.now();
-
-
-  const localDay = {
-
-    id:
-      tempId,
-
-    user_id:
-      currentUser.id,
-
-    journal_month_id:
-      selectedMonth.id,
-
-    journal_date:
-      date,
-
-    title:
-      "",
-
-    content:
-      "",
-
-    mood:
-      "",
-
-    discipline:
-      "",
-
-    lessons:
-      "",
-
-    created_at:
-      new Date()
-        .toISOString()
-
-  };
-
-
-  journalDays.unshift(
-    localDay
-  );
-
-
-  /* =======================================================
-     INSTANT UI
-  ======================================================= */
-
-  renderJournalDays();
-
-
-  showToast(
-    "Journal day created."
-  );
-
-
-  /* =======================================================
-     SAVE DATABASE
-  ======================================================= */
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from(
-        "journal_days"
-      )
-      .insert({
-
-        user_id:
-          currentUser.id,
-
-        month_id:
-          selectedMonth.id,
-
-        journal_date:
-          date,
-
-        title:
-          "",
-
-        content:
-          "",
-
-        mood:
-          "",
-
-        discipline:
-          "",
-
-        lessons:
-          ""
-
-      })
-      .select()
-      .single();
-
-
-  /* =======================================================
-     ERROR ROLLBACK
-  ======================================================= */
-
-  if(
-    error
-  ){
-
-    journalDays =
-      journalDays.filter(
-        day =>
-          day.id !==
-          tempId
-      );
-
-
-    renderJournalDays();
-
-
-    console.error(
-      error
-    );
-
-
-    showToast(
-      getErrorMessage(
-        error
-      ),
-      "error"
-    );
-
-
-    return;
-
-  }
-
-
-  /* =======================================================
-     REPLACE TEMP DAY
-  ======================================================= */
-
-  journalDays =
-    journalDays.map(
-      day =>
-        day.id ===
-        tempId
-          ? data
-          : day
-    );
-
-
-  renderJournalDays();
-
-}
-
-
-/* =========================================================
-   LOAD JOURNAL MONTHS
-========================================================= */
-
-async function loadJournalMonths(){
-
-  if(
-    !currentUser
-  ){
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-  await db
-    .from(
-      "journal_months"
-    )
-    .select(
-      "*"
-    )
-    .eq(
-      "user_id",
-      currentUser.id
-    )
-    .order(
-      "year",
-      {
-        ascending:
-          false
-      }
-    )
-    .order(
-      "month",
-      {
-        ascending:
-          false
-      }
-    );
-
-
-  if(
-    error
-  ){
-
-    console.error(
-      "Journal months error:",
-      error
-    );
-
-    return;
-
-  }
-
-
-  journalMonths =
-    data ||
-    [];
-
-
-  renderMonths();
-
-}
-
-
-/* =========================================================
-   LOAD JOURNAL DAYS
-========================================================= */
-
-async function loadJournalDays(){
-
-  if(
-    !currentUser
-  ){
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-  await db
-    .from(
-      "journal_days"
-    )
-    .select(
-      "*"
-    )
-    .eq(
-      "user_id",
-      currentUser.id
-    )
-    .order(
-      "journal_date",
-      {
-        ascending:
-          false
-      }
-    );
-
-
-  if(
-    error
-  ){
-
-    console.error(
-      "Journal days error:",
-      error
-    );
-
-    return;
-
-  }
-
-
-  journalDays =
-    data ||
-    [];
-
-
-  renderJournalDays();
-
-}
-
-
-/* =========================================================
-   CREATE MONTH BUTTON COMPATIBILITY
-========================================================= */
-
-function createJournalMonth(){
-
-  return createMonth();
-
-}
-
-
-/* =========================================================
-   CREATE DAY BUTTON COMPATIBILITY
-========================================================= */
-
-function createJournalDay(){
-
-  return createJournalDay();
-
-}
-
-
-/* =========================================================
-   INITIAL APP START
-========================================================= */
-
-document
-  .addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-      checkSession();
-
-    }
-  );
-
 
 </script>
 
