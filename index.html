@@ -1,19 +1,8 @@
-<!-- AAD TRADING JOURNAL — FINAL UPDATED VERSION -->
-
-<!-- Supabase Schema:
-     traders
-     journal_months
-     daily_journals
-     daily_trades
-     trade_photos
--->
-
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AAD Trading Journal</title>
 
@@ -21,538 +10,646 @@
 
 <style>
 :root{
---bg:#050812;
---panel:#0d1424;
---panel2:#111b30;
---border:#263552;
---text:#f7f9ff;
---muted:#8f9bb5;
---primary:#7667ff;
---blue:#35a7ff;
---green:#18c77d;
---red:#ff5c72;
---yellow:#f5bd4f;
---shadow:0 25px 80px rgba(0,0,0,.4);
+  --bg:#060914;
+  --panel:#0d1424;
+  --panel2:#111b30;
+  --card:#0a1120;
+  --border:#24314d;
+  --text:#f5f7ff;
+  --muted:#8e9ab2;
+  --primary:#756cff;
+  --blue:#3da8ff;
+  --green:#16c784;
+  --red:#ff5570;
+  --yellow:#f4b942;
+  --cyan:#00d4ff;
+  --pink:#ff4ecd;
+  --shadow:0 25px 70px rgba(0,0,0,.45);
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
-font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-background:
-radial-gradient(circle at 10% 0%,rgba(118,103,255,.18),transparent 30%),
-radial-gradient(circle at 100% 100%,rgba(53,167,255,.10),transparent 30%),
-var(--bg);
-color:var(--text);
-min-height:100vh;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(117,108,255,.18),transparent 25%),
+    radial-gradient(circle at 90% 20%,rgba(0,212,255,.10),transparent 25%),
+    radial-gradient(circle at 50% 100%,rgba(255,78,205,.08),transparent 30%),
+    var(--bg);
 }
 
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
+button,input,select,textarea{
+  font:inherit;
+}
 
-.hidden{display:none!important}
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
 
 .container{
-width:min(1450px,94%);
-margin:auto
-}
-
-.btn{
-border:0;
-border-radius:12px;
-padding:12px 18px;
-font-weight:800;
-color:#fff;
-background:linear-gradient(135deg,var(--primary),#427dff);
-transition:.2s;
-}
-
-.btn:hover{
-transform:translateY(-1px);
-filter:brightness(1.08)
-}
-
-.btn.secondary{
-background:#18233a;
-border:1px solid var(--border)
-}
-
-.btn.green{
-background:linear-gradient(135deg,#0e9f68,#1bd38a)
-}
-
-.btn.danger{
-background:rgba(255,92,114,.12);
-border:1px solid rgba(255,92,114,.35);
-color:#ff8b9a
-}
-
-.btn.full{width:100%}
-
-input,select,textarea{
-width:100%;
-background:#080f1d;
-border:1px solid var(--border);
-border-radius:12px;
-padding:12px 14px;
-color:#fff;
-outline:none;
-}
-
-input:focus,select:focus,textarea:focus{
-border-color:var(--primary);
-box-shadow:0 0 0 3px rgba(118,103,255,.14)
-}
-
-textarea{
-min-height:110px;
-resize:vertical
-}
-
-.field{margin-bottom:14px}
-
-.field label{
-display:block;
-font-size:12px;
-font-weight:700;
-color:var(--muted);
-margin-bottom:7px
+  width:min(1450px,94%);
+  margin:auto;
 }
 
 /* AUTH */
 
 #authPage{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:25px
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
 }
 
 .auth-card{
-width:min(460px,100%);
-background:rgba(13,20,36,.94);
-border:1px solid var(--border);
-border-radius:28px;
-padding:38px;
-box-shadow:var(--shadow)
+  width:min(480px,100%);
+  padding:42px;
+  border-radius:30px;
+  background:rgba(13,20,36,.9);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(20px);
 }
 
 .logo{
-width:65px;
-height:65px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:18px;
-background:linear-gradient(135deg,var(--primary),var(--blue));
-font-weight:1000;
-font-size:21px;
-margin-bottom:20px
+  width:70px;
+  height:70px;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:1000;
+  font-size:22px;
+  margin-bottom:22px;
+  background:linear-gradient(135deg,#756cff,#3da8ff,#00d4ff);
+  box-shadow:0 10px 35px rgba(117,108,255,.35);
 }
 
-.auth-card h1{font-size:30px;margin-bottom:8px}
+.auth-card h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
 
 .subtitle{
-color:var(--muted);
-line-height:1.7;
-margin-bottom:28px
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:28px;
+}
+
+.field{
+  margin-bottom:15px;
+}
+
+.field label{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:7px;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px 14px;
+  color:var(--text);
+  background:#080e1b;
+  border:1px solid var(--border);
+  border-radius:12px;
+  outline:none;
+  transition:.2s;
+}
+
+input:focus,select:focus,textarea:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(117,108,255,.14);
+}
+
+textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.btn{
+  border:0;
+  border-radius:12px;
+  padding:12px 18px;
+  color:#fff;
+  font-weight:800;
+  background:linear-gradient(135deg,#756cff,#477cff);
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.08);
+}
+
+.btn.full{
+  width:100%;
+}
+
+.btn.secondary{
+  background:#18233a;
+  border:1px solid var(--border);
+}
+
+.btn.green{
+  background:linear-gradient(135deg,#0c9e68,#16c784);
+}
+
+.btn.red{
+  background:linear-gradient(135deg,#d93653,#ff5570);
+}
+
+.btn.yellow{
+  background:linear-gradient(135deg,#d99c20,#f4b942);
+  color:#171100;
 }
 
 .auth-switch{
-text-align:center;
-margin-top:18px;
-color:var(--muted);
-font-size:14px
+  text-align:center;
+  color:var(--muted);
+  margin-top:18px;
+  font-size:14px;
 }
 
 .auth-switch button{
-border:0;
-background:none;
-color:#a8a0ff;
-font-weight:800
+  background:none;
+  border:0;
+  color:#a39dff;
+  font-weight:800;
 }
 
 /* HEADER */
 
 header{
-position:sticky;
-top:0;
-z-index:100;
-background:rgba(5,8,18,.86);
-backdrop-filter:blur(18px);
-border-bottom:1px solid var(--border)
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(6,9,20,.86);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(18px);
 }
 
 .nav{
-min-height:76px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:20px
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
 
 .brand{
-display:flex;
-align-items:center;
-gap:12px
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
 .brand-icon{
-width:45px;
-height:45px;
-border-radius:14px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:1000;
-background:linear-gradient(135deg,var(--primary),var(--blue))
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:1000;
+  background:linear-gradient(135deg,#756cff,#3da8ff);
 }
 
-.brand-text strong{display:block}
-.brand-text small{color:var(--muted)}
+.brand-text strong{
+  display:block;
+}
+
+.brand-text small{
+  color:var(--muted);
+}
 
 .user-area{
-display:flex;
-align-items:center;
-gap:10px
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 .user-email{
-color:var(--muted);
-font-size:13px
+  color:var(--muted);
+  font-size:13px;
 }
 
 /* MAIN */
 
-main{padding:30px 0 60px}
+main{
+  padding:30px 0 60px;
+}
 
 .panel{
-background:rgba(13,20,36,.88);
-border:1px solid var(--border);
-border-radius:22px;
-padding:22px;
-box-shadow:0 12px 45px rgba(0,0,0,.18)
+  background:rgba(13,20,36,.88);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 12px 45px rgba(0,0,0,.18);
 }
 
 .top-grid{
-display:grid;
-grid-template-columns:1.2fr .8fr;
-gap:20px;
-margin-bottom:20px
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:20px;
+  margin-bottom:20px;
 }
 
 .panel-title{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:15px;
-margin-bottom:18px
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:18px;
 }
 
-.panel-title h2{font-size:20px}
+.panel-title h2{
+  font-size:20px;
+}
+
 .panel-title p{
-color:var(--muted);
-font-size:13px;
-margin-top:4px
+  color:var(--muted);
+  font-size:13px;
+  margin-top:5px;
 }
 
 /* TRADERS */
 
 .trader-buttons{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
 
 .trader-btn{
-border:1px solid var(--border);
-background:#09111f;
-color:#fff;
-border-radius:16px;
-padding:18px;
-text-align:left;
-transition:.2s
+  padding:18px;
+  border-radius:16px;
+  text-align:left;
+  color:#fff;
+  background:linear-gradient(145deg,#0b1324,#0a101d);
+  border:1px solid var(--border);
+  transition:.25s;
 }
 
 .trader-btn:hover{
-border-color:var(--primary);
-transform:translateY(-2px)
+  transform:translateY(-3px);
+  border-color:var(--primary);
 }
 
 .trader-btn.active{
-border-color:var(--primary);
-background:linear-gradient(135deg,rgba(118,103,255,.25),rgba(53,167,255,.1));
-box-shadow:0 0 0 2px rgba(118,103,255,.08)
+  background:
+    linear-gradient(135deg,
+      rgba(117,108,255,.3),
+      rgba(0,212,255,.12));
+  border-color:#756cff;
+  box-shadow:0 10px 35px rgba(117,108,255,.18);
 }
 
 .trader-btn small{
-display:block;
-color:var(--muted);
-font-size:10px;
-margin-bottom:6px
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-bottom:6px;
+}
+
+.trader-btn strong{
+  font-size:16px;
 }
 
 /* STATS */
 
 .stats{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:12px;
-margin-bottom:20px
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:20px;
 }
 
 .stat{
-background:#09111f;
-border:1px solid var(--border);
-border-radius:17px;
-padding:18px
+  padding:20px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#0d1628,#09101d);
+  border:1px solid var(--border);
 }
 
-.stat small{color:var(--muted)}
+.stat:nth-child(1){
+  border-top:3px solid var(--blue);
+}
+
+.stat:nth-child(2){
+  border-top:3px solid var(--green);
+}
+
+.stat:nth-child(3){
+  border-top:3px solid var(--yellow);
+}
+
+.stat:nth-child(4){
+  border-top:3px solid var(--pink);
+}
+
+.stat small{
+  color:var(--muted);
+}
+
 .stat strong{
-display:block;
-font-size:24px;
-margin-top:7px
+  display:block;
+  font-size:25px;
+  margin-top:8px;
 }
 
 /* MONTH */
 
 .month-bar{
-display:flex;
-gap:10px;
-align-items:center
+  display:flex;
+  gap:10px;
 }
 
-.month-bar select{flex:1}
+.month-bar select{
+  flex:1;
+}
 
 /* CALENDAR */
 
-.calendar-panel{margin-bottom:20px}
+.calendar-panel{
+  margin-bottom:20px;
+}
+
+.calendar-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
 
 .calendar-grid{
-display:grid;
-grid-template-columns:repeat(7,1fr);
-gap:8px
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
 }
 
 .weekday{
-color:var(--muted);
-font-size:12px;
-font-weight:700;
-text-align:center;
-padding:8px
+  padding:8px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
 }
 
 .day{
-min-height:100px;
-border:1px solid var(--border);
-border-radius:14px;
-background:#080f1d;
-padding:10px;
-cursor:pointer;
-transition:.2s
+  min-height:105px;
+  padding:10px;
+  border-radius:15px;
+  border:1px solid var(--border);
+  background:#080f1d;
+  cursor:pointer;
+  transition:.2s;
 }
 
 .day:hover{
-border-color:var(--primary);
-transform:translateY(-1px)
+  transform:translateY(-2px);
+  border-color:var(--primary);
 }
 
 .day.empty{
-opacity:.2;
-cursor:default
+  opacity:.15;
+  cursor:default;
 }
 
-.day-number{font-weight:900}
-
-.day-status{
-margin-top:20px;
-font-size:11px;
-color:var(--muted)
-}
-
-.day.has-entry{
-box-shadow:inset 0 -3px 0 var(--blue)
+.day.selected{
+  border-color:#fff;
+  box-shadow:0 0 0 2px rgba(117,108,255,.6);
 }
 
 .day.win{
-border-color:rgba(24,199,125,.6);
-background:rgba(24,199,125,.08)
+  background:rgba(22,199,132,.10);
+  border-color:rgba(22,199,132,.55);
 }
 
 .day.loss{
-border-color:rgba(255,92,114,.6);
-background:rgba(255,92,114,.08)
+  background:rgba(255,85,112,.10);
+  border-color:rgba(255,85,112,.55);
 }
 
 .day.be{
-border-color:rgba(245,189,79,.6);
-background:rgba(245,189,79,.08)
+  background:rgba(244,185,66,.10);
+  border-color:rgba(244,185,66,.55);
+}
+
+.day-number{
+  font-weight:900;
+}
+
+.day-status{
+  margin-top:22px;
+  font-size:11px;
+  color:var(--muted);
 }
 
 /* DAILY */
 
 .daily-layout{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
 }
 
 .form-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
 }
 
-.full-width{grid-column:1/-1}
+.full-width{
+  grid-column:1/-1;
+}
 
 .actions{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-top:16px
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
 }
 
 /* TRADES */
 
 .trade-card{
-background:#080f1d;
-border:1px solid var(--border);
-border-radius:17px;
-padding:17px;
-margin-bottom:12px
+  padding:18px;
+  margin-bottom:12px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#0a1221,#080e19);
+  border:1px solid var(--border);
 }
 
 .trade-top{
-display:flex;
-justify-content:space-between;
-gap:10px;
-margin-bottom:14px
-}
-
-.badge{
-display:inline-flex;
-padding:5px 10px;
-border-radius:999px;
-font-size:11px;
-font-weight:900
-}
-
-.badge.win{
-color:#65e4ae;
-background:rgba(24,199,125,.12)
-}
-
-.badge.loss{
-color:#ff8795;
-background:rgba(255,92,114,.12)
-}
-
-.badge.be{
-color:#ffd36b;
-background:rgba(245,189,79,.12)
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:15px;
 }
 
 .trade-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:12px
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
 }
 
 .trade-item small{
-display:block;
-font-size:11px;
-color:var(--muted)
+  display:block;
+  color:var(--muted);
+  font-size:11px;
 }
 
 .trade-item strong{
-display:block;
-margin-top:4px
+  display:block;
+  margin-top:4px;
 }
 
+.badge{
+  display:inline-flex;
+  padding:5px 11px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:900;
+}
+
+.badge.win{
+  color:#62e6ae;
+  background:rgba(22,199,132,.13);
+}
+
+.badge.loss{
+  color:#ff8999;
+  background:rgba(255,85,112,.13);
+}
+
+.badge.be{
+  color:#ffd56b;
+  background:rgba(244,185,66,.13);
+}
+
+/* IMAGE */
+
 .image-preview{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-top:10px
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:10px;
 }
 
 .image-preview img{
-width:120px;
-height:90px;
-object-fit:cover;
-border-radius:12px;
-border:1px solid var(--border)
+  width:130px;
+  height:100px;
+  object-fit:cover;
+  border-radius:12px;
+  border:1px solid var(--border);
 }
 
 /* FOOTER */
 
 footer{
-text-align:center;
-padding:30px;
-color:var(--muted);
-border-top:1px solid var(--border)
+  text-align:center;
+  padding:35px 20px;
+  color:var(--muted);
+  border-top:1px solid var(--border);
 }
 
-footer strong{color:#b5afff}
+footer strong{
+  color:#b6b0ff;
+}
 
 /* TOAST */
 
 #toast{
-position:fixed;
-right:25px;
-bottom:25px;
-z-index:999;
-background:#151f33;
-border:1px solid var(--border);
-padding:14px 18px;
-border-radius:13px;
-box-shadow:var(--shadow);
-opacity:0;
-transform:translateY(15px);
-pointer-events:none;
-transition:.25s
+  position:fixed;
+  right:25px;
+  bottom:25px;
+  z-index:999;
+  max-width:420px;
+  padding:15px 20px;
+  border-radius:14px;
+  background:#151f33;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  opacity:0;
+  transform:translateY(15px);
+  pointer-events:none;
+  transition:.25s;
 }
 
 #toast.show{
-opacity:1;
-transform:translateY(0)
+  opacity:1;
+  transform:translateY(0);
 }
 
 .loading{
-text-align:center;
-padding:25px;
-color:var(--muted)
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
 }
 
-@media(max-width:1050px){
-.top-grid,.daily-layout{grid-template-columns:1fr}
-.stats{grid-template-columns:repeat(3,1fr)}
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+  .top-grid,
+  .daily-layout{
+    grid-template-columns:1fr;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
 
 @media(max-width:700px){
-.container{width:94%}
-.nav{padding:12px 0}
-.user-email{display:none}
-.trader-buttons{grid-template-columns:1fr}
-.stats{grid-template-columns:1fr 1fr}
-.form-grid{grid-template-columns:1fr}
-.trade-grid{grid-template-columns:repeat(2,1fr)}
-.calendar-grid{gap:5px}
-.day{min-height:75px;padding:7px}
-.day-status{margin-top:10px;font-size:9px}
-.month-bar{flex-direction:column}
-.month-bar select,.month-bar button{width:100%}
-.auth-card{padding:25px}
+  .trader-buttons{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .trade-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .calendar-grid{
+    gap:4px;
+  }
+
+  .day{
+    min-height:75px;
+    padding:7px;
+  }
+
+  .day-status{
+    margin-top:10px;
+    font-size:9px;
+  }
+
+  .user-email{
+    display:none;
+  }
+
+  .auth-card{
+    padding:25px;
+  }
 }
 </style>
-
 </head>
 
 <body>
-
-<!-- AUTH -->
 
 <section id="authPage">
 
@@ -563,8 +660,8 @@ color:var(--muted)
 <h1>AAD Trading Journal</h1>
 
 <p class="subtitle">
-Your professional trading journal.<br>
-ကိုယ့် Trading မှတ်တမ်းတွေကို စနစ်တကျ သိမ်းဆည်းပါ။
+Your personal professional trading journal.<br>
+ကိုယ့် Trading အတွေ့အကြုံနဲ့ မှတ်တမ်းတွေကို စနစ်တကျ သိမ်းဆည်းပါ။
 </p>
 
 <div id="loginForm">
@@ -579,7 +676,9 @@ Your professional trading journal.<br>
 <input id="loginPassword" type="password">
 </div>
 
-<button class="btn full" onclick="login()">Login</button>
+<button class="btn full" onclick="login()">
+Login ဝင်မယ်
+</button>
 
 <div class="auth-switch">
 Account မရှိသေးဘူးလား?
@@ -600,7 +699,9 @@ Account မရှိသေးဘူးလား?
 <input id="signupPassword" type="password">
 </div>
 
-<button class="btn full" onclick="signup()">Create Account</button>
+<button class="btn full" onclick="signup()">
+Account ဖန်တီးမယ်
+</button>
 
 <div class="auth-switch">
 Account ရှိပြီးသားလား?
@@ -613,7 +714,6 @@ Account ရှိပြီးသားလား?
 
 </section>
 
-<!-- APP -->
 
 <section id="appPage" class="hidden">
 
@@ -646,13 +746,14 @@ Logout
 
 </header>
 
+
 <main>
 
 <div class="container">
 
-<!-- TRADER + MONTH -->
 
 <div class="top-grid">
+
 
 <div class="panel">
 
@@ -663,10 +764,6 @@ Logout
 <p>မှတ်တမ်းတင်မည့် Trader ကိုရွေးပါ</p>
 </div>
 
-<button class="btn green" onclick="createTrader()">
-+ Create Trader
-</button>
-
 </div>
 
 <div id="traderList" class="trader-buttons">
@@ -675,24 +772,27 @@ Logout
 
 </div>
 
+
 <div class="panel">
 
 <div class="panel-title">
 
 <div>
-<h2>Monthly Journal</h2>
-<p>ရွေးထားသော Trader အတွက် Month စီမံပါ</p>
+<h2>Journal Months</h2>
+<p>ရွေးထားသော Trader အတွက် Month ဖန်တီးပါ</p>
 </div>
 
 </div>
 
 <div class="month-bar">
 
-<select id="monthSelect" onchange="changeMonth(this.value)">
+<select id="monthSelect"
+onchange="changeMonth(this.value)">
 <option value="">Select Month</option>
 </select>
 
-<button class="btn green" onclick="createNewMonth()">
+<button class="btn green"
+onclick="createNewMonth()">
 + Create Month
 </button>
 
@@ -702,7 +802,6 @@ Logout
 
 </div>
 
-<!-- STATS -->
 
 <div class="stats">
 
@@ -726,25 +825,27 @@ Logout
 <strong id="statR">0R</strong>
 </div>
 
-<div class="stat">
-<small>Profit Factor</small>
-<strong id="statPF">0</strong>
 </div>
 
-</div>
-
-<!-- CALENDAR -->
 
 <div class="panel calendar-panel">
 
-<div class="panel-title">
+<div class="calendar-head">
 
 <div>
-<h2 id="calendarTitle">Trading Calendar</h2>
-<p>နေ့ရက်တစ်ရက်ကိုနှိပ်ပြီး Journal ဖြည့်ပါ</p>
+
+<h2 id="calendarTitle">
+Select Trader & Month
+</h2>
+
+<p style="color:var(--muted);margin-top:5px;">
+နေ့ရက်တစ်ရက်ကိုနှိပ်ပြီး Journal ဖြည့်ပါ
+</p>
+
 </div>
 
 </div>
+
 
 <div class="calendar-grid">
 
@@ -762,11 +863,9 @@ Logout
 
 </div>
 
-<!-- DAILY + TRADE -->
 
 <div class="daily-layout">
 
-<!-- DAILY JOURNAL -->
 
 <div class="panel">
 
@@ -779,69 +878,103 @@ Logout
 
 </div>
 
+
 <div class="form-grid">
+
 
 <div class="field">
 <label>Market Condition</label>
-<input id="marketCondition" placeholder="Trending / Ranging / Volatile">
+<input id="marketCondition"
+placeholder="Trending / Ranging / Volatile">
 </div>
+
 
 <div class="field">
 <label>Market Bias</label>
+
 <select id="marketBias">
+
 <option value="">Select</option>
 <option>Strong Bullish</option>
 <option>Bullish</option>
 <option>Neutral</option>
 <option>Bearish</option>
 <option>Strong Bearish</option>
+
 </select>
+
 </div>
+
 
 <div class="field full-width">
 <label>Today's Trading Plan</label>
-<textarea id="dailyPlan"></textarea>
+
+<textarea id="dailyPlan"
+placeholder="ဒီနေ့ ဘာကိုစောင့်မလဲ?"></textarea>
+
 </div>
+
 
 <div class="field">
 <label>Emotion Before</label>
-<input id="emotionBefore">
+<input id="emotionBefore"
+placeholder="Calm / Fear / Greed">
 </div>
+
 
 <div class="field">
 <label>Emotion After</label>
-<input id="emotionAfter">
+<input id="emotionAfter"
+placeholder="Calm / Happy / Regret">
 </div>
+
 
 <div class="field full-width">
 <label>Daily Result</label>
-<textarea id="dailyResult"></textarea>
+
+<textarea id="dailyResult"
+placeholder="ဒီနေ့ Trading Result"></textarea>
+
 </div>
+
 
 <div class="field full-width">
 <label>Lessons Learned</label>
-<textarea id="lessons"></textarea>
+
+<textarea id="lessons"
+placeholder="ဒီနေ့ ဘာသင်ယူခဲ့လဲ?"></textarea>
+
 </div>
+
 
 <div class="field full-width">
 <label>Mistakes</label>
-<textarea id="mistakes"></textarea>
+
+<textarea id="mistakes"
+placeholder="ဘာတွေမှားခဲ့လဲ?"></textarea>
+
 </div>
+
 
 <div class="field full-width">
 <label>Additional Notes</label>
+
 <textarea id="dailyNotes"></textarea>
+
 </div>
 
 </div>
+
 
 <div class="actions">
 
-<button class="btn" onclick="saveDailyJournal()">
+<button class="btn"
+onclick="saveDailyJournal()">
 Save Daily Journal
 </button>
 
-<button class="btn danger" onclick="deleteDailyJournal()">
+<button class="btn red"
+onclick="deleteDailyJournal()">
 Delete Day
 </button>
 
@@ -849,7 +982,6 @@ Delete Day
 
 </div>
 
-<!-- TRADE FORM -->
 
 <div class="panel">
 
@@ -862,74 +994,93 @@ Delete Day
 
 </div>
 
+
 <div class="form-grid">
+
 
 <div class="field">
 <label>Symbol</label>
-<input id="tradeSymbol" placeholder="EURUSD / XAUUSD / BTCUSDT">
+<input id="tradeSymbol"
+placeholder="EURUSD / XAUUSD / BTCUSDT">
 </div>
+
 
 <div class="field">
 <label>Direction</label>
+
 <select id="tradeDirection">
 <option value="">Select</option>
-<option>Long</option>
-<option>Short</option>
+<option value="Long">Long</option>
+<option value="Short">Short</option>
 </select>
+
 </div>
+
 
 <div class="field">
 <label>Entry Price</label>
 <input id="tradeEntry" type="number" step="any">
 </div>
 
+
 <div class="field">
 <label>Stop Loss</label>
 <input id="tradeSL" type="number" step="any">
 </div>
+
 
 <div class="field">
 <label>Take Profit</label>
 <input id="tradeTP" type="number" step="any">
 </div>
 
+
 <div class="field">
 <label>Lot Size</label>
 <input id="tradeLot" type="number" step="any">
 </div>
+
 
 <div class="field">
 <label>Risk %</label>
 <input id="tradeRiskPercent" type="number" step="any">
 </div>
 
+
 <div class="field">
 <label>Risk Amount</label>
 <input id="tradeRiskAmount" type="number" step="any">
 </div>
+
 
 <div class="field">
 <label>P&L ($)</label>
 <input id="tradePnl" type="number" step="any">
 </div>
 
+
 <div class="field">
 <label>R Multiple</label>
 <input id="tradeR" type="number" step="any">
 </div>
 
+
 <div class="field">
 <label>Result</label>
+
 <select id="tradeResult">
 <option value="">Select</option>
-<option>Win</option>
-<option>Loss</option>
-<option>BE</option>
+<option value="Win">Win</option>
+<option value="Loss">Loss</option>
+<option value="BE">Break Even</option>
 </select>
+
 </div>
+
 
 <div class="field">
 <label>Rating</label>
+
 <select id="tradeRating">
 <option value="">Select</option>
 <option value="1">1</option>
@@ -938,44 +1089,62 @@ Delete Day
 <option value="4">4</option>
 <option value="5">5</option>
 </select>
+
 </div>
+
 
 <div class="field full-width">
 <label>Strategy</label>
-<input id="tradeStrategy" placeholder="SMC / Wyckoff / Breakout / Pullback">
+<input id="tradeStrategy"
+placeholder="SMC / Wyckoff / Breakout / Pullback">
 </div>
+
 
 <div class="field">
 <label>Emotion</label>
 <input id="tradeEmotion">
 </div>
 
+
 <div class="field">
 <label>Entry Reason</label>
 <input id="entryReason">
 </div>
+
 
 <div class="field full-width">
 <label>Exit Reason</label>
 <input id="exitReason">
 </div>
 
+
 <div class="field full-width">
 <label>Trade Notes</label>
 <textarea id="tradeNotes"></textarea>
 </div>
 
+
 <div class="field full-width">
-<label>Trade Screenshot</label>
-<input id="tradeImage" type="file" accept="image/*" multiple>
-<div id="tradeImagePreview" class="image-preview"></div>
+
+<label>Trade Screenshots</label>
+
+<input id="tradeImage"
+type="file"
+accept="image/*"
+multiple>
+
+<div id="tradeImagePreview"
+class="image-preview"></div>
+
 </div>
 
 </div>
+
 
 <div class="actions">
 
-<button class="btn green" onclick="saveTrade()">
+<button class="btn green"
+onclick="saveTrade()">
 + Save Trade
 </button>
 
@@ -985,9 +1154,8 @@ Delete Day
 
 </div>
 
-<!-- TRADE LIST -->
 
-<div class="panel" style="margin-top:20px">
+<div class="panel" style="margin-top:20px;">
 
 <div class="panel-title">
 
@@ -999,34 +1167,42 @@ Delete Day
 </div>
 
 <div id="tradeList">
-<div class="loading">Select a date</div>
+<div class="loading">
+Select a date
+</div>
 </div>
 
 </div>
+
 
 </div>
 
 </main>
 
+
 <footer>
 
-<div>AAD Trading Journal</div>
+<div>
+AAD Trading Journal
+</div>
 
-<div style="margin-top:8px">
-ရေးသားသူ / ဖန်တီးသူ — <strong>ကျော်ဝင်းစိန်</strong>
+<div style="margin-top:8px;">
+ဒီ Website ကို ဖန်တီးသူ — <strong>ကျော်ဝင်းစိန်</strong>
 </div>
 
 </footer>
 
 </section>
 
+
 <div id="toast"></div>
+
 
 <script>
 
-/* ============================================================
+/* =========================================================
 SUPABASE
-============================================================ */
+========================================================= */
 
 const SUPABASE_URL =
 "https://jxbqhaikqwsswnlxlzpa.supabase.co";
@@ -1041,9 +1217,9 @@ SUPABASE_KEY
 );
 
 
-/* ============================================================
+/* =========================================================
 STATE
-============================================================ */
+========================================================= */
 
 let currentUser=null;
 let traders=[];
@@ -1052,11 +1228,12 @@ let months=[];
 let currentMonth=null;
 let selectedDate=null;
 let currentDailyJournal=null;
+let selectedFiles=[];
 
 
-/* ============================================================
+/* =========================================================
 HELPERS
-============================================================ */
+========================================================= */
 
 function toast(message){
 
@@ -1068,7 +1245,7 @@ el.classList.add("show");
 
 setTimeout(()=>{
 el.classList.remove("show");
-},3500);
+},4000);
 
 }
 
@@ -1088,18 +1265,18 @@ return String(value)
 }
 
 
-function num(id){
+function numberValue(id){
 
-const v=document.getElementById(id).value;
+const value=document.getElementById(id).value;
 
-return v===""?null:Number(v);
+return value===""?null:Number(value);
 
 }
 
 
-/* ============================================================
-AUTH UI
-============================================================ */
+/* =========================================================
+AUTH
+========================================================= */
 
 function showSignup(){
 
@@ -1122,10 +1299,6 @@ document.getElementById("loginForm")
 
 }
 
-
-/* ============================================================
-SIGNUP
-============================================================ */
 
 async function signup(){
 
@@ -1174,10 +1347,6 @@ showLogin();
 }
 
 
-/* ============================================================
-LOGIN
-============================================================ */
-
 async function login(){
 
 const email=
@@ -1187,6 +1356,14 @@ document.getElementById("loginEmail")
 const password=
 document.getElementById("loginPassword")
 .value;
+
+if(!email||!password){
+
+toast("Email နဲ့ Password ဖြည့်ပါ");
+
+return;
+
+}
 
 const {data,error}=
 await supabaseClient.auth.signInWithPassword({
@@ -1209,10 +1386,6 @@ await openApp();
 }
 
 
-/* ============================================================
-LOGOUT
-============================================================ */
-
 async function logout(){
 
 await supabaseClient.auth.signOut();
@@ -1222,9 +1395,25 @@ location.reload();
 }
 
 
-/* ============================================================
+async function checkSession(){
+
+const {data}=
+await supabaseClient.auth.getSession();
+
+if(data.session){
+
+currentUser=data.session.user;
+
+await openApp();
+
+}
+
+}
+
+
+/* =========================================================
 OPEN APP
-============================================================ */
+========================================================= */
 
 async function openApp(){
 
@@ -1242,9 +1431,11 @@ await loadTraders();
 }
 
 
-/* ============================================================
+/* =========================================================
 LOAD TRADERS
-============================================================ */
+IMPORTANT:
+NO journal table required
+========================================================= */
 
 async function loadTraders(){
 
@@ -1256,7 +1447,12 @@ await supabaseClient
 
 if(error){
 
-toast("Trader Error: "+error.message);
+console.error(error);
+
+toast(
+"Trader Loading Error: "+
+error.message
+);
 
 return;
 
@@ -1271,20 +1467,22 @@ renderTraders();
 
 function renderTraders(){
 
-const box=document.getElementById("traderList");
+const box=
+document.getElementById("traderList");
 
 if(!traders.length){
 
 box.innerHTML=
 `<div class="loading">
-No Trader Found
+No Trader Profiles Found
 </div>`;
 
 return;
 
 }
 
-box.innerHTML=traders.map(t=>`
+box.innerHTML=
+traders.map(t=>`
 
 <button
 class="trader-btn ${
@@ -1292,8 +1490,7 @@ selectedTrader &&
 selectedTrader.id===t.id
 ?"active":""
 }"
-onclick="selectTrader('${t.id}')"
->
+onclick="selectTrader('${t.id}')">
 
 <small>TRADER PROFILE</small>
 
@@ -1308,43 +1505,9 @@ ${escapeHtml(t.name)}
 }
 
 
-/* ============================================================
-CREATE TRADER
-============================================================ */
-
-async function createTrader(){
-
-const name=
-prompt("Trader Name ထည့်ပါ");
-
-if(!name||!name.trim())
-return;
-
-const {error}=
-await supabaseClient
-.from("traders")
-.insert({
-name:name.trim()
-});
-
-if(error){
-
-toast("Create Trader Error: "+error.message);
-
-return;
-
-}
-
-toast("Trader Created");
-
-await loadTraders();
-
-}
-
-
-/* ============================================================
+/* =========================================================
 SELECT TRADER
-============================================================ */
+========================================================= */
 
 async function selectTrader(id){
 
@@ -1361,19 +1524,21 @@ selectedDate=null;
 currentDailyJournal=null;
 
 clearDailyForm();
+clearTradeForm();
 
 await loadMonths();
 
 }
 
 
-/* ============================================================
+/* =========================================================
 LOAD MONTHS
-============================================================ */
+NO journal_id
+========================================================= */
 
 async function loadMonths(){
 
-if(!selectedTrader)
+if(!currentUser||!selectedTrader)
 return;
 
 const {data,error}=
@@ -1387,7 +1552,10 @@ await supabaseClient
 
 if(error){
 
-toast("Month Loading Error: "+error.message);
+toast(
+"Month Loading Error: "+
+error.message
+);
 
 return;
 
@@ -1408,6 +1576,8 @@ await renderCalendar();
 
 }else{
 
+currentMonth=null;
+
 clearCalendar();
 
 }
@@ -1415,9 +1585,9 @@ clearCalendar();
 }
 
 
-/* ============================================================
+/* =========================================================
 MONTH SELECT
-============================================================ */
+========================================================= */
 
 function renderMonthSelect(){
 
@@ -1431,12 +1601,15 @@ Select Month
 
 months.forEach(m=>{
 
-const label=
+const date=
 new Date(
 m.year,
 m.month-1,
 1
-).toLocaleString(
+);
+
+const label=
+date.toLocaleString(
 "en-US",
 {
 month:"long",
@@ -1445,9 +1618,11 @@ year:"numeric"
 );
 
 select.innerHTML+=
-`<option value="${m.id}">
+`
+<option value="${m.id}">
 ${label}
-</option>`;
+</option>
+`;
 
 });
 
@@ -1468,22 +1643,33 @@ currentDailyJournal=null;
 
 clearDailyForm();
 
+clearTradeForm();
+
 await renderCalendar();
 
 }
 
 
-/* ============================================================
+/* =========================================================
 CREATE MONTH
-IMPORTANT:
-NO journal_id
-============================================================ */
+FIXED
+========================================================= */
 
 async function createNewMonth(){
 
+if(!currentUser){
+
+toast("Please Login First");
+
+return;
+
+}
+
 if(!selectedTrader){
 
-toast("အရင် Trader Profile ရွေးပါ");
+toast(
+"အရင် Trader Profile ရွေးပါ"
+);
 
 return;
 
@@ -1504,11 +1690,28 @@ m.month===month
 
 if(exists){
 
-toast("ဒီလ Journal ရှိပြီးသားပါ");
+toast(
+"ဒီလ Journal ရှိပြီးသားပါ"
+);
+
+currentMonth=exists;
+
+document.getElementById("monthSelect")
+.value=exists.id;
+
+await renderCalendar();
 
 return;
 
 }
+
+
+/*
+IMPORTANT:
+journal_id မထည့်တော့ပါ။
+Database အသစ်အတိုင်း
+user_id + trader_id ကိုပဲသုံးထားပါတယ်။
+*/
 
 const {data,error}=
 await supabaseClient
@@ -1529,6 +1732,8 @@ month:month
 
 if(error){
 
+console.error(error);
+
 toast(
 "Month Create Error: "+
 error.message
@@ -1538,23 +1743,20 @@ return;
 
 }
 
-toast("Month Created Successfully");
-
-await loadMonths();
+toast(
+"Month Created Successfully"
+);
 
 currentMonth=data;
 
-document.getElementById("monthSelect")
-.value=data.id;
-
-await renderCalendar();
+await loadMonths();
 
 }
 
 
-/* ============================================================
+/* =========================================================
 CALENDAR
-============================================================ */
+========================================================= */
 
 async function renderCalendar(){
 
@@ -1571,6 +1773,21 @@ return;
 
 }
 
+const firstDay=
+new Date(
+currentMonth.year,
+currentMonth.month-1,
+1
+).getDay();
+
+const daysInMonth=
+new Date(
+currentMonth.year,
+currentMonth.month,
+0
+).getDate();
+
+
 document.getElementById("calendarTitle")
 .textContent=
 new Date(
@@ -1585,29 +1802,18 @@ year:"numeric"
 }
 );
 
-const firstDay=
-new Date(
-currentMonth.year,
-currentMonth.month-1,
-1
-).getDay();
-
-const days=
-new Date(
-currentMonth.year,
-currentMonth.month,
-0
-).getDate();
 
 for(let i=0;i<firstDay;i++){
 
-const empty=document.createElement("div");
+const empty=
+document.createElement("div");
 
 empty.className="day empty";
 
 calendar.appendChild(empty);
 
 }
+
 
 const {data}=await supabaseClient
 .from("daily_journals")
@@ -1616,30 +1822,39 @@ const {data}=await supabaseClient
 .eq("trader_id",selectedTrader.id)
 .eq("month_id",currentMonth.id);
 
+
 const entries=data||[];
 
-for(let day=1;day<=days;day++){
+
+for(let day=1;day<=daysInMonth;day++){
 
 const date=
 `${currentMonth.year}-${
-String(currentMonth.month).padStart(2,"0")
+String(currentMonth.month)
+.padStart(2,"0")
 }-${
-String(day).padStart(2,"0")
+String(day)
+.padStart(2,"0")
 }`;
+
 
 const entry=
 entries.find(
 e=>e.journal_date===date
 );
 
+
 const div=
 document.createElement("div");
 
 div.className="day";
 
-if(entry){
 
-div.classList.add("has-entry");
+if(selectedDate===date)
+div.classList.add("selected");
+
+
+if(entry){
 
 const result=
 (entry.daily_result||"")
@@ -1659,15 +1874,21 @@ div.classList.add("be");
 
 }
 
+
 div.innerHTML=`
 
-<div class="day-number">${day}</div>
+<div class="day-number">
+${day}
+</div>
 
 <div class="day-status">
-${entry?"✓ Journal":"Empty"}
+
+${entry?"✓ Journal Saved":"Empty"}
+
 </div>
 
 `;
+
 
 div.onclick=()=>selectDate(date);
 
@@ -1675,10 +1896,15 @@ calendar.appendChild(div);
 
 }
 
+
 await updateStats();
 
 }
 
+
+/* =========================================================
+CLEAR CALENDAR
+========================================================= */
 
 function clearCalendar(){
 
@@ -1686,7 +1912,8 @@ document.getElementById("calendar")
 .innerHTML="";
 
 document.getElementById("calendarTitle")
-.textContent="Create a Month to Start";
+.textContent=
+"Select Trader & Month";
 
 document.getElementById("monthSelect")
 .value="";
@@ -1694,16 +1921,18 @@ document.getElementById("monthSelect")
 }
 
 
-/* ============================================================
+/* =========================================================
 SELECT DATE
-============================================================ */
+========================================================= */
 
 async function selectDate(date){
 
 selectedDate=date;
 
 document.getElementById("selectedDateText")
-.textContent=date;
+.textContent=
+`${date} • ${selectedTrader.name}`;
+
 
 const {data,error}=
 await supabaseClient
@@ -1715,9 +1944,13 @@ await supabaseClient
 .eq("journal_date",date)
 .maybeSingle();
 
+
 if(error){
 
-toast(error.message);
+toast(
+"Daily Journal Error: "+
+error.message
+);
 
 return;
 
@@ -1729,16 +1962,18 @@ fillDailyForm(data);
 
 await loadTrades();
 
+await renderCalendar();
+
 }
 
 
-/* ============================================================
-DAILY FORM
-============================================================ */
+/* =========================================================
+FILL DAILY FORM
+========================================================= */
 
-function fillDailyForm(e){
+function fillDailyForm(entry){
 
-if(!e){
+if(!entry){
 
 clearDailyForm();
 
@@ -1746,32 +1981,41 @@ return;
 
 }
 
-document.getElementById("marketCondition").value=
-e.market_condition||"";
+document.getElementById("marketCondition")
+.value=
+entry.market_condition||"";
 
-document.getElementById("marketBias").value=
-e.market_bias||"";
+document.getElementById("marketBias")
+.value=
+entry.market_bias||"";
 
-document.getElementById("dailyPlan").value=
-e.daily_plan||"";
+document.getElementById("dailyPlan")
+.value=
+entry.daily_plan||"";
 
-document.getElementById("emotionBefore").value=
-e.emotion_before||"";
+document.getElementById("emotionBefore")
+.value=
+entry.emotion_before||"";
 
-document.getElementById("emotionAfter").value=
-e.emotion_after||"";
+document.getElementById("emotionAfter")
+.value=
+entry.emotion_after||"";
 
-document.getElementById("dailyResult").value=
-e.daily_result||"";
+document.getElementById("dailyResult")
+.value=
+entry.daily_result||"";
 
-document.getElementById("lessons").value=
-e.lessons||"";
+document.getElementById("lessons")
+.value=
+entry.lessons||"";
 
-document.getElementById("mistakes").value=
-e.mistakes||"";
+document.getElementById("mistakes")
+.value=
+entry.mistakes||"";
 
-document.getElementById("dailyNotes").value=
-e.notes||"";
+document.getElementById("dailyNotes")
+.value=
+entry.notes||"";
 
 }
 
@@ -1787,8 +2031,12 @@ function clearDailyForm(){
 "lessons",
 "mistakes",
 "dailyNotes"
-].forEach(id=>{
-document.getElementById(id).value="";
+]
+.forEach(id=>{
+
+document.getElementById(id)
+.value="";
+
 });
 
 document.getElementById("marketBias")
@@ -1797,27 +2045,25 @@ document.getElementById("marketBias")
 }
 
 
-/* ============================================================
+/* =========================================================
 SAVE DAILY JOURNAL
-============================================================ */
+========================================================= */
 
 async function saveDailyJournal(){
 
-if(!selectedTrader){
+if(!currentUser||
+!selectedTrader||
+!currentMonth||
+!selectedDate){
 
-toast("Trader ရွေးပါ");
-
-return;
-
-}
-
-if(!currentMonth||!selectedDate){
-
-toast("Calendar ထဲက Date ရွေးပါ");
+toast(
+"Trader, Month, Date အရင်ရွေးပါ"
+);
 
 return;
 
 }
+
 
 const payload={
 
@@ -1829,14 +2075,14 @@ month_id:currentMonth.id,
 
 journal_date:selectedDate,
 
-market_condition:
-document.getElementById("marketCondition").value,
+daily_plan:
+document.getElementById("dailyPlan").value,
 
 market_bias:
 document.getElementById("marketBias").value,
 
-daily_plan:
-document.getElementById("dailyPlan").value,
+market_condition:
+document.getElementById("marketCondition").value,
 
 emotion_before:
 document.getElementById("emotionBefore").value,
@@ -1858,7 +2104,9 @@ document.getElementById("dailyNotes").value
 
 };
 
+
 let result;
+
 
 if(currentDailyJournal){
 
@@ -1867,7 +2115,9 @@ await supabaseClient
 .from("daily_journals")
 .update(payload)
 .eq("id",currentDailyJournal.id)
-.eq("user_id",currentUser.id);
+.eq("user_id",currentUser.id)
+.select()
+.single();
 
 }else{
 
@@ -1878,15 +2128,13 @@ await supabaseClient
 .select()
 .single();
 
-if(!result.error)
-currentDailyJournal=result.data;
-
 }
+
 
 if(result.error){
 
 toast(
-"Daily Journal Error: "+
+"Daily Save Error: "+
 result.error.message
 );
 
@@ -1894,31 +2142,40 @@ return;
 
 }
 
-toast("Daily Journal Saved");
+currentDailyJournal=result.data;
+
+toast(
+"Daily Journal Saved"
+);
 
 await renderCalendar();
 
-await selectDate(selectedDate);
+await loadTrades();
 
 }
 
 
-/* ============================================================
+/* =========================================================
 DELETE DAILY JOURNAL
-============================================================ */
+========================================================= */
 
 async function deleteDailyJournal(){
 
 if(!currentDailyJournal){
 
-toast("ဖျက်ရန် Journal မရှိပါ");
+toast(
+"ဖျက်ရန် Journal မရှိပါ"
+);
 
 return;
 
 }
 
-if(!confirm("ဒီနေ့ Journal နှင့် ဆက်စပ် Trade အားလုံးကို ဖျက်မည်လား?"))
+if(!confirm(
+"ဒီနေ့ရဲ့ Journal နဲ့ Trades အားလုံးကို ဖျက်မှာသေချာပါသလား?"
+))
 return;
+
 
 const {error}=
 await supabaseClient
@@ -1927,9 +2184,13 @@ await supabaseClient
 .eq("id",currentDailyJournal.id)
 .eq("user_id",currentUser.id);
 
+
 if(error){
 
-toast(error.message);
+toast(
+"Delete Error: "+
+error.message
+);
 
 return;
 
@@ -1939,28 +2200,132 @@ currentDailyJournal=null;
 
 clearDailyForm();
 
-toast("Daily Journal Deleted");
+document.getElementById("tradeList")
+.innerHTML=
+`<div class="loading">
+Select a date
+</div>`;
+
+toast(
+"Daily Journal Deleted"
+);
 
 await renderCalendar();
-
-await loadTrades();
 
 }
 
 
-/* ============================================================
+/* =========================================================
+TRADE IMAGE PREVIEW
+========================================================= */
+
+document.getElementById("tradeImage")
+.addEventListener(
+"change",
+function(){
+
+selectedFiles=
+Array.from(this.files||[]);
+
+const preview=
+document.getElementById(
+"tradeImagePreview"
+);
+
+preview.innerHTML="";
+
+selectedFiles.forEach(file=>{
+
+const url=
+URL.createObjectURL(file);
+
+preview.innerHTML+=
+`<img src="${url}">`;
+
+});
+
+}
+);
+
+
+/* =========================================================
+UPLOAD TRADE PHOTOS
+BUCKET:
+trade-screenshots
+========================================================= */
+
+async function uploadTradePhotos(tradeId){
+
+if(!selectedFiles.length)
+return;
+
+
+for(const file of selectedFiles){
+
+const safeName=
+file.name
+.replace(/[^a-zA-Z0-9._-]/g,"_");
+
+const path=
+`${currentUser.id}/${tradeId}/${Date.now()}_${safeName}`;
+
+
+const {error:uploadError}=
+await supabaseClient.storage
+.from("trade-screenshots")
+.upload(
+path,
+file,
+{
+upsert:false
+}
+);
+
+
+if(uploadError){
+
+console.error(uploadError);
+
+continue;
+
+}
+
+
+await supabaseClient
+.from("trade_photos")
+.insert({
+
+user_id:currentUser.id,
+
+daily_trade_id:tradeId,
+
+file_path:path,
+
+file_name:file.name
+
+});
+
+}
+
+}
+
+
+/* =========================================================
 SAVE TRADE
-============================================================ */
+========================================================= */
 
 async function saveTrade(){
 
 if(!currentDailyJournal){
 
-toast("Trade ထည့်ရန် Daily Journal ကို အရင် Save လုပ်ပါ");
+toast(
+"Trade ထည့်ရန် Daily Journal ကိုအရင် Save လုပ်ပါ"
+);
 
 return;
 
 }
+
 
 const payload={
 
@@ -1968,29 +2333,38 @@ user_id:currentUser.id,
 
 trader_id:selectedTrader.id,
 
-daily_journal_id:currentDailyJournal.id,
+daily_journal_id:
+currentDailyJournal.id,
 
 symbol:
-document.getElementById("tradeSymbol").value.trim(),
+document.getElementById("tradeSymbol").value,
 
 direction:
 document.getElementById("tradeDirection").value,
 
-entry_price:num("tradeEntry"),
+entry_price:
+numberValue("tradeEntry"),
 
-stop_loss:num("tradeSL"),
+stop_loss:
+numberValue("tradeSL"),
 
-take_profit:num("tradeTP"),
+take_profit:
+numberValue("tradeTP"),
 
-lot_size:num("tradeLot"),
+lot_size:
+numberValue("tradeLot"),
 
-risk_percent:num("tradeRiskPercent"),
+risk_percent:
+numberValue("tradeRiskPercent"),
 
-risk_amount:num("tradeRiskAmount"),
+risk_amount:
+numberValue("tradeRiskAmount"),
 
-pnl:num("tradePnl"),
+pnl:
+numberValue("tradePnl"),
 
-r_multiple:num("tradeR"),
+r_multiple:
+numberValue("tradeR"),
 
 result:
 document.getElementById("tradeResult").value,
@@ -2001,7 +2375,8 @@ document.getElementById("tradeStrategy").value,
 emotion:
 document.getElementById("tradeEmotion").value,
 
-rating:num("tradeRating"),
+rating:
+numberValue("tradeRating"),
 
 entry_reason:
 document.getElementById("entryReason").value,
@@ -2014,6 +2389,7 @@ document.getElementById("tradeNotes").value
 
 };
 
+
 if(!payload.symbol){
 
 toast("Symbol ဖြည့်ပါ");
@@ -2022,12 +2398,14 @@ return;
 
 }
 
+
 const {data,error}=
 await supabaseClient
 .from("daily_trades")
 .insert(payload)
 .select()
 .single();
+
 
 if(error){
 
@@ -2040,77 +2418,85 @@ return;
 
 }
 
-const files=
-document.getElementById("tradeImage")
-.files;
 
-if(files.length){
+await uploadTradePhotos(data.id);
 
-for(const file of files){
-
-const path=
-`${currentUser.id}/${data.id}/${Date.now()}_${file.name}`;
-
-const upload=
-await supabaseClient
-.storage
-.from("trade-screenshots")
-.upload(
-path,
-file,
-{
-upsert:false
-}
-);
-
-if(upload.error){
-
-toast(
-"Image Upload Error: "+
-upload.error.message
-);
-
-continue;
-
-}
-
-await supabaseClient
-.from("trade_photos")
-.insert({
-
-user_id:currentUser.id,
-
-daily_trade_id:data.id,
-
-file_path:path,
-
-file_name:file.name
-
-});
-
-}
-
-}
-
-toast("Trade Saved Successfully");
+selectedFiles=[];
 
 clearTradeForm();
+
+toast(
+"Trade Saved Successfully"
+);
 
 await loadTrades();
 
 await updateStats();
 
+await renderCalendar();
+
 }
 
 
-/* ============================================================
+/* =========================================================
+CLEAR TRADE
+========================================================= */
+
+function clearTradeForm(){
+
+[
+"tradeSymbol",
+"tradeEntry",
+"tradeSL",
+"tradeTP",
+"tradeLot",
+"tradeRiskPercent",
+"tradeRiskAmount",
+"tradePnl",
+"tradeR",
+"tradeStrategy",
+"tradeEmotion",
+"entryReason",
+"exitReason",
+"tradeNotes"
+]
+.forEach(id=>{
+
+document.getElementById(id)
+.value="";
+
+});
+
+
+document.getElementById("tradeDirection")
+.value="";
+
+document.getElementById("tradeResult")
+.value="";
+
+document.getElementById("tradeRating")
+.value="";
+
+document.getElementById("tradeImage")
+.value="";
+
+document.getElementById("tradeImagePreview")
+.innerHTML="";
+
+selectedFiles=[];
+
+}
+
+
+/* =========================================================
 LOAD TRADES
-============================================================ */
+========================================================= */
 
 async function loadTrades(){
 
 const box=
 document.getElementById("tradeList");
+
 
 if(!currentDailyJournal){
 
@@ -2123,13 +2509,11 @@ return;
 
 }
 
+
 const {data,error}=
 await supabaseClient
 .from("daily_trades")
-.select(`
-*,
-trade_photos(*)
-`)
+.select("*")
 .eq(
 "daily_journal_id",
 currentDailyJournal.id
@@ -2140,18 +2524,21 @@ currentUser.id
 )
 .order(
 "created_at",
-{
-ascending:false
-}
+{ascending:false}
 );
+
 
 if(error){
 
-toast(error.message);
+toast(
+"Trade Loading Error: "+
+error.message
+);
 
 return;
 
 }
+
 
 if(!data||!data.length){
 
@@ -2163,6 +2550,7 @@ No trades recorded for this day.
 return;
 
 }
+
 
 box.innerHTML=
 data.map(t=>{
@@ -2181,23 +2569,8 @@ if(result==="loss")
 badge=
 `<span class="badge loss">LOSS</span>`;
 
-const photos=
-(t.trade_photos||[])
-.map(p=>{
 
-const url=
-supabaseClient
-.storage
-.from("trade-screenshots")
-.getPublicUrl(p.file_path)
-.data.publicUrl;
-
-return `<img src="${url}" alt="Trade Screenshot">`;
-
-})
-.join("");
-
-return`
+return `
 
 <div class="trade-card">
 
@@ -2209,7 +2582,7 @@ return`
 ${escapeHtml(t.symbol||"-")}
 </strong>
 
-<span style="color:var(--muted);margin-left:8px">
+<span style="color:var(--muted);margin-left:8px;">
 ${escapeHtml(t.direction||"")}
 </span>
 
@@ -2238,60 +2611,38 @@ ${badge}
 </div>
 
 <div class="trade-item">
-<small>Lot</small>
-<strong>${t.lot_size??"-"}</strong>
-</div>
-
-<div class="trade-item">
 <small>P&L</small>
-<strong>$${Number(t.pnl||0).toFixed(2)}</strong>
+<strong>
+$${Number(t.pnl||0).toFixed(2)}
+</strong>
 </div>
 
 <div class="trade-item">
 <small>R</small>
-<strong>${t.r_multiple??0}R</strong>
+<strong>
+${t.r_multiple??0}R
+</strong>
 </div>
 
 <div class="trade-item">
 <small>Risk</small>
-<strong>${t.risk_percent??0}%</strong>
+<strong>
+${t.risk_percent??0}%
+</strong>
+</div>
+
+<div class="trade-item">
+<small>Strategy</small>
+<strong>
+${escapeHtml(t.strategy||"-")}
+</strong>
 </div>
 
 <div class="trade-item">
 <small>Rating</small>
-<strong>${t.rating??"-"}/5</strong>
-</div>
-
-</div>
-
-
-<div style="
-margin-top:14px;
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-color:var(--muted);
-font-size:13px;
-">
-
-<div>
-<strong style="color:white">Strategy:</strong>
-${escapeHtml(t.strategy||"-")}
-</div>
-
-<div>
-<strong style="color:white">Emotion:</strong>
-${escapeHtml(t.emotion||"-")}
-</div>
-
-<div>
-<strong style="color:white">Entry Reason:</strong>
-${escapeHtml(t.entry_reason||"-")}
-</div>
-
-<div>
-<strong style="color:white">Exit Reason:</strong>
-${escapeHtml(t.exit_reason||"-")}
+<strong>
+${t.rating??"-"}/5
+</strong>
 </div>
 
 </div>
@@ -2302,8 +2653,8 @@ t.notes
 ?
 `<p style="
 color:var(--muted);
-margin-top:14px;
-line-height:1.6
+margin-top:15px;
+line-height:1.6;
 ">
 ${escapeHtml(t.notes)}
 </p>`
@@ -2311,18 +2662,12 @@ ${escapeHtml(t.notes)}
 }
 
 
-<div class="image-preview">
-${photos}
-</div>
-
-
 <div class="actions">
 
 <button
-class="btn danger"
-onclick="deleteTrade('${t.id}')"
->
-Delete Trade
+class="btn red"
+onclick="deleteTrade('${t.id}')">
+Delete
 </button>
 
 </div>
@@ -2336,31 +2681,17 @@ Delete Trade
 }
 
 
-/* ============================================================
+/* =========================================================
 DELETE TRADE
-============================================================ */
+========================================================= */
 
 async function deleteTrade(id){
 
-if(!confirm("ဒီ Trade ကို ဖျက်မလား?"))
+if(!confirm(
+"ဒီ Trade ကိုဖျက်မှာသေချာပါသလား?"
+))
 return;
 
-const {data:photos}=
-await supabaseClient
-.from("trade_photos")
-.select("*")
-.eq("daily_trade_id",id);
-
-if(photos&&photos.length){
-
-await supabaseClient
-.storage
-.from("trade-screenshots")
-.remove(
-photos.map(p=>p.file_path)
-);
-
-}
 
 const {error}=
 await supabaseClient
@@ -2369,13 +2700,18 @@ await supabaseClient
 .eq("id",id)
 .eq("user_id",currentUser.id);
 
+
 if(error){
 
-toast(error.message);
+toast(
+"Delete Trade Error: "+
+error.message
+);
 
 return;
 
 }
+
 
 toast("Trade Deleted");
 
@@ -2388,87 +2724,16 @@ await renderCalendar();
 }
 
 
-/* ============================================================
-CLEAR TRADE
-============================================================ */
-
-function clearTradeForm(){
-
-[
-"tradeSymbol",
-"tradeEntry",
-"tradeSL",
-"tradeTP",
-"tradeLot",
-"tradeRiskPercent",
-"tradeRiskAmount",
-"tradePnl",
-"tradeR",
-"tradeStrategy",
-"tradeEmotion",
-"entryReason",
-"exitReason",
-"tradeNotes"
-].forEach(id=>{
-document.getElementById(id).value="";
-});
-
-document.getElementById("tradeDirection").value="";
-document.getElementById("tradeResult").value="";
-document.getElementById("tradeRating").value="";
-document.getElementById("tradeImage").value="";
-document.getElementById("tradeImagePreview").innerHTML="";
-
-}
-
-
-/* ============================================================
-IMAGE PREVIEW
-============================================================ */
-
-document.addEventListener(
-"change",
-function(e){
-
-if(e.target.id!=="tradeImage")
-return;
-
-const box=
-document.getElementById("tradeImagePreview");
-
-box.innerHTML="";
-
-Array.from(e.target.files)
-.forEach(file=>{
-
-const reader=new FileReader();
-
-reader.onload=ev=>{
-
-const img=document.createElement("img");
-
-img.src=ev.target.result;
-
-box.appendChild(img);
-
-};
-
-reader.readAsDataURL(file);
-
-});
-
-}
-);
-
-
-/* ============================================================
+/* =========================================================
 STATS
-============================================================ */
+========================================================= */
 
 async function updateStats(){
 
-if(!selectedTrader)
+if(!currentUser||
+!selectedTrader)
 return;
+
 
 const {data:monthsData}=
 await supabaseClient
@@ -2477,49 +2742,58 @@ await supabaseClient
 .eq("user_id",currentUser.id)
 .eq("trader_id",selectedTrader.id);
 
+
 if(!monthsData||!monthsData.length){
 
-setStats(0,0,0,0,0);
+setStats(0,0,0,0);
 
 return;
 
 }
 
+
 const monthIds=
 monthsData.map(m=>m.id);
+
 
 const {data:entries}=
 await supabaseClient
 .from("daily_journals")
 .select("id")
-.in("month_id",monthIds)
-.eq("user_id",currentUser.id);
+.eq("user_id",currentUser.id)
+.eq("trader_id",selectedTrader.id)
+.in("month_id",monthIds);
+
 
 if(!entries||!entries.length){
 
-setStats(0,0,0,0,0);
+setStats(0,0,0,0);
 
 return;
 
 }
 
+
 const entryIds=
 entries.map(e=>e.id);
+
 
 const {data:trades}=
 await supabaseClient
 .from("daily_trades")
 .select("result,pnl,r_multiple")
-.in("daily_journal_id",entryIds)
-.eq("user_id",currentUser.id);
+.eq("user_id",currentUser.id)
+.in("daily_journal_id",entryIds);
+
 
 if(!trades||!trades.length){
 
-setStats(0,0,0,0,0);
+setStats(0,0,0,0);
 
 return;
 
 }
+
 
 const total=trades.length;
 
@@ -2528,56 +2802,31 @@ trades.filter(
 t=>t.result==="Win"
 ).length;
 
-const losses=
-trades.filter(
-t=>t.result==="Loss"
-).length;
-
 const winRate=
-(total?wins/total*100:0)
-.toFixed(1);
+total?
+((wins/total)*100).toFixed(1)
+:0;
 
 const pnl=
 trades.reduce(
-(s,t)=>s+Number(t.pnl||0),
+(sum,t)=>
+sum+Number(t.pnl||0),
 0
 );
 
 const r=
 trades.reduce(
-(s,t)=>s+Number(t.r_multiple||0),
+(sum,t)=>
+sum+Number(t.r_multiple||0),
 0
 );
 
-const grossProfit=
-trades
-.filter(t=>Number(t.pnl||0)>0)
-.reduce(
-(s,t)=>s+Number(t.pnl||0),
-0
-);
-
-const grossLoss=
-Math.abs(
-trades
-.filter(t=>Number(t.pnl||0)<0)
-.reduce(
-(s,t)=>s+Number(t.pnl||0),
-0
-)
-);
-
-const pf=
-grossLoss?
-(grossProfit/grossLoss).toFixed(2):
-(grossProfit?"∞":"0");
 
 setStats(
 total,
 winRate,
 pnl,
-r,
-pf
+r
 );
 
 }
@@ -2587,62 +2836,30 @@ function setStats(
 total,
 winRate,
 pnl,
-r,
-pf
+r
 ){
 
 document.getElementById("statTrades")
 .textContent=total;
 
 document.getElementById("statWinRate")
-.textContent=winRate+"%";
+.textContent=
+`${winRate}%`;
 
 document.getElementById("statPnl")
 .textContent=
-"$"+Number(pnl||0).toFixed(2);
+`$${Number(pnl||0).toFixed(2)}`;
 
 document.getElementById("statR")
 .textContent=
-Number(r||0).toFixed(2)+"R";
-
-document.getElementById("statPF")
-.textContent=pf;
+`${Number(r||0).toFixed(2)}R`;
 
 }
 
 
-/* ============================================================
-SESSION
-============================================================ */
-
-async function checkSession(){
-
-const {data}=
-await supabaseClient.auth.getSession();
-
-if(data.session){
-
-currentUser=data.session.user;
-
-await openApp();
-
-}
-
-}
-
-
-supabaseClient.auth.onAuthStateChange(
-(event,session)=>{
-
-if(session){
-
-currentUser=session.user;
-
-}
-
-}
-);
-
+/* =========================================================
+START
+========================================================= */
 
 document.addEventListener(
 "DOMContentLoaded",
