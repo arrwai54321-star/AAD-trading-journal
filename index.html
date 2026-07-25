@@ -6446,6 +6446,484 @@ document
 
 
 /* =========================================================
+   AAD TRADE PHOTO 3-SLOT ADD-ON
+   ADD AT THE VERY END
+========================================================= */
+
+(function(){
+
+  const MAX_PHOTOS = 3;
+
+  let selectedPhotos = [];
+
+
+  /* =======================================================
+     ADD PHOTO UI AUTOMATICALLY
+  ======================================================= */
+
+  function createPhotoBox(){
+
+    const notes =
+      document.getElementById(
+        "tradeNotes"
+      );
+
+    if(
+      !notes ||
+      document.getElementById(
+        "aadTradePhotoBox"
+      )
+    ){
+
+      return;
+
+    }
+
+
+    const notesGroup =
+      notes.closest(
+        ".form-group"
+      );
+
+
+    if(
+      !notesGroup
+    ){
+
+      return;
+
+    }
+
+
+    const photoBox =
+      document.createElement(
+        "div"
+      );
+
+
+    photoBox.id =
+      "aadTradePhotoBox";
+
+
+    photoBox.className =
+      "form-group";
+
+
+    photoBox.innerHTML = `
+
+      <label>
+
+        📷 Trade Screenshots
+
+        <span
+          class="muted"
+        >
+          (Maximum 3 Photos)
+        </span>
+
+      </label>
+
+
+      <input
+        id="aadTradePhotoInput"
+        type="file"
+        accept="image/*"
+        multiple
+      >
+
+
+      <div
+        id="aadTradePhotoPreview"
+        class="aad-photo-preview"
+      >
+
+        <div
+          class="aad-photo-empty"
+        >
+          No photos selected
+        </div>
+
+      </div>
+
+    `;
+
+
+    notesGroup.after(
+      photoBox
+    );
+
+
+    const input =
+      document.getElementById(
+        "aadTradePhotoInput"
+      );
+
+
+    if(
+      input
+    ){
+
+      input.addEventListener(
+        "change",
+        handlePhotoSelect
+      );
+
+    }
+
+  }
+
+
+  /* =======================================================
+     SELECT PHOTOS
+  ======================================================= */
+
+  function handlePhotoSelect(
+    event
+  ){
+
+    const files =
+      Array.from(
+        event.target.files ||
+        []
+      );
+
+
+    if(
+      !files.length
+    ){
+
+      return;
+
+    }
+
+
+    if(
+      selectedPhotos.length >=
+      MAX_PHOTOS
+    ){
+
+      alert(
+        "Maximum 3 photos only."
+      );
+
+      event.target.value =
+        "";
+
+      return;
+
+    }
+
+
+    const remaining =
+      MAX_PHOTOS -
+      selectedPhotos.length;
+
+
+    const newFiles =
+      files.slice(
+        0,
+        remaining
+      );
+
+
+    selectedPhotos =
+      selectedPhotos.concat(
+        newFiles
+      );
+
+
+    event.target.value =
+      "";
+
+
+    renderPhotoPreview();
+
+  }
+
+
+  /* =======================================================
+     PHOTO PREVIEW
+  ======================================================= */
+
+  function renderPhotoPreview(){
+
+    const preview =
+      document.getElementById(
+        "aadTradePhotoPreview"
+      );
+
+
+    if(
+      !preview
+    ){
+
+      return;
+
+    }
+
+
+    preview.innerHTML =
+      "";
+
+
+    if(
+      !selectedPhotos.length
+    ){
+
+      preview.innerHTML = `
+
+        <div
+          class="aad-photo-empty"
+        >
+
+          No photos selected
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    selectedPhotos.forEach(
+      (
+        file,
+        index
+      ) => {
+
+        const reader =
+          new FileReader();
+
+
+        reader.onload =
+          function(
+            event
+          ){
+
+            const item =
+              document.createElement(
+                "div"
+              );
+
+
+            item.className =
+              "aad-photo-item";
+
+
+            item.innerHTML = `
+
+              <img
+                src="${event.target.result}"
+                alt="Trade Photo"
+              >
+
+
+              <button
+                type="button"
+                class="aad-photo-remove"
+              >
+
+                ✕
+
+              </button>
+
+            `;
+
+
+            item
+              .querySelector(
+                ".aad-photo-remove"
+              )
+              .addEventListener(
+                "click",
+                function(){
+
+                  selectedPhotos.splice(
+                    index,
+                    1
+                  );
+
+
+                  renderPhotoPreview();
+
+                }
+              );
+
+
+            preview.appendChild(
+              item
+            );
+
+          };
+
+
+        reader.readAsDataURL(
+          file
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =======================================================
+     RESET PHOTOS
+  ======================================================= */
+
+  function resetPhotos(){
+
+    selectedPhotos =
+      [];
+
+
+    const input =
+      document.getElementById(
+        "aadTradePhotoInput"
+      );
+
+
+    if(
+      input
+    ){
+
+      input.value =
+        "";
+
+    }
+
+
+    renderPhotoPreview();
+
+  }
+
+
+  /* =======================================================
+     INITIALIZE
+  ======================================================= */
+
+  function init(){
+
+    createPhotoBox();
+
+    renderPhotoPreview();
+
+  }
+
+
+  if(
+    document.readyState ===
+    "loading"
+  ){
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      init
+    );
+
+  }else{
+
+    init();
+
+  }
+
+
+  /* =======================================================
+     RESET WHEN OPENING TRADE MODAL
+  ======================================================= */
+
+  const oldOpenTradeModal =
+    window.openTradeModal;
+
+
+  if(
+    typeof oldOpenTradeModal ===
+    "function"
+  ){
+
+    window.openTradeModal =
+      function(){
+
+        resetPhotos();
+
+
+        return oldOpenTradeModal.apply(
+          this,
+          arguments
+        );
+
+      };
+
+  }
+
+
+  /* =======================================================
+     RESET WHEN CLOSING TRADE MODAL
+  ======================================================= */
+
+  const oldCloseTradeModal =
+    window.closeTradeModal;
+
+
+  if(
+    typeof oldCloseTradeModal ===
+    "function"
+  ){
+
+    window.closeTradeModal =
+      function(){
+
+        resetPhotos();
+
+
+        return oldCloseTradeModal.apply(
+          this,
+          arguments
+        );
+
+      };
+
+  }
+
+
+  /* =======================================================
+     PUBLIC API
+  ======================================================= */
+
+  window.AADTradePhotos = {
+
+    getPhotos:
+      function(){
+
+        return selectedPhotos;
+
+      },
+
+
+    reset:
+      function(){
+
+        resetPhotos();
+
+      },
+
+
+    refresh:
+      function(){
+
+        renderPhotoPreview();
+
+      }
+
+  };
+
+
+})();
+
+
+/* =========================================================
    END OF ADD-ON
 ========================================================= */
 
