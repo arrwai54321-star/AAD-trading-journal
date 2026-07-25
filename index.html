@@ -2991,9 +2991,22 @@ async function loadJournalMonths(){
 }
 /* =========================================================
    LOAD DAYS
+   LOAD SELECTED TRADER'S DAYS ONLY
 ========================================================= */
 
 async function loadJournalDays(){
+
+  if(
+    !selectedTrader
+  ){
+
+    journalDays =
+      [];
+
+    return;
+
+  }
+
 
   const {
     data,
@@ -3006,7 +3019,7 @@ async function loadJournalDays(){
       .select("*")
       .eq(
         "user_id",
-        currentUser.id
+        selectedTrader.user_id
       )
       .order(
         "journal_date",
@@ -3039,9 +3052,22 @@ async function loadJournalDays(){
 
 /* =========================================================
    LOAD TRADES
+   LOAD SELECTED TRADER'S TRADES ONLY
 ========================================================= */
 
 async function loadTrades(){
+
+  if(
+    !selectedTrader
+  ){
+
+    trades =
+      [];
+
+    return;
+
+  }
+
 
   const {
     data,
@@ -3054,7 +3080,7 @@ async function loadTrades(){
       .select("*")
       .eq(
         "user_id",
-        currentUser.id
+        selectedTrader.user_id
       )
       .order(
         "trade_date",
@@ -3089,7 +3115,6 @@ async function loadTrades(){
     [];
 
 }
-
 
 /* =========================================================
    LOAD IMAGES
