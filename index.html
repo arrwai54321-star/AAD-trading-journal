@@ -8,7 +8,7 @@
   name="viewport"
   content="width=device-width, initial-scale=1.0"
 >
-
+d
 <title>AAD Trading Journal</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -6197,6 +6197,10 @@ function previewTraderImage(
 
 async function saveTrader(){
 
+  /* =====================================================
+     1. LOGIN CHECK
+  ===================================================== */
+
   if(
     !currentUser
   ){
@@ -6211,6 +6215,10 @@ async function saveTrader(){
   }
 
 
+  /* =====================================================
+     2. GET FORM VALUES
+  ===================================================== */
+
   const name =
     $("newTraderName")
     .value
@@ -6222,6 +6230,10 @@ async function saveTrader(){
     .value
     .trim();
 
+
+  /* =====================================================
+     3. NAME IS REQUIRED
+  ===================================================== */
 
   if(
     !name
@@ -6237,12 +6249,30 @@ async function saveTrader(){
   }
 
 
+  /* =====================================================
+     4. SAVE CURRENT EDITING ID
+  ===================================================== */
+
+  const isEditing =
+    Boolean(
+      editingTraderId
+    );
+
+
+  const currentEditingId =
+    editingTraderId;
+
+
+  /* =====================================================
+     5. GET OLD AVATAR
+  ===================================================== */
+
   let avatarUrl =
     null;
 
 
   if(
-    editingTraderId
+    isEditing
   ){
 
     const existing =
@@ -6252,7 +6282,7 @@ async function saveTrader(){
             trader.id
           ) ===
           String(
-            editingTraderId
+            currentEditingId
           )
       );
 
@@ -6265,17 +6295,159 @@ async function saveTrader(){
   }
 
 
+  /* =====================================================
+     6. PROCESS NEW IMAGE
+  ===================================================== */
+
   if(
     selectedTraderImage
   ){
 
-    avatarUrl =
-      await fileToDataUrl(
-        selectedTraderImage
+    try{
+
+      avatarUrl =
+        await fileToDataUrl(
+          selectedTraderImage
+        );
+
+    }catch(error){
+
+      console.error(
+        "Avatar error:",
+        error
       );
+
+    }
 
   }
 
+
+  /* =====================================================
+     7. CREATE LOCAL TRADER
+     UI WILL UPDATE IMMEDIATELY
+  ===================================================== */
+
+  const tempId =
+    isEditing
+      ? currentEditingId
+      : "temp-" +
+        Date.now();
+
+
+  const localTrader = {
+
+    id:
+      tempId,
+
+    user_id:
+      currentUser.id,
+
+    name:
+      name,
+
+    description:
+      description ||
+      "",
+
+    avatar_url:
+      avatarUrl ||
+      "",
+
+    created_at:
+      new Date()
+        .toISOString(),
+
+    updated_at:
+      new Date()
+        .toISOString()
+
+  };
+
+
+  /* =====================================================
+     8. INSTANT UI UPDATE
+  ===================================================== */
+
+  if(
+    isEditing
+  ){
+
+    const index =
+      traders.findIndex(
+        trader =>
+          String(
+            trader.id
+          ) ===
+          String(
+            currentEditingId
+          )
+      );
+
+
+    if(
+      index !== -1
+    ){
+
+      traders[index] =
+        {
+          ...traders[index],
+          ...localTrader
+        };
+
+    }
+
+  }else{
+
+    traders.unshift(
+      localTrader
+    );
+
+  }
+
+
+  /* =====================================================
+     9. CLOSE MODAL IMMEDIATELY
+  ===================================================== */
+
+  closeTraderModal();
+
+
+  /* =====================================================
+     10. REFRESH UI IMMEDIATELY
+  ===================================================== */
+
+  populateTraderSelect();
+
+  renderTraders();
+
+  updateDashboard();
+
+
+  /* =====================================================
+     11. SHOW SUCCESS IMMEDIATELY
+  ===================================================== */
+
+  showToast(
+    isEditing
+      ? "Trader updated."
+      : "Trader created."
+  );
+
+
+  /* =====================================================
+     12. CLEAR FORM STATE
+  ===================================================== */
+
+  selectedTraderImage =
+    null;
+
+  editingTraderId =
+    null;
+
+
+  /* =====================================================
+     13. SAVE TO SUPABASE IN BACKGROUND
+  ===================================================== */
 
   const payload = {
 
@@ -6296,107 +6468,218 @@ async function saveTrader(){
   };
 
 
-  let result;
+  try{
+
+    let result;
 
 
-  if(
-    editingTraderId
-  ){
+    /* =================================================
+       UPDATE EXISTING TRADER
+    ================================================= */
 
-    result =
-      await db
-        .from(
-          "traders"
-        )
-        .update(
-          payload
-        )
-        .eq(
-          "id",
-          editingTraderId
-        )
-        .eq(
-          "user_id",
-          currentUser.id
+    if(
+      isEditing
+    ){
+
+      result =
+        await db
+          .from(
+            "traders"
+          )
+          .update(
+            payload
+          )
+          .eq(
+            "id",
+            currentEditingId
+          )
+          .eq(
+            "user_id",
+            currentUser.id
+          )
+          .select()
+          .single();
+
+
+    /* =================================================
+       CREATE NEW TRADER
+    ================================================= */
+
+    }else{
+
+      result =
+        await db
+          .from(
+            "traders"
+          )
+          .insert(
+            payload
+          )
+          .select()
+          .single();
+
+    }
+
+
+    /* =================================================
+       DATABASE ERROR
+    ================================================= */
+
+    if(
+      result.error
+    ){
+
+      console.error(
+        "Trader save error:",
+        result.error
+      );
+
+
+      /* ===============================================
+         ROLLBACK LOCAL UI
+      =============================================== */
+
+      if(
+        isEditing
+      ){
+
+        await loadTraders();
+
+      }else{
+
+        traders =
+          traders.filter(
+            trader =>
+              trader.id !==
+              tempId
+          );
+
+      }
+
+
+      populateTraderSelect();
+
+      renderTraders();
+
+      updateDashboard();
+
+
+      showToast(
+        getErrorMessage(
+          result.error
+        ),
+        "error"
+      );
+
+
+      return;
+
+    }
+
+
+    /* =================================================
+       REPLACE TEMP TRADER WITH REAL DATABASE ROW
+    ================================================= */
+
+    if(
+      !isEditing &&
+      result.data
+    ){
+
+      traders =
+        traders.map(
+          trader =>
+            trader.id ===
+            tempId
+              ? result.data
+              : trader
         );
 
-  }else{
-
-    result =
-      await db
-        .from(
-          "traders"
-        )
-        .insert(
-          payload
-        );
-
-  }
+    }
 
 
-  if(
-    result.error
-  ){
+    /* =================================================
+       FINAL UI SYNC
+    ================================================= */
+
+    populateTraderSelect();
+
+    renderTraders();
+
+    updateDashboard();
+
+
+    /* =================================================
+       UPDATE SELECTED TRADER
+    ================================================= */
+
+    if(
+      selectedTrader
+    ){
+
+      selectedTrader =
+        traders.find(
+          trader =>
+            String(
+              trader.id
+            ) ===
+            String(
+              selectedTrader.id
+            )
+        ) ||
+        selectedTrader;
+
+    }
+
+
+    updateSelectedTraderProfile();
+
+
+  }catch(error){
 
     console.error(
-      result.error
+      "Unexpected trader error:",
+      error
     );
 
+
+    /* ===============================================
+       ROLLBACK ON UNEXPECTED ERROR
+    =============================================== */
+
+    if(
+      !isEditing
+    ){
+
+      traders =
+        traders.filter(
+          trader =>
+            trader.id !==
+            tempId
+        );
+
+    }else{
+
+      await loadTraders();
+
+    }
+
+
+    populateTraderSelect();
+
+    renderTraders();
+
+    updateDashboard();
+
+
     showToast(
-      getErrorMessage(
-        result.error
-      ),
+      "Could not save trader. Please try again.",
       "error"
     );
 
-    return;
-
   }
-
-
-  showToast(
-    editingTraderId
-      ? "Trader updated."
-      : "Trader created."
-  );
-
-
-  closeTraderModal();
-
-
-  await loadTraders();
-
-
-  populateTraderSelect();
-
-  renderTraders();
-
-  updateDashboard();
-
-
-  if(
-    selectedTrader
-  ){
-
-    selectedTrader =
-      traders.find(
-        trader =>
-          String(
-            trader.id
-          ) ===
-          String(
-            selectedTrader.id
-          )
-      ) ||
-      null;
-
-  }
-
-
-  updateSelectedTraderProfile();
 
 }
-
 
 /* =========================================================
    FILE TO DATA URL
