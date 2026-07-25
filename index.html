@@ -2885,6 +2885,8 @@ async function loadAll(){
 
 /* =========================================================
    LOAD TRADERS
+   SHARED PROFILE VIEW
+   EVERYONE CAN SEE ALL TRADERS
 ========================================================= */
 
 async function loadTraders(){
@@ -2898,10 +2900,6 @@ async function loadTraders(){
         "traders"
       )
       .select("*")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
       .order(
         "created_at",
         {
@@ -2929,8 +2927,6 @@ async function loadTraders(){
     [];
 
 }
-
-
 /* =========================================================
    LOAD MONTHS
    SHARED VIEW
