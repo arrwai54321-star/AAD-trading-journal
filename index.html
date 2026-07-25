@@ -1295,9 +1295,9 @@ strong{
       AAD
     </div>
 
-    <h1>
-      Trading Journal
-    </h1>
+   <h1 style="display:none;">
+  Trading Journal
+</h1>
 
     <p>
       သင်၏ Trading မှတ်တမ်းများကို
@@ -1455,11 +1455,12 @@ strong{
       </button>
 
       <button
-        data-page="addTrade"
-        onclick="openTradeModal()"
-      >
-        ＋ Add Trade
-      </button>
+  data-page="addTrade"
+  onclick="openTradeModal()"
+  style="display:none;"
+>
+  ＋ Add Trade
+</button>
 
     </nav>
 
@@ -3614,8 +3615,9 @@ async function createMonth(){
 }
 
 
-/* =========================================================
+//* =========================================================
    RENDER MONTHS
+   WITH DELETE BUTTON
 ========================================================= */
 
 function renderMonths(){
@@ -3669,7 +3671,7 @@ function renderMonths(){
       .map(
         month => `
 
-          <button
+          <div
             class="
               month-card
               ${
@@ -3685,11 +3687,16 @@ function renderMonths(){
                 '${month.id}'
               )
             "
+            style="
+              position:relative;
+              cursor:pointer;
+            "
           >
 
             <div class="month-icon">
               📅
             </div>
+
 
             <strong>
               ${
@@ -3700,6 +3707,7 @@ function renderMonths(){
                 )
               }
             </strong>
+
 
             <span>
 
@@ -3715,7 +3723,27 @@ function renderMonths(){
 
             </span>
 
-          </button>
+
+            <button
+              class="
+                btn
+                btn-danger
+                btn-small
+              "
+              onclick="
+                event.stopPropagation();
+                deleteJournalMonth(
+                  '${month.id}'
+                );
+              "
+              style="
+                margin-top:10px;
+              "
+            >
+              🗑 Delete Month
+            </button>
+
+          </div>
 
         `
       )
