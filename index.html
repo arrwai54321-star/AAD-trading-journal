@@ -3751,6 +3751,103 @@ function renderMonths(){
 
 }
 
+  /* =========================================================
+   DELETE JOURNAL MONTH
+   OWNER ONLY
+========================================================= */
+
+async function deleteJournalMonth(monthId){
+
+  if(!currentUser){
+    showToast(
+      "Please login first.",
+      "error"
+    );
+    return;
+  }
+
+  const month =
+    journalMonths.find(
+      item => item.id === monthId
+    );
+
+  if(!month){
+    showToast(
+      "Month မတွေ့ပါ။",
+      "error"
+    );
+    return;
+  }
+
+  if(
+    month.user_id !==
+    currentUser.id
+  ){
+    showToast(
+      "ဒီ Month ကို သင်ဖျက်လို့မရပါ။",
+      "error"
+    );
+    return;
+  }
+
+  const confirmed =
+    confirm(
+      "ဒီ Month ကို ဖျက်မှာ သေချာပါသလား?"
+    );
+
+  if(!confirmed){
+    return;
+  }
+
+  const {
+    error
+  } =
+    await db
+      .from("journal_months")
+      .delete()
+      .eq(
+        "id",
+        monthId
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      );
+
+  if(error){
+
+    showToast(
+      getErrorMessage(error),
+      "error"
+    );
+
+    return;
+
+  }
+
+  if(
+    selectedMonth &&
+    selectedMonth.id === monthId
+  ){
+
+    selectedMonth = null;
+
+  }
+
+  await loadJournalMonths();
+
+  await loadJournalDays();
+
+  renderMonths();
+
+  renderJournalDays();
+
+  showToast(
+    "Month ဖျက်ပြီးပါပြီ။",
+    "success"
+  );
+
+}
 
 /* =========================================================
    SELECT MONTH
