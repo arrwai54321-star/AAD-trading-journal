@@ -3267,6 +3267,7 @@ function renderTraders(){
               title="Delete Trader"
             >
               🗑
+        
             </button>
 
           </div>
@@ -4693,22 +4694,16 @@ async function saveTrade(){
       .trim();
 
 
-  if(
-    !traderId ||
-    !date ||
-    !symbol ||
-    !direction ||
-    !result
-  ){
+  if(!date){
 
-    showToast(
-      "Please complete trader, date, symbol, direction and result.",
-      "error"
-    );
+  showToast(
+    "Please select a date.",
+    "error"
+  );
 
-    return;
+  return;
 
-  }
+}
 
 
   const monthDate =
