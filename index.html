@@ -4675,9 +4675,13 @@ async function saveTrade(){
       .value
       .trim();
 
-  const direction =
+ const direction =
+  String(
     $("tradeDirection")
-      .value;
+      .value ||
+    ""
+  )
+  .trim();
 
   const result =
     $("tradeResult")
