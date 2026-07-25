@@ -5343,6 +5343,546 @@ document
     }
   );
 
+
+/* =========================================================
+   AAD JOURNAL
+   30 DAY GRID ADD-ON
+   KEEP EXISTING APP FUNCTIONS
+========================================================= */
+
+(function(){
+
+  /* =======================================================
+     ADD 30 DAY GRID STYLES
+  ======================================================= */
+
+  function add30DayGridStyles(){
+
+    if(
+      document.getElementById(
+        "aad-30-day-grid-styles"
+      )
+    ){
+
+      return;
+
+    }
+
+
+    const style =
+      document.createElement(
+        "style"
+      );
+
+
+    style.id =
+      "aad-30-day-grid-styles";
+
+
+    style.textContent = `
+
+      /* =====================================================
+         JOURNAL DAYS CONTAINER
+      ===================================================== */
+
+      #journalDays.aad-30-day-grid{
+
+        display:grid;
+
+        grid-template-columns:
+          repeat(
+            5,
+            minmax(
+              0,
+              1fr
+            )
+          );
+
+        gap:14px;
+
+        width:100%;
+
+        margin-top:20px;
+
+      }
+
+
+      /* =====================================================
+         JOURNAL DAY CARD
+      ===================================================== */
+
+      #journalDays.aad-30-day-grid
+      .journal-day{
+
+        position:relative;
+
+        min-height:190px;
+
+        padding:18px;
+
+        border-radius:18px;
+
+        border:
+          1px solid
+          rgba(
+            255,
+            255,
+            255,
+            .10
+          );
+
+        background:
+          linear-gradient(
+            145deg,
+            rgba(
+              255,
+              255,
+              255,
+              .08
+            ),
+            rgba(
+              255,
+              255,
+              255,
+              .025
+            )
+          );
+
+        transition:
+          transform
+          .2s
+          ease,
+
+          border-color
+          .2s
+          ease,
+
+          box-shadow
+          .2s
+          ease;
+
+        overflow:hidden;
+
+      }
+
+
+      /* =====================================================
+         HOVER
+      ===================================================== */
+
+      #journalDays.aad-30-day-grid
+      .journal-day:hover{
+
+        transform:
+          translateY(
+            -4px
+          );
+
+        border-color:
+          rgba(
+            255,
+            255,
+            255,
+            .30
+          );
+
+        box-shadow:
+          0
+          12px
+          30px
+          rgba(
+            0,
+            0,
+            0,
+            .25
+          );
+
+      }
+
+
+      /* =====================================================
+         DAY HEADER
+      ===================================================== */
+
+      #journalDays.aad-30-day-grid
+      .journal-day-header{
+
+        display:flex;
+
+        align-items:
+          flex-start;
+
+        justify-content:
+          space-between;
+
+        gap:10px;
+
+      }
+
+
+      /* =====================================================
+         DATE
+      ===================================================== */
+
+      #journalDays.aad-30-day-grid
+      .day-date{
+
+        font-size:16px;
+
+        font-weight:800;
+
+        line-height:1.3;
+
+        margin-bottom:7px;
+
+      }
+
+
+      /* =====================================================
+         DAY META
+      ===================================================== */
+
+      #journalDays.aad-30-day-grid
+      .day-meta{
+
+        font-size:12px;
+
+        opacity:.65;
+
+      }
+
+
+      /* =====================================================
+         ADD TRADE BUTTON
+      ===================================================== */
+
+      #journalDays.aad-30-day-grid
+      .journal-day-header
+      .btn{
+
+        white-space:
+          nowrap;
+
+      }
+
+
+      /* =====================================================
+         TRADE LIST
+      ===================================================== */
+
+      #journalDays.aad-30-day-grid
+      .trade-list{
+
+        margin-top:18px;
+
+      }
+
+
+      /* =====================================================
+         TRADE ROW
+      ===================================================== */
+
+      #journalDays.aad-30-day-grid
+      .trade-row{
+
+        padding:10px;
+
+        border-radius:10px;
+
+        background:
+          rgba(
+            255,
+            255,
+            255,
+            .04
+          );
+
+      }
+
+
+      /* =====================================================
+         EMPTY DAY
+      ===================================================== */
+
+      #journalDays.aad-30-day-grid
+      .empty-state{
+
+        padding:12px 0;
+
+        font-size:12px;
+
+        opacity:.55;
+
+      }
+
+
+      /* =====================================================
+         TRADE ACTIONS
+      ===================================================== */
+
+      #journalDays.aad-30-day-grid
+      .trade-actions{
+
+        margin-top:12px;
+
+        display:flex;
+
+        gap:8px;
+
+      }
+
+
+      /* =====================================================
+         TABLET
+      ===================================================== */
+
+      @media(
+        max-width:1100px
+      ){
+
+        #journalDays.aad-30-day-grid{
+
+          grid-template-columns:
+            repeat(
+              4,
+              minmax(
+                0,
+                1fr
+              )
+            );
+
+        }
+
+      }
+
+
+      /* =====================================================
+         SMALL TABLET
+      ===================================================== */
+
+      @media(
+        max-width:900px
+      ){
+
+        #journalDays.aad-30-day-grid{
+
+          grid-template-columns:
+            repeat(
+              3,
+              minmax(
+                0,
+                1fr
+              )
+            );
+
+        }
+
+      }
+
+
+      /* =====================================================
+         MOBILE
+      ===================================================== */
+
+      @media(
+        max-width:600px
+      ){
+
+        #journalDays.aad-30-day-grid{
+
+          grid-template-columns:
+            repeat(
+              2,
+              minmax(
+                0,
+                1fr
+              )
+            );
+
+          gap:10px;
+
+        }
+
+
+        #journalDays.aad-30-day-grid
+        .journal-day{
+
+          min-height:160px;
+
+          padding:14px;
+
+        }
+
+
+        #journalDays.aad-30-day-grid
+        .journal-day-header{
+
+          display:block;
+
+        }
+
+
+        #journalDays.aad-30-day-grid
+        .journal-day-header
+        .btn{
+
+          margin-top:10px;
+
+          width:100%;
+
+        }
+
+      }
+
+    `;
+
+
+    document.head.appendChild(
+      style
+    );
+
+  }
+
+
+  /* =======================================================
+     APPLY GRID
+  ======================================================= */
+
+  function apply30DayGrid(){
+
+    add30DayGridStyles();
+
+
+    const container =
+      document.getElementById(
+        "journalDays"
+      );
+
+
+    if(
+      !container
+    ){
+
+      return;
+
+    }
+
+
+    container.classList.add(
+      "aad-30-day-grid"
+    );
+
+  }
+
+
+  /* =======================================================
+     INITIAL LOAD
+  ======================================================= */
+
+  if(
+    document.readyState ===
+    "loading"
+  ){
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      apply30DayGrid
+    );
+
+  }else{
+
+    apply30DayGrid();
+
+  }
+
+
+  /* =======================================================
+     WATCH JOURNAL DAYS
+     APPLY GRID AFTER RENDER
+  ======================================================= */
+
+  function startJournalObserver(){
+
+    const journalContainer =
+      document.getElementById(
+        "journalDays"
+      );
+
+
+    if(
+      !journalContainer
+    ){
+
+      return false;
+
+    }
+
+
+    apply30DayGrid();
+
+
+    const observer =
+      new MutationObserver(
+        () => {
+
+          apply30DayGrid();
+
+        }
+      );
+
+
+    observer.observe(
+      journalContainer,
+      {
+        childList:
+          true,
+
+        subtree:
+          true
+      }
+    );
+
+
+    return true;
+
+  }
+
+
+  /* =======================================================
+     START OBSERVER
+  ======================================================= */
+
+  if(
+    !startJournalObserver()
+  ){
+
+    const waitForJournal =
+      setInterval(
+        () => {
+
+          if(
+            startJournalObserver()
+          ){
+
+            clearInterval(
+              waitForJournal
+            );
+
+          }
+
+        },
+        300
+      );
+
+  }
+
+})();
+
+
+/* =========================================================
+   END OF ADD-ON
+========================================================= */
+
 </script>
 
 </body>
