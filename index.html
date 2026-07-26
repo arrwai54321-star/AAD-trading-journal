@@ -1282,6 +1282,7 @@ strong{
 
 <body>
 
+
 <!-- =======================================================
      AUTH SCREEN
 ======================================================== -->
@@ -1294,7 +1295,7 @@ strong{
       AAD
     </div>
 
-    <h1 style="display:none;">
+    <h1>
       Trading Journal
     </h1>
 
@@ -1307,7 +1308,6 @@ strong{
     <div class="auth-tabs">
 
       <button
-        type="button"
         id="loginTab"
         class="auth-tab active"
         onclick="switchAuth('login')"
@@ -1316,7 +1316,6 @@ strong{
       </button>
 
       <button
-        type="button"
         id="signupTab"
         class="auth-tab"
         onclick="switchAuth('signup')"
@@ -1376,7 +1375,6 @@ strong{
 
 
     <button
-      type="button"
       id="authButton"
       class="btn btn-primary"
       style="width:100%"
@@ -1457,12 +1455,11 @@ strong{
       </button>
 
       <button
-  data-page="addTrade"
-  onclick="openTradeModal()"
-  style="display:none;"
->
-  ＋ Add Trade
-</button>
+        data-page="addTrade"
+        onclick="openTradeModal()"
+      >
+        ＋ Add Trade
+      </button>
 
     </nav>
 
@@ -2351,18 +2348,8 @@ let currentUser =
 let authMode =
   "login";
 
-
-/* =========================================================
-   TRADER DATA
-========================================================= */
-
 let traders =
   [];
-
-
-/* =========================================================
-   JOURNAL DATA
-========================================================= */
 
 let journalMonths =
   [];
@@ -2370,41 +2357,21 @@ let journalMonths =
 let journalDays =
   [];
 
-
-/* =========================================================
-   TRADE DATA
-========================================================= */
-
 let trades =
   [];
 
 let tradeImages =
   [];
 
-
-/* =========================================================
-   CURRENT SELECTION
-========================================================= */
-
-let selectedTrader =
-  null;
-
 let selectedMonth =
   null;
-
-let selectedDay =
-  null;
-
-
-/* =========================================================
-   EDITING STATE
-========================================================= */
 
 let editingTradeId =
   null;
 
 let editingTraderId =
   null;
+
 
 /* =========================================================
    HELPERS
@@ -2659,8 +2626,6 @@ function switchAuth(
 
 async function submitAuth(){
 
-  alert("SUBMIT AUTH CALLED");
-
   const email =
     $("authEmail")
       .value
@@ -2748,50 +2713,29 @@ async function submitAuth(){
   }
 
 
-  console.log(
-  "LOGIN START",
-  email
-);
-
-const {
-  data,
-  error
-} =
-  await db.auth.signInWithPassword(
-    {
-      email,
-      password
-    }
-  );
-
-console.log(
-  "LOGIN RESPONSE",
-  {
-    data,
+  const {
     error
+  } =
+    await db.auth.signInWithPassword(
+      {
+        email,
+        password
+      }
+    );
+
+
+  if(error){
+
+    showToast(
+      getErrorMessage(
+        error
+      ),
+      "error"
+    );
+
+    return;
+
   }
-);
-
-
-if(error){
-
-  showToast(
-    getErrorMessage(
-      error
-    ),
-    "error"
-  );
-
-  return;
-
-}
-
-
-console.log(
-  "LOGIN SUCCESS"
-);
-
-showApp();
 
 }
 
@@ -2898,76 +2842,35 @@ async function showApp(){
     "";
 
 
- try{
-
   await loadAll();
 
-}catch(error){
-
-  console.error(
-    "LOAD ALL ERROR:",
-    error
-  );
-
-  showToast(
-    "Login အောင်မြင်ပါတယ်။ Data Load လုပ်ရာမှာ Error ဖြစ်နေပါတယ်။",
-    "error"
+  showPage(
+    "dashboard"
   );
 
 }
 
 
-showPage(
-  "dashboard"
-);
-
-}
 /* =========================================================
    LOAD ALL
-   LOAD SHARED TRADERS FIRST
 ========================================================= */
 
 async function loadAll(){
 
-  /*
-    LOAD ALL TRADER PROFILES FIRST
+  await Promise.all(
+    [
+      loadTraders(),
+      loadJournalMonths(),
+      loadJournalDays(),
+      loadTrades(),
+      loadTradeImages()
+    ]
+  );
 
-    This must finish before rendering
-    the Traders page.
-  */
-
-  await loadTraders();
-
-
-  /*
-    RENDER ALL TRADER PROFILES
-  */
 
   populateTraderSelect();
 
   renderTraders();
-
-
-  /*
-    NO TRADER SELECTED YET
-
-    Do not load another trader's
-    months / days / trades here.
-
-    These will be loaded when
-    the user clicks a profile.
-  */
-
-  journalMonths = [];
-
-  journalDays = [];
-
-  trades = [];
-
-
-  /*
-    REFRESH JOURNAL UI
-  */
 
   renderMonths();
 
@@ -2975,14 +2878,10 @@ async function loadAll(){
 
   renderTrades();
 
-
-  /*
-    UPDATE DASHBOARD
-  */
-
   updateDashboard();
 
 }
+
 
 /* =========================================================
    LOAD TRADERS
@@ -3035,20 +2934,6 @@ async function loadTraders(){
 
 async function loadJournalMonths(){
 
-  if(
-    !currentUser ||
-    !selectedTrader
-  ){
-
-    journalMonths = [];
-
-    selectedMonth = null;
-
-    return;
-
-  }
-
-
   const {
     data,
     error
@@ -3079,8 +2964,6 @@ async function loadJournalMonths(){
       "error"
     );
 
-    journalMonths = [];
-
     return;
 
   }
@@ -3107,45 +2990,20 @@ async function loadJournalMonths(){
 
 }
 /* =========================================================
-   LOAD JOURNAL DAYS
+   LOAD DAYS
    LOAD SELECTED TRADER'S DAYS ONLY
 ========================================================= */
 
 async function loadJournalDays(){
 
   if(
-    !currentUser ||
     !selectedTrader
   ){
 
-    journalDays = [];
+    journalDays =
+      [];
 
     return;
-
-  }
-
-
-  let query =
-    db
-      .from(
-        "journal_days"
-      )
-      .select("*")
-      .eq(
-        "user_id",
-        selectedTrader.user_id
-      );
-
-
-  if(
-    selectedMonth
-  ){
-
-    query =
-      query.eq(
-        "month_id",
-        selectedMonth.id
-      );
 
   }
 
@@ -3154,12 +3012,21 @@ async function loadJournalDays(){
     data,
     error
   } =
-    await query.order(
-      "journal_date",
-      {
-        ascending:true
-      }
-    );
+    await db
+      .from(
+        "journal_days"
+      )
+      .select("*")
+      .eq(
+        "user_id",
+        selectedTrader.user_id
+      )
+      .order(
+        "journal_date",
+        {
+          ascending:false
+        }
+      );
 
 
   if(error){
@@ -3171,8 +3038,6 @@ async function loadJournalDays(){
       "error"
     );
 
-    journalDays = [];
-
     return;
 
   }
@@ -3181,21 +3046,6 @@ async function loadJournalDays(){
   journalDays =
     data ||
     [];
-
-
-  if(
-    selectedDay
-  ){
-
-    selectedDay =
-      journalDays.find(
-        item =>
-          item.id ===
-          selectedDay.id
-      ) ||
-      null;
-
-  }
 
 }
 
@@ -3208,11 +3058,11 @@ async function loadJournalDays(){
 async function loadTrades(){
 
   if(
-    !currentUser ||
     !selectedTrader
   ){
 
-    trades = [];
+    trades =
+      [];
 
     return;
 
@@ -3230,14 +3080,16 @@ async function loadTrades(){
       .select("*")
       .eq(
         "user_id",
-        currentUser.id
-      )
-      .eq(
-        "trader_id",
-        selectedTrader.id
+        selectedTrader.user_id
       )
       .order(
         "trade_date",
+        {
+          ascending:false
+        }
+      )
+      .order(
+        "created_at",
         {
           ascending:false
         }
@@ -3253,8 +3105,6 @@ async function loadTrades(){
       "error"
     );
 
-    trades = [];
-
     return;
 
   }
@@ -3265,7 +3115,6 @@ async function loadTrades(){
     [];
 
 }
-
 
 /* =========================================================
    LOAD IMAGES
@@ -3735,9 +3584,8 @@ async function createMonth(){
 }
 
 
-//* =========================================================
+/* =========================================================
    RENDER MONTHS
-   WITH DELETE BUTTON
 ========================================================= */
 
 function renderMonths(){
@@ -3791,7 +3639,7 @@ function renderMonths(){
       .map(
         month => `
 
-          <div
+          <button
             class="
               month-card
               ${
@@ -3807,16 +3655,11 @@ function renderMonths(){
                 '${month.id}'
               )
             "
-            style="
-              position:relative;
-              cursor:pointer;
-            "
           >
 
             <div class="month-icon">
               📅
             </div>
-
 
             <strong>
               ${
@@ -3827,7 +3670,6 @@ function renderMonths(){
                 )
               }
             </strong>
-
 
             <span>
 
@@ -3843,27 +3685,7 @@ function renderMonths(){
 
             </span>
 
-
-            <button
-              class="
-                btn
-                btn-danger
-                btn-small
-              "
-              onclick="
-                event.stopPropagation();
-                deleteJournalMonth(
-                  '${month.id}'
-                );
-              "
-              style="
-                margin-top:10px;
-              "
-            >
-              🗑 Delete Month
-            </button>
-
-          </div>
+          </button>
 
         `
       )
@@ -3871,103 +3693,6 @@ function renderMonths(){
 
 }
 
-  /* =========================================================
-   DELETE JOURNAL MONTH
-   OWNER ONLY
-========================================================= */
-
-async function deleteJournalMonth(monthId){
-
-  if(!currentUser){
-    showToast(
-      "Please login first.",
-      "error"
-    );
-    return;
-  }
-
-  const month =
-    journalMonths.find(
-      item => item.id === monthId
-    );
-
-  if(!month){
-    showToast(
-      "Month မတွေ့ပါ။",
-      "error"
-    );
-    return;
-  }
-
-  if(
-    month.user_id !==
-    currentUser.id
-  ){
-    showToast(
-      "ဒီ Month ကို သင်ဖျက်လို့မရပါ။",
-      "error"
-    );
-    return;
-  }
-
-  const confirmed =
-    confirm(
-      "ဒီ Month ကို ဖျက်မှာ သေချာပါသလား?"
-    );
-
-  if(!confirmed){
-    return;
-  }
-
-  const {
-    error
-  } =
-    await db
-      .from("journal_months")
-      .delete()
-      .eq(
-        "id",
-        monthId
-      )
-      .eq(
-        "user_id",
-        currentUser.id
-      );
-
-  if(error){
-
-    showToast(
-      getErrorMessage(error),
-      "error"
-    );
-
-    return;
-
-  }
-
-  if(
-    selectedMonth &&
-    selectedMonth.id === monthId
-  ){
-
-    selectedMonth = null;
-
-  }
-
-  await loadJournalMonths();
-
-  await loadJournalDays();
-
-  renderMonths();
-
-  renderJournalDays();
-
-  showToast(
-    "Month ဖျက်ပြီးပါပြီ။",
-    "success"
-  );
-
-}
 
 /* =========================================================
    SELECT MONTH
