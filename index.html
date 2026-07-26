@@ -2853,24 +2853,50 @@ async function showApp(){
 
 /* =========================================================
    LOAD ALL
+   LOAD SHARED TRADERS FIRST
 ========================================================= */
 
 async function loadAll(){
 
-  await Promise.all(
-    [
-      loadTraders(),
-      loadJournalMonths(),
-      loadJournalDays(),
-      loadTrades(),
-      loadTradeImages()
-    ]
-  );
+  /*
+    LOAD ALL TRADER PROFILES FIRST
 
+    This must finish before rendering
+    the Traders page.
+  */
+
+  await loadTraders();
+
+
+  /*
+    RENDER ALL TRADER PROFILES
+  */
 
   populateTraderSelect();
 
   renderTraders();
+
+
+  /*
+    NO TRADER SELECTED YET
+
+    Do not load another trader's
+    months / days / trades here.
+
+    These will be loaded when
+    the user clicks a profile.
+  */
+
+  journalMonths = [];
+
+  journalDays = [];
+
+  trades = [];
+
+
+  /*
+    REFRESH JOURNAL UI
+  */
 
   renderMonths();
 
@@ -2878,10 +2904,14 @@ async function loadAll(){
 
   renderTrades();
 
+
+  /*
+    UPDATE DASHBOARD
+  */
+
   updateDashboard();
 
 }
-
 
 /* =========================================================
    LOAD TRADERS
