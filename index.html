@@ -2349,8 +2349,18 @@ let currentUser =
 let authMode =
   "login";
 
+
+/* =========================================================
+   TRADER DATA
+========================================================= */
+
 let traders =
   [];
+
+
+/* =========================================================
+   JOURNAL DATA
+========================================================= */
 
 let journalMonths =
   [];
@@ -2358,21 +2368,41 @@ let journalMonths =
 let journalDays =
   [];
 
+
+/* =========================================================
+   TRADE DATA
+========================================================= */
+
 let trades =
   [];
 
 let tradeImages =
   [];
 
+
+/* =========================================================
+   CURRENT SELECTION
+========================================================= */
+
+let selectedTrader =
+  null;
+
 let selectedMonth =
   null;
+
+let selectedDay =
+  null;
+
+
+/* =========================================================
+   EDITING STATE
+========================================================= */
 
 let editingTradeId =
   null;
 
 let editingTraderId =
   null;
-
 
 /* =========================================================
    HELPERS
@@ -3016,6 +3046,20 @@ async function loadTraders(){
 
 async function loadJournalMonths(){
 
+  if(
+    !currentUser ||
+    !selectedTrader
+  ){
+
+    journalMonths = [];
+
+    selectedMonth = null;
+
+    return;
+
+  }
+
+
   const {
     data,
     error
@@ -3046,6 +3090,8 @@ async function loadJournalMonths(){
       "error"
     );
 
+    journalMonths = [];
+
     return;
 
   }
@@ -3072,20 +3118,45 @@ async function loadJournalMonths(){
 
 }
 /* =========================================================
-   LOAD DAYS
+   LOAD JOURNAL DAYS
    LOAD SELECTED TRADER'S DAYS ONLY
 ========================================================= */
 
 async function loadJournalDays(){
 
   if(
+    !currentUser ||
     !selectedTrader
   ){
 
-    journalDays =
-      [];
+    journalDays = [];
 
     return;
+
+  }
+
+
+  let query =
+    db
+      .from(
+        "journal_days"
+      )
+      .select("*")
+      .eq(
+        "user_id",
+        selectedTrader.user_id
+      );
+
+
+  if(
+    selectedMonth
+  ){
+
+    query =
+      query.eq(
+        "month_id",
+        selectedMonth.id
+      );
 
   }
 
@@ -3094,21 +3165,12 @@ async function loadJournalDays(){
     data,
     error
   } =
-    await db
-      .from(
-        "journal_days"
-      )
-      .select("*")
-      .eq(
-        "user_id",
-        selectedTrader.user_id
-      )
-      .order(
-        "journal_date",
-        {
-          ascending:false
-        }
-      );
+    await query.order(
+      "journal_date",
+      {
+        ascending:true
+      }
+    );
 
 
   if(error){
@@ -3120,6 +3182,8 @@ async function loadJournalDays(){
       "error"
     );
 
+    journalDays = [];
+
     return;
 
   }
@@ -3128,6 +3192,21 @@ async function loadJournalDays(){
   journalDays =
     data ||
     [];
+
+
+  if(
+    selectedDay
+  ){
+
+    selectedDay =
+      journalDays.find(
+        item =>
+          item.id ===
+          selectedDay.id
+      ) ||
+      null;
+
+  }
 
 }
 
@@ -3140,11 +3219,11 @@ async function loadJournalDays(){
 async function loadTrades(){
 
   if(
+    !currentUser ||
     !selectedTrader
   ){
 
-    trades =
-      [];
+    trades = [];
 
     return;
 
@@ -3162,16 +3241,14 @@ async function loadTrades(){
       .select("*")
       .eq(
         "user_id",
-        selectedTrader.user_id
+        currentUser.id
+      )
+      .eq(
+        "trader_id",
+        selectedTrader.id
       )
       .order(
         "trade_date",
-        {
-          ascending:false
-        }
-      )
-      .order(
-        "created_at",
         {
           ascending:false
         }
@@ -3187,6 +3264,8 @@ async function loadTrades(){
       "error"
     );
 
+    trades = [];
+
     return;
 
   }
@@ -3197,6 +3276,7 @@ async function loadTrades(){
     [];
 
 }
+
 
 /* =========================================================
    LOAD IMAGES
